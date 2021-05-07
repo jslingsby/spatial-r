@@ -8,3 +8,10 @@ applications
 example-one
 example-two
 final-words
+who-cares-about-gis
+fig:googlemap
+fig:gisbyyear
+fig:gisbyfield
+fig:biomes
+fig:globalforestwatch
+fig:biomeloss

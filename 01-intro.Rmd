@@ -1,4 +1,41 @@
-# Why GIS? {#intro}
+# Who cares about GIS? {#intro}
+
+```{r googlemap, echo=FALSE, fig.cap = "How lost would you be without Google Maps?", fig.width=3}
+knitr::include_graphics("img/googlemaps.png")
+```
+
+<br>
+
+```{r gisbyyear, echo=FALSE, fig.cap = "The use of GIS in science is growing exponentially!", fig.width=3}
+knitr::include_graphics("img/gis_by_year.png")
+```
+
+<br>
+
+```{r gisbyfield, echo=FALSE, fig.cap = "GIS is especially important in environment and life sciences!", fig.width=3}
+knitr::include_graphics("img/gis_by_field.png")
+```
+
+<br>
+
+```{r biomes, echo=FALSE, fig.cap = "We use it for things like mapping ecosystems and biomes.", fig.width=3}
+knitr::include_graphics("img/biomes.png")
+```
+
+<br>
+
+```{r biomeloss, echo=FALSE, fig.cap = "Although the outcomes of GIS analyses are not always maps, e.g. [@Skowno2021].", fig.width=3}
+knitr::include_graphics("img/skowno2021.png")
+```
+
+<br>
+
+```{r globalforestwatch, echo=FALSE, fig.cap = "But it can also be interactive!", fig.width=3}
+knitr::include_app("https://www.globalforestwatch.org/map/", 
+  height = "600px")
+```
+
+<br>
 
 You can label chapter and section titles using `{#label}` after them, e.g., we can reference Chapter \@ref(intro). If you do not manually label them, there will be automatic labels anyway, e.g., Chapter \@ref(methods).
 

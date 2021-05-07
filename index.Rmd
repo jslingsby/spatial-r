@@ -22,7 +22,11 @@ The 5-day module includes daily ~1 hour lectures followed by self-study time whe
 
 <br>
 
-_These course notes borrowed extensively from content generated or compiled by ..._ 
+_These course notes borrow or paraphrase extensively from [Adam Wilson's GEO 511 Spatial Data Science course](http://adamwilsonlabedu.github.io/GEO511/index.html) and [Manny Gimond's Intro to GIS & Spatial Analysis](https://mgimond.github.io/Spatial/index.html)._ 
+
+<br>
+
+<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International License</a>.
 
 <br>
 
