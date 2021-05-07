@@ -1,36 +1,48 @@
 # Who cares about GIS? {#intro}
 
-```{r googlemap, echo=FALSE, fig.cap = "How lost would you be without Google Maps?", fig.width=3}
-knitr::include_graphics("img/googlemaps.png")
+How lost would you be without Google Maps?
+
+```{r googlemap, echo=FALSE, fig.cap = "Screenshot of Google Mas for Cape Town.", fig.width=4, fig.align = 'center'}
+knitr::include_graphics("img/googlemaps.jpg")
 ```
 
 <br>
 
-```{r gisbyyear, echo=FALSE, fig.cap = "The use of GIS in science is growing exponentially!", fig.width=3}
+If we search "Geographic Information Systems OR GIS" in Web of Science, it is clear that the number of papers using GIS has exploded over time!
+
+```{r gisbyyear, echo=FALSE, fig.cap = "The number of papers on Web of Science when searching `Geographic Information Systems` OR `GIS`.", fig.width=3, fig.align = 'center'}
 knitr::include_graphics("img/gis_by_year.png")
 ```
 
 <br>
 
-```{r gisbyfield, echo=FALSE, fig.cap = "GIS is especially important in environment and life sciences!", fig.width=3}
+GIS is especially important in environment and life sciences!
+
+```{r gisbyfield, echo=FALSE, fig.cap = "The number of papers on Web of Science by theme when searching `Geographic Information Systems` OR `GIS`.", fig.width=3, fig.align = 'center'}
 knitr::include_graphics("img/gis_by_field.png")
 ```
 
 <br>
 
-```{r biomes, echo=FALSE, fig.cap = "We use it for things like mapping ecosystems and biomes.", fig.width=3}
+```{r biomes, echo=FALSE, fig.cap = "We use it for things like mapping ecosystems and biomes.", fig.width=3, fig.align = 'center'}
 knitr::include_graphics("img/biomes.png")
 ```
 
 <br>
 
-```{r biomeloss, echo=FALSE, fig.cap = "Although the outcomes of GIS analyses are not always maps, e.g. [@Skowno2021].", fig.width=3}
+```{r biomeremnants, echo=FALSE, fig.cap = "Or the loss of ecosystems and biomes.", fig.width=3, fig.align = 'center'}
+knitr::include_graphics("img/biome_remnants.png")
+```
+
+<br>
+
+```{r biomeloss, echo=FALSE, fig.cap = "Although the outcomes of GIS analyses are not always maps, e.g. [@Skowno2021].", fig.width=3, fig.align = 'center'}
 knitr::include_graphics("img/skowno2021.png")
 ```
 
 <br>
 
-```{r globalforestwatch, echo=FALSE, fig.cap = "But it can also be interactive!", fig.width=3}
+```{r globalforestwatch, echo=FALSE, fig.cap = "But it can also be interactive!", fig.width=3, fig.align = 'center'}
 knitr::include_app("https://www.globalforestwatch.org/map/", 
   height = "600px")
 ```

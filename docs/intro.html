@@ -166,64 +166,74 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="intro" class="section level1" number="2">
 <h1><span class="header-section-number">2</span> Who cares about GIS?</h1>
-<div class="figure"><span id="fig:googlemap"></span>
-<img src="img/googlemaps.png" alt="How lost would you be without Google Maps?" width="956" />
+<p>How lost would you be without Google Maps?</p>
+<div class="figure" style="text-align: center"><span id="fig:googlemap"></span>
+<img src="img/googlemaps.jpg" alt="Screenshot of Google Mas for Cape Town." width="600" />
 <p class="caption">
-Figure 2.1: How lost would you be without Google Maps?
+Figure 2.1: Screenshot of Google Mas for Cape Town.
 </p>
 </div>
 <p><br></p>
-<div class="figure"><span id="fig:gisbyyear"></span>
-<img src="img/gis_by_year.png" alt="The use of GIS in science is growing exponentially!" width="670" />
+<p>If we search “Geographic Information Systems OR GIS” in Web of Science, it is clear that the number of papers using GIS has exploded over time!</p>
+<div class="figure" style="text-align: center"><span id="fig:gisbyyear"></span>
+<img src="img/gis_by_year.png" alt="The number of papers on Web of Science when searching `Geographic Information Systems` OR `GIS`." width="670" />
 <p class="caption">
-Figure 2.2: The use of GIS in science is growing exponentially!
+Figure 2.2: The number of papers on Web of Science when searching <code>Geographic Information Systems</code> OR <code>GIS</code>.
 </p>
 </div>
 <p><br></p>
-<div class="figure"><span id="fig:gisbyfield"></span>
-<img src="img/gis_by_field.png" alt="GIS is especially important in environment and life sciences!" width="680" />
+<p>GIS is especially important in environment and life sciences!</p>
+<div class="figure" style="text-align: center"><span id="fig:gisbyfield"></span>
+<img src="img/gis_by_field.png" alt="The number of papers on Web of Science by theme when searching `Geographic Information Systems` OR `GIS`." width="680" />
 <p class="caption">
-Figure 2.3: GIS is especially important in environment and life sciences!
+Figure 2.3: The number of papers on Web of Science by theme when searching <code>Geographic Information Systems</code> OR <code>GIS</code>.
 </p>
 </div>
 <p><br></p>
-<div class="figure"><span id="fig:biomes"></span>
+<div class="figure" style="text-align: center"><span id="fig:biomes"></span>
 <img src="img/biomes.png" alt="We use it for things like mapping ecosystems and biomes." width="531" />
 <p class="caption">
 Figure 2.4: We use it for things like mapping ecosystems and biomes.
 </p>
 </div>
 <p><br></p>
-<div class="figure"><span id="fig:biomeloss"></span>
-<img src="img/skowno2021.png" alt="Although the outcomes of GIS analyses are not always maps, e.g. [@Skowno2021]." width="676" />
+<div class="figure" style="text-align: center"><span id="fig:biomeremnants"></span>
+<img src="img/biome_remnants.png" alt="Or the loss of ecosystems and biomes." width="531" />
 <p class="caption">
-Figure 2.5: Although the outcomes of GIS analyses are not always maps, e.g. <span class="citation">(<a href="references.html#ref-Skowno2021" role="doc-biblioref">Skowno, Jewitt, and Slingsby 2021</a>)</span>.
+Figure 2.5: Or the loss of ecosystems and biomes.
 </p>
 </div>
 <p><br></p>
-<div class="figure"><span id="fig:globalforestwatch"></span>
+<div class="figure" style="text-align: center"><span id="fig:biomeloss"></span>
+<img src="img/skowno2021.png" alt="Although the outcomes of GIS analyses are not always maps, e.g. [@Skowno2021]." width="676" />
+<p class="caption">
+Figure 2.6: Although the outcomes of GIS analyses are not always maps, e.g. <span class="citation">(<a href="references.html#ref-Skowno2021" role="doc-biblioref">Skowno, Jewitt, and Slingsby 2021</a>)</span>.
+</p>
+</div>
+<p><br></p>
+<div class="figure" style="text-align: center"><span id="fig:globalforestwatch"></span>
 <iframe src="https://www.globalforestwatch.org/map/?showcase=0" width="288" height="600px">
 </iframe>
 <p class="caption">
-Figure 2.6: But it can also be interactive!
+Figure 2.7: But it can also be interactive!
 </p>
 </div>
 <p><br></p>
 <p>You can label chapter and section titles using <code>{#label}</code> after them, e.g., we can reference Chapter <a href="intro.html#intro">2</a>. If you do not manually label them, there will be automatic labels anyway, e.g., Chapter <a href="methods.html#methods">4</a>.</p>
 <p>Figures and tables with captions will be placed in <code>figure</code> and <code>table</code> environments, respectively.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="intro.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">4</span>, .<span class="dv">1</span>, .<span class="dv">1</span>))</span>
-<span id="cb1-2"><a href="intro.html#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pressure, <span class="at">type =</span> <span class="st">&#39;b&#39;</span>, <span class="at">pch =</span> <span class="dv">19</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="intro.html#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">4</span>, .<span class="dv">1</span>, .<span class="dv">1</span>))</span>
+<span id="cb2-2"><a href="intro.html#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pressure, <span class="at">type =</span> <span class="st">&#39;b&#39;</span>, <span class="at">pch =</span> <span class="dv">19</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:nice-fig"></span>
 <img src="spatial-r_files/figure-html/nice-fig-1.png" alt="Here is a nice figure!" width="80%" />
 <p class="caption">
-Figure 2.7: Here is a nice figure!
+Figure 2.8: Here is a nice figure!
 </p>
 </div>
-<p>Reference a figure by its code chunk label with the <code>fig:</code> prefix, e.g., see Figure <a href="intro.html#fig:nice-fig">2.7</a>. Similarly, you can reference tables generated from <code>knitr::kable()</code>, e.g., see Table <a href="intro.html#tab:nice-tab">2.1</a>.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="intro.html#cb2-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(</span>
-<span id="cb2-2"><a href="intro.html#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(iris, <span class="dv">20</span>), <span class="at">caption =</span> <span class="st">&#39;Here is a nice table!&#39;</span>,</span>
-<span id="cb2-3"><a href="intro.html#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">booktabs =</span> <span class="cn">TRUE</span></span>
-<span id="cb2-4"><a href="intro.html#cb2-4" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p>Reference a figure by its code chunk label with the <code>fig:</code> prefix, e.g., see Figure <a href="intro.html#fig:nice-fig">2.8</a>. Similarly, you can reference tables generated from <code>knitr::kable()</code>, e.g., see Table <a href="intro.html#tab:nice-tab">2.1</a>.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="intro.html#cb3-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(</span>
+<span id="cb3-2"><a href="intro.html#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(iris, <span class="dv">20</span>), <span class="at">caption =</span> <span class="st">&#39;Here is a nice table!&#39;</span>,</span>
+<span id="cb3-3"><a href="intro.html#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">booktabs =</span> <span class="cn">TRUE</span></span>
+<span id="cb3-4"><a href="intro.html#cb3-4" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <table>
 <caption><span id="tab:nice-tab">Table 2.1: </span>Here is a nice table!</caption>
 <thead>
@@ -437,6 +447,20 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>
