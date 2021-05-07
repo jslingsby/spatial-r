@@ -22,6 +22,10 @@ The 5-day module includes daily ~1 hour lectures followed by self-study time whe
 
 <br>
 
+_These course notes borrowed extensively from content generated or compiled by ..._
+
+<br>
+
 This is a _sample_ book written in **Markdown**. You can use anything that Pandoc's Markdown supports, e.g., a math equation $a^2 + b^2 = c^2$.
 
 The **bookdown** package can be installed from CRAN or Github:
