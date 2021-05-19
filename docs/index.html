@@ -24,7 +24,7 @@
 <meta name="author" content="Jasper Slingsby" />
 
 
-<meta name="date" content="2021-05-07" />
+<meta name="date" content="2021-05-19" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -134,9 +134,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Overview</a></li>
-<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Who cares about GIS?</a></li>
-<li class="chapter" data-level="3" data-path="literature.html"><a href="literature.html"><i class="fa fa-check"></i><b>3</b> Literature</a></li>
-<li class="chapter" data-level="4" data-path="methods.html"><a href="methods.html"><i class="fa fa-check"></i><b>4</b> Methods</a></li>
+<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Why care about GIS?</a></li>
+<li class="chapter" data-level="3" data-path="gis-basics.html"><a href="gis-basics.html"><i class="fa fa-check"></i><b>3</b> GIS basics</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="gis-basics.html"><a href="gis-basics.html#what-is-gis"><i class="fa fa-check"></i><b>3.1</b> What is GIS?</a></li>
+<li class="chapter" data-level="3.2" data-path="gis-basics.html"><a href="gis-basics.html#how-do-we-do-gis"><i class="fa fa-check"></i><b>3.2</b> How do we do GIS?</a></li>
+<li class="chapter" data-level="3.3" data-path="gis-basics.html"><a href="gis-basics.html#ucthelp"><i class="fa fa-check"></i><b>3.3</b> How to get help?</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="gis-data-models-and-file-formats.html"><a href="gis-data-models-and-file-formats.html"><i class="fa fa-check"></i><b>4</b> GIS data models and file formats</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="gis-data-models-and-file-formats.html"><a href="gis-data-models-and-file-formats.html#data-models"><i class="fa fa-check"></i><b>4.1</b> Data models</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="gis-data-models-and-file-formats.html"><a href="gis-data-models-and-file-formats.html#vector-data"><i class="fa fa-check"></i><b>4.1.1</b> Vector data</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="gis-data-models-and-file-formats.html"><a href="gis-data-models-and-file-formats.html#file-formats"><i class="fa fa-check"></i><b>4.2</b> File formats</a></li>
+</ul></li>
 <li class="chapter" data-level="5" data-path="applications.html"><a href="applications.html"><i class="fa fa-check"></i><b>5</b> Applications</a>
 <ul>
 <li class="chapter" data-level="5.1" data-path="applications.html"><a href="applications.html#example-one"><i class="fa fa-check"></i><b>5.1</b> Example one</a></li>
@@ -167,15 +179,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="header">
 <h1 class="title">A Minimal Introduction to GIS in R</h1>
 <p class="author"><em>Jasper Slingsby</em></p>
-<p class="date"><em>2021-05-07</em></p>
+<p class="date"><em>2021-05-19</em></p>
 </div>
 <div id="overview" class="section level1" number="1">
 <h1><span class="header-section-number">1</span> Overview</h1>
 <p><em>This is a minimal introduction to GIS and handling spatial data in R compiled for the Biological Sciences BSc(Honours) class at the University of Cape Town.</em></p>
 <p>The goal is to give you a very brief introduction to Geographic Information Systems (GIS) in general and some familiarity with handling spatial data in R. GIS is a field of research that many people dedicate their entire lives to, yet we only have a week, so this really is a minimalist introduction. I’ll focus on giving you a broad overview and some idea of how to teach yourself (using R).</p>
-<p>The 5-day module includes daily ~1 hour lectures followed by self-study time where you will have daily goals/tasks to help you incrementally develop your own project. This project will be the deliverable for the module. I will be available for set office hours every afternoon to assist with these projects.</p>
+<p>The 5-day module includes daily ~1 hour lectures followed by self-study time where you will have daily goals/tasks to help you incrementally develop your own project. The project will be the deliverable for the module. I will be available for set office hours every afternoon to assist you.</p>
 <p><br></p>
 <p><em>These course notes borrow or paraphrase extensively from <a href="http://adamwilsonlabedu.github.io/GEO511/index.html">Adam Wilson’s GEO 511 Spatial Data Science course</a> and <a href="https://mgimond.github.io/Spatial/index.html">Manny Gimond’s Intro to GIS &amp; Spatial Analysis</a>.</em></p>
+<p>Other very valuable resources include:</p>
+<ul>
+<li>Lovelace et al’s online book <a href="https://geocompr.robinlovelace.net/">Geocomputation with R</a></li>
+<li>Ryan Garnett’s <a href="https://github.com/rstudio/cheatsheets/blob/master/sf.pdf">cheatsheet for library(sf)</a></li>
+</ul>
 <p><br></p>
 <p><a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International License</a>.</p>
 <p><br></p>

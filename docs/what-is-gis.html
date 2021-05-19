@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>5 Applications | A Minimal Introduction to GIS in R</title>
+  <title>3 What is GIS? | A Minimal Introduction to GIS in R</title>
   <meta name="description" content="This is a minimal introduction to GIS and handling spatial data in R compiled for the Biological Sciences BSc(Honours) class at the University of Cape Town." />
   <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="5 Applications | A Minimal Introduction to GIS in R" />
+  <meta property="og:title" content="3 What is GIS? | A Minimal Introduction to GIS in R" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="rstudio/bookdown-demo" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="5 Applications | A Minimal Introduction to GIS in R" />
+  <meta name="twitter:title" content="3 What is GIS? | A Minimal Introduction to GIS in R" />
   
   <meta name="twitter:description" content="This is a minimal introduction to GIS and handling spatial data in R compiled for the Biological Sciences BSc(Honours) class at the University of Cape Town." />
   
@@ -24,15 +24,15 @@
 <meta name="author" content="Jasper Slingsby" />
 
 
-<meta name="date" content="2021-05-19" />
+<meta name="date" content="2021-05-18" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="gis-data-models-and-file-formats.html"/>
-<link rel="next" href="final-words.html"/>
+<link rel="prev" href="intro.html"/>
+<link rel="next" href="methods.html"/>
 <script src="libs/header-attrs-2.6/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -134,21 +134,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Overview</a></li>
-<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Why care about GIS?</a></li>
-<li class="chapter" data-level="3" data-path="gis-basics.html"><a href="gis-basics.html"><i class="fa fa-check"></i><b>3</b> GIS basics</a>
-<ul>
-<li class="chapter" data-level="3.1" data-path="gis-basics.html"><a href="gis-basics.html#what-is-gis"><i class="fa fa-check"></i><b>3.1</b> What is GIS?</a></li>
-<li class="chapter" data-level="3.2" data-path="gis-basics.html"><a href="gis-basics.html#how-do-we-do-gis"><i class="fa fa-check"></i><b>3.2</b> How do we do GIS?</a></li>
-<li class="chapter" data-level="3.3" data-path="gis-basics.html"><a href="gis-basics.html#ucthelp"><i class="fa fa-check"></i><b>3.3</b> How to get help?</a></li>
-</ul></li>
-<li class="chapter" data-level="4" data-path="gis-data-models-and-file-formats.html"><a href="gis-data-models-and-file-formats.html"><i class="fa fa-check"></i><b>4</b> GIS data models and file formats</a>
-<ul>
-<li class="chapter" data-level="4.1" data-path="gis-data-models-and-file-formats.html"><a href="gis-data-models-and-file-formats.html#data-models"><i class="fa fa-check"></i><b>4.1</b> Data models</a>
-<ul>
-<li class="chapter" data-level="4.1.1" data-path="gis-data-models-and-file-formats.html"><a href="gis-data-models-and-file-formats.html#vector-data"><i class="fa fa-check"></i><b>4.1.1</b> Vector data</a></li>
-</ul></li>
-<li class="chapter" data-level="4.2" data-path="gis-data-models-and-file-formats.html"><a href="gis-data-models-and-file-formats.html#file-formats"><i class="fa fa-check"></i><b>4.2</b> File formats</a></li>
-</ul></li>
+<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Who cares about GIS?</a></li>
+<li class="chapter" data-level="3" data-path="what-is-gis.html"><a href="what-is-gis.html"><i class="fa fa-check"></i><b>3</b> What is GIS?</a></li>
+<li class="chapter" data-level="4" data-path="methods.html"><a href="methods.html"><i class="fa fa-check"></i><b>4</b> Methods</a></li>
 <li class="chapter" data-level="5" data-path="applications.html"><a href="applications.html"><i class="fa fa-check"></i><b>5</b> Applications</a>
 <ul>
 <li class="chapter" data-level="5.1" data-path="applications.html"><a href="applications.html#example-one"><i class="fa fa-check"></i><b>5.1</b> Example one</a></li>
@@ -176,24 +164,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="applications" class="section level1" number="5">
-<h1><span class="header-section-number">5</span> Applications</h1>
-<p>Some <em>significant</em> applications are demonstrated in this chapter.</p>
-<div id="example-one" class="section level2" number="5.1">
-<h2><span class="header-section-number">5.1</span> Example one</h2>
-</div>
-<div id="example-two" class="section level2" number="5.2">
-<h2><span class="header-section-number">5.2</span> Example two</h2>
+<div id="what-is-gis" class="section level1" number="3">
+<h1><span class="header-section-number">3</span> What is GIS?</h1>
+<p>Here we cover the basics of GIS…</p>
 
-</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="gis-data-models-and-file-formats.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="final-words.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="intro.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="methods.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -224,7 +206,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/rstudio/bookdown-demo/edit/master/04-application.Rmd",
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/02-basics.Rmd",
 "text": "Edit"
 },
 "history": {

@@ -1,0 +1,53 @@
+# GIS data models and file formats
+
+## Data models
+
+GIS data typically come in two data model types **vector** or **raster**.
+
+### Vector data
+
+The three basic vector data types are **points**, **lines** (also sometimes referred to as **polylines** or **linestrings**) and **polygons**. While they are treated as different data types, you can also consider them to be a nested hierarchy. For example, to make a line you need two or more points, while a polygon requires three or more lines. 
+
+```{r vectors, fig.cap='The hierarchical construction of vector data types.', fig.asp=0.45, fig.align='center', echo=FALSE, warning=F, message=F}
+library(tidyverse)
+library(hrbrthemes)
+
+data <- data.frame(set = factor(x=c("point", "line", "line", "polygon", "polygon", "polygon", "polygon"), levels = c("point", "line", "polygon")), x = c(1,1,2,1,2,1.5,1), y = c(1,1,1,1,1,2,1))
+
+data %>%
+ # tail(10) %>%
+  ggplot(aes(x=x, y=y)) +
+    geom_polygon(fill = "grey") +
+    geom_path(color="black") +
+    geom_point(shape=21, color="black", fill="#69b3a2", size=6) +
+    theme_ipsum() + ylim(0.5,2.5) + xlim(0.5,2.5) +
+    facet_wrap(.~set)
+
+```
+
+<br>
+
+From this we can observe the different properties of the data types:
+
+* a **point** is a _location_ in space defined by a set of coordinates based on a coordinate reference system (more about these later)
+* a **line** is two or more points with straight lines connecting them, where each line has a _length_
+* a **polygon** is a set of points connected by lines that form a closed shape, which has an _area_
+
+Note that these "data types" are also commonly called _geometric primitives_ or _geometries_.
+
+<br>
+
+## File formats
+
+As I mentioned before, there is a huge variety of file formats, which have proliferated as different software packages have developed their own set of "native" formats. Many of these are not open source.
+
+You can view the list of most of the file types supported by R (or at least the types supported by library(rgdal)) by running the code `rgdal::ogrDrivers()`, which gives this output:
+
+```{r, echo = F}
+library(knitr) # To make the table with the kable() function
+library(rgdal) # Holds the ogrDrivers() function
+
+kable(head(ogrDrivers(), n = 80))
+```
+
+Note that there has been a big push to develop a standardized set of open source, efficient and interoperable file formats. 

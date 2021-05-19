@@ -18,11 +18,16 @@ _This is a minimal introduction to GIS and handling spatial data in R compiled f
 
 The goal is to give you a very brief introduction to Geographic Information Systems (GIS) in general and some familiarity with handling spatial data in R. GIS is a field of research that many people dedicate their entire lives to, yet we only have a week, so this really is a minimalist introduction. I'll focus on giving you a broad overview and some idea of how to teach yourself (using R).
 
-The 5-day module includes daily ~1 hour lectures followed by self-study time where you will have daily goals/tasks to help you incrementally develop your own project. This project will be the deliverable for the module. I will be available for set office hours every afternoon to assist with these projects.
+The 5-day module includes daily ~1 hour lectures followed by self-study time where you will have daily goals/tasks to help you incrementally develop your own project. The project will be the deliverable for the module. I will be available for set office hours every afternoon to assist you.
 
 <br>
 
 _These course notes borrow or paraphrase extensively from [Adam Wilson's GEO 511 Spatial Data Science course](http://adamwilsonlabedu.github.io/GEO511/index.html) and [Manny Gimond's Intro to GIS & Spatial Analysis](https://mgimond.github.io/Spatial/index.html)._ 
+
+Other very valuable resources include:
+
+* Lovelace et al's online book [Geocomputation with R](https://geocompr.robinlovelace.net/)
+* Ryan Garnett's [cheatsheet for library(sf)](https://github.com/rstudio/cheatsheets/blob/master/sf.pdf)
 
 <br>
 

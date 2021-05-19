@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>5 Applications | A Minimal Introduction to GIS in R</title>
+  <title>3 GIS basics | A Minimal Introduction to GIS in R</title>
   <meta name="description" content="This is a minimal introduction to GIS and handling spatial data in R compiled for the Biological Sciences BSc(Honours) class at the University of Cape Town." />
   <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="5 Applications | A Minimal Introduction to GIS in R" />
+  <meta property="og:title" content="3 GIS basics | A Minimal Introduction to GIS in R" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="rstudio/bookdown-demo" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="5 Applications | A Minimal Introduction to GIS in R" />
+  <meta name="twitter:title" content="3 GIS basics | A Minimal Introduction to GIS in R" />
   
   <meta name="twitter:description" content="This is a minimal introduction to GIS and handling spatial data in R compiled for the Biological Sciences BSc(Honours) class at the University of Cape Town." />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="gis-data-models-and-file-formats.html"/>
-<link rel="next" href="final-words.html"/>
+<link rel="prev" href="intro.html"/>
+<link rel="next" href="gis-data-models-and-file-formats.html"/>
 <script src="libs/header-attrs-2.6/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -176,14 +176,56 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="applications" class="section level1" number="5">
-<h1><span class="header-section-number">5</span> Applications</h1>
-<p>Some <em>significant</em> applications are demonstrated in this chapter.</p>
-<div id="example-one" class="section level2" number="5.1">
-<h2><span class="header-section-number">5.1</span> Example one</h2>
+<div id="gis-basics" class="section level1" number="3">
+<h1><span class="header-section-number">3</span> GIS basics</h1>
+<p>Here we cover the basics of GIS…</p>
+<div id="what-is-gis" class="section level2" number="3.1">
+<h2><span class="header-section-number">3.1</span> What is GIS?</h2>
+<p>A Geographic Information System is a framework used to create, manage, visualize and analyze data in a spatial context. Most datasets can be assigned a spatial location, either on the earth’s surface or within some constrained area like a sports field, a vegetation survey plot, or even a drawer in your kitchen.</p>
+<p>While almost any dataset has a spatial context, and can thus be represented in a GIS, the real question is whether it needs to be analyzed in a GIS environment? The answer to this question depends on the purpose of the analysis. Typically, one would use GIS if you were using the spatial information associated with the data to:</p>
+<ul>
+<li><em>access</em> data elements (e.g. select data by spatial location or coverage),</li>
+<li>perform <em>analytical operations</em> (e.g. overlay and merge two datasets to produce a new dataset), or</li>
+<li><em>render visualizations</em> (e.g. generate a map).</li>
+</ul>
+<p>There are many many operations and functions within each of these three major operation types. There are also many support functions and operations that are common across the operation types (e.g. reading/writing data objects). We’ll delve into these later.</p>
 </div>
-<div id="example-two" class="section level2" number="5.2">
-<h2><span class="header-section-number">5.2</span> Example two</h2>
+<div id="how-do-we-do-gis" class="section level2" number="3.2">
+<h2><span class="header-section-number">3.2</span> How do we do GIS?</h2>
+<p>There are a large number of software packages for doing GIS. Some are free, while others require you to pay for a license. They also vary in what they do (or the combination of things they do). For example, some of the best known <em>desktop GIS applications</em>, which is what your average GIS user is interested in, include:</p>
+<ul>
+<li><a href="https://www.esri.com/en-us/arcgis/about-arcgis/overview">ArcGIS</a> - a commercial product that works on Windows only (or online). UCT has a site license, which provides a set number of user licenses for UCT postgrads and staff (see section <a href="gis-basics.html#ucthelp">3.3</a> for details). Note that ArcGIS is an ESRI product and comes with (or can be upgraded to include) a suite of other (commercial) software components in addition to the desktop application</li>
+<li><a href="https://qgis.org/">QGIS</a> - free and open source software (FOSS) for Windows, Mac or Linux</li>
+<li><a href="https://www.google.com/earth/versions/">Google Earth</a> - free (for now), but not open source, for Windows, Mac, Linux, or online</li>
+</ul>
+<p>Desktop GIS applications are typically graphical user interfaces (GUIs) that call on various other <em>geospatial libraries</em> to do the actual data processing (think of these as sets of functions or tools). Some examples of FOSS geospatial libraries are <a href="https://gdal.org/">GDAL</a> and <a href="https://trac.osgeo.org/geos">GEOS</a>, which are designed to deal with different data models and/or file types.</p>
+<p>We can also do GIS by calling the geospatial libraries and other GIS software types directly with various programming languages. While we can use many (or just about any) coding language, there are a few for which the functions and syntax are better developed for the user, including:</p>
+<ul>
+<li>R</li>
+<li>Python</li>
+<li>JavaScript</li>
+</ul>
+<p>A major advantage of using these general purpose programming languages for your GIS work is that it allows you take advantage of their functions for statistical analyses and presentation etc all in one environment and/or work flow. This also makes it much easier to make your <a href="https://ropensci.github.io/reproducibility-guide/sections/introduction/">research reproducible</a>.</p>
+<p>Note that the geospatial libraries and the other GIS softwares that we call are coded in a variety of other languages, such as Java, C/C++, C# or SQL, but these languages are typically less user friendly and/or more difficult to learn.</p>
+<p>Other “GIS software types” include:</p>
+<ul>
+<li><em>spatial databases</em> such as <a href="https://postgis.net/">PostGIS</a>, which is free and open source software (FOSS) for Windows, Mac or Linux and great for storing and querying large and complex datasets</li>
+<li><em>web mapping</em> such as <a href="https://mapserver.org/">MapServer</a> or <a href="http://geoserver.org/">GeoServer</a></li>
+</ul>
+</div>
+<div id="ucthelp" class="section level2" number="3.3">
+<h2><span class="header-section-number">3.3</span> How to get help?</h2>
+<p>UCT has a <a href="http://www.lib.uct.ac.za/lib/services/gis-support">GIS Support Unit</a> to assist UCT staff and postgraduate researchers with their GIS and spatial data needs. Their primary goal is to help users develop their GIS skills in order to perform sound data capture, geospatial analysis and map production. They can help you with:</p>
+<ul>
+<li>Troubleshooting, Project Planning, Analysis, Cartographic Design and Data Handling.</li>
+<li>GIS Training</li>
+<li>Applying for an ESRI (ArcMAP) Software license.</li>
+</ul>
+<p>Note that they predominantly work with ESRI and QGIS and don’t provide support for R, etc. That said, many GIS work flow issues are common across platforms, and the support unit really know what they’re doing. They’re also a good source of data if you’re struggling to find what you need, but please do your homework before asking them for data!</p>
+<p><br></p>
+<p>Lastly…</p>
+<p><strong>Please note that I am not a help desk!!!</strong></p>
+<p>The goal for this module is to teach you how to help yourself. You can find the answer to any issue you are encountering in an online forum like <a href="https://gis.stackexchange.com/">GIS Stack Exchange</a>. I typically just type my questions (or copy and past error messages) directly into Google. The trick is working out what to ask, and sometimes you need to reword your question a couple of times to find the answer you need.</p>
 
 </div>
 </div>
@@ -192,8 +234,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="gis-data-models-and-file-formats.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="final-words.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="intro.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="gis-data-models-and-file-formats.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -224,7 +266,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/rstudio/bookdown-demo/edit/master/04-application.Rmd",
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/02-basics.Rmd",
 "text": "Edit"
 },
 "history": {

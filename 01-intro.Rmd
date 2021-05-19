@@ -1,4 +1,4 @@
-# Who cares about GIS? {#intro}
+# Why care about GIS? {#intro}
 
 How lost would you be without Google Maps?
 
@@ -24,25 +24,33 @@ knitr::include_graphics("img/gis_by_field.png")
 
 <br>
 
-```{r biomes, echo=FALSE, fig.cap = "We use it for things like mapping ecosystems and biomes.", fig.width=3, fig.align = 'center'}
+We use it for things like mapping ecosystems and biomes.
+
+```{r biomes, echo=FALSE, fig.cap = "The historical extent of the biomes of South Africa.", fig.width=3, fig.align = 'center'}
 knitr::include_graphics("img/biomes.png")
 ```
 
 <br>
 
-```{r biomeremnants, echo=FALSE, fig.cap = "Or the loss of ecosystems and biomes.", fig.width=3, fig.align = 'center'}
+Or the loss of ecosystems and biomes.
+
+```{r biomeremnants, echo=FALSE, fig.cap = "The remaining extent of the biomes of South Africa.", fig.width=3, fig.align = 'center'}
 knitr::include_graphics("img/biome_remnants.png")
 ```
 
 <br>
 
-```{r biomeloss, echo=FALSE, fig.cap = "Although the outcomes of GIS analyses are not always maps, e.g. [@Skowno2021].", fig.width=3, fig.align = 'center'}
+Although the outcomes of GIS analyses are not always maps, e.g. this table from Skowno et al. -@Skowno2021.
+
+```{r biomeloss, echo=FALSE, fig.cap = "", fig.width=3, fig.align = 'center'}
 knitr::include_graphics("img/skowno2021.png")
 ```
 
 <br>
 
-```{r globalforestwatch, echo=FALSE, fig.cap = "But it can also be interactive!", fig.width=3, fig.align = 'center'}
+But it can also be interactive!
+
+```{r globalforestwatch, echo=FALSE, fig.cap = "The [Global Forest Watch](https://www.globalforestwatch.org/map/) app.", fig.width=3, fig.align = 'center'}
 knitr::include_app("https://www.globalforestwatch.org/map/", 
   height = "600px")
 ```
