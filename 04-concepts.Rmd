@@ -1,0 +1,7 @@
+# Some important concepts
+
+## Scale
+
+## Coordinate Reference Systems (CRS)
+
+## Attributes

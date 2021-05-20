@@ -6,6 +6,11 @@ fig:biomeremnants
 fig:globalforestwatch
 fig:nice-fig
 tab:nice-tab
+fig:vectors
+fig:vectorveg
+fig:rasterdem
+fig:contourdem
+fig:rasterveg
 overview
 intro
 gis-basics
@@ -15,9 +20,11 @@ ucthelp
 gis-data-models-and-file-formats
 data-models
 vector-data
+raster-data
+attribute-data
 file-formats
-applications
-example-one
-example-two
+some-important-concepts
+scale
+coordinate-reference-systems-crs
+attributes
 final-words
-fig:vectors

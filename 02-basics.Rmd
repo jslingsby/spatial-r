@@ -54,8 +54,10 @@ Note that they predominantly work with ESRI and QGIS and don't provide support f
 
 Lastly...
 
-**Please note that I am not a help desk!!!**
+**I am not a help desk!!!**
 
-The goal for this module is to teach you how to help yourself. You can find the answer to any issue you are encountering in an online forum like [GIS Stack Exchange](https://gis.stackexchange.com/). I typically just type my questions (or copy and past error messages) directly into Google. The trick is working out what to ask, and sometimes you need to reword your question a couple of times to find the answer you need.
+The goal for this module is to teach you how to help yourself. I'm available to help in the afternoon office hours during this module, but unfortunately, while I would love to, I do not have the time to help you all with your GIS or R issues for the rest of your careers... 
+
+You can find the answer to any issue you are encountering in an online forum like [GIS Stack Exchange](https://gis.stackexchange.com/). I typically just type my questions (or copy and past error messages) directly into Google. The trick is working out what to ask, and sometimes you need to reword your question a couple of times to find the answer you need. If you're really getting nowhere, you can even post your question on a forum, although it is unlikely that you'll ever need to do this...
 
 

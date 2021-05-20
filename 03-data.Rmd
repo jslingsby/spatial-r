@@ -33,13 +33,129 @@ From this we can observe the different properties of the data types:
 * a **line** is two or more points with straight lines connecting them, where each line has a _length_
 * a **polygon** is a set of points connected by lines that form a closed shape, which has an _area_
 
-Note that these "data types" are also commonly called _geometric primitives_ or _geometries_.
+Note that these "data types" are also commonly called _geometric primitives_ or _geometries_. Later we'll see that you get more complicated "types", but these are generally combinations of the above: **multipoint**, **multilinestring**, **multipolygon**, **geometry collection**, etc and are largely just different data classes designed to help with handling data than unique geometries.
 
 <br>
 
+### Raster data
+
+Raster data are essentially data stored in a regular grid of pixels (or cells). The value of each pixel is a number representing a measured value (e.g. continuous data such as sea surface temperature) or a category (e.g. discrete data such as land cover class). All pixels have a value, even if the value is "No Data". Rasters are particularly useful for representing continuous data. Discrete data are often better presented as vector polygons. For example:
+
+```{r vectorveg, fig.cap='Vector (polygon) representation of discrete data; the vegetation types of the Cape Peninsula.', fig.align='center', echo=FALSE, warning=F, message=F}
+
+library(sf)
+library(raster)
+library(tidyverse)
+library(cowplot)
+
+### Get data, project and crop
+
+# Get vector layer of Cape Town's historical vegetation
+veg <- st_read("/home/jasper/GIT/spatial-r/data/cape_peninsula/veg/Vegetation_Indigenous.shp", quiet = T)
+
+# Get raster digital elevation model (DEM)
+dem <- raster("/home/jasper/GIT/spatial-r/data/cape_peninsula/rasters90/elevation.asc")
+
+# Set DEM projection
+proj4string(dem)="+proj=utm +zone=34 +south +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0" #set projection
+
+# Reproject DEM to same projection as veg layer
+dem <- projectRaster(dem, crs = "+proj=tmerc +lat_0=0 +lon_0=19 +k=1 +x_0=0 +y_0=0 +ellps=WGS84 +units=m +no_defs")
+
+# Crop veg layer to same extent as raster
+ext <- as.vector(st_bbox(dem)) #Get desired extent
+names(ext) <- c("xmin", "ymin", "xmax", "ymax")
+veg <- st_crop(veg, ext)
+
+# Rasterize veg layer
+vegp <- as_Spatial(veg)
+vegp@data$National_ <- as.factor(vegp@data$National_)
+vnames <- levels(vegp@data$National_)
+vegr <- rasterize(vegp, dem, field = "National_", fun = "last")
+
+### Plot
+
+# Prep data for plotting
+demp <- as.data.frame(rasterToPoints(dem, spatial = F))
+colnames(demp)[3] <- "elevation (m)"
+
+vegp <- as.data.frame(rasterToPoints(vegr, spatial = F))
+colnames(vegp)[3] <- "veg type"
+
+names(veg)[3] <- "veg type"
+
+# Make separate plots
+vegpoly <- ggplot() +
+  geom_sf(data=veg, aes(fill = `veg type`))
+               
+vegrast <- ggplot() + 
+  geom_raster(data=vegp, aes(x, y, fill=`veg type`))
+
+elevation <- ggplot() +
+  geom_raster(data=demp, aes(x, y, fill=`elevation (m)`))
+
+vegpoly
+
+# # Make panel figure
+# maps <- ggdraw() +
+#   draw_plot(vegpoly + 
+#               theme(legend.position=c(.2,.15),
+#                     legend.key.size=unit(.5, "cm")), 
+#             x = 0, y = 0, width = .33, height = 1) +
+#   draw_plot(vegrast +
+#               theme(legend.position=c(.2,.15),
+#                     legend.key.size=unit(.5, "cm")), 
+#             x = .33, y = 0, width = .33, height = 1) +
+#   draw_plot(elevation +
+#               theme(legend.position=c(.2,.15), 
+#                     legend.key.size=unit(.5, "cm")), 
+#             x = .66, y = 0, width = .33, height = 1)
+# 
+# maps
+
+```
+
+Vector data models are typically good at representing categorical data, especially where they may have complex boundaries. You just have to choose a good colour palette...
+
+<br>
+
+```{r rasterdem, fig.cap='Raster representation of continuous data; a digital elevation model of the Cape Peninsula.', fig.align='center', echo=FALSE, warning=F, message=F, fig.width = 3.5, fig.asp = 1.2}
+
+elevation
+```
+
+Rasters are great for continuous data. If this was a vector plot, each pixel would have to be its own polygon and the legend would have a separate entry for each unique value - >60 000 entries!!! 
+
+That said, you can represent continuous values with a vector data model quite effectively if you bin the continuous data into classes, such as one can do with a filled contour plot, e.g.
+
+<br>
+
+```{r contourdem, fig.cap='Vector representation of continuous data; a filled contour plot of a digital elevation model of the Cape Peninsula using 100m contours.', fig.align='center', echo=FALSE, warning=F, message=F, fig.width = 3.5, fig.asp = 1.2}
+
+ggplot() +
+  geom_contour_filled(data=demp, aes(x= x, y = y, z = `elevation (m)`), breaks = seq(-99, 1099, 100))
+```
+
+In truth, I generated this plot from a raster data object (the digital elevation model), but to plot it R had to convert the raster to a set of vector polygons first. You'll find that you often need to convert data between vector and raster models for various reasons, and we'll cover that later.
+
+<br>
+
+```{r rasterveg, fig.cap='Raster representation the discrete data; the vegetation types of the Cape Peninsula.', fig.align='center', echo=FALSE, warning=F, message=F, fig.width = 3.2, fig.asp = 1.4}
+
+vegrast
+```
+
+Rasters are usually not that good at representing categorical data. Note that most raster file formats (and GIS software) can only store numeric data, so this plot misleadingly represents the vegetation types as continuous data. You can label and represent categorical data in rasters in R, but this is usually more effort than its worth and is almost always less effective than using a vector format... A common exception is land use and land cover (LULC) maps, where remotely sensed satellite imagery (raster data) are classified into predefined classes (e.g. agriculture, rock, grassland, etc) based on various criteria or algorithms. Even then, these are best visualized as interactive rather than static maps so you can make sense of them by zooming in and panning around.
+
+<br>
+
+## Attribute data
+
+
+
 ## File formats
 
-As I mentioned before, there is a huge variety of file formats, which have proliferated as different software packages have developed their own set of "native" formats. Many of these are not open source.
+Somewhat linked to data models, and as I mentioned before, there is a huge variety of file formats. These have proliferated as different software packages have developed their own set of "native" formats. Many of these are not open source.
 
 You can view the list of most of the file types supported by R (or at least the types supported by library(rgdal)) by running the code `rgdal::ogrDrivers()`, which gives this output:
 

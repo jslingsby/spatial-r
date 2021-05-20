@@ -2,7 +2,7 @@
 
 How lost would you be without Google Maps?
 
-```{r googlemap, echo=FALSE, fig.cap = "Screenshot of Google Mas for Cape Town.", fig.width=4, fig.align = 'center'}
+```{r googlemap, echo=FALSE, fig.cap = "Screenshot of Google Maps for Cape Town.", fig.width=4, fig.align = 'center'}
 knitr::include_graphics("img/googlemaps.jpg")
 ```
 
