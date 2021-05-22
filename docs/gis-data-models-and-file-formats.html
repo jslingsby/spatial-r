@@ -24,7 +24,7 @@
 <meta name="author" content="Jasper Slingsby" />
 
 
-<meta name="date" content="2021-05-20" />
+<meta name="date" content="2021-05-22" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -53,69 +53,6 @@
 
 
 
-<style type="text/css">
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -155,7 +92,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="5.1" data-path="some-important-concepts.html"><a href="some-important-concepts.html#scale"><i class="fa fa-check"></i><b>5.1</b> Scale</a></li>
 <li class="chapter" data-level="5.2" data-path="some-important-concepts.html"><a href="some-important-concepts.html#coordinate-reference-systems-crs"><i class="fa fa-check"></i><b>5.2</b> Coordinate Reference Systems (CRS)</a></li>
-<li class="chapter" data-level="5.3" data-path="some-important-concepts.html"><a href="some-important-concepts.html#attributes"><i class="fa fa-check"></i><b>5.3</b> Attributes</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>6</b> Final Words</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
@@ -205,7 +141,7 @@ Figure 4.1: The hierarchical construction of vector data types.
 </div>
 <div id="raster-data" class="section level3" number="4.1.2">
 <h3><span class="header-section-number">4.1.2</span> Raster data</h3>
-<p>Raster data are essentially data stored in a regular grid of pixels (or cells). The value of each pixel is a number representing a measured value (e.g. continuous data such as sea surface temperature) or a category (e.g. discrete data such as land cover class). All pixels have a value, even if the value is “No Data.” Rasters are particularly useful for representing continuous data. Discrete data are often better presented as vector polygons. For example:</p>
+<p>Raster data are essentially data stored in a regular grid of pixels (or cells). The value of each pixel is a number representing a measured value (e.g. continuous data such as sea surface temperature) or a category (e.g. discrete data such as land cover class). All pixels have a value, even if the value is “No Data.” Digital images like jpeg or png files are essentially rasters without spatial information. Rasters are particularly useful for representing continuous data. Discrete data are often better presented as vector polygons. For example:</p>
 <div class="figure" style="text-align: center"><span id="fig:vectorveg"></span>
 <img src="spatial-r_files/figure-html/vectorveg-1.png" alt="Vector (polygon) representation of discrete data; the vegetation types of the Cape Peninsula." width="672" />
 <p class="caption">
@@ -220,7 +156,7 @@ Figure 4.2: Vector (polygon) representation of discrete data; the vegetation typ
 Figure 4.3: Raster representation of continuous data; a digital elevation model of the Cape Peninsula.
 </p>
 </div>
-<p>Rasters are great for continuous data. If this was a vector plot, each pixel would have to be its own polygon and the legend would have a separate entry for each unique value - &gt;60 000 entries!!!</p>
+<p>Rasters are great for continuous data. If this was a vector plot, each pixel would have to be its own polygon and the legend would have a separate entry for each unique value, &gt;60 000 entries!!!</p>
 <p>That said, you can represent continuous values with a vector data model quite effectively if you bin the continuous data into classes, such as one can do with a filled contour plot, e.g.</p>
 <p><br></p>
 <div class="figure" style="text-align: center"><span id="fig:contourdem"></span>
@@ -243,19 +179,107 @@ Figure 4.5: Raster representation the discrete data; the vegetation types of the
 </div>
 <div id="attribute-data" class="section level2" number="4.2">
 <h2><span class="header-section-number">4.2</span> Attribute data</h2>
+<p>Attributes are what we know about the objects represented in a layer in addition to their geometry - i.e. each spatial object usually has additional information associated with it. These data are usually stored in an associated <strong>Attribute Table</strong>.</p>
+<p>Here are the first few entries of the attribute table for our Cape Peninsula vegetation layer:</p>
+<p><br></p>
+<table>
+<colgroup>
+<col width="3%" />
+<col width="10%" />
+<col width="11%" />
+<col width="17%" />
+<col width="8%" />
+<col width="17%" />
+<col width="31%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">AREA_HCTR</th>
+<th align="right">PRMT_MTR</th>
+<th align="left">veg type</th>
+<th align="left">Subtype</th>
+<th align="left">Community</th>
+<th align="left">geometry</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">66</td>
+<td align="right">6.774255</td>
+<td align="right">1596.83494</td>
+<td align="left">Beach - FalseBay</td>
+<td align="left">BEACH</td>
+<td align="left">Need to Find Out</td>
+<td align="left">POLYGON ((-46661.36 -380319…</td>
+</tr>
+<tr class="even">
+<td align="left">67</td>
+<td align="right">14.151168</td>
+<td align="right">3886.68578</td>
+<td align="left">Beach - FalseBay</td>
+<td align="left">BEACH</td>
+<td align="left">Need to Find Out</td>
+<td align="left">POLYGON ((-47252.77 -380298…</td>
+</tr>
+<tr class="odd">
+<td align="left">68</td>
+<td align="right">8.575597</td>
+<td align="right">2154.00714</td>
+<td align="left">Beach - FalseBay</td>
+<td align="left">BEACH</td>
+<td align="left">Need to Find Out</td>
+<td align="left">POLYGON ((-49001.26 -380249…</td>
+</tr>
+<tr class="even">
+<td align="left">69</td>
+<td align="right">0.000001</td>
+<td align="right">23.25575</td>
+<td align="left">Beach - FalseBay</td>
+<td align="left">BEACH</td>
+<td align="left">Need to Find Out</td>
+<td align="left">POLYGON ((-49353.38 -380223…</td>
+</tr>
+<tr class="odd">
+<td align="left">70</td>
+<td align="right">5.333203</td>
+<td align="right">3589.09436</td>
+<td align="left">Beach - FalseBay</td>
+<td align="left">BEACH</td>
+<td align="left">Need to Find Out</td>
+<td align="left">POLYGON ((-50030.98 -380131…</td>
+</tr>
+<tr class="even">
+<td align="left">71</td>
+<td align="right">24.448116</td>
+<td align="right">7378.70451</td>
+<td align="left">Beach - FalseBay</td>
+<td align="left">BEACH</td>
+<td align="left">Need to Find Out</td>
+<td align="left">POLYGON ((-53108.73 -379998…</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p>Note that vector data generally have attribute tables, but they are rare for raster layers, because most raster file formats can store just one attribute per cell (e.g. elevation) and can’t have associated attribute tables.</p>
+<p>A handy feature of most GIS systems is that they can treat attribute tables like relational database table structures. Additional information can be joined onto your spatial data by joining two tables with a common key field, as one does when joining two tables of non-spatial data. In GIS, this is called an “Attribute Join,” because you have joined the tables by attribute and haven’t used spatial information (also sometimes called a “non-spatial join”). We’ll learn about “spatial joins” later…</p>
+<p><br></p>
 </div>
 <div id="file-formats" class="section level2" number="4.3">
 <h2><span class="header-section-number">4.3</span> File formats</h2>
-<p>Somewhat linked to data models, and as I mentioned before, there is a huge variety of file formats. These have proliferated as different software packages have developed their own set of “native” formats. Many of these are not open source.</p>
-<p>You can view the list of most of the file types supported by R (or at least the types supported by library(rgdal)) by running the code <code>rgdal::ogrDrivers()</code>, which gives this output:</p>
-<pre><code>## rgdal: version: 1.5-19, (SVN revision 1092)
-## Geospatial Data Abstraction Library extensions to R successfully loaded
-## Loaded GDAL runtime: GDAL 2.2.3, released 2017/11/20
-## Path to GDAL shared files: /usr/share/gdal/2.2
-## GDAL binary built with GEOS: TRUE 
-## Loaded PROJ runtime: Rel. 4.9.3, 15 August 2016, [PJ_VERSION: 493]
-## Path to PROJ shared files: (autodetected)
-## Linking to sp version:1.4-4</code></pre>
+<p>Linked to data models, and attributes, is file formats. Generally, there are separate file formats for vector vs raster data. Usually, we even have separate files for the different types of vectors (points, lines, polygons, etc), but this is changing as new “database” formats evolve.</p>
+<p>There is a huge variety of GIS file formats, which have proliferated as different software packages have developed their own set of “native” formats. Each of these have different properties in terms of the data they store, whether they can include attribute data, file size and compression, and of course how they actually store (and retrieve) the data. Many of these, like the ESRI formats, are proprietary (i.e. not open source).</p>
+<p>If you’ve done any GIS before, you’ll be familiar with ESRI shapefiles, which usually include a group of 3 or more files with the same name, but a different file extension. Each file stores different information. The most common ones are:</p>
+<ul>
+<li>.shp = the main feature geometry</li>
+<li>.shx = an index file, used for searching etc</li>
+<li>.dbf = stores the attribute information</li>
+<li>.prj = stores the coordinate reference system</li>
+<li>etc = there are many other optional files that may be present depending on the data stored</li>
+</ul>
+<p>Shapefiles are by far the most common format for vector data. For raster data, the most common format is probably GeoTIFF (.tif) or ASCII (.asc).</p>
+<p>You can view the lists of most of the file types supported by R (or at least the types supported by the GDAL geospatial library) by running the code <code>rgdal::ogrDrivers()</code> for vector drivers, which gives this output:</p>
+<p><br></p>
 <table>
 <colgroup>
 <col width="15%" />
@@ -836,7 +860,989 @@ Figure 4.5: Raster representation the discrete data; the vegetation types of the
 </tr>
 </tbody>
 </table>
-<p>Note that there has been a big push to develop a standardized set of open source, efficient and interoperable file formats.</p>
+<p><br></p>
+<p>Or <code>rgdal::gdalDrivers()</code> for raster drivers:</p>
+<p><br></p>
+<table style="width:100%;">
+<colgroup>
+<col width="16%" />
+<col width="60%" />
+<col width="7%" />
+<col width="6%" />
+<col width="9%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">name</th>
+<th align="left">long_name</th>
+<th align="left">create</th>
+<th align="left">copy</th>
+<th align="left">isRaster</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">AAIGrid</td>
+<td align="left">Arc/Info ASCII Grid</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">ACE2</td>
+<td align="left">ACE2</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">ADRG</td>
+<td align="left">ARC Digitized Raster Graphics</td>
+<td align="left">TRUE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">AIG</td>
+<td align="left">Arc/Info Binary Grid</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">AirSAR</td>
+<td align="left">AirSAR Polarimetric Image</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">ARG</td>
+<td align="left">Azavea Raster Grid format</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">BAG</td>
+<td align="left">Bathymetry Attributed Grid</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">BIGGIF</td>
+<td align="left">Graphics Interchange Format (.gif)</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">BLX</td>
+<td align="left">Magellan topo (.blx)</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">BMP</td>
+<td align="left">MS Windows Device Independent Bitmap</td>
+<td align="left">TRUE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">BSB</td>
+<td align="left">Maptech BSB Nautical Charts</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">BT</td>
+<td align="left">VTP .bt (Binary Terrain) 1.3 Format</td>
+<td align="left">TRUE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">CAD</td>
+<td align="left">AutoCAD Driver</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">CALS</td>
+<td align="left">CALS (Type 1)</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">CEOS</td>
+<td align="left">CEOS Image</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">COASP</td>
+<td align="left">DRDC COASP SAR Processor Raster</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">COSAR</td>
+<td align="left">COSAR Annotated Binary Matrix (TerraSAR-X)</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">CPG</td>
+<td align="left">Convair PolGASP</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">CTable2</td>
+<td align="left">CTable2 Datum Grid Shift</td>
+<td align="left">TRUE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">CTG</td>
+<td align="left">USGS LULC Composite Theme Grid</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">DERIVED</td>
+<td align="left">Derived datasets using VRT pixel functions</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">DIMAP</td>
+<td align="left">SPOT DIMAP</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">DIPEx</td>
+<td align="left">DIPEx</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">DODS</td>
+<td align="left">DAP 3.x servers</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">DOQ1</td>
+<td align="left">USGS DOQ (Old Style)</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">DOQ2</td>
+<td align="left">USGS DOQ (New Style)</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">DTED</td>
+<td align="left">DTED Elevation Raster</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">E00GRID</td>
+<td align="left">Arc/Info Export E00 GRID</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">ECRGTOC</td>
+<td align="left">ECRG TOC format</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">EHdr</td>
+<td align="left">ESRI .hdr Labelled</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">EIR</td>
+<td align="left">Erdas Imagine Raw</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">ELAS</td>
+<td align="left">ELAS</td>
+<td align="left">TRUE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">ENVI</td>
+<td align="left">ENVI .hdr Labelled</td>
+<td align="left">TRUE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">EPSILON</td>
+<td align="left">Epsilon wavelets</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">ERS</td>
+<td align="left">ERMapper .ers Labelled</td>
+<td align="left">TRUE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">ESAT</td>
+<td align="left">Envisat Image Format</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">FAST</td>
+<td align="left">EOSAT FAST Format</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">FIT</td>
+<td align="left">FIT Image</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">FujiBAS</td>
+<td align="left">Fuji BAS Scanner Image</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">GenBin</td>
+<td align="left">Generic Binary (.hdr Labelled)</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">GFF</td>
+<td align="left">Ground-based SAR Applications Testbed File Format (.gff)</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">GIF</td>
+<td align="left">Graphics Interchange Format (.gif)</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">GMT</td>
+<td align="left">GMT NetCDF Grid Format</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">GPKG</td>
+<td align="left">GeoPackage</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">GRASSASCIIGrid</td>
+<td align="left">GRASS ASCII Grid</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">GRIB</td>
+<td align="left">GRIdded Binary (.grb)</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">GS7BG</td>
+<td align="left">Golden Software 7 Binary Grid (.grd)</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">GSAG</td>
+<td align="left">Golden Software ASCII Grid (.grd)</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">GSBG</td>
+<td align="left">Golden Software Binary Grid (.grd)</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">GSC</td>
+<td align="left">GSC Geogrid</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">GTiff</td>
+<td align="left">GeoTIFF</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">GTX</td>
+<td align="left">NOAA Vertical Datum .GTX</td>
+<td align="left">TRUE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">GXF</td>
+<td align="left">GeoSoft Grid Exchange Format</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">HDF4</td>
+<td align="left">Hierarchical Data Format Release 4</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">HDF4Image</td>
+<td align="left">HDF4 Dataset</td>
+<td align="left">TRUE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">HDF5</td>
+<td align="left">Hierarchical Data Format Release 5</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">HDF5Image</td>
+<td align="left">HDF5 Dataset</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">HF2</td>
+<td align="left">HF2/HFZ heightfield raster</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">HFA</td>
+<td align="left">Erdas Imagine Images (.img)</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">HTTP</td>
+<td align="left">HTTP Fetching Wrapper</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">IDA</td>
+<td align="left">Image Data and Analysis</td>
+<td align="left">TRUE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">ILWIS</td>
+<td align="left">ILWIS Raster Map</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">INGR</td>
+<td align="left">Intergraph Raster</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">IRIS</td>
+<td align="left">IRIS data (.PPI, .CAPPi etc)</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">ISCE</td>
+<td align="left">ISCE raster</td>
+<td align="left">TRUE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">ISIS2</td>
+<td align="left">USGS Astrogeology ISIS cube (Version 2)</td>
+<td align="left">TRUE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">ISIS3</td>
+<td align="left">USGS Astrogeology ISIS cube (Version 3)</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">JAXAPALSAR</td>
+<td align="left">JAXA PALSAR Product Reader (Level 1.1/1.5)</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">JDEM</td>
+<td align="left">Japanese DEM (.mem)</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">JP2OpenJPEG</td>
+<td align="left">JPEG-2000 driver based on OpenJPEG library</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">JPEG</td>
+<td align="left">JPEG JFIF</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">KMLSUPEROVERLAY</td>
+<td align="left">Kml Super Overlay</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">KRO</td>
+<td align="left">KOLOR Raw</td>
+<td align="left">TRUE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">L1B</td>
+<td align="left">NOAA Polar Orbiter Level 1b Data Set</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">LAN</td>
+<td align="left">Erdas .LAN/.GIS</td>
+<td align="left">TRUE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">LCP</td>
+<td align="left">FARSITE v.4 Landscape File (.lcp)</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">Leveller</td>
+<td align="left">Leveller heightfield</td>
+<td align="left">TRUE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">LOSLAS</td>
+<td align="left">NADCON .los/.las Datum Grid Shift</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">MAP</td>
+<td align="left">OziExplorer .MAP</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">MBTiles</td>
+<td align="left">MBTiles</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">MEM</td>
+<td align="left">In Memory Raster</td>
+<td align="left">TRUE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">MFF</td>
+<td align="left">Vexcel MFF Raster</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">MFF2</td>
+<td align="left">Vexcel MFF2 (HKV) Raster</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">MRF</td>
+<td align="left">Meta Raster Format</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">MSGN</td>
+<td align="left">EUMETSAT Archive native (.nat)</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">NDF</td>
+<td align="left">NLAPS Data Format</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">netCDF</td>
+<td align="left">Network Common Data Format</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">NGSGEOID</td>
+<td align="left">NOAA NGS Geoid Height Grids</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">NITF</td>
+<td align="left">National Imagery Transmission Format</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">NTv2</td>
+<td align="left">NTv2 Datum Grid Shift</td>
+<td align="left">TRUE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">NWT_GRC</td>
+<td align="left">Northwood Classified Grid Format .grc/.tab</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">NWT_GRD</td>
+<td align="left">Northwood Numeric Grid Format .grd/.tab</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">OGDI</td>
+<td align="left">OGDI Bridge</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">OZI</td>
+<td align="left">OziExplorer Image File</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">PAux</td>
+<td align="left">PCI .aux Labelled</td>
+<td align="left">TRUE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">PCIDSK</td>
+<td align="left">PCIDSK Database File</td>
+<td align="left">TRUE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">PCRaster</td>
+<td align="left">PCRaster Raster File</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">PDF</td>
+<td align="left">Geospatial PDF</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">PDS</td>
+<td align="left">NASA Planetary Data System</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">PLMOSAIC</td>
+<td align="left">Planet Labs Mosaics API</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">PLSCENES</td>
+<td align="left">Planet Labs Scenes API</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">PNG</td>
+<td align="left">Portable Network Graphics</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">PNM</td>
+<td align="left">Portable Pixmap Format (netpbm)</td>
+<td align="left">TRUE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">PostGISRaster</td>
+<td align="left">PostGIS Raster driver</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">PRF</td>
+<td align="left">Racurs PHOTOMOD PRF</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">R</td>
+<td align="left">R Object Data Store</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">Rasterlite</td>
+<td align="left">Rasterlite</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">RIK</td>
+<td align="left">Swedish Grid RIK (.rik)</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">RMF</td>
+<td align="left">Raster Matrix Format</td>
+<td align="left">TRUE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">ROI_PAC</td>
+<td align="left">ROI_PAC raster</td>
+<td align="left">TRUE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">RPFTOC</td>
+<td align="left">Raster Product Format TOC format</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">RRASTER</td>
+<td align="left">R Raster</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">RS2</td>
+<td align="left">RadarSat 2 XML Product</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">RST</td>
+<td align="left">Idrisi Raster A.1</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">SAFE</td>
+<td align="left">Sentinel-1 SAR SAFE Product</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">SAGA</td>
+<td align="left">SAGA GIS Binary Grid (.sdat)</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">SAR_CEOS</td>
+<td align="left">CEOS SAR Image</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">SDTS</td>
+<td align="left">SDTS Raster</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">SENTINEL2</td>
+<td align="left">Sentinel 2</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">SGI</td>
+<td align="left">SGI Image File Format 1.0</td>
+<td align="left">TRUE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">SNODAS</td>
+<td align="left">Snow Data Assimilation System</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">SRP</td>
+<td align="left">Standard Raster Product (ASRP/USRP)</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">SRTMHGT</td>
+<td align="left">SRTMHGT File Format</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">Terragen</td>
+<td align="left">Terragen heightfield</td>
+<td align="left">TRUE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">TIL</td>
+<td align="left">EarthWatch .TIL</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">TSX</td>
+<td align="left">TerraSAR-X Product</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">USGSDEM</td>
+<td align="left">USGS Optional ASCII DEM (and CDED)</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">VICAR</td>
+<td align="left">MIPL VICAR file</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">VRT</td>
+<td align="left">Virtual Raster</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">WCS</td>
+<td align="left">OGC Web Coverage Service</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">WEBP</td>
+<td align="left">WEBP</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">WMS</td>
+<td align="left">OGC Web Map Service</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">WMTS</td>
+<td align="left">OGC Web Mab Tile Service</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">XPM</td>
+<td align="left">X11 PixMap Format</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">XYZ</td>
+<td align="left">ASCII Gridded XYZ</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">ZMap</td>
+<td align="left">ZMap Plus Grid</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p>Lots!!! But note that there are others that are not supported in R. Perhaps the most common unsupported ones you’ll encounter are the ESRI geodatabases (.gdb and .mdb), which are designed for ArcGIS and are super efficient (in ArcGIS), but ESRI haven’t released the drivers, so they don’t work (or at least not properly) for most other GIS software…</p>
+<p>Note that there has been a big push to develop a standardized set of open source, efficient and interoperable file formats. Some examples to watch:</p>
+<ul>
+<li><a href="https://www.geopackage.org/">GeoPackage</a> - SQLite database containers for storing vector, raster and attribute data in a compact and transferable format.</li>
+<li><a href="https://geojson.org/">GeoJSON</a> - a geographic version of JSON (JavaScript Object Notation) for vector data, very commonly used for web apps etc.</li>
+<li><a href="https://www.cogeo.org/">Cloud-optimized GeoTIFF</a> - as the name suggests; a GeoTIFF-based format for optimally hosting and allowing querying and downloading of raster data on the cloud…</li>
+</ul>
 
 </div>
 </div>
@@ -896,20 +1902,6 @@ gitbook.start({
 });
 </script>
 
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
-  (function () {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:")
-      if (/^https?:/.test(src))
-        src = src.replace(/^https?:/, '');
-    script.src = src;
-    document.getElementsByTagName("head")[0].appendChild(script);
-  })();
-</script>
 </body>
 
 </html>

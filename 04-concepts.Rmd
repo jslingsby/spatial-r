@@ -4,4 +4,3 @@
 
 ## Coordinate Reference Systems (CRS)
 
-## Attributes
