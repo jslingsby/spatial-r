@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>5 Some important concepts and pitfalls | A Minimal Introduction to GIS in R</title>
+  <meta name="description" content="This is a minimal introduction to GIS and handling spatial data in R compiled for the Biological Sciences BSc(Honours) class at the University of Cape Town." />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="5 Some important concepts and pitfalls | A Minimal Introduction to GIS in R" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is a minimal introduction to GIS and handling spatial data in R compiled for the Biological Sciences BSc(Honours) class at the University of Cape Town." />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="5 Some important concepts and pitfalls | A Minimal Introduction to GIS in R" />
+  
+  <meta name="twitter:description" content="This is a minimal introduction to GIS and handling spatial data in R compiled for the Biological Sciences BSc(Honours) class at the University of Cape Town." />
+  
+
+<meta name="author" content="Jasper Slingsby" />
+
+
+<meta name="date" content="2021-05-23" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="gis-data-models-and-file-formats.html"/>
+<link rel="next" href="final-words.html"/>
+<script src="libs/header-attrs-2.6/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Intro to GIS in R</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Overview</a></li>
+<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Why care about GIS?</a></li>
+<li class="chapter" data-level="3" data-path="gis-basics.html"><a href="gis-basics.html"><i class="fa fa-check"></i><b>3</b> GIS basics</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="gis-basics.html"><a href="gis-basics.html#what-is-gis"><i class="fa fa-check"></i><b>3.1</b> What is GIS?</a></li>
+<li class="chapter" data-level="3.2" data-path="gis-basics.html"><a href="gis-basics.html#how-do-we-do-gis"><i class="fa fa-check"></i><b>3.2</b> How do we do GIS?</a></li>
+<li class="chapter" data-level="3.3" data-path="gis-basics.html"><a href="gis-basics.html#ucthelp"><i class="fa fa-check"></i><b>3.3</b> How to get help?</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="gis-data-models-and-file-formats.html"><a href="gis-data-models-and-file-formats.html"><i class="fa fa-check"></i><b>4</b> GIS data models and file formats</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="gis-data-models-and-file-formats.html"><a href="gis-data-models-and-file-formats.html#data-models"><i class="fa fa-check"></i><b>4.1</b> Data models</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="gis-data-models-and-file-formats.html"><a href="gis-data-models-and-file-formats.html#vector-data"><i class="fa fa-check"></i><b>4.1.1</b> Vector data</a></li>
+<li class="chapter" data-level="4.1.2" data-path="gis-data-models-and-file-formats.html"><a href="gis-data-models-and-file-formats.html#raster-data"><i class="fa fa-check"></i><b>4.1.2</b> Raster data</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="gis-data-models-and-file-formats.html"><a href="gis-data-models-and-file-formats.html#attribute-data"><i class="fa fa-check"></i><b>4.2</b> Attribute data</a></li>
+<li class="chapter" data-level="4.3" data-path="gis-data-models-and-file-formats.html"><a href="gis-data-models-and-file-formats.html#file-formats"><i class="fa fa-check"></i><b>4.3</b> File formats</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="some-important-concepts-and-pitfalls.html"><a href="some-important-concepts-and-pitfalls.html"><i class="fa fa-check"></i><b>5</b> Some important concepts and pitfalls</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="some-important-concepts-and-pitfalls.html"><a href="some-important-concepts-and-pitfalls.html#scale"><i class="fa fa-check"></i><b>5.1</b> Scale</a></li>
+<li class="chapter" data-level="5.2" data-path="some-important-concepts-and-pitfalls.html"><a href="some-important-concepts-and-pitfalls.html#coordinate-reference-systems-crs"><i class="fa fa-check"></i><b>5.2</b> Coordinate Reference Systems (CRS)</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="some-important-concepts-and-pitfalls.html"><a href="some-important-concepts-and-pitfalls.html#geographic-or-unprojected-coordinate-systems"><i class="fa fa-check"></i><b>5.2.1</b> Geographic (or “unprojected”) Coordinate Systems</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>6</b> Final Words</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">A Minimal Introduction to GIS in R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="some-important-concepts-and-pitfalls" class="section level1" number="5">
+<h1><span class="header-section-number">5</span> Some important concepts and pitfalls</h1>
+<div id="scale" class="section level2" number="5.1">
+<h2><span class="header-section-number">5.1</span> Scale</h2>
+<p>All maps have a scale. Scale is the ratio between the size of the representation of an object and its size in reality. E.g. objects on a 1:50,000 scale map are drawn at 1/50,000 their size, so 1cm on the map represents a distance of 500m in reality (i.e. <span class="math inline">\(1*50,000 = 50,000cm = 500m\)</span>).</p>
+<p>GIS is usually scaleless (or at least flexible in scale); we can “zoom in” as much as we want to, and perform operations at just about any scale we want to, but should we? There are lots of issues we need to consider!</p>
+<ul>
+<li><strong>Representation…</strong> There are 2 issues here:
+<ul>
+<li>Firstly, a 1mm thick line on a 1:50,000 scale map would be 50m wide in reality. A 5m wide road would be 1/10mm on the map. Would the map be readable? Sometimes we break the rules of scale to make maps readable. Bear this in mind!</li>
+<li>Secondly, representation also becomes an issue of how to capture data. For example, a road is typically best represented as a line at 1:5,000 scale or smaller, but at 1:1,000 scale a 5m wide road would be 5mm across on the map, so one might capture it as a polygon to represent its area.</li>
+</ul></li>
+<li><strong>Accuracy</strong> of location versus scale of data capture. We should always check the scale at which the data were captured to make sure it is accurate enough for the scale of the analysis we are doing. For example, the various vegetation units in the National Vegetation Map of South Africa were mapped at a range of scales, some as small as 1:250,000 (note that small scale = large extent or area!). At this scale 1mm = 250m, so a minor digitization error is a huge difference on the ground! If you need your analysis to be accurate to &lt;10m then you’d probably need data mapped at a scale larger than 1:10,000.</li>
+<li><strong>Precision</strong> - Can mean two things:
+<ul>
+<li>The unit or number of decimal places to which the attribute has been measured (and can be stored)</li>
+<li>The spread of repeat measurements (typically in field data collection). A big spread means the measurements weren’t very precise…</li>
+</ul></li>
+</ul>
+<p><br></p>
+<div id="a-quick-aside-on-the-difference-between-accuracy-and-precision" class="section level3 unlisted unnumbered">
+<h3>A quick aside on the difference between accuracy and precision!</h3>
+<div class="figure" style="text-align: center"><span id="fig:accuracyprecision"></span>
+<img src="spatial-r_files/figure-html/accuracyprecision-1.png" alt="The difference between accuracy and precision." width="672" />
+<p class="caption">
+Figure 5.1: The difference between accuracy and precision.
+</p>
+</div>
+<p><br></p>
+<p><strong>A last word on Scale…</strong></p>
+<p>For vector data, we typically refer to scale when describing a data set.</p>
+<p>For raster data, we typically refer to pixel resolution (or sample interval). For example, a 30m digital elevation model is made up of pixels 30m across. For remotely sensed imagery (i.e. from drone, plane or satellite), one often uses the term “ground sample distance.”</p>
+<p><br></p>
+</div>
+</div>
+<div id="coordinate-reference-systems-crs" class="section level2" number="5.2">
+<h2><span class="header-section-number">5.2</span> Coordinate Reference Systems (CRS)</h2>
+<p>Coordinate reference systems can be a minefield, and I don’t have the time to cover them in any detail here. Knowing what system one dataset is in allows it to be reprojected to align with any other defined datasets you are working with. It is also important to to make sure you are using a CRS that is appropriate for the analysis or representation you are planning.</p>
+<div id="geographic-or-unprojected-coordinate-systems" class="section level3" number="5.2.1">
+<h3><span class="header-section-number">5.2.1</span> Geographic (or “unprojected”) Coordinate Systems</h3>
+<p>The most common coordinate system is latitude/longitude, also known as <em>geographic</em>, lat/long or sometimes <em>WGS84</em>. There are many ways to record geographic coordinates:</p>
+<ul>
+<li>Degrees, Minutes &amp; Seconds: S33°26’46”,E18°10’23’’</li>
+<li>Decimal Degrees: -33.4461111,18.17305556</li>
+<li>Most GIS prefer decimal degrees…</li>
+</ul>
+<p>The problem with doing analyses using geographic CRS is that degrees differ in their actual ground distance depending on where you are on the planet. They also differ in the N-S vs W-E plane!</p>
+<p>[Insert Tom’s figure here!]</p>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="gis-data-models-and-file-formats.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="final-words.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/04-concepts.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["spatial-r.pdf", "spatial-r.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

@@ -22,7 +22,9 @@ The 5-day module includes daily ~1 hour lectures followed by self-study time whe
 
 <br>
 
-_These course notes borrow or paraphrase extensively from [Adam Wilson's GEO 511 Spatial Data Science course](http://adamwilsonlabedu.github.io/GEO511/index.html) and [Manny Gimond's Intro to GIS & Spatial Analysis](https://mgimond.github.io/Spatial/index.html)._ 
+_These course notes borrow or paraphrase extensively from [Adam Wilson's GEO 511 Spatial Data Science course](http://adamwilsonlabedu.github.io/GEO511/index.html), [Manny Gimond's Intro to GIS & Spatial Analysis](https://mgimond.github.io/Spatial/index.html) and the 2020 series of GIS Lecture Lunches by Thomas Slingsby and Nicholas Lindenberg from UCT Library's [GIS Support Unit](http://www.lib.uct.ac.za/lib/services/gis-support)._ 
+
+<br>
 
 Other very valuable resources include:
 

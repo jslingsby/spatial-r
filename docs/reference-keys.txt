@@ -11,6 +11,7 @@ fig:vectorveg
 fig:rasterdem
 fig:contourdem
 fig:rasterveg
+fig:accuracyprecision
 overview
 intro
 gis-basics
@@ -23,8 +24,8 @@ vector-data
 raster-data
 attribute-data
 file-formats
-some-important-concepts
+some-important-concepts-and-pitfalls
 scale
 coordinate-reference-systems-crs
-attributes
 final-words
+geographic-or-unprojected-coordinate-systems

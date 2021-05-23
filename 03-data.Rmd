@@ -158,6 +158,7 @@ Here are the first few entries of the attribute table for our Cape Peninsula veg
 <br>
 
 ```{r vegattributes, echo=FALSE, warning=F, message=F}
+library(knitr) # To make the table with the kable() function 
 kable(head(veg))
 ```
 
@@ -190,7 +191,6 @@ You can view the lists of most of the file types supported by R (or at least the
 <br>
 
 ```{r vector_drivers, echo = F, warning=F, message=F}
-library(knitr) # To make the table with the kable() function
 library(rgdal) # Holds the ogrDrivers() function
 
 #kable(head(ogrDrivers(), n = 80))
@@ -204,9 +204,6 @@ Or `rgdal::gdalDrivers()` for raster drivers:
 <br>
 
 ```{r raster_drivers, echo = F, warning=F, message=F}
-library(knitr) # To make the table with the kable() function
-library(rgdal) # Holds the ogrDrivers() function
-
 kable(gdalDrivers())
 ```
 
