@@ -1,0 +1,94 @@
+---
+  bookdown::gitbook:
+    config:
+      toc:
+        collapse: null
+      edit: null
+      download: null
+---
+
+# GIS operations in R
+
+## Case study and demo datasets
+Ok, for demonstrating some of the many GIS operations R can perform we will be using data from one of my favourite study areas, the Cape Peninsula.
+
+The datasets we sill use, some of their properties and where to source them are tabled below:
+
+<br>
+
+```{r datasets, echo = F, warning=F, message=F}
+library(knitr) 
+
+datasets <- data.frame(
+  `Name` = c("Localities", "Watercourses", "Vegetation Types", "Elevation"),
+  `Data model` = c("Vector", "Vector", "Vector", "Raster"),
+  `Geometry type` = c("Point", "Line", "Polygon", "Raster"),
+  `File format` = c("", "ESRI shapefile", "ESRI shapefile", "GeoTIFF"),
+  `Data source` = c("iNaturalist", "City of Cape Town", "City of Cape Town", "City of Cape Town"),
+  URL = c("https://www.inaturalist.org/", "https://odp-cctegis.opendata.arcgis.com/datasets/open-watercourse", "https://odp-cctegis.opendata.arcgis.com/datasets/indigenous-vegetation-current-extent", "https://odp-cctegis.opendata.arcgis.com/datasets/digital-elevation-model-10m-grid-general-binary-ascii")
+)
+
+kable(datasets)
+```
+
+<br>
+
+If you'd like to follow along and run the analyses that follow, please follow the links and download the datasets. Please note that the elevation dataset is ~130MB. I'll also put a copy of all datasets on the Vula site for the course, which I understand is zero-data rated. I'll also demonstrate how to fetch a different, smaller elevation dataset directly from R, so if internet speed is an issue for you don't download the elevation dataset...
+
+<br>
+
+## Housekeeping
+
+Apologies, this bit is a little long-winded, but please read it carefully as it will likely affect your ability to run the code below.
+
+### Working directories
+I usually work from a "Project" in RStudio linked to a GIT repository (see **<https://git-scm.com/>** and **<https://github.com/>**) for version control and easy code sharing/collaboration. I'm not going to go there with this tutorial, but it is worth exploring if you intend to do big projects in R. R projects set the working directory to a good place automatically. Alternatively you can use the setwd() function.
+
+If I'm not in a GIT repo or I am working with large data sets that I don't want to replicate in every GIT repo on my hard drive I usually set separate "data", "GIS data" (i.e. biggish data) and "results" working directories by making each path an object and inserting as appropriate for different read and write functions using paste() or paste0(). These would look something like: 
+
+```
+datwd = "/home/jasper/Dropbox/Teaching/SpatialR/Example/Data/"
+giswd = "/home/jasper/Documents/GIS/"   
+reswd = "/home/jasper/Dropbox/Teaching/SpatialR/Example/Results/"
+```
+
+### Sharing code between multiple machines
+If you plan run the same code on multiple machines (e.g. your laptop and a workstation) or are sharing code with a collaborator (and are not using GitHub) it's easiest to automatically detect what computer the code is being run on and set the appropriate working directories (and anything else you like).
+
+This can be done by identifying the machine/user using Sys.getenv() and wrapping the code for setting working directories etc in an if() statement for each user, like so:
+
+
+```{r}
+Sys.getenv("USER") #Tells us the "USER" name on Mac or Linux
+```
+
+If you are on Windows you need to use `Sys.getenv("USERNAME")`. I don't know why its different...? 
+
+Then I can set up my *if()* statement. Note that each user/collaborator can set up their own *if()* statement one after the other because if the statement `Sys.getenv("USER")=='jasper'` returns `FALSE` then R doesn't run the chunk of code in the curly brackets `{ ... }`.
+
+```
+if (Sys.getenv("USER")=='jasper') {
+datwd="/home/jasper/Dropbox/Teaching/SpatialR/Example/Data/"
+giswd="/home/jasper/Dropbox/BlogData/"
+reswd="/home/jasper/Dropbox/Teaching/SpatialR/Example/Results/"}
+
+if (Sys.getenv("USER")=='MACUseR') {datwd=""; giswd=""; reswd=""} #Change here for Mac/Linux users
+
+if (Sys.getenv("USERNAME")=='WINDOWSUseR') {datwd=""; giswd=""; reswd=""} #Change here for Windows users
+```
+
+This way a new project member can add a new line of code without deleting anything, and it only sets the working directories (and any other settings you want) for the appropriate user - i.e. the if() statement ignores settings for all other users.
+
+If you are running the code from this tutorial you need to set your username and working directories here. You can just set *datwd*, *giswd* and *reswd* to the same file path for the purposes of this tutorial (if you've put all the data you downloaded in the same place).
+
+#### A quick aside on slashes
+Often the reason you can't read in data is because you need to add (or delete) a "/" at the end! - Silly, but that pro tip should help.
+
+Note that we generally use single forwardslashes "/" in R. Windows likes to use single backslashes, but R (and just about every other computer programme in the world) doesn't like this. You can use double backslashes on Windows if you must...
+
+
+
+___
+For the sake of simplicity and file size, I have already _cropped_ the elevation and vegetation datasets to a smaller and _resampled_ the raster from 10m to 90m pixel resolution
+
+

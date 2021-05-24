@@ -1,0 +1,83 @@
+---
+  bookdown::gitbook:
+    config:
+      toc:
+        collapse: null
+      edit: null
+      download: null
+---
+
+# R as a GIS
+
+## Overview
+
+Points, lines, polygons and rasters - R can handle them all and more! [R](https://www.r-project.org/) is a free software environment for statistical computing and graphics, but its abilities have been extended into many realms through the ~18,000 (!) contributed [extension packages](https://cran.r-project.org/web/packages/available_packages_by_name.html) (also called libraries).
+
+The list of packages can be bewildering, but fortunately some great folks have taken the time to sift through and make some sense of them for different focal topics and created _Task Views_.
+
+<br>
+
+**For GIS there are two Task Views of interest:**
+
+* [Spatial](https://cran.r-project.org/web/views/Spatial.html) - maintained by Roger Bivand, and
+* [SpatioTemporal](https://cran.r-project.org/web/views/SpatioTemporal.html) - maintained by Edzer Pebesma
+
+They overlap somewhat, but the latter specifically focuses on data where both location and time of observation are registered, and relevant for the analysis of the data.
+
+Each has an overview page listing packages and highlighting their respective strengths, weaknesses etc., e.g.
+
+<br>
+
+```{r spatialTV, echo=FALSE, fig.cap = 'Screenshot of the "Spatial" Task View at [https://cran.r-project.org/](https://cran.r-project.org/)', fig.width=5, fig.align = 'center'}
+knitr::include_graphics("img/spatialTV.png")
+```
+
+<br>
+
+The Spatial Task View focuses on "Analysis of Spatial Data", with sections on:
+
+* Classes for spatial data and metadata
+* Reading and writing spatial data
+* Handling spatial data
+* Analyzing spatial data
+
+Task Views also allow easy download and installation of all packages in a Task View using library(ctv)! - see code below. _**But beware! It can take a while to download and install if it is a big Task View and the the Spatial one is BIG!!!**_ You don't need the whole Task View for my tutorials, so don't bother downloading it if you're just working through these.
+
+<br>
+
+```{r taskviews, echo=FALSE, fig.cap = 'Screenshot of the Task View landing page at [https://cran.r-project.org/](https://cran.r-project.org/)', fig.width=5, fig.align = 'center'}
+knitr::include_graphics("img/taskviews.png")
+```
+
+<br>
+
+Since you can't copy the code from the image, here it is:
+
+`install.packages("ctv")`
+
+`ctv::install.views("Spatial")`
+
+<br>
+
+## Some key R packages
+
+We don't have time to go through all packages or provide a full history, but here are some useful notes in brief
+
+### For vector data 
+(although some can handle rasters too) 
+
+The two leading packages were [_sp_](https://cran.r-project.org/web/packages/sp/index.html) and [_rgdal_](https://cran.r-project.org/web/packages/rgdal/index.html). While these are still very active and useful, they are being superseded by a newer package [_sf_](https://cran.r-project.org/web/packages/sf/index.html), which is a modern implementation and standardization of parts of sp.
+
+_**sf**_ stands for "Simple Features for R", in compliance with the OGC Simple Feature standard. It is highly efficient, and comes with the advantage that it uses [_Tidyverse_](https://www.tidyverse.org/) principles and coding styles, e.g. allowing use of the pipe operator (`%>%`) the direct application of library(dplyr) and library(ggplot2) functions.
+
+I will use _sf_ for the most part in the demonstration material. Unfortunately, not all operations are available in _sf_ yet and I may still have to use _sp_ at times, especially when performing operations using both vector and raster data.
+
+### For raster data 
+By far the best package has been [_raster_](https://cran.r-project.org/web/packages/raster/index.html), maintained by Robert Hijmans of WorldClim fame, and can do just about anything with rasters and interfaces with _sp_ very nicely.
+
+_raster_ is currently being superseded by a new package called [_terra_](), also being developed by Hijmans.
+
+> _"terra is very similar to the raster package; but terra is simpler, better, and faster"_ - Roger Bivand
+
+I've never used _terra_ before developing this module, and it is far from mature. For most of the demonstrations we will use _raster_.
+

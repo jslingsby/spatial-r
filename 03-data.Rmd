@@ -42,7 +42,7 @@ From this we can observe the different properties of the data types:
 * a **line** is two or more points with straight lines connecting them, where each line has a _length_
 * a **polygon** is a set of points connected by lines that form a closed shape, which has an _area_
 
-Note that these "data types" are also commonly called _geometric primitives_ or _geometries_. Later we'll see that you get more complicated "types", but these are generally combinations of the above: **multipoint**, **multilinestring**, **multipolygon**, **geometry collection**, etc and are largely just different data classes designed to help with handling data than unique geometries.
+Note that these "data types" are also commonly called _feature classes_, _geometric primitives_ or _geometries_. Later we'll see that you get more complicated "types", but these are generally combinations of the above: **multipoint**, **multilinestring**, **multipolygon**, **geometry collection**, etc and are largely just different data classes designed to help with handling data than unique geometries.
 
 <br>
 
@@ -225,4 +225,4 @@ Note that there has been a big push to develop a standardized set of open source
 * [GeoPackage](https://www.geopackage.org/) - SQLite database containers for storing vector, raster and attribute data in a compact and transferable format.
 * [GeoJSON](https://geojson.org/) - a geographic version of JSON (JavaScript Object Notation) for vector data, very commonly used for web apps etc.
 * [Cloud-optimized GeoTIFF](https://www.cogeo.org/) - as the name suggests; a GeoTIFF-based format for optimally hosting and allowing querying and downloading of raster data on the cloud...
-
+* [Simple Features](https://www.ogc.org/standards/sfa) - an open, efficient and interoperable standard for vector data.

@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>3 GIS basics | A Minimal Introduction to GIS in R</title>
+  <title>7 GIS operations in R | A Minimal Introduction to GIS in R</title>
   <meta name="description" content="This is a minimal introduction to GIS and handling spatial data in R compiled for the Biological Sciences BSc(Honours) class at the University of Cape Town." />
   <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="3 GIS basics | A Minimal Introduction to GIS in R" />
+  <meta property="og:title" content="7 GIS operations in R | A Minimal Introduction to GIS in R" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="jslingsby/spatial-r" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="3 GIS basics | A Minimal Introduction to GIS in R" />
+  <meta name="twitter:title" content="7 GIS operations in R | A Minimal Introduction to GIS in R" />
   
   <meta name="twitter:description" content="This is a minimal introduction to GIS and handling spatial data in R compiled for the Biological Sciences BSc(Honours) class at the University of Cape Town." />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="intro.html"/>
-<link rel="next" href="gis-data-models-and-file-formats.html"/>
+<link rel="prev" href="r-as-a-gis.html"/>
+<link rel="next" href="references.html"/>
 <script src="libs/header-attrs-2.6/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -174,6 +174,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7" data-path="gis-operations-in-r.html"><a href="gis-operations-in-r.html"><i class="fa fa-check"></i><b>7</b> GIS operations in R</a>
 <ul>
 <li class="chapter" data-level="7.1" data-path="gis-operations-in-r.html"><a href="gis-operations-in-r.html#case-study-and-demo-datasets"><i class="fa fa-check"></i><b>7.1</b> Case study and demo datasets</a></li>
+<li class="chapter" data-level="7.2" data-path="gis-operations-in-r.html"><a href="gis-operations-in-r.html#housekeeping"><i class="fa fa-check"></i><b>7.2</b> Housekeeping</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="gis-operations-in-r.html"><a href="gis-operations-in-r.html#working-directories"><i class="fa fa-check"></i><b>7.2.1</b> Working directories</a></li>
+<li class="chapter" data-level="7.2.2" data-path="gis-operations-in-r.html"><a href="gis-operations-in-r.html#sharing-code-between-multiple-machines"><i class="fa fa-check"></i><b>7.2.2</b> Sharing code between multiple machines</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
@@ -196,58 +201,109 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="gis-basics" class="section level1" number="3">
-<h1><span class="header-section-number">3</span> GIS basics</h1>
-<p>Here we cover the basics of GIS…</p>
-<div id="what-is-gis" class="section level2" number="3.1">
-<h2><span class="header-section-number">3.1</span> What is GIS?</h2>
-<p>A Geographic Information System is a framework used to create, manage, visualize and analyze data in a spatial context. Most datasets can be assigned a spatial location, either on the earth’s surface or within some constrained area like a sports field, a vegetation survey plot, or even a drawer in your kitchen.</p>
-<p>While almost any dataset has a spatial context, and can thus be represented in a GIS, the real question is whether it needs to be analyzed in a GIS environment? The answer to this question depends on the purpose of the analysis. Typically, one would use GIS if you were using the spatial information associated with the data to:</p>
-<ul>
-<li><em>access</em> data elements (e.g. select data by spatial location or coverage),</li>
-<li>perform <em>analytical operations</em> (e.g. overlay and merge two datasets to produce a new dataset), or</li>
-<li><em>render visualizations</em> (e.g. generate a map).</li>
-</ul>
-<p>There are many many operations and functions within each of these three major operation types. There are also many support functions and operations that are common across the operation types (e.g. reading/writing data objects). We’ll delve into these later.</p>
-</div>
-<div id="how-do-we-do-gis" class="section level2" number="3.2">
-<h2><span class="header-section-number">3.2</span> How do we do GIS?</h2>
-<p>There are a large number of software packages for doing GIS. Some are free, while others require you to pay for a license. They also vary in what they do (or the combination of things they do). For example, some of the best known <em>desktop GIS applications</em>, which is what your average GIS user is interested in, include:</p>
-<ul>
-<li><a href="https://www.esri.com/en-us/arcgis/about-arcgis/overview">ArcGIS</a> - a commercial product that works on Windows only (or online). UCT has a site license, which provides a set number of user licenses for UCT postgrads and staff (see section <a href="gis-basics.html#ucthelp">3.3</a> for details). Note that ArcGIS is an ESRI product and comes with (or can be upgraded to include) a suite of other (commercial) software components in addition to the desktop application</li>
-<li><a href="https://qgis.org/">QGIS</a> - free and open source software (FOSS) for Windows, Mac or Linux</li>
-<li><a href="https://www.google.com/earth/versions/">Google Earth</a> - free (for now), but not open source, for Windows, Mac, Linux, or online</li>
-</ul>
-<p>Desktop GIS applications are typically graphical user interfaces (GUIs) that call on various other <em>geospatial libraries</em> to do the actual data processing (think of these as sets of functions or tools). Some examples of FOSS geospatial libraries are <a href="https://gdal.org/">GDAL</a> and <a href="https://trac.osgeo.org/geos">GEOS</a>, which are designed to deal with different data models and/or file types.</p>
-<p>We can also do GIS by calling the geospatial libraries and other GIS software types directly with various programming languages. While we can use many (or just about any) coding language, there are a few for which the functions and syntax are better developed for the user, including:</p>
-<ul>
-<li>R</li>
-<li>Python</li>
-<li>JavaScript</li>
-</ul>
-<p>A major advantage of using these general purpose programming languages for your GIS work is that it allows you take advantage of their functions for statistical analyses and presentation etc all in one environment and/or work flow. This also makes it much easier to make your <a href="https://ropensci.github.io/reproducibility-guide/sections/introduction/">research reproducible</a>.</p>
-<p>Note that the geospatial libraries and the other GIS softwares that we call are coded in a variety of other languages, such as Java, C/C++, C# or SQL, but these languages are typically less user friendly and/or more difficult to learn.</p>
-<p>Other “GIS software types” include:</p>
-<ul>
-<li><em>spatial databases</em> such as <a href="https://postgis.net/">PostGIS</a>, which is free and open source software (FOSS) for Windows, Mac or Linux and great for storing and querying large and complex datasets</li>
-<li><em>web mapping</em> such as <a href="https://mapserver.org/">MapServer</a> or <a href="http://geoserver.org/">GeoServer</a></li>
-</ul>
-</div>
-<div id="ucthelp" class="section level2" number="3.3">
-<h2><span class="header-section-number">3.3</span> How to get help?</h2>
-<p>UCT has a <a href="http://www.lib.uct.ac.za/lib/services/gis-support">GIS Support Unit</a> to assist UCT staff and postgraduate researchers with their GIS and spatial data needs. Their primary goal is to help users develop their GIS skills in order to perform sound data capture, geospatial analysis and map production. They can help you with:</p>
-<ul>
-<li>Troubleshooting, Project Planning, Analysis, Cartographic Design and Data Handling.</li>
-<li>GIS Training</li>
-<li>Applying for an ESRI (ArcMAP) Software license.</li>
-</ul>
-<p>Note that they predominantly work with ESRI and QGIS and don’t provide support for R, etc. That said, many GIS work flow issues are common across platforms, and the support unit really know what they’re doing. They’re also a good source of data if you’re struggling to find what you need, but please do your homework before asking them for data!</p>
+<div id="gis-operations-in-r" class="section level1" number="7">
+<h1><span class="header-section-number">7</span> GIS operations in R</h1>
+<div id="case-study-and-demo-datasets" class="section level2" number="7.1">
+<h2><span class="header-section-number">7.1</span> Case study and demo datasets</h2>
+<p>Ok, for demonstrating some of the many GIS operations R can perform we will be using data from one of my favourite study areas, the Cape Peninsula.</p>
+<p>The datasets we sill use, some of their properties and where to source them are tabled below:</p>
 <p><br></p>
-<p>Lastly…</p>
-<p><strong>I am not a help desk!!!</strong></p>
-<p>The goal for this module is to teach you how to help yourself. I’m available to help in the afternoon office hours during this module, but unfortunately, while I would love to, I do not have the time to help you all with your GIS or R issues for the rest of your careers…</p>
-<p>You can find the answer to any issue you are encountering in an online forum like <a href="https://gis.stackexchange.com/">GIS Stack Exchange</a>. I typically just type my questions (or copy and past error messages) directly into Google. The trick is working out what to ask, and sometimes you need to reword your question a couple of times to find the answer you need. If you’re really getting nowhere, you can even post your question on a forum, although it is unlikely that you’ll ever need to do this…</p>
+<table>
+<colgroup>
+<col width="9%" />
+<col width="6%" />
+<col width="7%" />
+<col width="8%" />
+<col width="10%" />
+<col width="57%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Data.model</th>
+<th align="left">Geometry.type</th>
+<th align="left">File.format</th>
+<th align="left">Data.source</th>
+<th align="left">URL</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Localities</td>
+<td align="left">Vector</td>
+<td align="left">Point</td>
+<td align="left"></td>
+<td align="left">iNaturalist</td>
+<td align="left"><a href="https://www.inaturalist.org/" class="uri">https://www.inaturalist.org/</a></td>
+</tr>
+<tr class="even">
+<td align="left">Watercourses</td>
+<td align="left">Vector</td>
+<td align="left">Line</td>
+<td align="left">ESRI shapefile</td>
+<td align="left">City of Cape Town</td>
+<td align="left"><a href="https://odp-cctegis.opendata.arcgis.com/datasets/open-watercourse" class="uri">https://odp-cctegis.opendata.arcgis.com/datasets/open-watercourse</a></td>
+</tr>
+<tr class="odd">
+<td align="left">Vegetation Types</td>
+<td align="left">Vector</td>
+<td align="left">Polygon</td>
+<td align="left">ESRI shapefile</td>
+<td align="left">City of Cape Town</td>
+<td align="left"><a href="https://odp-cctegis.opendata.arcgis.com/datasets/indigenous-vegetation-current-extent" class="uri">https://odp-cctegis.opendata.arcgis.com/datasets/indigenous-vegetation-current-extent</a></td>
+</tr>
+<tr class="even">
+<td align="left">Elevation</td>
+<td align="left">Raster</td>
+<td align="left">Raster</td>
+<td align="left">GeoTIFF</td>
+<td align="left">City of Cape Town</td>
+<td align="left"><a href="https://odp-cctegis.opendata.arcgis.com/datasets/digital-elevation-model-10m-grid-general-binary-ascii" class="uri">https://odp-cctegis.opendata.arcgis.com/datasets/digital-elevation-model-10m-grid-general-binary-ascii</a></td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p>If you’d like to follow along and run the analyses that follow, please follow the links and download the datasets. Please note that the elevation dataset is ~130MB. I’ll also put a copy of all datasets on the Vula site for the course, which I understand is zero-data rated. I’ll also demonstrate how to fetch a different, smaller elevation dataset directly from R, so if internet speed is an issue for you don’t download the elevation dataset…</p>
+<p><br></p>
+</div>
+<div id="housekeeping" class="section level2" number="7.2">
+<h2><span class="header-section-number">7.2</span> Housekeeping</h2>
+<p>Apologies, this bit is a little long-winded, but please read it carefully as it will likely affect your ability to run the code below.</p>
+<div id="working-directories" class="section level3" number="7.2.1">
+<h3><span class="header-section-number">7.2.1</span> Working directories</h3>
+<p>I usually work from a “Project” in RStudio linked to a GIT repository (see <strong><a href="https://git-scm.com/" class="uri">https://git-scm.com/</a></strong> and <strong><a href="https://github.com/" class="uri">https://github.com/</a></strong>) for version control and easy code sharing/collaboration. I’m not going to go there with this tutorial, but it is worth exploring if you intend to do big projects in R. R projects set the working directory to a good place automatically. Alternatively you can use the setwd() function.</p>
+<p>If I’m not in a GIT repo or I am working with large data sets that I don’t want to replicate in every GIT repo on my hard drive I usually set separate “data,” “GIS data” (i.e. biggish data) and “results” working directories by making each path an object and inserting as appropriate for different read and write functions using paste() or paste0(). These would look something like:</p>
+<pre><code>datwd = &quot;/home/jasper/Dropbox/Teaching/SpatialR/Example/Data/&quot;
+giswd = &quot;/home/jasper/Documents/GIS/&quot;   
+reswd = &quot;/home/jasper/Dropbox/Teaching/SpatialR/Example/Results/&quot;</code></pre>
+</div>
+<div id="sharing-code-between-multiple-machines" class="section level3" number="7.2.2">
+<h3><span class="header-section-number">7.2.2</span> Sharing code between multiple machines</h3>
+<p>If you plan run the same code on multiple machines (e.g. your laptop and a workstation) or are sharing code with a collaborator (and are not using GitHub) it’s easiest to automatically detect what computer the code is being run on and set the appropriate working directories (and anything else you like).</p>
+<p>This can be done by identifying the machine/user using Sys.getenv() and wrapping the code for setting working directories etc in an if() statement for each user, like so:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="gis-operations-in-r.html#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Sys.getenv</span>(<span class="st">&quot;USER&quot;</span>) <span class="co">#Tells us the &quot;USER&quot; name on Mac or Linux</span></span></code></pre></div>
+<pre><code>## [1] &quot;jasper&quot;</code></pre>
+<p>If you are on Windows you need to use <code>Sys.getenv("USERNAME")</code>. I don’t know why its different…?</p>
+<p>Then I can set up my <em>if()</em> statement. Note that each user/collaborator can set up their own <em>if()</em> statement one after the other because if the statement <code>Sys.getenv("USER")=='jasper'</code> returns <code>FALSE</code> then R doesn’t run the chunk of code in the curly brackets <code>{ ... }</code>.</p>
+<pre><code>if (Sys.getenv(&quot;USER&quot;)==&#39;jasper&#39;) {
+datwd=&quot;/home/jasper/Dropbox/Teaching/SpatialR/Example/Data/&quot;
+giswd=&quot;/home/jasper/Dropbox/BlogData/&quot;
+reswd=&quot;/home/jasper/Dropbox/Teaching/SpatialR/Example/Results/&quot;}
 
+if (Sys.getenv(&quot;USER&quot;)==&#39;MACUseR&#39;) {datwd=&quot;&quot;; giswd=&quot;&quot;; reswd=&quot;&quot;} #Change here for Mac/Linux users
+
+if (Sys.getenv(&quot;USERNAME&quot;)==&#39;WINDOWSUseR&#39;) {datwd=&quot;&quot;; giswd=&quot;&quot;; reswd=&quot;&quot;} #Change here for Windows users</code></pre>
+<p>This way a new project member can add a new line of code without deleting anything, and it only sets the working directories (and any other settings you want) for the appropriate user - i.e. the if() statement ignores settings for all other users.</p>
+<p>If you are running the code from this tutorial you need to set your username and working directories here. You can just set <em>datwd</em>, <em>giswd</em> and <em>reswd</em> to the same file path for the purposes of this tutorial (if you’ve put all the data you downloaded in the same place).</p>
+<div id="a-quick-aside-on-slashes" class="section level4" number="7.2.2.1">
+<h4><span class="header-section-number">7.2.2.1</span> A quick aside on slashes</h4>
+<p>Often the reason you can’t read in data is because you need to add (or delete) a “/” at the end! - Silly, but that pro tip should help.</p>
+<p>Note that we generally use single forwardslashes “/” in R. Windows likes to use single backslashes, but R (and just about every other computer programme in the world) doesn’t like this. You can use double backslashes on Windows if you must…</p>
+<hr />
+<p>For the sake of simplicity and file size, I have already <em>cropped</em> the elevation and vegetation datasets to a smaller and <em>resampled</em> the raster from 10m to 90m pixel resolution</p>
+
+</div>
+</div>
 </div>
 </div>
             </section>
@@ -255,8 +311,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="intro.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="gis-data-models-and-file-formats.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="r-as-a-gis.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -287,7 +343,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/jslingsby/spatial-r/edit/master/02-basics.Rmd",
+"link": "https://github.com/jslingsby/spatial-r/edit/master/06-rdemo.Rmd",
 "text": "Edit"
 },
 "history": {
@@ -295,7 +351,7 @@ gitbook.start({
 "text": null
 },
 "view": {
-"link": "https://github.com/jslingsby/spatial-r/blob/master/02-basics.Rmd",
+"link": "https://github.com/jslingsby/spatial-r/blob/master/06-rdemo.Rmd",
 "text": null
 },
 "download": null,
@@ -306,20 +362,6 @@ gitbook.start({
 });
 </script>
 
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
-  (function () {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:")
-      if (/^https?:/.test(src))
-        src = src.replace(/^https?:/, '');
-    script.src = src;
-    document.getElementsByTagName("head")[0].appendChild(script);
-  })();
-</script>
 </body>
 
 </html>

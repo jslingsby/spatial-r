@@ -162,7 +162,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.2.4" data-path="some-important-concepts-and-pitfalls.html"><a href="some-important-concepts-and-pitfalls.html#on-the-fly-vs-manual-projection"><i class="fa fa-check"></i><b>5.2.4</b> “On the fly” vs manual projection</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>6</b> Final Words</a></li>
+<li class="chapter" data-level="6" data-path="r-as-a-gis.html"><a href="r-as-a-gis.html"><i class="fa fa-check"></i><b>6</b> R as a GIS</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="r-as-a-gis.html"><a href="r-as-a-gis.html#overview-1"><i class="fa fa-check"></i><b>6.1</b> Overview</a></li>
+<li class="chapter" data-level="6.2" data-path="r-as-a-gis.html"><a href="r-as-a-gis.html#some-key-r-packages"><i class="fa fa-check"></i><b>6.2</b> Some key R packages</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="r-as-a-gis.html"><a href="r-as-a-gis.html#for-vector-data"><i class="fa fa-check"></i><b>6.2.1</b> For vector data</a></li>
+<li class="chapter" data-level="6.2.2" data-path="r-as-a-gis.html"><a href="r-as-a-gis.html#for-raster-data"><i class="fa fa-check"></i><b>6.2.2</b> For raster data</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="gis-operations-in-r.html"><a href="gis-operations-in-r.html"><i class="fa fa-check"></i><b>7</b> GIS operations in R</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="gis-operations-in-r.html"><a href="gis-operations-in-r.html#case-study-and-demo-datasets"><i class="fa fa-check"></i><b>7.1</b> Case study and demo datasets</a></li>
+</ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -466,6 +478,20 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>

@@ -13,7 +13,7 @@
   
   
   <meta property="og:description" content="This is a minimal introduction to GIS and handling spatial data in R compiled for the Biological Sciences BSc(Honours) class at the University of Cape Town." />
-  <meta name="github-repo" content="rstudio/bookdown-demo" />
+  <meta name="github-repo" content="jslingsby/spatial-r" />
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="References | A Minimal Introduction to GIS in R" />
@@ -31,7 +31,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="final-words.html"/>
+<link rel="prev" href="gis-operations-in-r.html"/>
 
 <script src="libs/header-attrs-2.6/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
@@ -157,11 +157,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.2" data-path="some-important-concepts-and-pitfalls.html"><a href="some-important-concepts-and-pitfalls.html#coordinate-reference-systems-crs"><i class="fa fa-check"></i><b>5.2</b> Coordinate Reference Systems (CRS)</a>
 <ul>
 <li class="chapter" data-level="5.2.1" data-path="some-important-concepts-and-pitfalls.html"><a href="some-important-concepts-and-pitfalls.html#geographic-or-unprojected-coordinate-systems"><i class="fa fa-check"></i><b>5.2.1</b> Geographic (or “unprojected”) Coordinate Systems</a></li>
-<li class="chapter" data-level="5.2.2" data-path="some-important-concepts-and-pitfalls.html"><a href="some-important-concepts-and-pitfalls.html#projected-coordinate-systems"><i class="fa fa-check"></i><b>5.2.2</b> Projected Coordinate Systems</a></li>
-<li class="chapter" data-level="5.2.3" data-path="some-important-concepts-and-pitfalls.html"><a href="some-important-concepts-and-pitfalls.html#section"><i class="fa fa-check"></i><b>5.2.3</b> </a></li>
+<li class="chapter" data-level="5.2.2" data-path="some-important-concepts-and-pitfalls.html"><a href="some-important-concepts-and-pitfalls.html#projections"><i class="fa fa-check"></i><b>5.2.2</b> Projected Coordinate Systems</a></li>
+<li class="chapter" data-level="5.2.3" data-path="some-important-concepts-and-pitfalls.html"><a href="some-important-concepts-and-pitfalls.html#projection-codes"><i class="fa fa-check"></i><b>5.2.3</b> Projection codes</a></li>
+<li class="chapter" data-level="5.2.4" data-path="some-important-concepts-and-pitfalls.html"><a href="some-important-concepts-and-pitfalls.html#on-the-fly-vs-manual-projection"><i class="fa fa-check"></i><b>5.2.4</b> “On the fly” vs manual projection</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>6</b> Final Words</a></li>
+<li class="chapter" data-level="6" data-path="r-as-a-gis.html"><a href="r-as-a-gis.html"><i class="fa fa-check"></i><b>6</b> R as a GIS</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="r-as-a-gis.html"><a href="r-as-a-gis.html#overview-1"><i class="fa fa-check"></i><b>6.1</b> Overview</a></li>
+<li class="chapter" data-level="6.2" data-path="r-as-a-gis.html"><a href="r-as-a-gis.html#some-key-r-packages"><i class="fa fa-check"></i><b>6.2</b> Some key R packages</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="r-as-a-gis.html"><a href="r-as-a-gis.html#for-vector-data"><i class="fa fa-check"></i><b>6.2.1</b> For vector data</a></li>
+<li class="chapter" data-level="6.2.2" data-path="r-as-a-gis.html"><a href="r-as-a-gis.html#for-raster-data"><i class="fa fa-check"></i><b>6.2.2</b> For raster data</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="gis-operations-in-r.html"><a href="gis-operations-in-r.html"><i class="fa fa-check"></i><b>7</b> GIS operations in R</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="gis-operations-in-r.html"><a href="gis-operations-in-r.html#case-study-and-demo-datasets"><i class="fa fa-check"></i><b>7.1</b> Case study and demo datasets</a></li>
+</ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -203,7 +216,7 @@ Xie, Yihui. 2015. <em>Dynamic Documents with <span>R</span> and Knitr</em>. 2nd 
           </div>
         </div>
       </div>
-<a href="final-words.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="gis-operations-in-r.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 
     </div>
   </div>
@@ -235,7 +248,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/rstudio/bookdown-demo/edit/master/06-references.Rmd",
+"link": "https://github.com/jslingsby/spatial-r/edit/master/07-references.Rmd",
 "text": "Edit"
 },
 "history": {
@@ -243,10 +256,10 @@ gitbook.start({
 "text": null
 },
 "view": {
-"link": null,
+"link": "https://github.com/jslingsby/spatial-r/blob/master/07-references.Rmd",
 "text": null
 },
-"download": ["spatial-r.pdf", "spatial-r.epub"],
+"download": null,
 "toc": {
 "collapse": "subsection"
 }
