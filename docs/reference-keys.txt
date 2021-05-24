@@ -12,6 +12,8 @@ fig:rasterdem
 fig:contourdem
 fig:rasterveg
 fig:accuracyprecision
+fig:geocoords
+fig:naartjie
 overview
 intro
 gis-basics
@@ -27,5 +29,11 @@ file-formats
 some-important-concepts-and-pitfalls
 scale
 coordinate-reference-systems-crs
-final-words
 geographic-or-unprojected-coordinate-systems
+projected-coordinate-systems
+section
+final-words
+some-suggested-projections
+on-the-fly-vs-manual-projection
+projections
+projection-codes

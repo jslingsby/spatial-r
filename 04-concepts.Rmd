@@ -57,7 +57,10 @@ For raster data, we typically refer to pixel resolution (or sample interval). Fo
 
 ## Coordinate Reference Systems (CRS)
 
-Coordinate reference systems can be a minefield, and I don't have the time to cover them in any detail here. Knowing what system one dataset is in allows it to be reprojected to align with any other defined datasets you are working with. It is also important to to make sure you are using a CRS that is appropriate for the analysis or representation you are planning.
+Coordinate Reference Systems (CRS) provide a framework for defining real-world locations. There are many different CRSs, with different properties. They can be a minefield, and I don't have the time to cover them in any detail here. I provide some of the basics below, but for me the two golden rules are:
+
+1. You need to **_know what CRS your dataset is in_**. This is essential for as it allows it to be reprojected to align with other datasets you are working with. If your datasets are not in the same CRS, most GIS software will give you warning or error messages, but not always! Note that not all file formats store the CRS "metadata", so check and store it yourself if needed! 
+2. You need to make sure you **_use a CRS that is appropriate for the analysis_** or representation you are planning. More on this below in section \@ref(projections)
 
 ### Geographic (or "unprojected") Coordinate Systems
 
@@ -67,8 +70,68 @@ The most common coordinate system is latitude/longitude, also known as _geograph
 * Decimal Degrees: -33.4461111,18.17305556
 * Most GIS prefer decimal degrees...
 
-The problem with doing analyses using geographic CRS is that degrees differ in their actual ground distance depending on where you are on the planet. They also differ in the N-S vs W-E plane!
+The problem with doing analyses using geographic CRS is that lat/long coordinates are actually angular measurements on a 3D sphere (Geodesic) and degrees differ in their actual ground distance depending on where you are on the planet. They also differ in the N-S vs W-E plane!
 
-[Insert Tom's figure here!]
+<br>
 
+```{r geocoords, echo=FALSE, fig.cap = 'Map highlighting that a degree is larger at the equator than at the poles. Image source: https://annakrystalli.me/intro-r-gis/gis.html', fig.width=4, fig.align = 'center'}
+knitr::include_graphics("img/geographiccoords.gif")
+```
+
+<br>
+
+This means that Euclidean measurement calculations are not appropriate for calculating areas and distances.
+
+<br>
+
+### Projected Coordinate Systems {#projections}
+
+To perform linear measurements from a 3D shape using Euclidean methods, you need to squash that shape into a 2D plane. This _squashing_ is called a _projection_...
+
+<br>
+
+```{r naartjie, echo=FALSE, fig.cap = 'How many different ways could you flatten a naartjie peel?', fig.width=4, fig.align = 'center'}
+knitr::include_graphics("img/projectednaartjie.jpg")
+```
+
+<br>
+
+There are 4 properties that get distorted, you can pick which one gets preserved the best by a projection type:
+
+* Shape - you want a _Conformal_ projection 
+* Area - _Equal-Area_
+* Distance - _Equidistant_
+* Direction - _Azimuthal_
+
+Projections get tuned to best fit an area through the use of projection parameters. An example is the Transverse Mercator system used by the 1:50,000 map series and by Municipalities like Cape Town. This is a general-purpose map, so in order to keep all distortions to a minimum, the projection window is kept to narrow 2 degree-wide bands. As a result, our map series projection parameters are set by moving the central meridian (or tangent) line of longitude every odd degree across the country. Cape Town is close to 19°E, so our version is colloquially called 'Lo-19'.
+
+<br>
+
+### Projection codes
+
+The type of CRS is usually (but not always) stored in the metadata of your file (or dataset, if it is comprised of many files like an ESRI shapefile). There are various formats for this, such as EPSG, PROJ4 or WKT (be warned, there are many more...). In R, to apply a CRS or reproject your data you typically need to know the EPSG or PROJ4 code. Fortunately, there is a huge online library of these at [https://spatialreference.org/](https://spatialreference.org/). I also provide **some suggested projections**, based on the properties you'd like to preserve, and their codes below:
+
+For South Africa
+
+* Shape - you want a _Conformal_ projection 
+* Area - _Equal-Area_ - Albers Equal Area etc?
+* Distance - _Equidistant_
+* Direction - _Azimuthal_
+
+For the Cape Town area (with some guidance on how to alter it for different regions within SA)
+
+* Shape - TM ("+proj=tmerc +lat_0=0 +lon_0=19 +k=1 +x_0=0 +y_0=0 +ellps=WGS84 +units=m +no_defs")? UTM34S? 
+* Area - _Equal-Area_ - Albers Equal Area etc?
+* Distance - _Equidistant_
+* Direction - _Azimuthal_
+
+Perhaps add a figure of SA or CoCT in different projections...
+
+<br>
+
+### "On the fly" vs manual projection
+
+Note that some GIS tools can perform "on the fly" (re)projection of data. For example, by default ArcGIS sets the CRS for a project from the first dataset imported. When you want to visualize the data, it will reproject all other datasets to the set CRS so that it can visualize it properly. Similarly, ArcGIS and other software can project data in a geographic CRS to a projected CRS on the fly when asked to perform Euclidean measurement calculations.
+
+On the fly projection can clearly be very useful, but it can also be misleading if you don't know what its doing. My take is that you should always check the default settings for the software you're using, and check the set CRS(s) and individual dataset CRS(s) to make sure you are working in a suitable CRS for the operations you want to perform...
 

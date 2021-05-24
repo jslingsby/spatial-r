@@ -24,7 +24,7 @@
 <meta name="author" content="Jasper Slingsby" />
 
 
-<meta name="date" content="2021-05-23" />
+<meta name="date" content="2021-05-24" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -94,6 +94,9 @@
 <li class="chapter" data-level="5.2" data-path="some-important-concepts-and-pitfalls.html"><a href="some-important-concepts-and-pitfalls.html#coordinate-reference-systems-crs"><i class="fa fa-check"></i><b>5.2</b> Coordinate Reference Systems (CRS)</a>
 <ul>
 <li class="chapter" data-level="5.2.1" data-path="some-important-concepts-and-pitfalls.html"><a href="some-important-concepts-and-pitfalls.html#geographic-or-unprojected-coordinate-systems"><i class="fa fa-check"></i><b>5.2.1</b> Geographic (or “unprojected”) Coordinate Systems</a></li>
+<li class="chapter" data-level="5.2.2" data-path="some-important-concepts-and-pitfalls.html"><a href="some-important-concepts-and-pitfalls.html#projections"><i class="fa fa-check"></i><b>5.2.2</b> Projected Coordinate Systems</a></li>
+<li class="chapter" data-level="5.2.3" data-path="some-important-concepts-and-pitfalls.html"><a href="some-important-concepts-and-pitfalls.html#projection-codes"><i class="fa fa-check"></i><b>5.2.3</b> Projection codes</a></li>
+<li class="chapter" data-level="5.2.4" data-path="some-important-concepts-and-pitfalls.html"><a href="some-important-concepts-and-pitfalls.html#on-the-fly-vs-manual-projection"><i class="fa fa-check"></i><b>5.2.4</b> “On the fly” vs manual projection</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>6</b> Final Words</a></li>
@@ -155,7 +158,11 @@ Figure 5.1: The difference between accuracy and precision.
 </div>
 <div id="coordinate-reference-systems-crs" class="section level2" number="5.2">
 <h2><span class="header-section-number">5.2</span> Coordinate Reference Systems (CRS)</h2>
-<p>Coordinate reference systems can be a minefield, and I don’t have the time to cover them in any detail here. Knowing what system one dataset is in allows it to be reprojected to align with any other defined datasets you are working with. It is also important to to make sure you are using a CRS that is appropriate for the analysis or representation you are planning.</p>
+<p>Coordinate Reference Systems (CRS) provide a framework for defining real-world locations. There are many different CRSs, with different properties. They can be a minefield, and I don’t have the time to cover them in any detail here. I provide some of the basics below, but for me the two golden rules are:</p>
+<ol style="list-style-type: decimal">
+<li>You need to <strong><em>know what CRS your dataset is in</em></strong>. This is essential for as it allows it to be reprojected to align with other datasets you are working with. If your datasets are not in the same CRS, most GIS software will give you warning or error messages, but not always! Note that not all file formats store the CRS “metadata,” so check and store it yourself if needed!</li>
+<li>You need to make sure you <strong><em>use a CRS that is appropriate for the analysis</em></strong> or representation you are planning. More on this below in section <a href="some-important-concepts-and-pitfalls.html#projections">5.2.2</a></li>
+</ol>
 <div id="geographic-or-unprojected-coordinate-systems" class="section level3" number="5.2.1">
 <h3><span class="header-section-number">5.2.1</span> Geographic (or “unprojected”) Coordinate Systems</h3>
 <p>The most common coordinate system is latitude/longitude, also known as <em>geographic</em>, lat/long or sometimes <em>WGS84</em>. There are many ways to record geographic coordinates:</p>
@@ -164,8 +171,63 @@ Figure 5.1: The difference between accuracy and precision.
 <li>Decimal Degrees: -33.4461111,18.17305556</li>
 <li>Most GIS prefer decimal degrees…</li>
 </ul>
-<p>The problem with doing analyses using geographic CRS is that degrees differ in their actual ground distance depending on where you are on the planet. They also differ in the N-S vs W-E plane!</p>
-<p>[Insert Tom’s figure here!]</p>
+<p>The problem with doing analyses using geographic CRS is that lat/long coordinates are actually angular measurements on a 3D sphere (Geodesic) and degrees differ in their actual ground distance depending on where you are on the planet. They also differ in the N-S vs W-E plane!</p>
+<p><br></p>
+<div class="figure" style="text-align: center"><span id="fig:geocoords"></span>
+<img src="img/geographiccoords.gif" alt="Map highlighting that a degree is larger at the equator than at the poles. Image source: https://annakrystalli.me/intro-r-gis/gis.html"  />
+<p class="caption">
+Figure 5.2: Map highlighting that a degree is larger at the equator than at the poles. Image source: <a href="https://annakrystalli.me/intro-r-gis/gis.html" class="uri">https://annakrystalli.me/intro-r-gis/gis.html</a>
+</p>
+</div>
+<p><br></p>
+<p>This means that Euclidean measurement calculations are not appropriate for calculating areas and distances.</p>
+<p><br></p>
+</div>
+<div id="projections" class="section level3" number="5.2.2">
+<h3><span class="header-section-number">5.2.2</span> Projected Coordinate Systems</h3>
+<p>To perform linear measurements from a 3D shape using Euclidean methods, you need to squash that shape into a 2D plane. This <em>squashing</em> is called a <em>projection</em>…</p>
+<p><br></p>
+<div class="figure" style="text-align: center"><span id="fig:naartjie"></span>
+<img src="img/projectednaartjie.jpg" alt="How many different ways could you flatten a naartjie peel?" width="480" />
+<p class="caption">
+Figure 5.3: How many different ways could you flatten a naartjie peel?
+</p>
+</div>
+<p><br></p>
+<p>There are 4 properties that get distorted, you can pick which one gets preserved the best by a projection type:</p>
+<ul>
+<li>Shape - you want a <em>Conformal</em> projection</li>
+<li>Area - <em>Equal-Area</em></li>
+<li>Distance - <em>Equidistant</em></li>
+<li>Direction - <em>Azimuthal</em></li>
+</ul>
+<p>Projections get tuned to best fit an area through the use of projection parameters. An example is the Transverse Mercator system used by the 1:50,000 map series and by Municipalities like Cape Town. This is a general-purpose map, so in order to keep all distortions to a minimum, the projection window is kept to narrow 2 degree-wide bands. As a result, our map series projection parameters are set by moving the central meridian (or tangent) line of longitude every odd degree across the country. Cape Town is close to 19°E, so our version is colloquially called ‘Lo-19.’</p>
+<p><br></p>
+</div>
+<div id="projection-codes" class="section level3" number="5.2.3">
+<h3><span class="header-section-number">5.2.3</span> Projection codes</h3>
+<p>The type of CRS is usually (but not always) stored in the metadata of your file (or dataset, if it is comprised of many files like an ESRI shapefile). There are various formats for this, such as EPSG, PROJ4 or WKT (be warned, there are many more…). In R, to apply a CRS or reproject your data you typically need to know the EPSG or PROJ4 code. Fortunately, there is a huge online library of these at <a href="https://spatialreference.org/">https://spatialreference.org/</a>. I also provide <strong>some suggested projections</strong>, based on the properties you’d like to preserve, and their codes below:</p>
+<p>For South Africa</p>
+<ul>
+<li>Shape - you want a <em>Conformal</em> projection</li>
+<li>Area - <em>Equal-Area</em> - Albers Equal Area etc?</li>
+<li>Distance - <em>Equidistant</em></li>
+<li>Direction - <em>Azimuthal</em></li>
+</ul>
+<p>For the Cape Town area (with some guidance on how to alter it for different regions within SA)</p>
+<ul>
+<li>Shape - TM (“+proj=tmerc +lat_0=0 +lon_0=19 +k=1 +x_0=0 +y_0=0 +ellps=WGS84 +units=m +no_defs”)? UTM34S?</li>
+<li>Area - <em>Equal-Area</em> - Albers Equal Area etc?</li>
+<li>Distance - <em>Equidistant</em></li>
+<li>Direction - <em>Azimuthal</em></li>
+</ul>
+<p>Perhaps add a figure of SA or CoCT in different projections…</p>
+<p><br></p>
+</div>
+<div id="on-the-fly-vs-manual-projection" class="section level3" number="5.2.4">
+<h3><span class="header-section-number">5.2.4</span> “On the fly” vs manual projection</h3>
+<p>Note that some GIS tools can perform “on the fly” (re)projection of data. For example, by default ArcGIS sets the CRS for a project from the first dataset imported. When you want to visualize the data, it will reproject all other datasets to the set CRS so that it can visualize it properly. Similarly, ArcGIS and other software can project data in a geographic CRS to a projected CRS on the fly when asked to perform Euclidean measurement calculations.</p>
+<p>On the fly projection can clearly be very useful, but it can also be misleading if you don’t know what its doing. My take is that you should always check the default settings for the software you’re using, and check the set CRS(s) and individual dataset CRS(s) to make sure you are working in a suitable CRS for the operations you want to perform…</p>
 
 </div>
 </div>
