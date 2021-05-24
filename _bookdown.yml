@@ -4,3 +4,5 @@ language:
     chapter_name: ""
 delete_merged_file: true
 output_dir: "docs"
+view: https://github.com/jslingsby/spatial-r/blob/master/%s
+edit: https://github.com/jslingsby/spatial-r/edit/master/%s

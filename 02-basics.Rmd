@@ -1,3 +1,12 @@
+---
+  bookdown::gitbook:
+    config:
+      toc:
+        collapse: subsection
+      edit: null
+      download: null
+---
+
 # GIS basics
 
 Here we cover the basics of GIS...
