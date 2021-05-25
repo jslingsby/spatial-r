@@ -24,7 +24,7 @@
 <meta name="author" content="Jasper Slingsby" />
 
 
-<meta name="date" content="2021-05-24" />
+<meta name="date" content="2021-05-25" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -174,6 +174,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7" data-path="gis-operations-in-r.html"><a href="gis-operations-in-r.html"><i class="fa fa-check"></i><b>7</b> GIS operations in R</a>
 <ul>
 <li class="chapter" data-level="7.1" data-path="gis-operations-in-r.html"><a href="gis-operations-in-r.html#case-study-and-demo-datasets"><i class="fa fa-check"></i><b>7.1</b> Case study and demo datasets</a></li>
+<li class="chapter" data-level="7.2" data-path="gis-operations-in-r.html"><a href="gis-operations-in-r.html#housekeeping"><i class="fa fa-check"></i><b>7.2</b> Housekeeping</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="gis-operations-in-r.html"><a href="gis-operations-in-r.html#working-directories"><i class="fa fa-check"></i><b>7.2.1</b> Working directories</a></li>
+<li class="chapter" data-level="7.2.2" data-path="gis-operations-in-r.html"><a href="gis-operations-in-r.html#sharing-code-between-multiple-machines"><i class="fa fa-check"></i><b>7.2.2</b> Sharing code between multiple machines</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
@@ -206,9 +211,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><strong>Representation…</strong> There are 2 issues here:
 <ul>
 <li>Firstly, a 1mm thick line on a 1:50,000 scale map would be 50m wide in reality. A 5m wide road would be 1/10mm on the map. Would the map be readable? Sometimes we break the rules of scale to make maps readable. Bear this in mind!</li>
-<li>Secondly, representation also becomes an issue of how to capture data. For example, a road is typically best represented as a line at 1:5,000 scale or smaller, but at 1:1,000 scale a 5m wide road would be 5mm across on the map, so one might capture it as a polygon to represent its area.</li>
+<li>Secondly, scale and representation also becomes an issue of how to capture data in the first place. For example, a road is typically best represented as a line at 1:5,000 scale or smaller (note that scale is a ratio, so “small scale” = large extent or area!). At 1:1,000 scale a 5m wide road would be 5mm across on the map, so one might capture it as a polygon to represent its area.</li>
 </ul></li>
-<li><strong>Accuracy</strong> of location versus scale of data capture. We should always check the scale at which the data were captured to make sure it is accurate enough for the scale of the analysis we are doing. For example, the various vegetation units in the National Vegetation Map of South Africa were mapped at a range of scales, some as small as 1:250,000 (note that small scale = large extent or area!). At this scale 1mm = 250m, so a minor digitization error is a huge difference on the ground! If you need your analysis to be accurate to &lt;10m then you’d probably need data mapped at a scale larger than 1:10,000.</li>
+<li><strong>Accuracy</strong> of location versus scale of data capture. We should always check the scale at which the data were captured to make sure it is accurate enough for the scale of the analysis we are doing. For example, the various vegetation units in the National Vegetation Map of South Africa were mapped at a range of scales, some as small as 1:250,000. At this scale 1mm = 250m, so a minor digitization error is a huge difference on the ground! If you need your analysis to be accurate to &lt;10m then you’d probably need data mapped at a scale larger than 1:10,000.</li>
 <li><strong>Precision</strong> - Can mean two things:
 <ul>
 <li>The unit or number of decimal places to which the attribute has been measured (and can be stored)</li>
@@ -216,8 +221,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 </ul>
 <p><br></p>
-<div id="a-quick-aside-on-the-difference-between-accuracy-and-precision" class="section level3 unlisted unnumbered">
-<h3>A quick aside on the difference between accuracy and precision!</h3>
+<p><strong>A quick aside on the difference between accuracy and precision!</strong></p>
 <div class="figure" style="text-align: center"><span id="fig:accuracyprecision"></span>
 <img src="spatial-r_files/figure-html/accuracyprecision-1.png" alt="The difference between accuracy and precision." width="672" />
 <p class="caption">
@@ -230,14 +234,32 @@ Figure 5.1: The difference between accuracy and precision.
 <p>For raster data, we typically refer to pixel resolution (or sample interval). For example, a 30m digital elevation model is made up of pixels 30m across. For remotely sensed imagery (i.e. from drone, plane or satellite), one often uses the term “ground sample distance.”</p>
 <p><br></p>
 </div>
-</div>
 <div id="coordinate-reference-systems-crs" class="section level2" number="5.2">
 <h2><span class="header-section-number">5.2</span> Coordinate Reference Systems (CRS)</h2>
-<p>Coordinate Reference Systems (CRS) provide a framework for defining real-world locations. There are many different CRSs, with different properties. They can be a minefield, and I don’t have the time to cover them in any detail here. I provide some of the basics below, but for me the two golden rules are:</p>
+<p>Coordinate Reference Systems (CRS) provide a framework for defining real-world locations. There are many different CRSs, with different properties. They can be a minefield, and I don’t have the time to cover them in any detail here. I provide some of the basics below, and list some of the golden rules (mostly from the GIS Support Unit) here. Some of these may only make sense once we’ve been through the rest of this section…</p>
 <ol style="list-style-type: decimal">
-<li>You need to <strong><em>know what CRS your dataset is in</em></strong>. This is essential for as it allows it to be reprojected to align with other datasets you are working with. If your datasets are not in the same CRS, most GIS software will give you warning or error messages, but not always! Note that not all file formats store the CRS “metadata,” so check and store it yourself if needed!</li>
-<li>You need to make sure you <strong><em>use a CRS that is appropriate for the analysis</em></strong> or representation you are planning. More on this below in section <a href="some-important-concepts-and-pitfalls.html#projections">5.2.2</a></li>
+<li>If things don’t line up, its probably a CRS issue.</li>
+<li>You need to <strong><em>know what CRS your dataset is in</em></strong>.</li>
 </ol>
+<ul>
+<li>This is essential, because you need to <em>define</em> your projections to be able to compare datasets. If they are not the same, you will need to <em>reproject</em> one to align with the other*.</li>
+<li>If your datasets are not in the same CRS, most GIS software will give you warning or error messages, but not always! Note that not all file formats store the CRS “metadata,” so check and store it yourself if needed!</li>
+</ul>
+<ol start="2" style="list-style-type: decimal">
+<li>You need to make sure you <strong><em>use a CRS that best preserves the properties you are interested in</em></strong> (area, distance, direction, shape). More on this below in section <a href="some-important-concepts-and-pitfalls.html#projections">5.2.2</a>.</li>
+<li>If your areas and distances are stupidly small (0.001 etc) your data are probably in Geographic (i.e. degrees and not a unit of distance like metres).</li>
+<li>Always interrogate and “common-sense-check” your results!!!</li>
+</ol>
+<p><br></p>
+<blockquote>
+<p>*Defining Projection is not the same as reprojecting! Think in terms of languages, “I have text in Japanese and want it in English.” <em>Defining</em> is saying what it IS (“This text is in Japanese” - defining Japanese as English gives you garbage). <em>Reprojecting</em> is what you want it to be (i.e. translate Japanese to English).</p>
+</blockquote>
+<p><br></p>
+<p>Two other issues to look out for:</p>
+<ul>
+<li>The official <em>South African CRS</em> is waiting to get you. If you see Gauss Conform run screaming, its a left handed CRS based on Southings and Westings (i.e. completely inverted…). Simple, yes?</li>
+<li><em>Datums…</em> These are essentially models of the shape of the surface of the planet. Most South African datasets (since 1999 at least) use the Hartebeesthoek 94 datum, which is our local “bespoke” solution. It’s pretty much the same as the WGS84 datum (a good global datum), and the difference is negligible for most ecological analyses. Our former local “bespoke” datum (the Cape or Clarke1880 datum), which was often used for data before 1999, is out to get you. These datasets will never line up perfectly with modern data sets when reprojected in a normal GIS and will usually be a couple of tens of metres off…</li>
+</ul>
 <div id="geographic-or-unprojected-coordinate-systems" class="section level3" number="5.2.1">
 <h3><span class="header-section-number">5.2.1</span> Geographic (or “unprojected”) Coordinate Systems</h3>
 <p>The most common coordinate system is latitude/longitude, also known as <em>geographic</em>, lat/long or sometimes <em>WGS84</em>. There are many ways to record geographic coordinates:</p>
@@ -281,22 +303,9 @@ Figure 5.3: How many different ways could you flatten a naartjie peel?
 </div>
 <div id="projection-codes" class="section level3" number="5.2.3">
 <h3><span class="header-section-number">5.2.3</span> Projection codes</h3>
-<p>The type of CRS is usually (but not always) stored in the metadata of your file (or dataset, if it is comprised of many files like an ESRI shapefile). There are various formats for this, such as EPSG, PROJ4 or WKT (be warned, there are many more…). In R, to apply a CRS or reproject your data you typically need to know the EPSG or PROJ4 code. Fortunately, there is a huge online library of these at <a href="https://spatialreference.org/">https://spatialreference.org/</a>. I also provide <strong>some suggested projections</strong>, based on the properties you’d like to preserve, and their codes below:</p>
-<p>For South Africa</p>
-<ul>
-<li>Shape - you want a <em>Conformal</em> projection</li>
-<li>Area - <em>Equal-Area</em> - Albers Equal Area etc?</li>
-<li>Distance - <em>Equidistant</em></li>
-<li>Direction - <em>Azimuthal</em></li>
-</ul>
-<p>For the Cape Town area (with some guidance on how to alter it for different regions within SA)</p>
-<ul>
-<li>Shape - TM (“+proj=tmerc +lat_0=0 +lon_0=19 +k=1 +x_0=0 +y_0=0 +ellps=WGS84 +units=m +no_defs”)? UTM34S?</li>
-<li>Area - <em>Equal-Area</em> - Albers Equal Area etc?</li>
-<li>Distance - <em>Equidistant</em></li>
-<li>Direction - <em>Azimuthal</em></li>
-</ul>
-<p>Perhaps add a figure of SA or CoCT in different projections…</p>
+<p>The type of CRS is usually (but not always) stored in the metadata of your file (or dataset, if it is comprised of many files like an ESRI shapefile). There are various formats for this, such as EPSG, PROJ4 or WKT (be warned, there are many more…). In R, to apply a CRS or reproject your data you typically need to know the EPSG or PROJ4 code. Fortunately, there is a huge online library of these at <a href="https://spatialreference.org/">https://spatialreference.org/</a>. I also provide <strong>some suggested projections</strong>, based on the properties you’d like to preserve, and their codes <a href="https://docs.google.com/spreadsheets/d/1Hvkub7syQNP6GsgaSh5SZNEd3VR9-9j94M5W-hmvm24/edit?usp=sharing">here</a>. Note that for UTM and TM you may need to adjust the PROJ4 strings for your area - read the comments.</p>
+<p>Why do projections matter?</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="some-important-concepts-and-pitfalls.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Map comparing SA or the world projected in different ways...</span></span></code></pre></div>
 <p><br></p>
 </div>
 <div id="on-the-fly-vs-manual-projection" class="section level3" number="5.2.4">

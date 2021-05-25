@@ -91,4 +91,4 @@ Note that we generally use single forwardslashes "/" in R. Windows likes to use 
 ___
 For the sake of simplicity and file size, I have already _cropped_ the elevation and vegetation datasets to a smaller and _resampled_ the raster from 10m to 90m pixel resolution
 
-
+### A quick aside on the difference between accuracy and precision! {.unlisted .unnumbered}

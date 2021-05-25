@@ -26,15 +26,15 @@ GIS is usually scaleless (or at least flexible in scale); we can "zoom in" as mu
 
 * **Representation...** There are 2 issues here:
   - Firstly, a 1mm thick line on a 1:50,000 scale map would be 50m wide in reality. A 5m wide road would be 1/10mm on the map. Would the map be readable? Sometimes we break the rules of scale to make maps readable. Bear this in mind!
-  - Secondly, representation also becomes an issue of how to capture data. For example, a road is typically best represented as a line at 1:5,000 scale or smaller, but at 1:1,000 scale a 5m wide road would be 5mm across on the map, so one might capture it as a polygon to represent its area.
-* **Accuracy** of location versus scale of data capture. We should always check the scale at which the data were captured to make sure it is accurate enough for the scale of the analysis we are doing. For example, the various vegetation units in the National Vegetation Map of South Africa were mapped at a range of scales, some as small as 1:250,000 (note that small scale = large extent or area!). At this scale 1mm = 250m, so a minor digitization error is a huge difference on the ground! If you need your analysis to be accurate to <10m then you'd probably need data mapped at a scale larger than 1:10,000.
+  - Secondly, scale and representation also becomes an issue of how to capture data in the first place. For example, a road is typically best represented as a line at 1:5,000 scale or smaller (note that scale is a ratio, so "small scale" = large extent or area!). At 1:1,000 scale a 5m wide road would be 5mm across on the map, so one might capture it as a polygon to represent its area.
+* **Accuracy** of location versus scale of data capture. We should always check the scale at which the data were captured to make sure it is accurate enough for the scale of the analysis we are doing. For example, the various vegetation units in the National Vegetation Map of South Africa were mapped at a range of scales, some as small as 1:250,000. At this scale 1mm = 250m, so a minor digitization error is a huge difference on the ground! If you need your analysis to be accurate to <10m then you'd probably need data mapped at a scale larger than 1:10,000.
 * **Precision** - Can mean two things:
   - The unit or number of decimal places to which the attribute has been measured (and can be stored)
   - The spread of repeat measurements (typically in field data collection). A big spread means the measurements weren't very precise...
 
 <br>
 
-### A quick aside on the difference between accuracy and precision! {.unlisted .unnumbered}
+**A quick aside on the difference between accuracy and precision!**
 
 ```{r accuracyprecision, fig.cap='The difference between accuracy and precision.', fig.asp=1, fig.align='center', echo=FALSE, warning=F, message=F}
 library(tidyverse)
@@ -66,10 +66,27 @@ For raster data, we typically refer to pixel resolution (or sample interval). Fo
 
 ## Coordinate Reference Systems (CRS)
 
-Coordinate Reference Systems (CRS) provide a framework for defining real-world locations. There are many different CRSs, with different properties. They can be a minefield, and I don't have the time to cover them in any detail here. I provide some of the basics below, but for me the two golden rules are:
+Coordinate Reference Systems (CRS) provide a framework for defining real-world locations. There are many different CRSs, with different properties. They can be a minefield, and I don't have the time to cover them in any detail here. I provide some of the basics below, and list some of the golden rules (mostly from the GIS Support Unit) here. Some of these may only make sense once we've been through the rest of this section...
 
-1. You need to **_know what CRS your dataset is in_**. This is essential for as it allows it to be reprojected to align with other datasets you are working with. If your datasets are not in the same CRS, most GIS software will give you warning or error messages, but not always! Note that not all file formats store the CRS "metadata", so check and store it yourself if needed! 
-2. You need to make sure you **_use a CRS that is appropriate for the analysis_** or representation you are planning. More on this below in section \@ref(projections)
+1. If things don't line up, its probably a CRS issue.
+2. You need to **_know what CRS your dataset is in_**. 
+  - This is essential, because you need to _define_ your projections to be able to compare datasets. If they are not the same, you will need to _reproject_ one to align with the other*. 
+  - If your datasets are not in the same CRS, most GIS software will give you warning or error messages, but not always! Note that not all file formats store the CRS "metadata", so check and store it yourself if needed! 
+2. You need to make sure you **_use a CRS that best preserves the properties you are interested in_** (area, distance, direction, shape). More on this below in section \@ref(projections).
+3. If your areas and distances are stupidly small (0.001 etc) your data are probably in Geographic (i.e. degrees and not a unit of distance like metres).
+4. Always interrogate and "common-sense-check" your results!!!
+
+<br>
+
+> *Defining Projection is not the same as reprojecting! Think in terms of languages, "I have text in Japanese and want it in English". _Defining_ is saying what it IS ("This text is in Japanese" - defining Japanese as English gives you garbage). _Reprojecting_ is what you want it to be (i.e. translate Japanese to English).
+
+<br>
+
+Two other issues to look out for:
+
+* The official *South African CRS* is waiting to get you. If you see Gauss Conform run screaming, its a left handed CRS based on Southings and Westings (i.e. completely inverted...). Simple, yes?
+* *Datums...* These are essentially models of the shape of the surface of the planet. Most South African datasets (since 1999 at least) use the Hartebeesthoek 94 datum, which is our local "bespoke" solution. It's pretty much the same as the WGS84 datum (a good global datum), and the difference is negligible for most ecological analyses. Our former local "bespoke" datum (the Cape or Clarke1880 datum), which was often used for data before 1999, is out to get you. These datasets will never line up perfectly with modern data sets when reprojected in a normal GIS and will usually be a couple of tens of metres off...
+
 
 ### Geographic (or "unprojected") Coordinate Systems
 
@@ -118,23 +135,13 @@ Projections get tuned to best fit an area through the use of projection paramete
 
 ### Projection codes
 
-The type of CRS is usually (but not always) stored in the metadata of your file (or dataset, if it is comprised of many files like an ESRI shapefile). There are various formats for this, such as EPSG, PROJ4 or WKT (be warned, there are many more...). In R, to apply a CRS or reproject your data you typically need to know the EPSG or PROJ4 code. Fortunately, there is a huge online library of these at [https://spatialreference.org/](https://spatialreference.org/). I also provide **some suggested projections**, based on the properties you'd like to preserve, and their codes below:
+The type of CRS is usually (but not always) stored in the metadata of your file (or dataset, if it is comprised of many files like an ESRI shapefile). There are various formats for this, such as EPSG, PROJ4 or WKT (be warned, there are many more...). In R, to apply a CRS or reproject your data you typically need to know the EPSG or PROJ4 code. Fortunately, there is a huge online library of these at [https://spatialreference.org/](https://spatialreference.org/). I also provide **some suggested projections**, based on the properties you'd like to preserve, and their codes [here](https://docs.google.com/spreadsheets/d/1Hvkub7syQNP6GsgaSh5SZNEd3VR9-9j94M5W-hmvm24/edit?usp=sharing). Note that for UTM and TM you may need to adjust the PROJ4 strings for your area - read the comments.
 
-For South Africa
+Why do projections matter?
 
-* Shape - you want a _Conformal_ projection 
-* Area - _Equal-Area_ - Albers Equal Area etc?
-* Distance - _Equidistant_
-* Direction - _Azimuthal_
-
-For the Cape Town area (with some guidance on how to alter it for different regions within SA)
-
-* Shape - TM ("+proj=tmerc +lat_0=0 +lon_0=19 +k=1 +x_0=0 +y_0=0 +ellps=WGS84 +units=m +no_defs")? UTM34S? 
-* Area - _Equal-Area_ - Albers Equal Area etc?
-* Distance - _Equidistant_
-* Direction - _Azimuthal_
-
-Perhaps add a figure of SA or CoCT in different projections...
+```{r}
+#Map comparing SA or the world projected in different ways...
+```
 
 <br>
 
