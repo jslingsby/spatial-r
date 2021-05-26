@@ -11,7 +11,7 @@
 
 How lost would you be without Google Maps?
 
-```{r googlemap, echo=FALSE, fig.cap = "Screenshot of Google Maps for Cape Town.", fig.width=4, fig.align = 'center'}
+```{r googlemap, echo=FALSE, fig.cap = "Screenshot of [Google Maps](http://maps.google.co.za/) for Cape Town.", fig.width=4, fig.align = 'center'}
 knitr::include_graphics("img/googlemaps.jpg")
 ```
 
@@ -35,7 +35,7 @@ knitr::include_graphics("img/gis_by_field.png")
 
 We use it for things like mapping ecosystems and biomes.
 
-```{r biomes, echo=FALSE, fig.cap = "The historical extent of the biomes of South Africa.", fig.width=3, fig.align = 'center'}
+```{r biomes, echo=FALSE, fig.cap = "The historical extent of the biomes of South Africa from @Mucina2006.", fig.width=3, fig.align = 'center'}
 knitr::include_graphics("img/biomes.png")
 ```
 
@@ -43,7 +43,7 @@ knitr::include_graphics("img/biomes.png")
 
 Or the loss of ecosystems and biomes.
 
-```{r biomeremnants, echo=FALSE, fig.cap = "The remaining extent of the biomes of South Africa.", fig.width=3, fig.align = 'center'}
+```{r biomeremnants, echo=FALSE, fig.cap = "The remaining extent of the biomes of South Africa from @Skowno2021.", fig.width=3, fig.align = 'center'}
 knitr::include_graphics("img/biome_remnants.png")
 ```
 
@@ -66,22 +66,4 @@ knitr::include_app("https://www.globalforestwatch.org/map/",
 
 <br>
 
-You can label chapter and section titles using `{#label}` after them, e.g., we can reference Chapter \@ref(intro). If you do not manually label them, there will be automatic labels anyway, e.g., Chapter \@ref(methods).
 
-Figures and tables with captions will be placed in `figure` and `table` environments, respectively.
-
-```{r nice-fig, fig.cap='Here is a nice figure!', out.width='80%', fig.asp=.75, fig.align='center'}
-par(mar = c(4, 4, .1, .1))
-plot(pressure, type = 'b', pch = 19)
-```
-
-Reference a figure by its code chunk label with the `fig:` prefix, e.g., see Figure \@ref(fig:nice-fig). Similarly, you can reference tables generated from `knitr::kable()`, e.g., see Table \@ref(tab:nice-tab).
-
-```{r nice-tab, tidy=FALSE}
-knitr::kable(
-  head(iris, 20), caption = 'Here is a nice table!',
-  booktabs = TRUE
-)
-```
-
-You can write citations, too. For example, we are using the **bookdown** package [@R-bookdown] in this sample book, which was built on top of R Markdown and **knitr** [@xie2015].

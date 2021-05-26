@@ -61,10 +61,10 @@ Since you can't copy the code from the image, here it is:
 
 ## Some key R packages
 
-We don't have time to go through all packages or provide a full history, but here are some useful notes in brief
+We don't have time to go through all packages or provide a full history, but here are some notes in brief.
 
 ### For vector data 
-(although some can handle rasters too) 
+(although some of these packages can handle rasters too) 
 
 The two leading packages were [_sp_](https://cran.r-project.org/web/packages/sp/index.html) and [_rgdal_](https://cran.r-project.org/web/packages/rgdal/index.html). While these are still very active and useful, they are being superseded by a newer package [_sf_](https://cran.r-project.org/web/packages/sf/index.html), which is a modern implementation and standardization of parts of sp.
 
@@ -72,12 +72,42 @@ _**sf**_ stands for "Simple Features for R", in compliance with the OGC Simple F
 
 I will use _sf_ for the most part in the demonstration material. Unfortunately, not all operations are available in _sf_ yet and I may still have to use _sp_ at times, especially when performing operations using both vector and raster data.
 
+Here's a quick list of the functions available in _sf_:
+
+```{r}
+library(sf)
+methods(class = 'sf')
+```
+
+<br>
+
+This doesn't tell you how to use them though. To get help with a function in R just type "?" followed by the function name, e.g. `?st_read`, and it'll take you to the help page.
+
+Of course, you don't want to have to read every help page to find the function you want! Fortunately, here's a "cheat sheet" that allows you to find the function you want relatively quickly (once you're familiar with the syntax etc):
+
+<br>
+
+```{r sfcheatsheet1, echo=FALSE, fig.cap = "An R [_cheat sheet_ for library(sf)](https://github.com/rstudio/cheatsheets/blob/master/sf.pdf) by Ryan Garnett (page 1).", fig.width=5, fig.align = 'center'}
+knitr::include_graphics("img/sf1.png")
+```
+
+<br>
+
+```{r sfcheatsheet2, echo=FALSE, fig.cap = "An R [_cheat sheet_ for library(sf)](https://github.com/rstudio/cheatsheets/blob/master/sf.pdf) by Ryan Garnett (page 2).", fig.width=5, fig.align = 'center'}
+knitr::include_graphics("img/sf2.png")
+```
+
+<br>
+
 ### For raster data 
-By far the best package has been [_raster_](https://cran.r-project.org/web/packages/raster/index.html), maintained by Robert Hijmans of WorldClim fame, and can do just about anything with rasters and interfaces with _sp_ very nicely.
+By far the best package has been [_raster_](https://cran.r-project.org/web/packages/raster/index.html), maintained by Robert Hijmans (of [WorldClim](https://www.worldclim.org/) fame), and can do just about anything with rasters and interfaces with _sp_ very nicely.
 
 _raster_ is currently being superseded by a new package called [_terra_](), also being developed by Hijmans.
 
 > _"terra is very similar to the raster package; but terra is simpler, better, and faster"_ - Roger Bivand
 
-I've never used _terra_ before developing this module, and it is far from mature. For most of the demonstrations we will use _raster_.
+I've never used _terra_ before developing this module, and it is still largely in development, so for most of the demonstrations we will use _raster_.
 
+Unfortunately, there's no cheat sheet for _raster_ or _terra_, but Google really helps!!!
+
+<br>

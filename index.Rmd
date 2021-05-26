@@ -1,5 +1,5 @@
 --- 
-title: "A Minimal Introduction to GIS in R"
+title: "A Minimal Introduction to GIS (in R)"
 author: "Jasper Slingsby"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
@@ -22,7 +22,15 @@ _This is a minimal introduction to GIS and handling spatial data in R compiled f
 
 The goal is to give you a very brief introduction to Geographic Information Systems (GIS) in general and some familiarity with handling spatial data in R. GIS is a field of research that many people dedicate their entire lives to, yet we only have a week, so this really is a minimalist introduction. I'll focus on giving you a broad overview and some idea of how to teach yourself (using R).
 
-The 5-day module includes daily ~1 hour lectures followed by self-study time where you will have daily goals/tasks to help you incrementally develop your own project. The project will be the deliverable for the module. I will be available for set office hours every afternoon to assist you.
+The core outcomes I hope you'll come away with:
+
+* Some familiarity with GIS and what it can help you achieve
+* Some familiarity with GIS jargon and technical terms
+* Highlight some of the common problems and pitfalls when using GIS
+* Some familiarity with handling spatial data in R
+* Some hints and resources to help you teach yourself R
+* Some idea of how to help yourself or find help when you inevitably come unstuck... 
+
 
 <br>
 
@@ -36,6 +44,8 @@ Other very valuable resources include:
 * Ryan Garnett's [cheatsheet for library(sf)](https://github.com/rstudio/cheatsheets/blob/master/sf.pdf)
 
 <br>
+
+All code, images, etc can be found [here](https://github.com/jslingsby/spatial-r). I have only used images etc that were made available online under a non-restrictive license (Creative Commons, etc) and have attributed my sources. Content without attribution is my own and shared under the license below. If there is any content you find concerning with regard to licensing, or that you find offensive, please contact me through [www.ecologi.st](www.ecologi.st). Any feedback, positive or negative, is welcome!
 
 <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International License</a>.
 

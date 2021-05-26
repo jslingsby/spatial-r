@@ -33,62 +33,214 @@ kable(datasets)
 
 <br>
 
-If you'd like to follow along and run the analyses that follow, please follow the links and download the datasets. Please note that the elevation dataset is ~130MB. I'll also put a copy of all datasets on the Vula site for the course, which I understand is zero-data rated. I'll also demonstrate how to fetch a different, smaller elevation dataset directly from R, so if internet speed is an issue for you don't download the elevation dataset...
+If you'd like to follow along and run the analyses that follow, please follow the links and download the datasets. Please note that the elevation dataset is ~130MB. I'll also put a copy of all datasets on the Vula site for the course, which I understand is zero-data rated.
 
 <br>
 
-## Housekeeping
+## Working with vector data
 
-Apologies, this bit is a little long-winded, but please read it carefully as it will likely affect your ability to run the code below.
+### Reading and writing
 
-### Working directories
-I usually work from a "Project" in RStudio linked to a GIT repository (see **<https://git-scm.com/>** and **<https://github.com/>**) for version control and easy code sharing/collaboration. I'm not going to go there with this tutorial, but it is worth exploring if you intend to do big projects in R. R projects set the working directory to a good place automatically. Alternatively you can use the setwd() function.
+_sf_ has a one-size-fits-all approach in that most functions can be applied to most different data types (point, line, polygon, etc) or, in the case of reading and writing, file formats. To read data the function you want is `st_read()`. 
 
-If I'm not in a GIT repo or I am working with large data sets that I don't want to replicate in every GIT repo on my hard drive I usually set separate "data", "GIS data" (i.e. biggish data) and "results" working directories by making each path an object and inserting as appropriate for different read and write functions using paste() or paste0(). These would look something like: 
+You'll note that most of the _sf_ functions begin with "st_" - this stands for "spatial and temporal" and is the same in some other GIS like PostGIS.
 
-```
-datwd = "/home/jasper/Dropbox/Teaching/SpatialR/Example/Data/"
-giswd = "/home/jasper/Documents/GIS/"   
-reswd = "/home/jasper/Dropbox/Teaching/SpatialR/Example/Results/"
-```
+Let's try to read in some dat with `st_read()`:
 
-### Sharing code between multiple machines
-If you plan run the same code on multiple machines (e.g. your laptop and a workstation) or are sharing code with a collaborator (and are not using GitHub) it's easiest to automatically detect what computer the code is being run on and set the appropriate working directories (and anything else you like).
+> Note that if you're trying any of the read/write code at home, you'll need to set the file path to where you put the data and want the outputs on your local machine. You can also use `?setwd` to simplify this.
 
-This can be done by identifying the machine/user using Sys.getenv() and wrapping the code for setting working directories etc in an if() statement for each user, like so:
-
+<br>
 
 ```{r}
-Sys.getenv("USER") #Tells us the "USER" name on Mac or Linux
+library(sf)
+
+veg <- st_read("data/cape_peninsula/veg/Vegetation_Indigenous.shp")
 ```
 
-If you are on Windows you need to use `Sys.getenv("USERNAME")`. I don't know why its different...? 
+This has successfully read in the data and given us a summary of some of its properties. Note the projection (proj4string). This is Transverse Mercator Lo19 (i.e. centred on the 19 degree line of longitude), which has a unit in metres (see the bounding box coordinates). It's a good projection for most calculations at this scale.
 
-Then I can set up my *if()* statement. Note that each user/collaborator can set up their own *if()* statement one after the other because if the statement `Sys.getenv("USER")=='jasper'` returns `FALSE` then R doesn't run the chunk of code in the curly brackets `{ ... }`.
+<br>
 
-```
-if (Sys.getenv("USER")=='jasper') {
-datwd="/home/jasper/Dropbox/Teaching/SpatialR/Example/Data/"
-giswd="/home/jasper/Dropbox/BlogData/"
-reswd="/home/jasper/Dropbox/Teaching/SpatialR/Example/Results/"}
+Let's have a closer look at the data:
 
-if (Sys.getenv("USER")=='MACUseR') {datwd=""; giswd=""; reswd=""} #Change here for Mac/Linux users
-
-if (Sys.getenv("USERNAME")=='WINDOWSUseR') {datwd=""; giswd=""; reswd=""} #Change here for Windows users
+```{r}
+class(veg)
 ```
 
-This way a new project member can add a new line of code without deleting anything, and it only sets the working directories (and any other settings you want) for the appropriate user - i.e. the if() statement ignores settings for all other users.
+It is an object of two different "classes", a `data.frame`, which is an R object class you should be familiar with, and class `sf`, which is the native class for the _sf_ library.
 
-If you are running the code from this tutorial you need to set your username and working directories here. You can just set *datwd*, *giswd* and *reswd* to the same file path for the purposes of this tutorial (if you've put all the data you downloaded in the same place).
+The nice thing about being both classes is it means you can apply the functions built for either class, e.g.
 
-#### A quick aside on slashes
-Often the reason you can't read in data is because you need to add (or delete) a "/" at the end! - Silly, but that pro tip should help.
+```{r}
+head(veg)
+```
 
-Note that we generally use single forwardslashes "/" in R. Windows likes to use single backslashes, but R (and just about every other computer programme in the world) doesn't like this. You can use double backslashes on Windows if you must...
+This is a commonly used function for looking at the first few rows of a dataframe. Note there are 5 attribute columns and a 6th `geometry` column. All _sf_ objects have a geometry column. This is where it stores the geometry - i.e. the point, line, polygon etc - associated with each row of attribute data.
+
+<br>
+
+To write data with _sf_ you use `st_write()`, like so:
+
+```{r}
+st_write(veg, "data/cape_peninsula/veg/Vegetation_Indigenous_duplicate.shp")
+```
+
+```{r}
+file.exists("data/cape_peninsula/veg/Vegetation_Indigenous_duplicate.shp") # Just to confirm for you that the file exists
+```
+
+```{r, echo = F}
+unlink("data/cape_peninsula/veg/Vegetation_Indigenous_duplicate.shp") # Deletes the file
+```
+
+Note that the function recognised that I wanted to write out an ESRI shapefile from the `.shp` file extension I provided. You can set the file type using the `driver =` setting in `st_write()`. Try `st_drivers()` for the list of file types supported.
+
+<br>
+
+### Plotting
+
+As with other data types in R (and perhaps even more so with spatial data), you can really go to town with plotting. I'm only going to show you enough to be able to interrogate your data. Making it look pretty is a week-long course or more in its own right. Check out the _"Making maps with R"_ chapter in Lovelace et al's online book [Geocomputation with R](https://geocompr.robinlovelace.net/) for a good start.
+
+<br>
+
+The easiest way to plot datasets in R is often a bad thing to do when working with spatial datasets!
+
+```{r}
+plot(veg)
+```
+
+Fortunately, in this case the dataset isn't too big, but often you'll either be overwhelmed with plots or your computer will crash...
+
+Why 5 plots and not one? This is because _sf_ wants to plot the properties of each attribute in the attribute table. Fortunately, there were only 5, but thre could have been hundreds! You can select the one you want with indexing like so:
+
+```{r}
+plot(veg[3])
+```
+
+These are the National Vegetation Types for the City of Cape Town municipality.
+
+You'll note that we're using the base R graphics functions. I mentioned before that _sf_ integrates well with the [_Tidyverse_](https://www.tidyverse.org/), so this could also be plotted like so:
+
+```{r}
+library(tidyverse) #calls ggplot2 and other Tidyverse packages together
+
+ggplot() +
+  geom_sf(data=veg, aes(fill = `National_`))
+```
+
+That's better for the legend, but now we've squashed the map. Let's narrow in on the Cape Peninsula for convenience.
+
+<br>
+
+### Cropping
+
+Here's we'll apply the function `st_crop`. To use the function you need an object to crop, and an extent or bounding box to crop to. _sf_ is clever, and you can set the extent by giving it another object who's extent you'd like to match (check the bounding box given when we read in the data earlier). 
+
+We don't have a second object in this case, so we have to provide a "numeric vector with named elements xmin, ymin, xmax and ymax", like so:
+
+```{r}
+ext <- c(-66642.18, -3809853.29, -44412.18, -3750723.29) #Coordinates in TM Lo19
+
+ext
+
+names(ext) <- c("xmin", "ymin", "xmax", "ymax") #Give it names
+
+ext
+```
+
+Now we can feed that into `st_crop`
+
+```{r}
+veg <- st_crop(veg, ext) #Not that I'm overwriting the old data object
+
+ggplot() + geom_sf(data=veg, aes(fill = `National_`))
+```
+
+Better?
+
+But what about the silly splits like _Peninsula Granite Fynbos - North/South_ and _Cape Flats Dune Strandveld - West Coast/False Bay_. 
+
+Which ones do I mean? 
+
+<br>
+
+### Select and subset by attribute
+
+Let's select them from the attribute table and plot them.
+
+```{r}
+#Get a list of the veg types we want
+split_veg <- c("Peninsula Granite Fynbos - North", 
+               "Peninsula Granite Fynbos - South", 
+               "Cape Flats Dune Strandveld - West Coast", 
+               "Cape Flats Dune Strandveld - False Bay")
+
+#Use base R indexing to select attributes
+vegsub <- veg[which(veg$National_ %in% split_veg),]
+
+#Plot
+ggplot() + geom_sf(data=vegsub, aes(fill = `National_`))
+```
+
+Or tidyverse...
+
+```{r}
+#Using tidyverse piping to filter and plot
+veg %>% 
+  filter(National_ %in% split_veg) %>%
+  ggplot() +
+  geom_sf(aes(fill = `National_`))
+```
+
+Ok. What if we decided we don't want them split?
 
 
+### Combine classes and dissolve by attribute
 
-___
-For the sake of simplicity and file size, I have already _cropped_ the elevation and vegetation datasets to a smaller and _resampled_ the raster from 10m to 90m pixel resolution
+Well we can just rename them in appropriate column in the attribute table...
 
-### A quick aside on the difference between accuracy and precision! {.unlisted .unnumbered}
+```{r}
+vegsub$National_ <- str_replace_all(vegsub$National_, c("Peninsula Granite Fynbos - North" = "Peninsula Granite Fynbos", 
+               "Peninsula Granite Fynbos - South" = "Peninsula Granite Fynbos", 
+               "Cape Flats Dune Strandveld - West Coast" = "Cape Flats Dune Strandveld", 
+               "Cape Flats Dune Strandveld - False Bay" = "Cape Flats Dune Strandveld"))
+
+ggplot() + geom_sf(data=vegsub, aes(fill = `National_`))
+```
+
+But from the polygon boundaries we see that there are a number of adjacent polygons (i.e. they have shared boundaries) that are of the same veg type. We can "dissolve" these boundaries like so:
+
+```{r}
+vs_dissolve <- vegsub %>% group_by(National_) %>% summarize() 
+
+#plot dissolved
+ggplot() + geom_sf(data=vs_dissolve, aes(fill = National_))
+```
+
+Ok... I think we've flogged that horse as far as it'll go for now. Let's bring in another dataset. How about points?
+
+### Calling iNaturalist data
+
+A very cool feature of [iNaturalist](https://www.inaturalist.org/) is that the team at [rOpenSci](https://ropensci.org/) have built a great R package for interfacing with it directly, called [_rinat!_](https://docs.ropensci.org/rinat/)
+
+Let's get all the records we can for the King Protea (*Protea cynaroides*).
+
+```{r}
+library(rinat)
+
+pc <- get_inat_obs(taxon_name = "Protea cynaroides",
+                   bounds = c(-34.5, 18, -33.5, 18.5),
+                   maxresults = 1000)
+
+pc <- pc %>% filter(positional_accuracy<46 & 
+                latitude<0 &
+                !is.na(latitude) &
+                captive_cultivated == "false" &
+                quality_grade == "research")
+
+pc <- st_as_sf(pc, coords = c("longitude", "latitude"), crs = 4326) #Note that I had to define the CRS!!!
+
+plot(pc[0])
+```
+
+
