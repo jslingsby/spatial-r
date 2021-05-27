@@ -4,8 +4,6 @@ fig:gisbyfield
 fig:biomes
 fig:biomeremnants
 fig:globalforestwatch
-fig:nice-fig
-tab:nice-tab
 fig:vectors
 fig:vectorveg
 fig:rasterdem
@@ -39,6 +37,7 @@ geographic-or-unprojected-coordinate-systems
 projections
 projection-codes
 on-the-fly-vs-manual-projection
+other-pitfalls-to-avoid
 r-as-a-gis
 overview-1
 some-key-r-packages
@@ -53,4 +52,5 @@ cropping
 select-and-subset-by-attribute
 combine-classes-and-dissolve-by-attribute
 calling-inaturalist-data
-other-pitfalls-to-avoid
+fig:rle1
+fig:rle2

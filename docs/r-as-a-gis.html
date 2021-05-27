@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>6 R as a GIS | A Minimal Introduction to GIS in R</title>
+  <title>6 R as a GIS | A Minimal Introduction to GIS (in R)</title>
   <meta name="description" content="This is a minimal introduction to GIS and handling spatial data in R compiled for the Biological Sciences BSc(Honours) class at the University of Cape Town." />
   <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="6 R as a GIS | A Minimal Introduction to GIS in R" />
+  <meta property="og:title" content="6 R as a GIS | A Minimal Introduction to GIS (in R)" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="jslingsby/spatial-r" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="6 R as a GIS | A Minimal Introduction to GIS in R" />
+  <meta name="twitter:title" content="6 R as a GIS | A Minimal Introduction to GIS (in R)" />
   
   <meta name="twitter:description" content="This is a minimal introduction to GIS and handling spatial data in R compiled for the Biological Sciences BSc(Honours) class at the University of Cape Town." />
   
@@ -24,7 +24,7 @@
 <meta name="author" content="Jasper Slingsby" />
 
 
-<meta name="date" content="2021-05-26" />
+<meta name="date" content="2021-05-27" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -161,6 +161,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.2.3" data-path="some-important-concepts-and-pitfalls.html"><a href="some-important-concepts-and-pitfalls.html#projection-codes"><i class="fa fa-check"></i><b>5.2.3</b> Projection codes</a></li>
 <li class="chapter" data-level="5.2.4" data-path="some-important-concepts-and-pitfalls.html"><a href="some-important-concepts-and-pitfalls.html#on-the-fly-vs-manual-projection"><i class="fa fa-check"></i><b>5.2.4</b> “On the fly” vs manual projection</a></li>
 </ul></li>
+<li class="chapter" data-level="5.3" data-path="some-important-concepts-and-pitfalls.html"><a href="some-important-concepts-and-pitfalls.html#other-pitfalls-to-avoid"><i class="fa fa-check"></i><b>5.3</b> Other pitfalls to avoid</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="r-as-a-gis.html"><a href="r-as-a-gis.html"><i class="fa fa-check"></i><b>6</b> R as a GIS</a>
 <ul>
@@ -197,7 +198,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">A Minimal Introduction to GIS in R</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">A Minimal Introduction to GIS (in R)</a>
           </h1>
         </div>
 
@@ -258,8 +259,8 @@ Figure 6.2: Screenshot of the Task View landing page at <a href="https://cran.r-
 <p><em><strong>sf</strong></em> stands for “Simple Features for R,” in compliance with the OGC Simple Feature standard. It is highly efficient, and comes with the advantage that it uses <a href="https://www.tidyverse.org/"><em>Tidyverse</em></a> principles and coding styles, e.g. allowing use of the pipe operator (<code>%&gt;%</code>) the direct application of library(dplyr) and library(ggplot2) functions.</p>
 <p>I will use <em>sf</em> for the most part in the demonstration material. Unfortunately, not all operations are available in <em>sf</em> yet and I may still have to use <em>sp</em> at times, especially when performing operations using both vector and raster data.</p>
 <p>Here’s a quick list of the functions available in <em>sf</em>:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="r-as-a-gis.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
-<span id="cb4-2"><a href="r-as-a-gis.html#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">methods</span>(<span class="at">class =</span> <span class="st">&#39;sf&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="r-as-a-gis.html#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
+<span id="cb2-2"><a href="r-as-a-gis.html#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">methods</span>(<span class="at">class =</span> <span class="st">&#39;sf&#39;</span>)</span></code></pre></div>
 <pre><code>##   [1] [                     [[&lt;-                 
 ##   [3] $&lt;-                   aggregate            
 ##   [5] anti_join             arrange              

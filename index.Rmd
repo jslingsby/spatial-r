@@ -45,7 +45,7 @@ Other very valuable resources include:
 
 <br>
 
-All code, images, etc can be found [here](https://github.com/jslingsby/spatial-r). I have only used images etc that were made available online under a non-restrictive license (Creative Commons, etc) and have attributed my sources. Content without attribution is my own and shared under the license below. If there is any content you find concerning with regard to licensing, or that you find offensive, please contact me through [www.ecologi.st](www.ecologi.st). Any feedback, positive or negative, is welcome!
+All code, images, etc can be found [here](https://github.com/jslingsby/spatial-r). I have only used images etc that were made available online under a non-restrictive license (Creative Commons, etc) and have attributed my sources. Content without attribution is my own and shared under the license below. If there is any content you find concerning with regard to licensing, or that you find offensive, please [contact me](https://www.ecologi.st/contact/). Any feedback, positive or negative, is welcome!
 
 <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International License</a>.
 

@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>7 GIS operations in R | A Minimal Introduction to GIS in R</title>
+  <title>7 GIS operations in R | A Minimal Introduction to GIS (in R)</title>
   <meta name="description" content="This is a minimal introduction to GIS and handling spatial data in R compiled for the Biological Sciences BSc(Honours) class at the University of Cape Town." />
   <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="7 GIS operations in R | A Minimal Introduction to GIS in R" />
+  <meta property="og:title" content="7 GIS operations in R | A Minimal Introduction to GIS (in R)" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="jslingsby/spatial-r" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="7 GIS operations in R | A Minimal Introduction to GIS in R" />
+  <meta name="twitter:title" content="7 GIS operations in R | A Minimal Introduction to GIS (in R)" />
   
   <meta name="twitter:description" content="This is a minimal introduction to GIS and handling spatial data in R compiled for the Biological Sciences BSc(Honours) class at the University of Cape Town." />
   
@@ -24,7 +24,7 @@
 <meta name="author" content="Jasper Slingsby" />
 
 
-<meta name="date" content="2021-05-26" />
+<meta name="date" content="2021-05-27" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -161,6 +161,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.2.3" data-path="some-important-concepts-and-pitfalls.html"><a href="some-important-concepts-and-pitfalls.html#projection-codes"><i class="fa fa-check"></i><b>5.2.3</b> Projection codes</a></li>
 <li class="chapter" data-level="5.2.4" data-path="some-important-concepts-and-pitfalls.html"><a href="some-important-concepts-and-pitfalls.html#on-the-fly-vs-manual-projection"><i class="fa fa-check"></i><b>5.2.4</b> “On the fly” vs manual projection</a></li>
 </ul></li>
+<li class="chapter" data-level="5.3" data-path="some-important-concepts-and-pitfalls.html"><a href="some-important-concepts-and-pitfalls.html#other-pitfalls-to-avoid"><i class="fa fa-check"></i><b>5.3</b> Other pitfalls to avoid</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="r-as-a-gis.html"><a href="r-as-a-gis.html"><i class="fa fa-check"></i><b>6</b> R as a GIS</a>
 <ul>
@@ -197,7 +198,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">A Minimal Introduction to GIS in R</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">A Minimal Introduction to GIS (in R)</a>
           </h1>
         </div>
 
@@ -281,9 +282,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Note that if you’re trying any of the read/write code at home, you’ll need to set the file path to where you put the data and want the outputs on your local machine. You can also use <code>?setwd</code> to simplify this.</p>
 </blockquote>
 <p><br></p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="gis-operations-in-r.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
-<span id="cb1-2"><a href="gis-operations-in-r.html#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="gis-operations-in-r.html#cb1-3" aria-hidden="true" tabindex="-1"></a>veg <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="st">&quot;data/cape_peninsula/veg/Vegetation_Indigenous.shp&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="gis-operations-in-r.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
+<span id="cb4-2"><a href="gis-operations-in-r.html#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="gis-operations-in-r.html#cb4-3" aria-hidden="true" tabindex="-1"></a>veg <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="st">&quot;data/cape_peninsula/veg/Vegetation_Indigenous.shp&quot;</span>)</span></code></pre></div>
 <pre><code>## Reading layer `Vegetation_Indigenous&#39; from data source `/home/jasper/GIT/spatial-r/data/cape_peninsula/veg/Vegetation_Indigenous.shp&#39; using driver `ESRI Shapefile&#39;
 ## Simple feature collection with 1325 features and 5 fields
 ## Geometry type: POLYGON
@@ -293,11 +294,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>This has successfully read in the data and given us a summary of some of its properties. Note the projection (proj4string). This is Transverse Mercator Lo19 (i.e. centred on the 19 degree line of longitude), which has a unit in metres (see the bounding box coordinates). It’s a good projection for most calculations at this scale.</p>
 <p><br></p>
 <p>Let’s have a closer look at the data:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="gis-operations-in-r.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(veg)</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="gis-operations-in-r.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(veg)</span></code></pre></div>
 <pre><code>## [1] &quot;sf&quot;         &quot;data.frame&quot;</code></pre>
 <p>It is an object of two different “classes,” a <code>data.frame</code>, which is an R object class you should be familiar with, and class <code>sf</code>, which is the native class for the <em>sf</em> library.</p>
 <p>The nice thing about being both classes is it means you can apply the functions built for either class, e.g.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="gis-operations-in-r.html#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(veg)</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="gis-operations-in-r.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(veg)</span></code></pre></div>
 <pre><code>## Simple feature collection with 6 features and 5 fields
 ## Geometry type: POLYGON
 ## Dimension:     XY
@@ -327,10 +328,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>This is a commonly used function for looking at the first few rows of a dataframe. Note there are 5 attribute columns and a 6th <code>geometry</code> column. All <em>sf</em> objects have a geometry column. This is where it stores the geometry - i.e. the point, line, polygon etc - associated with each row of attribute data.</p>
 <p><br></p>
 <p>To write data with <em>sf</em> you use <code>st_write()</code>, like so:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="gis-operations-in-r.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">st_write</span>(veg, <span class="st">&quot;data/cape_peninsula/veg/Vegetation_Indigenous_duplicate.shp&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="gis-operations-in-r.html#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">st_write</span>(veg, <span class="st">&quot;data/cape_peninsula/veg/Vegetation_Indigenous_duplicate.shp&quot;</span>)</span></code></pre></div>
 <pre><code>## Writing layer `Vegetation_Indigenous_duplicate&#39; to data source `data/cape_peninsula/veg/Vegetation_Indigenous_duplicate.shp&#39; using driver `ESRI Shapefile&#39;
 ## Writing 1325 features with 5 fields and geometry type Polygon.</code></pre>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="gis-operations-in-r.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">file.exists</span>(<span class="st">&quot;data/cape_peninsula/veg/Vegetation_Indigenous_duplicate.shp&quot;</span>) <span class="co"># Just to confirm for you that the file exists</span></span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="gis-operations-in-r.html#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">file.exists</span>(<span class="st">&quot;data/cape_peninsula/veg/Vegetation_Indigenous_duplicate.shp&quot;</span>) <span class="co"># Just to confirm for you that the file exists</span></span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 <p>Note that the function recognised that I wanted to write out an ESRI shapefile from the <code>.shp</code> file extension I provided. You can set the file type using the <code>driver =</code> setting in <code>st_write()</code>. Try <code>st_drivers()</code> for the list of file types supported.</p>
 <p><br></p>
@@ -340,19 +341,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>As with other data types in R (and perhaps even more so with spatial data), you can really go to town with plotting. I’m only going to show you enough to be able to interrogate your data. Making it look pretty is a week-long course or more in its own right. Check out the <em>“Making maps with R”</em> chapter in Lovelace et al’s online book <a href="https://geocompr.robinlovelace.net/">Geocomputation with R</a> for a good start.</p>
 <p><br></p>
 <p>The easiest way to plot datasets in R is often a bad thing to do when working with spatial datasets!</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="gis-operations-in-r.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(veg)</span></code></pre></div>
-<p><img src="spatial-r_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="gis-operations-in-r.html#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(veg)</span></code></pre></div>
+<p><img src="spatial-r_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
 <p>Fortunately, in this case the dataset isn’t too big, but often you’ll either be overwhelmed with plots or your computer will crash…</p>
 <p>Why 5 plots and not one? This is because <em>sf</em> wants to plot the properties of each attribute in the attribute table. Fortunately, there were only 5, but thre could have been hundreds! You can select the one you want with indexing like so:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="gis-operations-in-r.html#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(veg[<span class="dv">3</span>])</span></code></pre></div>
-<p><img src="spatial-r_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="gis-operations-in-r.html#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(veg[<span class="dv">3</span>])</span></code></pre></div>
+<p><img src="spatial-r_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
 <p>These are the National Vegetation Types for the City of Cape Town municipality.</p>
 <p>You’ll note that we’re using the base R graphics functions. I mentioned before that <em>sf</em> integrates well with the <a href="https://www.tidyverse.org/"><em>Tidyverse</em></a>, so this could also be plotted like so:</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="gis-operations-in-r.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse) <span class="co">#calls ggplot2 and other Tidyverse packages together</span></span>
-<span id="cb13-2"><a href="gis-operations-in-r.html#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-3"><a href="gis-operations-in-r.html#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb13-4"><a href="gis-operations-in-r.html#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data=</span>veg, <span class="fu">aes</span>(<span class="at">fill =</span> <span class="st">`</span><span class="at">National_</span><span class="st">`</span>))</span></code></pre></div>
-<p><img src="spatial-r_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="gis-operations-in-r.html#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse) <span class="co">#calls ggplot2 and other Tidyverse packages together</span></span>
+<span id="cb16-2"><a href="gis-operations-in-r.html#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="gis-operations-in-r.html#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb16-4"><a href="gis-operations-in-r.html#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data=</span>veg, <span class="fu">aes</span>(<span class="at">fill =</span> <span class="st">`</span><span class="at">National_</span><span class="st">`</span>))</span></code></pre></div>
+<p><img src="spatial-r_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
 <p>That’s better for the legend, but now we’ve squashed the map. Let’s narrow in on the Cape Peninsula for convenience.</p>
 <p><br></p>
 </div>
@@ -360,21 +361,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">7.2.3</span> Cropping</h3>
 <p>Here’s we’ll apply the function <code>st_crop</code>. To use the function you need an object to crop, and an extent or bounding box to crop to. <em>sf</em> is clever, and you can set the extent by giving it another object who’s extent you’d like to match (check the bounding box given when we read in the data earlier).</p>
 <p>We don’t have a second object in this case, so we have to provide a “numeric vector with named elements xmin, ymin, xmax and ymax,” like so:</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="gis-operations-in-r.html#cb14-1" aria-hidden="true" tabindex="-1"></a>ext <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">66642.18</span>, <span class="sc">-</span><span class="fl">3809853.29</span>, <span class="sc">-</span><span class="fl">44412.18</span>, <span class="sc">-</span><span class="fl">3750723.29</span>) <span class="co">#Coordinates in TM Lo19</span></span>
-<span id="cb14-2"><a href="gis-operations-in-r.html#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-3"><a href="gis-operations-in-r.html#cb14-3" aria-hidden="true" tabindex="-1"></a>ext</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="gis-operations-in-r.html#cb17-1" aria-hidden="true" tabindex="-1"></a>ext <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">66642.18</span>, <span class="sc">-</span><span class="fl">3809853.29</span>, <span class="sc">-</span><span class="fl">44412.18</span>, <span class="sc">-</span><span class="fl">3750723.29</span>) <span class="co">#Coordinates in TM Lo19</span></span>
+<span id="cb17-2"><a href="gis-operations-in-r.html#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="gis-operations-in-r.html#cb17-3" aria-hidden="true" tabindex="-1"></a>ext</span></code></pre></div>
 <pre><code>## [1]   -66642.18 -3809853.29   -44412.18 -3750723.29</code></pre>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="gis-operations-in-r.html#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(ext) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;xmin&quot;</span>, <span class="st">&quot;ymin&quot;</span>, <span class="st">&quot;xmax&quot;</span>, <span class="st">&quot;ymax&quot;</span>) <span class="co">#Give it names</span></span>
-<span id="cb16-2"><a href="gis-operations-in-r.html#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-3"><a href="gis-operations-in-r.html#cb16-3" aria-hidden="true" tabindex="-1"></a>ext</span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="gis-operations-in-r.html#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(ext) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;xmin&quot;</span>, <span class="st">&quot;ymin&quot;</span>, <span class="st">&quot;xmax&quot;</span>, <span class="st">&quot;ymax&quot;</span>) <span class="co">#Give it names</span></span>
+<span id="cb19-2"><a href="gis-operations-in-r.html#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="gis-operations-in-r.html#cb19-3" aria-hidden="true" tabindex="-1"></a>ext</span></code></pre></div>
 <pre><code>##        xmin        ymin        xmax        ymax 
 ##   -66642.18 -3809853.29   -44412.18 -3750723.29</code></pre>
 <p>Now we can feed that into <code>st_crop</code></p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="gis-operations-in-r.html#cb18-1" aria-hidden="true" tabindex="-1"></a>veg <span class="ot">&lt;-</span> <span class="fu">st_crop</span>(veg, ext) <span class="co">#Not that I&#39;m overwriting the old data object</span></span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="gis-operations-in-r.html#cb21-1" aria-hidden="true" tabindex="-1"></a>veg <span class="ot">&lt;-</span> <span class="fu">st_crop</span>(veg, ext) <span class="co">#Not that I&#39;m overwriting the old data object</span></span></code></pre></div>
 <pre><code>## Warning: attribute variables are assumed to be spatially
 ## constant throughout all geometries</code></pre>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="gis-operations-in-r.html#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> <span class="fu">geom_sf</span>(<span class="at">data=</span>veg, <span class="fu">aes</span>(<span class="at">fill =</span> <span class="st">`</span><span class="at">National_</span><span class="st">`</span>))</span></code></pre></div>
-<p><img src="spatial-r_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="gis-operations-in-r.html#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> <span class="fu">geom_sf</span>(<span class="at">data=</span>veg, <span class="fu">aes</span>(<span class="at">fill =</span> <span class="st">`</span><span class="at">National_</span><span class="st">`</span>))</span></code></pre></div>
+<p><img src="spatial-r_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
 <p>Better?</p>
 <p>But what about the silly splits like <em>Peninsula Granite Fynbos - North/South</em> and <em>Cape Flats Dune Strandveld - West Coast/False Bay</em>.</p>
 <p>Which ones do I mean?</p>
@@ -383,65 +384,65 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="select-and-subset-by-attribute" class="section level3" number="7.2.4">
 <h3><span class="header-section-number">7.2.4</span> Select and subset by attribute</h3>
 <p>Let’s select them from the attribute table and plot them.</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="gis-operations-in-r.html#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Get a list of the veg types we want</span></span>
-<span id="cb21-2"><a href="gis-operations-in-r.html#cb21-2" aria-hidden="true" tabindex="-1"></a>split_veg <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Peninsula Granite Fynbos - North&quot;</span>, </span>
-<span id="cb21-3"><a href="gis-operations-in-r.html#cb21-3" aria-hidden="true" tabindex="-1"></a>               <span class="st">&quot;Peninsula Granite Fynbos - South&quot;</span>, </span>
-<span id="cb21-4"><a href="gis-operations-in-r.html#cb21-4" aria-hidden="true" tabindex="-1"></a>               <span class="st">&quot;Cape Flats Dune Strandveld - West Coast&quot;</span>, </span>
-<span id="cb21-5"><a href="gis-operations-in-r.html#cb21-5" aria-hidden="true" tabindex="-1"></a>               <span class="st">&quot;Cape Flats Dune Strandveld - False Bay&quot;</span>)</span>
-<span id="cb21-6"><a href="gis-operations-in-r.html#cb21-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-7"><a href="gis-operations-in-r.html#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="co">#Use base R indexing to select attributes</span></span>
-<span id="cb21-8"><a href="gis-operations-in-r.html#cb21-8" aria-hidden="true" tabindex="-1"></a>vegsub <span class="ot">&lt;-</span> veg[<span class="fu">which</span>(veg<span class="sc">$</span>National_ <span class="sc">%in%</span> split_veg),]</span>
-<span id="cb21-9"><a href="gis-operations-in-r.html#cb21-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-10"><a href="gis-operations-in-r.html#cb21-10" aria-hidden="true" tabindex="-1"></a><span class="co">#Plot</span></span>
-<span id="cb21-11"><a href="gis-operations-in-r.html#cb21-11" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> <span class="fu">geom_sf</span>(<span class="at">data=</span>vegsub, <span class="fu">aes</span>(<span class="at">fill =</span> <span class="st">`</span><span class="at">National_</span><span class="st">`</span>))</span></code></pre></div>
-<p><img src="spatial-r_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="gis-operations-in-r.html#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Get a list of the veg types we want</span></span>
+<span id="cb24-2"><a href="gis-operations-in-r.html#cb24-2" aria-hidden="true" tabindex="-1"></a>split_veg <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Peninsula Granite Fynbos - North&quot;</span>, </span>
+<span id="cb24-3"><a href="gis-operations-in-r.html#cb24-3" aria-hidden="true" tabindex="-1"></a>               <span class="st">&quot;Peninsula Granite Fynbos - South&quot;</span>, </span>
+<span id="cb24-4"><a href="gis-operations-in-r.html#cb24-4" aria-hidden="true" tabindex="-1"></a>               <span class="st">&quot;Cape Flats Dune Strandveld - West Coast&quot;</span>, </span>
+<span id="cb24-5"><a href="gis-operations-in-r.html#cb24-5" aria-hidden="true" tabindex="-1"></a>               <span class="st">&quot;Cape Flats Dune Strandveld - False Bay&quot;</span>)</span>
+<span id="cb24-6"><a href="gis-operations-in-r.html#cb24-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-7"><a href="gis-operations-in-r.html#cb24-7" aria-hidden="true" tabindex="-1"></a><span class="co">#Use base R indexing to select attributes</span></span>
+<span id="cb24-8"><a href="gis-operations-in-r.html#cb24-8" aria-hidden="true" tabindex="-1"></a>vegsub <span class="ot">&lt;-</span> veg[<span class="fu">which</span>(veg<span class="sc">$</span>National_ <span class="sc">%in%</span> split_veg),]</span>
+<span id="cb24-9"><a href="gis-operations-in-r.html#cb24-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-10"><a href="gis-operations-in-r.html#cb24-10" aria-hidden="true" tabindex="-1"></a><span class="co">#Plot</span></span>
+<span id="cb24-11"><a href="gis-operations-in-r.html#cb24-11" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> <span class="fu">geom_sf</span>(<span class="at">data=</span>vegsub, <span class="fu">aes</span>(<span class="at">fill =</span> <span class="st">`</span><span class="at">National_</span><span class="st">`</span>))</span></code></pre></div>
+<p><img src="spatial-r_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
 <p>Or tidyverse…</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="gis-operations-in-r.html#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Using tidyverse piping to filter and plot</span></span>
-<span id="cb22-2"><a href="gis-operations-in-r.html#cb22-2" aria-hidden="true" tabindex="-1"></a>veg <span class="sc">%&gt;%</span> </span>
-<span id="cb22-3"><a href="gis-operations-in-r.html#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(National_ <span class="sc">%in%</span> split_veg) <span class="sc">%&gt;%</span></span>
-<span id="cb22-4"><a href="gis-operations-in-r.html#cb22-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb22-5"><a href="gis-operations-in-r.html#cb22-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">fill =</span> <span class="st">`</span><span class="at">National_</span><span class="st">`</span>))</span></code></pre></div>
-<p><img src="spatial-r_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="gis-operations-in-r.html#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Using tidyverse piping to filter and plot</span></span>
+<span id="cb25-2"><a href="gis-operations-in-r.html#cb25-2" aria-hidden="true" tabindex="-1"></a>veg <span class="sc">%&gt;%</span> </span>
+<span id="cb25-3"><a href="gis-operations-in-r.html#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(National_ <span class="sc">%in%</span> split_veg) <span class="sc">%&gt;%</span></span>
+<span id="cb25-4"><a href="gis-operations-in-r.html#cb25-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb25-5"><a href="gis-operations-in-r.html#cb25-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">fill =</span> <span class="st">`</span><span class="at">National_</span><span class="st">`</span>))</span></code></pre></div>
+<p><img src="spatial-r_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
 <p>Ok. What if we decided we don’t want them split?</p>
 </div>
 <div id="combine-classes-and-dissolve-by-attribute" class="section level3" number="7.2.5">
 <h3><span class="header-section-number">7.2.5</span> Combine classes and dissolve by attribute</h3>
 <p>Well we can just rename them in appropriate column in the attribute table…</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="gis-operations-in-r.html#cb23-1" aria-hidden="true" tabindex="-1"></a>vegsub<span class="sc">$</span>National_ <span class="ot">&lt;-</span> <span class="fu">str_replace_all</span>(vegsub<span class="sc">$</span>National_, <span class="fu">c</span>(<span class="st">&quot;Peninsula Granite Fynbos - North&quot;</span> <span class="ot">=</span> <span class="st">&quot;Peninsula Granite Fynbos&quot;</span>, </span>
-<span id="cb23-2"><a href="gis-operations-in-r.html#cb23-2" aria-hidden="true" tabindex="-1"></a>               <span class="st">&quot;Peninsula Granite Fynbos - South&quot;</span> <span class="ot">=</span> <span class="st">&quot;Peninsula Granite Fynbos&quot;</span>, </span>
-<span id="cb23-3"><a href="gis-operations-in-r.html#cb23-3" aria-hidden="true" tabindex="-1"></a>               <span class="st">&quot;Cape Flats Dune Strandveld - West Coast&quot;</span> <span class="ot">=</span> <span class="st">&quot;Cape Flats Dune Strandveld&quot;</span>, </span>
-<span id="cb23-4"><a href="gis-operations-in-r.html#cb23-4" aria-hidden="true" tabindex="-1"></a>               <span class="st">&quot;Cape Flats Dune Strandveld - False Bay&quot;</span> <span class="ot">=</span> <span class="st">&quot;Cape Flats Dune Strandveld&quot;</span>))</span>
-<span id="cb23-5"><a href="gis-operations-in-r.html#cb23-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-6"><a href="gis-operations-in-r.html#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> <span class="fu">geom_sf</span>(<span class="at">data=</span>vegsub, <span class="fu">aes</span>(<span class="at">fill =</span> <span class="st">`</span><span class="at">National_</span><span class="st">`</span>))</span></code></pre></div>
-<p><img src="spatial-r_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="gis-operations-in-r.html#cb26-1" aria-hidden="true" tabindex="-1"></a>vegsub<span class="sc">$</span>National_ <span class="ot">&lt;-</span> <span class="fu">str_replace_all</span>(vegsub<span class="sc">$</span>National_, <span class="fu">c</span>(<span class="st">&quot;Peninsula Granite Fynbos - North&quot;</span> <span class="ot">=</span> <span class="st">&quot;Peninsula Granite Fynbos&quot;</span>, </span>
+<span id="cb26-2"><a href="gis-operations-in-r.html#cb26-2" aria-hidden="true" tabindex="-1"></a>               <span class="st">&quot;Peninsula Granite Fynbos - South&quot;</span> <span class="ot">=</span> <span class="st">&quot;Peninsula Granite Fynbos&quot;</span>, </span>
+<span id="cb26-3"><a href="gis-operations-in-r.html#cb26-3" aria-hidden="true" tabindex="-1"></a>               <span class="st">&quot;Cape Flats Dune Strandveld - West Coast&quot;</span> <span class="ot">=</span> <span class="st">&quot;Cape Flats Dune Strandveld&quot;</span>, </span>
+<span id="cb26-4"><a href="gis-operations-in-r.html#cb26-4" aria-hidden="true" tabindex="-1"></a>               <span class="st">&quot;Cape Flats Dune Strandveld - False Bay&quot;</span> <span class="ot">=</span> <span class="st">&quot;Cape Flats Dune Strandveld&quot;</span>))</span>
+<span id="cb26-5"><a href="gis-operations-in-r.html#cb26-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-6"><a href="gis-operations-in-r.html#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> <span class="fu">geom_sf</span>(<span class="at">data=</span>vegsub, <span class="fu">aes</span>(<span class="at">fill =</span> <span class="st">`</span><span class="at">National_</span><span class="st">`</span>))</span></code></pre></div>
+<p><img src="spatial-r_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
 <p>But from the polygon boundaries we see that there are a number of adjacent polygons (i.e. they have shared boundaries) that are of the same veg type. We can “dissolve” these boundaries like so:</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="gis-operations-in-r.html#cb24-1" aria-hidden="true" tabindex="-1"></a>vs_dissolve <span class="ot">&lt;-</span> vegsub <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(National_) <span class="sc">%&gt;%</span> <span class="fu">summarize</span>() </span>
-<span id="cb24-2"><a href="gis-operations-in-r.html#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-3"><a href="gis-operations-in-r.html#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="co">#plot dissolved</span></span>
-<span id="cb24-4"><a href="gis-operations-in-r.html#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> <span class="fu">geom_sf</span>(<span class="at">data=</span>vs_dissolve, <span class="fu">aes</span>(<span class="at">fill =</span> National_))</span></code></pre></div>
-<p><img src="spatial-r_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="gis-operations-in-r.html#cb27-1" aria-hidden="true" tabindex="-1"></a>vs_dissolve <span class="ot">&lt;-</span> vegsub <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(National_) <span class="sc">%&gt;%</span> <span class="fu">summarize</span>() </span>
+<span id="cb27-2"><a href="gis-operations-in-r.html#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-3"><a href="gis-operations-in-r.html#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="co">#plot dissolved</span></span>
+<span id="cb27-4"><a href="gis-operations-in-r.html#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> <span class="fu">geom_sf</span>(<span class="at">data=</span>vs_dissolve, <span class="fu">aes</span>(<span class="at">fill =</span> National_))</span></code></pre></div>
+<p><img src="spatial-r_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
 <p>Ok… I think we’ve flogged that horse as far as it’ll go for now. Let’s bring in another dataset. How about points?</p>
 </div>
 <div id="calling-inaturalist-data" class="section level3" number="7.2.6">
 <h3><span class="header-section-number">7.2.6</span> Calling iNaturalist data</h3>
 <p>A very cool feature of <a href="https://www.inaturalist.org/">iNaturalist</a> is that the team at <a href="https://ropensci.org/">rOpenSci</a> have built a great R package for interfacing with it directly, called <a href="https://docs.ropensci.org/rinat/"><em>rinat!</em></a></p>
 <p>Let’s get all the records we can for the King Protea (<em>Protea cynaroides</em>).</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="gis-operations-in-r.html#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rinat)</span>
-<span id="cb25-2"><a href="gis-operations-in-r.html#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-3"><a href="gis-operations-in-r.html#cb25-3" aria-hidden="true" tabindex="-1"></a>pc <span class="ot">&lt;-</span> <span class="fu">get_inat_obs</span>(<span class="at">taxon_name =</span> <span class="st">&quot;Protea cynaroides&quot;</span>,</span>
-<span id="cb25-4"><a href="gis-operations-in-r.html#cb25-4" aria-hidden="true" tabindex="-1"></a>                   <span class="at">bounds =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">34.5</span>, <span class="dv">18</span>, <span class="sc">-</span><span class="fl">33.5</span>, <span class="fl">18.5</span>),</span>
-<span id="cb25-5"><a href="gis-operations-in-r.html#cb25-5" aria-hidden="true" tabindex="-1"></a>                   <span class="at">maxresults =</span> <span class="dv">1000</span>)</span>
-<span id="cb25-6"><a href="gis-operations-in-r.html#cb25-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-7"><a href="gis-operations-in-r.html#cb25-7" aria-hidden="true" tabindex="-1"></a>pc <span class="ot">&lt;-</span> pc <span class="sc">%&gt;%</span> <span class="fu">filter</span>(positional_accuracy<span class="sc">&lt;</span><span class="dv">46</span> <span class="sc">&amp;</span> </span>
-<span id="cb25-8"><a href="gis-operations-in-r.html#cb25-8" aria-hidden="true" tabindex="-1"></a>                latitude<span class="sc">&lt;</span><span class="dv">0</span> <span class="sc">&amp;</span></span>
-<span id="cb25-9"><a href="gis-operations-in-r.html#cb25-9" aria-hidden="true" tabindex="-1"></a>                <span class="sc">!</span><span class="fu">is.na</span>(latitude) <span class="sc">&amp;</span></span>
-<span id="cb25-10"><a href="gis-operations-in-r.html#cb25-10" aria-hidden="true" tabindex="-1"></a>                captive_cultivated <span class="sc">==</span> <span class="st">&quot;false&quot;</span> <span class="sc">&amp;</span></span>
-<span id="cb25-11"><a href="gis-operations-in-r.html#cb25-11" aria-hidden="true" tabindex="-1"></a>                quality_grade <span class="sc">==</span> <span class="st">&quot;research&quot;</span>)</span>
-<span id="cb25-12"><a href="gis-operations-in-r.html#cb25-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-13"><a href="gis-operations-in-r.html#cb25-13" aria-hidden="true" tabindex="-1"></a>pc <span class="ot">&lt;-</span> <span class="fu">st_as_sf</span>(pc, <span class="at">coords =</span> <span class="fu">c</span>(<span class="st">&quot;longitude&quot;</span>, <span class="st">&quot;latitude&quot;</span>), <span class="at">crs =</span> <span class="dv">4326</span>) <span class="co">#Note that I had to define the CRS!!!</span></span>
-<span id="cb25-14"><a href="gis-operations-in-r.html#cb25-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-15"><a href="gis-operations-in-r.html#cb25-15" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pc[<span class="dv">0</span>])</span></code></pre></div>
-<p><img src="spatial-r_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="gis-operations-in-r.html#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rinat)</span>
+<span id="cb28-2"><a href="gis-operations-in-r.html#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-3"><a href="gis-operations-in-r.html#cb28-3" aria-hidden="true" tabindex="-1"></a>pc <span class="ot">&lt;-</span> <span class="fu">get_inat_obs</span>(<span class="at">taxon_name =</span> <span class="st">&quot;Protea cynaroides&quot;</span>,</span>
+<span id="cb28-4"><a href="gis-operations-in-r.html#cb28-4" aria-hidden="true" tabindex="-1"></a>                   <span class="at">bounds =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">34.5</span>, <span class="dv">18</span>, <span class="sc">-</span><span class="fl">33.5</span>, <span class="fl">18.5</span>),</span>
+<span id="cb28-5"><a href="gis-operations-in-r.html#cb28-5" aria-hidden="true" tabindex="-1"></a>                   <span class="at">maxresults =</span> <span class="dv">1000</span>)</span>
+<span id="cb28-6"><a href="gis-operations-in-r.html#cb28-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-7"><a href="gis-operations-in-r.html#cb28-7" aria-hidden="true" tabindex="-1"></a>pc <span class="ot">&lt;-</span> pc <span class="sc">%&gt;%</span> <span class="fu">filter</span>(positional_accuracy<span class="sc">&lt;</span><span class="dv">46</span> <span class="sc">&amp;</span> </span>
+<span id="cb28-8"><a href="gis-operations-in-r.html#cb28-8" aria-hidden="true" tabindex="-1"></a>                latitude<span class="sc">&lt;</span><span class="dv">0</span> <span class="sc">&amp;</span></span>
+<span id="cb28-9"><a href="gis-operations-in-r.html#cb28-9" aria-hidden="true" tabindex="-1"></a>                <span class="sc">!</span><span class="fu">is.na</span>(latitude) <span class="sc">&amp;</span></span>
+<span id="cb28-10"><a href="gis-operations-in-r.html#cb28-10" aria-hidden="true" tabindex="-1"></a>                captive_cultivated <span class="sc">==</span> <span class="st">&quot;false&quot;</span> <span class="sc">&amp;</span></span>
+<span id="cb28-11"><a href="gis-operations-in-r.html#cb28-11" aria-hidden="true" tabindex="-1"></a>                quality_grade <span class="sc">==</span> <span class="st">&quot;research&quot;</span>)</span>
+<span id="cb28-12"><a href="gis-operations-in-r.html#cb28-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-13"><a href="gis-operations-in-r.html#cb28-13" aria-hidden="true" tabindex="-1"></a>pc <span class="ot">&lt;-</span> <span class="fu">st_as_sf</span>(pc, <span class="at">coords =</span> <span class="fu">c</span>(<span class="st">&quot;longitude&quot;</span>, <span class="st">&quot;latitude&quot;</span>), <span class="at">crs =</span> <span class="dv">4326</span>) <span class="co">#Note that I had to define the CRS!!!</span></span>
+<span id="cb28-14"><a href="gis-operations-in-r.html#cb28-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-15"><a href="gis-operations-in-r.html#cb28-15" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pc[<span class="dv">0</span>])</span></code></pre></div>
+<p><img src="spatial-r_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
 
 </div>
 </div>
@@ -502,6 +503,20 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>
