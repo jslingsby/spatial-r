@@ -4,6 +4,9 @@ fig:gisbyfield
 fig:biomes
 fig:biomeremnants
 fig:globalforestwatch
+fig:rle1
+fig:rle2
+fig:qgis
 fig:vectors
 fig:vectorveg
 fig:rasterdem
@@ -22,6 +25,7 @@ overview
 intro
 gis-basics
 what-is-gis
+an-example-workflow
 how-do-we-do-gis
 ucthelp
 gis-data-models-and-file-formats
@@ -52,5 +56,3 @@ cropping
 select-and-subset-by-attribute
 combine-classes-and-dissolve-by-attribute
 calling-inaturalist-data
-fig:rle1
-fig:rle2

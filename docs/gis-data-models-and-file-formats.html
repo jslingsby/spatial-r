@@ -24,7 +24,7 @@
 <meta name="author" content="Jasper Slingsby" />
 
 
-<meta name="date" content="2021-05-27" />
+<meta name="date" content="2021-05-30" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -137,7 +137,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Why care about GIS?</a></li>
 <li class="chapter" data-level="3" data-path="gis-basics.html"><a href="gis-basics.html"><i class="fa fa-check"></i><b>3</b> GIS basics</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="gis-basics.html"><a href="gis-basics.html#what-is-gis"><i class="fa fa-check"></i><b>3.1</b> What is GIS?</a></li>
+<li class="chapter" data-level="3.1" data-path="gis-basics.html"><a href="gis-basics.html#what-is-gis"><i class="fa fa-check"></i><b>3.1</b> What is GIS?</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="gis-basics.html"><a href="gis-basics.html#an-example-workflow"><i class="fa fa-check"></i><b>3.1.1</b> An example workflow</a></li>
+</ul></li>
 <li class="chapter" data-level="3.2" data-path="gis-basics.html"><a href="gis-basics.html#how-do-we-do-gis"><i class="fa fa-check"></i><b>3.2</b> How do we do GIS?</a></li>
 <li class="chapter" data-level="3.3" data-path="gis-basics.html"><a href="gis-basics.html#ucthelp"><i class="fa fa-check"></i><b>3.3</b> How to get help?</a></li>
 </ul></li>
@@ -232,7 +235,7 @@ Figure 4.1: The hierarchical construction of vector data types.
 </div>
 <div id="raster-data" class="section level3" number="4.1.2">
 <h3><span class="header-section-number">4.1.2</span> Raster data</h3>
-<p>Raster data are essentially data stored in a regular grid of pixels (or cells). The value of each pixel is a number representing a measured value (e.g. continuous data such as sea surface temperature) or a category (e.g. discrete data such as land cover class). All pixels have a value, even if the value is “No Data.” Digital images like jpeg or png files are essentially rasters without spatial information. Rasters are particularly useful for representing continuous data. Discrete data are often better presented as vector polygons. For example:</p>
+<p>Raster data are essentially data stored in a regular grid of pixels (or cells). Digital images like jpeg or png files are essentially rasters without spatial information. The value of each pixel is a number representing a measured value (e.g. continuous data such as sea surface temperature) or a category (e.g. discrete data such as land cover class). All pixels have a value, even if the value is “No Data.” Rasters are particularly useful for representing continuous data. Discrete data are often better presented as vector polygons. For example:</p>
 <div class="figure" style="text-align: center"><span id="fig:vectorveg"></span>
 <img src="spatial-r_files/figure-html/vectorveg-1.png" alt="Vector (polygon) representation of discrete data; the vegetation types of the Cape Peninsula." width="672" />
 <p class="caption">
