@@ -75,6 +75,8 @@ For vector data, we typically refer to scale when describing a data set.
 
 For raster data, we typically refer to pixel resolution (or sample interval). For example, a 30m digital elevation model is made up of pixels 30m across. For remotely sensed imagery (i.e. from drone, plane or satellite), one often uses the term "ground sample distance".
 
+**_BEWARE!!!_** If you convert between raster and vector data formats (e.g. by "rasterizing" a vector layer, or "binning" a raster into polygons), it **_will_** affect all three of _precision, accuracy_ and _representation_, so you need to give careful thought to whether what you are doing is appropriate for the analysis you are doing!
+
 <br>
 
 ## Coordinate Reference Systems (CRS)
@@ -142,18 +144,74 @@ There are 4 properties that get distorted, you can pick which one gets preserved
 * Distance - _Equidistant_
 * Direction - _Azimuthal_
 
-Projections get tuned to best fit an area through the use of projection parameters. An example is the Transverse Mercator system used by the 1:50,000 map series and by Municipalities like Cape Town. This is a general-purpose map, so in order to keep all distortions to a minimum, the projection window is kept to narrow 2 degree-wide bands. As a result, our map series projection parameters are set by moving the central meridian (or tangent) line of longitude every odd degree across the country. Cape Town is close to 19°E, so our version is colloquially called 'Lo-19'.
+(see [here](https://www.e-education.psu.edu/natureofgeoinfo/c2_p29.html) for a nice description and illustrations)
+
+Some "general purpose" projections, like _Transverse Mercator (TM)_, try to compromise and minimize distortion in all properties, but can't preserve any perfectly. Their distortions also tent to get worse the larger the spatial extent being analyzed.
+
+Projections get tuned to best fit an area through the use of projection parameters. For example, _Transverse Mercator_, which is used by the 1:50,000 map series and by Municipalities like Cape Town, uses a narrow projection window of 2 degree-wide bands. As a result, our map series projection parameters are set by moving the central meridian (or tangent) line of longitude every odd degree across the country. Cape Town is close to 19°E, so our version is colloquially called 'Lo19'. For Durban you'd use 'Lo31'. _Universal Transverse Mercator (UTM)_ is similar, but uses 6 degree-wide bands so that it can be applied across larger extents.
 
 <br>
 
 ### Projection codes
 
-The type of CRS is usually (but not always) stored in the metadata of your file (or dataset, if it is comprised of many files like an ESRI shapefile). There are various formats for this, such as EPSG, PROJ4 or WKT (be warned, there are many more...). In R, to apply a CRS or reproject your data you typically need to know the EPSG or PROJ4 code. Fortunately, there is a huge online library of these at [https://spatialreference.org/](https://spatialreference.org/). I also provide **some suggested projections**, based on the properties you'd like to preserve, and their codes [here](https://docs.google.com/spreadsheets/d/1Hvkub7syQNP6GsgaSh5SZNEd3VR9-9j94M5W-hmvm24/edit?usp=sharing). Note that for UTM and TM you may need to adjust the PROJ4 strings for your area - read the comments.
+The type of CRS is usually (but not always) stored in the metadata of your file (or dataset, if it is comprised of multiple files like an ESRI shapefile). There are various formats for this, such as EPSG, PROJ4 or WKT (be warned, there are many more...). In R, to apply a CRS or reproject your data you typically need to know the EPSG or PROJ4 code. Fortunately, there is a huge online library of these at [https://spatialreference.org/](https://spatialreference.org/). I also provide **some suggested projections**, based on the properties you'd like to preserve, and their codes [here](https://docs.google.com/spreadsheets/d/1Hvkub7syQNP6GsgaSh5SZNEd3VR9-9j94M5W-hmvm24/edit?usp=sharing). Note that for UTM and TM you may need to adjust the PROJ4 strings for your area - read the comments.
 
 Why do projections matter?
 
-```{r}
-#Map comparing SA or the world projected in different ways...
+```{r africaporjected, fig.cap='Africa, visualized with different coordinate reference systems. All four maps are different, even if the differences may be subtle!', fig.align='center', echo=FALSE, warning=F, message=F}
+
+library(tidyverse)
+library(sf)
+library(cowplot)
+library(rnaturalearth)
+
+# load data
+afr <- ne_countries(scale = "medium", continent = "Africa", returnclass = "sf")
+
+# reproject to different CRS
+afrUTM <- st_transform(afr, crs = "+proj=utm +zone=34 +south +datum=WGS84 +units=m +no_defs")
+
+afrLambert <- st_transform(afr, crs = "+proj=aea +lat_0=0 +lon_0=25 +lat_1=-18 +lat_2=-32 +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs")
+
+afrAEA <- st_transform(afr, crs = "+proj=aea +lat_0=-30 +lon_0=25 +lat_1=-22 +lat_2=-38 +x_0=1400000 +y_0=1300000 +ellps=WGS84 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs")
+
+
+# Make separate plots
+afrgeo <- ggplot() +
+  geom_sf(data=afr, aes(fill = `name`)) +
+  theme(legend.position = "none") +
+  ggtitle("Africa (Geographic)")
+
+afrutm <- ggplot() +
+  geom_sf(data=afrUTM, aes(fill = `name`)) +
+  theme(legend.position = "none") +
+  ggtitle("Africa (UTM)")
+
+afrlambert <- ggplot() +
+  geom_sf(data=afrLambert, aes(fill = `name`)) +
+  theme(legend.position = "none") +
+  ggtitle("Africa (Lambert Conformal Conic)")
+
+afraea <- ggplot() +
+  geom_sf(data=afrAEA, aes(fill = `name`)) +
+  theme(legend.position = "none") +
+  ggtitle("Africa (Albers Equal Area)")
+
+
+# Make panel figure
+
+afrmaps <- ggdraw() +
+  draw_plot(afrgeo,
+            x = 0, y = .5, width = .5, height = .5) +
+  draw_plot(afrutm,
+            x = .5, y = .5, width = .5, height = .5) +
+  draw_plot(afrlambert,
+            x = 0, y = 0, width = .5, height = .5) +
+  draw_plot(afraea,
+            x = .5, y = 0, width = .5, height = .5) 
+
+afrmaps
+
 ```
 
 <br>

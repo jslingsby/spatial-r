@@ -51,6 +51,14 @@
 
 
 
+<script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
+<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-1.3.1/leaflet.js"></script>
+<link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
+<script src="libs/proj4-2.6.2/proj4.min.js"></script>
+<script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+<link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-binding-2.0.4.1/leaflet.js"></script>
 
 
 <style type="text/css">
@@ -133,7 +141,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="./">A Minimal Intro to GIS in R</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Overview</a></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Overview</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#general"><i class="fa fa-check"></i><b>1.1</b> General</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#using-this-resource"><i class="fa fa-check"></i><b>1.2</b> Using this resource</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#module-and-project-details"><i class="fa fa-check"></i><b>1.3</b> Module and Project details</a></li>
+</ul></li>
 <li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Why care about GIS?</a></li>
 <li class="chapter" data-level="3" data-path="gis-basics.html"><a href="gis-basics.html"><i class="fa fa-check"></i><b>3</b> GIS basics</a>
 <ul>
@@ -175,17 +188,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.2.2" data-path="r-as-a-gis.html"><a href="r-as-a-gis.html#for-raster-data"><i class="fa fa-check"></i><b>6.2.2</b> For raster data</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="gis-operations-in-r.html"><a href="gis-operations-in-r.html"><i class="fa fa-check"></i><b>7</b> GIS operations in R</a>
+<li class="chapter" data-level="7" data-path="rdemo.html"><a href="rdemo.html"><i class="fa fa-check"></i><b>7</b> GIS operations in R</a>
 <ul>
-<li class="chapter" data-level="7.1" data-path="gis-operations-in-r.html"><a href="gis-operations-in-r.html#case-study-and-demo-datasets"><i class="fa fa-check"></i><b>7.1</b> Case study and demo datasets</a></li>
-<li class="chapter" data-level="7.2" data-path="gis-operations-in-r.html"><a href="gis-operations-in-r.html#working-with-vector-data"><i class="fa fa-check"></i><b>7.2</b> Working with vector data</a>
+<li class="chapter" data-level="7.1" data-path="rdemo.html"><a href="rdemo.html#casestudy"><i class="fa fa-check"></i><b>7.1</b> Case study and demo datasets</a></li>
+<li class="chapter" data-level="7.2" data-path="rdemo.html"><a href="rdemo.html#working-with-vector-data"><i class="fa fa-check"></i><b>7.2</b> Working with vector data</a>
 <ul>
-<li class="chapter" data-level="7.2.1" data-path="gis-operations-in-r.html"><a href="gis-operations-in-r.html#reading-and-writing"><i class="fa fa-check"></i><b>7.2.1</b> Reading and writing</a></li>
-<li class="chapter" data-level="7.2.2" data-path="gis-operations-in-r.html"><a href="gis-operations-in-r.html#plotting"><i class="fa fa-check"></i><b>7.2.2</b> Plotting</a></li>
-<li class="chapter" data-level="7.2.3" data-path="gis-operations-in-r.html"><a href="gis-operations-in-r.html#cropping"><i class="fa fa-check"></i><b>7.2.3</b> Cropping</a></li>
-<li class="chapter" data-level="7.2.4" data-path="gis-operations-in-r.html"><a href="gis-operations-in-r.html#select-and-subset-by-attribute"><i class="fa fa-check"></i><b>7.2.4</b> Select and subset by attribute</a></li>
-<li class="chapter" data-level="7.2.5" data-path="gis-operations-in-r.html"><a href="gis-operations-in-r.html#combine-classes-and-dissolve-by-attribute"><i class="fa fa-check"></i><b>7.2.5</b> Combine classes and dissolve by attribute</a></li>
-<li class="chapter" data-level="7.2.6" data-path="gis-operations-in-r.html"><a href="gis-operations-in-r.html#calling-inaturalist-data"><i class="fa fa-check"></i><b>7.2.6</b> Calling iNaturalist data</a></li>
+<li class="chapter" data-level="7.2.1" data-path="rdemo.html"><a href="rdemo.html#reading-and-writing"><i class="fa fa-check"></i><b>7.2.1</b> Reading and writing</a></li>
+<li class="chapter" data-level="7.2.2" data-path="rdemo.html"><a href="rdemo.html#basic-plotting"><i class="fa fa-check"></i><b>7.2.2</b> Basic plotting</a></li>
+<li class="chapter" data-level="7.2.3" data-path="rdemo.html"><a href="rdemo.html#cropping"><i class="fa fa-check"></i><b>7.2.3</b> Cropping</a></li>
+<li class="chapter" data-level="7.2.4" data-path="rdemo.html"><a href="rdemo.html#select-and-subset-by-attribute"><i class="fa fa-check"></i><b>7.2.4</b> Select and subset by attribute</a></li>
+<li class="chapter" data-level="7.2.5" data-path="rdemo.html"><a href="rdemo.html#combine-classes-and-dissolve-by-attribute"><i class="fa fa-check"></i><b>7.2.5</b> Combine classes and dissolve by attribute</a></li>
+<li class="chapter" data-level="7.2.6" data-path="rdemo.html"><a href="rdemo.html#getinat"><i class="fa fa-check"></i><b>7.2.6</b> Calling iNaturalist data from R</a></li>
+<li class="chapter" data-level="7.2.7" data-path="rdemo.html"><a href="rdemo.html#adding-basemaps-to-plots"><i class="fa fa-check"></i><b>7.2.7</b> Adding basemaps to plots</a></li>
+<li class="chapter" data-level="7.2.8" data-path="rdemo.html"><a href="rdemo.html#interactive-maps-with-leaflet"><i class="fa fa-check"></i><b>7.2.8</b> Interactive maps with <em>leaflet</em></a></li>
+<li class="chapter" data-level="7.2.9" data-path="rdemo.html"><a href="rdemo.html#intersecting-points-and-polygons"><i class="fa fa-check"></i><b>7.2.9</b> Intersecting points and polygons</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>

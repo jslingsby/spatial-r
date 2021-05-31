@@ -7,12 +7,12 @@
       download: null
 ---
 
-# GIS operations in R
+# GIS operations in R {#rdemo}
 
-## Case study and demo datasets
+## Case study and demo datasets {#casestudy}
 Ok, for demonstrating some of the many GIS operations R can perform we will be using data from one of my favourite study areas, the Cape Peninsula.
 
-The datasets we sill use, some of their properties and where to source them are tabled below:
+The datasets we will use, some of their properties and where to source them are tabled below:
 
 <br>
 
@@ -57,7 +57,9 @@ library(sf)
 veg <- st_read("data/cape_peninsula/veg/Vegetation_Indigenous.shp")
 ```
 
-This has successfully read in the data and given us a summary of some of its properties. Note the projection (proj4string). This is Transverse Mercator Lo19 (i.e. centred on the 19 degree line of longitude), which has a unit in metres (see the bounding box coordinates). It's a good projection for most calculations at this scale.
+This has successfully read in the data and given us a summary of some of its properties. Note the projection (proj4string). This is Transverse Mercator Lo19 (i.e. centred on the 19 degree line of longitude), which has a unit in metres (see the bounding box coordinates). It's a good projection for most calculations at this scale (and on this line of longitude*).
+
+>*If you're using Transverse Mercator, always make sure it is set for your closest "odd" line of longitude (i.e. Lo19, Lo21, Lo23)!
 
 <br>
 
@@ -90,14 +92,14 @@ file.exists("data/cape_peninsula/veg/Vegetation_Indigenous_duplicate.shp") # Jus
 ```
 
 ```{r, echo = F}
-unlink("data/cape_peninsula/veg/Vegetation_Indigenous_duplicate.shp") # Deletes the file
+unlink("data/cape_peninsula/veg/Vegetation_Indigenous_duplicate*") # Deletes the file
 ```
 
 Note that the function recognised that I wanted to write out an ESRI shapefile from the `.shp` file extension I provided. You can set the file type using the `driver =` setting in `st_write()`. Try `st_drivers()` for the list of file types supported.
 
 <br>
 
-### Plotting
+### Basic plotting
 
 As with other data types in R (and perhaps even more so with spatial data), you can really go to town with plotting. I'm only going to show you enough to be able to interrogate your data. Making it look pretty is a week-long course or more in its own right. Check out the _"Making maps with R"_ chapter in Lovelace et al's online book [Geocomputation with R](https://geocompr.robinlovelace.net/) for a good start.
 
@@ -111,7 +113,7 @@ plot(veg)
 
 Fortunately, in this case the dataset isn't too big, but often you'll either be overwhelmed with plots or your computer will crash...
 
-Why 5 plots and not one? This is because _sf_ wants to plot the properties of each attribute in the attribute table. Fortunately, there were only 5, but thre could have been hundreds! You can select the one you want with indexing like so:
+Why 5 plots and not one? This is because _sf_ wants to plot the properties of each attribute in the attribute table. Fortunately, there were only 5, but there could have been hundreds! You can select the one you want with indexing like so:
 
 ```{r}
 plot(veg[3])
@@ -134,12 +136,12 @@ That's better for the legend, but now we've squashed the map. Let's narrow in on
 
 ### Cropping
 
-Here's we'll apply the function `st_crop`. To use the function you need an object to crop, and an extent or bounding box to crop to. _sf_ is clever, and you can set the extent by giving it another object who's extent you'd like to match (check the bounding box given when we read in the data earlier). 
+Here we'll apply the function `st_crop`. To use the function you need an object to crop, and an extent or bounding box to crop to. **_sf_** is clever, and you can set the extent by giving it another object who's extent you'd like to match (check the bounding box given when we read in the data earlier). 
 
 We don't have a second object in this case, so we have to provide a "numeric vector with named elements xmin, ymin, xmax and ymax", like so:
 
 ```{r}
-ext <- c(-66642.18, -3809853.29, -44412.18, -3750723.29) #Coordinates in TM Lo19
+ext <- c(-66642.18, -3809853.29, -44412.18, -3750723.29) #Coordinates in metres according to TM Lo19
 
 ext
 
@@ -151,7 +153,7 @@ ext
 Now we can feed that into `st_crop`
 
 ```{r}
-veg <- st_crop(veg, ext) #Not that I'm overwriting the old data object
+veg <- st_crop(veg, ext) #Note that I'm overwriting the old data object
 
 ggplot() + geom_sf(data=veg, aes(fill = `National_`))
 ```
@@ -197,7 +199,7 @@ Ok. What if we decided we don't want them split?
 
 ### Combine classes and dissolve by attribute
 
-Well we can just rename them in appropriate column in the attribute table...
+We can just rename them in appropriate column in the attribute table...
 
 ```{r}
 vegsub$National_ <- str_replace_all(vegsub$National_, c("Peninsula Granite Fynbos - North" = "Peninsula Granite Fynbos", 
@@ -219,7 +221,7 @@ ggplot() + geom_sf(data=vs_dissolve, aes(fill = National_))
 
 Ok... I think we've flogged that horse as far as it'll go for now. Let's bring in another dataset. How about points?
 
-### Calling iNaturalist data
+### Calling iNaturalist data from R {#getinat}
 
 A very cool feature of [iNaturalist](https://www.inaturalist.org/) is that the team at [rOpenSci](https://ropensci.org/) have built a great R package for interfacing with it directly, called [_rinat!_](https://docs.ropensci.org/rinat/)
 
@@ -228,19 +230,94 @@ Let's get all the records we can for the King Protea (*Protea cynaroides*).
 ```{r}
 library(rinat)
 
+#Call the data directly from iNat
 pc <- get_inat_obs(taxon_name = "Protea cynaroides",
                    bounds = c(-34.5, 18, -33.5, 18.5),
                    maxresults = 1000)
 
+#Filter returned observations by a range of attribute criteria
 pc <- pc %>% filter(positional_accuracy<46 & 
                 latitude<0 &
                 !is.na(latitude) &
                 captive_cultivated == "false" &
                 quality_grade == "research")
 
+#Make the dataframe a spatial object of class = "sf"
 pc <- st_as_sf(pc, coords = c("longitude", "latitude"), crs = 4326) #Note that I had to define the CRS!!!
 
-plot(pc[0])
+#Plot
+ggplot() + geom_sf(data=pc)
 ```
 
+<br>
+
+Great! We got lots of points, but without a base layer its very difficult to tell where exactly these are?
+
+<br>
+
+### Adding basemaps to plots
+
+Let's pull up a base layer from Open Street Maps and plot our points on that.
+
+<br>
+
+```{r}
+library(rosm)
+library(ggspatial)
+
+ggplot() + 
+  annotation_map_tile(type = "osm", progress = "none") + 
+  geom_sf(data=pc)
+```
+
+<br>
+
+Note that there are quite a few base layer options that can be set with `type = ""`. Try `rosm::osm.types()` to see them all.
+
+This is better than nothing, but the scale of the map is too small to really see where the plants actually are. It would be much easier if we could look at the data interactively?
+
+<br>
+
+### Interactive maps with _leaflet_
+
+We can generate interactive maps by calling the [leaflet](https://leafletjs.com/) mapserver using wrapper functions in the [leaflet R package](https://rstudio.github.io/leaflet/) written for this purpose.
+
+<br>
+
+```{r}
+library(leaflet)
+library(htmltools)
+leaflet() %>%
+  addTiles(group = "Default") %>%  # Add default OpenStreetMap map tiles
+
+#  addPolygons(data=layer, color = "#999999", weight = 1, smoothFactor = 0.5, opacity = 0.75, fillOpacity = 0.15, highlightOptions = highlightOptions(color = "white", weight = 2, bringToFront = F), label=~layer$QUARTERN, group = "Quaternaries") %>%
+  
+  addCircleMarkers(data = pc,
+                   group = "Protea cynaroides",
+                   radius = 3, 
+                   color = "green") 
+```
+
+<br>
+
+Much better!
+
+Strange, but even though we filtered our iNaturalist records for `captive_cultivated == "false"` we still have a number of observations that appear to be in people's gardens. **_Let this serve as a warning to be wary of all data! Always do "common-sense-checks" on your data and the outputs of your analyses!!!_**
+
+<br>
+
+### Intersecting points and polygons
+
+One way to drastically reduce the number of cultivated records is to overlay the localities (points) with the _remaining extent_ of the vegetation types.
+
+<br>
+
+```{r}
+
+vegr <- st_read("data/cape_peninsula/veg/Vegetation_Indigenous_Remnants.shp")
+
+#st_join
+#st_intersects
+#st_intersection
+```
 

@@ -55,7 +55,6 @@ For example:
 library(sf)
 library(raster)
 library(tidyverse)
-library(cowplot)
 
 ### Get data, project and crop
 
@@ -65,10 +64,10 @@ veg <- st_read("/home/jasper/GIT/spatial-r/data/cape_peninsula/veg/Vegetation_In
 # Get raster digital elevation model (DEM)
 dem <- raster("/home/jasper/GIT/spatial-r/data/cape_peninsula/rasters90/elevation.asc")
 
-# Set DEM projection
-proj4string(dem)="+proj=utm +zone=34 +south +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0" #set projection
+# Set DEM crs
+proj4string(dem)="+proj=utm +zone=34 +south +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0" #set CRS to geographic
 
-# Reproject DEM to same projection as veg layer
+# Reproject DEM to same CRS as veg layer (TM Lo-19)
 dem <- projectRaster(dem, crs = "+proj=tmerc +lat_0=0 +lon_0=19 +k=1 +x_0=0 +y_0=0 +ellps=WGS84 +units=m +no_defs")
 
 # Crop veg layer to same extent as raster
@@ -93,7 +92,7 @@ colnames(vegp)[3] <- "veg type"
 
 names(veg)[3] <- "veg type"
 
-# Make separate plots
+# Make separate plots (some of these get rendered in later code chunks)
 vegpoly <- ggplot() +
   geom_sf(data=veg, aes(fill = `veg type`))
                
@@ -103,25 +102,7 @@ vegrast <- ggplot() +
 elevation <- ggplot() +
   geom_raster(data=demp, aes(x, y, fill=`elevation (m)`))
 
-vegpoly
-
-# # Make panel figure
-# maps <- ggdraw() +
-#   draw_plot(vegpoly + 
-#               theme(legend.position=c(.2,.15),
-#                     legend.key.size=unit(.5, "cm")), 
-#             x = 0, y = 0, width = .33, height = 1) +
-#   draw_plot(vegrast +
-#               theme(legend.position=c(.2,.15),
-#                     legend.key.size=unit(.5, "cm")), 
-#             x = .33, y = 0, width = .33, height = 1) +
-#   draw_plot(elevation +
-#               theme(legend.position=c(.2,.15), 
-#                     legend.key.size=unit(.5, "cm")), 
-#             x = .66, y = 0, width = .33, height = 1)
-# 
-# maps
-
+vegpoly # render map of veg types as vector polygons
 ```
 
 <br>
