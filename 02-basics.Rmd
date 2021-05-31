@@ -17,7 +17,9 @@ Here we cover the basics of GIS...
 knitr::include_graphics("img/whatisgis.png")
 ```
 
-A Geographic Information System is a framework used to create, manage, visualize and analyze data in a spatial context. Most datasets can be assigned a spatial location, either on the earth's surface or within some constrained area like a sports field, a vegetation survey plot, or even a drawer in your kitchen.
+A Geographic Information System is a framework used to create, manage, visualize and analyze data in a spatial context. 
+
+Most datasets can be assigned a spatial location, either on the earth's surface or within some constrained area like a sports field, a vegetation survey plot, or even a drawer in your kitchen.
 
 While almost any dataset has a spatial context, and can thus be represented in a GIS, **the real question is whether it needs to be analyzed in a GIS environment?** The answer to this question depends on the **purpose** of the analysis. Typically, one would use GIS if you were using the spatial information associated with the data to:
 
