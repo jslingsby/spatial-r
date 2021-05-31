@@ -9,8 +9,8 @@ fig:rle2
 fig:qgis
 fig:vectors
 fig:vectorveg
-fig:rasterdem
 fig:contourdem
+fig:rasterdem
 fig:rasterveg
 fig:onein50
 fig:chapmans

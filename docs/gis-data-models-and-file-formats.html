@@ -24,7 +24,7 @@
 <meta name="author" content="Jasper Slingsby" />
 
 
-<meta name="date" content="2021-05-30" />
+<meta name="date" content="2021-05-31" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -53,69 +53,6 @@
 
 
 
-<style type="text/css">
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -232,17 +169,21 @@ Figure 4.1: The hierarchical construction of vector data types.
 </ul>
 <p>Note that these “data types” are also commonly called <em>feature classes</em>, <em>geometric primitives</em> or <em>geometries</em>. Later we’ll see that you get more complicated “types,” but these are generally combinations of the above: <strong>multipoint</strong>, <strong>multilinestring</strong>, <strong>multipolygon</strong>, <strong>geometry collection</strong>, etc and are largely just different data classes designed to help with handling data than unique geometries.</p>
 <p><br></p>
-</div>
-<div id="raster-data" class="section level3" number="4.1.2">
-<h3><span class="header-section-number">4.1.2</span> Raster data</h3>
-<p>Raster data are essentially data stored in a regular grid of pixels (or cells). Digital images like jpeg or png files are essentially rasters without spatial information. The value of each pixel is a number representing a measured value (e.g. continuous data such as sea surface temperature) or a category (e.g. discrete data such as land cover class). All pixels have a value, even if the value is “No Data.” Rasters are particularly useful for representing continuous data. Discrete data are often better presented as vector polygons. For example:</p>
+<p>Vector data models are obviously the best way to represent points and lines. Polygons are usually the best way to represent discrete (categorical) data, especially where they may have complex boundaries.</p>
+<p>For example:</p>
 <div class="figure" style="text-align: center"><span id="fig:vectorveg"></span>
 <img src="spatial-r_files/figure-html/vectorveg-1.png" alt="Vector (polygon) representation of discrete data; the vegetation types of the Cape Peninsula." width="672" />
 <p class="caption">
 Figure 4.2: Vector (polygon) representation of discrete data; the vegetation types of the Cape Peninsula.
 </p>
 </div>
-<p>Vector data models are typically good at representing categorical data, especially where they may have complex boundaries. You just have to choose a good colour palette…</p>
+<p><br></p>
+<p>Vector data models are less good for representing continuous data (e.g. elevation, see surface temperature, etc). See further down.</p>
+<p><br></p>
+</div>
+<div id="raster-data" class="section level3" number="4.1.2">
+<h3><span class="header-section-number">4.1.2</span> Raster data</h3>
+<p>Raster data are essentially data stored in a regular grid of pixels (or cells). Digital images like jpeg or png files are essentially rasters without spatial information. The value of each pixel is a number representing a measured value (e.g. continuous data such as sea surface temperature) or a category (e.g. discrete data such as land cover class). All pixels have a value, even if the value is “No Data.” Rasters are particularly useful for representing continuous data.</p>
 <p><br></p>
 <div class="figure" style="text-align: center"><span id="fig:rasterdem"></span>
 <img src="spatial-r_files/figure-html/rasterdem-1.png" alt="Raster representation of continuous data; a digital elevation model of the Cape Peninsula." width="336" />
@@ -250,8 +191,9 @@ Figure 4.2: Vector (polygon) representation of discrete data; the vegetation typ
 Figure 4.3: Raster representation of continuous data; a digital elevation model of the Cape Peninsula.
 </p>
 </div>
-<p>Rasters are great for continuous data. If this was a vector plot, each pixel would have to be its own polygon and the legend would have a separate entry for each unique value, &gt;60 000 entries!!!</p>
-<p>That said, you can represent continuous values with a vector data model quite effectively if you bin the continuous data into classes, such as one can do with a filled contour plot, e.g.</p>
+<p>Rasters are great for continuous data. If this was a vector plot of the raw data, each pixel would have to be its own polygon and the legend would have a separate entry for each unique value, &gt;60 000 entries!!!</p>
+<p>That said, you can quite effectively represent continuous values <em>visually</em> with a vector data model if you bin the continuous data (from the raster) into classes, such as one can do with a filled contour plot (see below). This is not ideal for analyses though, as the binning results in data loss.</p>
+<p>You’ll find that you often need to convert data between vector and raster models for various reasons, and that this usually means some tough decisions need to be made about what is acceptable data loss. We’ll cover that later.</p>
 <p><br></p>
 <div class="figure" style="text-align: center"><span id="fig:contourdem"></span>
 <img src="spatial-r_files/figure-html/contourdem-1.png" alt="Vector representation of continuous data; a filled contour plot of a digital elevation model of the Cape Peninsula using 100m contours." width="336" />
@@ -259,7 +201,8 @@ Figure 4.3: Raster representation of continuous data; a digital elevation model 
 Figure 4.4: Vector representation of continuous data; a filled contour plot of a digital elevation model of the Cape Peninsula using 100m contours.
 </p>
 </div>
-<p>In truth, I generated this plot from a raster data object (the digital elevation model), but to plot it R had to convert the raster to a set of vector polygons first. You’ll find that you often need to convert data between vector and raster models for various reasons, and we’ll cover that later.</p>
+<p><br></p>
+<p>Conversely, rasters are usually not that good at representing categorical data. Note that most raster file formats (and GIS software) can only store numeric data, so this plot misleadingly represents the vegetation types as continuous data. You can label and represent categorical data in rasters in R, but this is usually more effort than its worth and is almost always less effective than using a vector format… A common exception is land use and land cover (LULC) maps, where remotely sensed satellite imagery (raster data) are classified into predefined classes (e.g. agriculture, rock, grassland, etc) based on various criteria or algorithms. Even then, these are difficult to interpret visually with static maps and are best visualized as interactive maps so you can make sense of them by zooming in and panning around.</p>
 <p><br></p>
 <div class="figure" style="text-align: center"><span id="fig:rasterveg"></span>
 <img src="spatial-r_files/figure-html/rasterveg-1.png" alt="Raster representation the discrete data; the vegetation types of the Cape Peninsula." width="307.2" />
@@ -267,7 +210,6 @@ Figure 4.4: Vector representation of continuous data; a filled contour plot of a
 Figure 4.5: Raster representation the discrete data; the vegetation types of the Cape Peninsula.
 </p>
 </div>
-<p>Rasters are usually not that good at representing categorical data. Note that most raster file formats (and GIS software) can only store numeric data, so this plot misleadingly represents the vegetation types as continuous data. You can label and represent categorical data in rasters in R, but this is usually more effort than its worth and is almost always less effective than using a vector format… A common exception is land use and land cover (LULC) maps, where remotely sensed satellite imagery (raster data) are classified into predefined classes (e.g. agriculture, rock, grassland, etc) based on various criteria or algorithms. Even then, these are best visualized as interactive rather than static maps so you can make sense of them by zooming in and panning around.</p>
 <p><br></p>
 </div>
 </div>
@@ -1997,20 +1939,6 @@ gitbook.start({
 });
 </script>
 
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
-  (function () {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:")
-      if (/^https?:/.test(src))
-        src = src.replace(/^https?:/, '');
-    script.src = src;
-    document.getElementsByTagName("head")[0].appendChild(script);
-  })();
-</script>
 </body>
 
 </html>
