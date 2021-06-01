@@ -60,7 +60,7 @@ I've included quite a bit of demonstration R code in Chapter \@ref(rdemo). To tu
 
 * to have working R and RStudio installations - [this](https://learnr-examples.shinyapps.io/ex-setup-r/) tutorial may help if needed
 * to install the following R packages (you can copy and run the code):
-  - required: `install.packages(c("tidyverse", "sp", "rgdal", "raster", "sf"))`
+  - required: `install.packages(c("tidyverse", "sp", "rgdal", "raster", "sf", "lwgeom"))`
   - optional, but handy for some visualizations: `install.packages(c("cowplot", "hrbrthemes", "knitr", "leaflet", "htmltools", "rosm", "ggspatial", "rnaturalearth"))`
 * to download the datasets discussed in section \@ref(casestudy)
 

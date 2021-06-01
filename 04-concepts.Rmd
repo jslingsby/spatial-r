@@ -28,13 +28,13 @@ knitr::include_graphics("img/CapePen_1in50_3418AB_AD.jpg")
 
 GIS is usually scaleless (or at least flexible in scale); we can "zoom in" as much as we want to, and perform operations at just about any scale we want to, but should we? There are lots of issues we need to consider!
 
-* **Representation...** There are 2 issues here:
-  - Firstly, a 1mm thick line on a 1:50,000 scale map would be 50m wide in reality. A 5m wide road would be 1/10mm on the map. Would the map be readable? Sometimes we break the rules of scale to make maps readable. Bear this in mind!
-  - Secondly, scale and representation also becomes an issue of how to capture data in the first place. For example, a road is typically best represented as a line at 1:5,000 scale or smaller (note that scale is a ratio, so "small scale" = large extent or area!). At 1:1,000 scale a 5m wide road would be 5mm across on the map, so one might capture it as a polygon to represent its area.
+* **Representation (i.e. mapping)...** There are 2 issues here:
+  - Firstly, a 1mm thick line on a 1:50,000 scale map would be 50m wide in reality. Conversely, a 5m wide road would be 1/10mm on the map. Would the map be readable? **Sometimes we break the rules of scale to make maps readable.** Bear this in mind!
+  - Secondly, **scale and our desired representation affect how we _capture_ data**. For example, a road is typically best represented as a line at 1:5,000 scale or smaller (note that scale is a ratio, so "small scale" = large extent or area!). At 1:1,000 scale a 5m wide road would be 5mm across on the map, so one might capture it as a polygon to represent its area. **_You should always consider the purpose for which (and scale at which) the data were captured before using them for a new application!_** This affects both the appropriateness of the data type and the _accuracy_ and _precision_ of the data...
 
 <br>
 
-```{r chapmans, echo=FALSE, warning=F, message=F, fig.cap="Zoomed in on Chapman's peak on the the Cape Peninsula 1:50,000 topographic map (3418AB & AD). At this scale the road is probably better mapped as an area than a line?", fig.width=6, fig.align = 'center'}
+```{r chapmans, echo=FALSE, warning=F, message=F, fig.cap="Zoomed in on Chapman's peak on the the Cape Peninsula 1:50,000 topographic map (3418AB & AD). At this scale the road (in red) is probably better mapped as an area than a line?", fig.width=6, fig.align = 'center'}
 knitr::include_graphics("img/chapmans.png")
 ```
 
@@ -49,7 +49,7 @@ knitr::include_graphics("img/chapmans.png")
 
 **A quick aside on the difference between accuracy and precision!**
 
-```{r accuracyprecision, fig.cap='The difference between accuracy and precision.', fig.asp=1, fig.align='center', echo=FALSE, warning=F, message=F}
+```{r accuracyprecision, fig.cap='The difference between accuracy and precision, where the true value is the origin (0,0).', fig.asp=1, fig.align='center', echo=FALSE, warning=F, message=F}
 library(tidyverse)
 library(hrbrthemes)
 
@@ -81,27 +81,7 @@ For raster data, we typically refer to pixel resolution (or sample interval). Fo
 
 ## Coordinate Reference Systems (CRS)
 
-Coordinate Reference Systems (CRS) provide a framework for defining real-world locations. There are many different CRSs, with different properties. They can be a minefield, and I don't have the time to cover them in any detail here. I provide some of the basics below, and list some of the golden rules (mostly from the GIS Support Unit) here. Some of these may only make sense once we've been through the rest of this section...
-
-1. If things don't line up, its probably a CRS issue.
-2. You need to **_know what CRS your dataset is in_**. 
-  - This is essential, because you need to _define_ your projections to be able to compare datasets. If they are not the same, you will need to _reproject_ one to align with the other*. 
-  - If your datasets are not in the same CRS, most GIS software will give you warning or error messages, but not always! Note that not all file formats store the CRS "metadata", so check and store it yourself if needed! 
-2. You need to make sure you **_use a CRS that best preserves the properties you are interested in_** (area, distance, direction, shape). More on this below in section \@ref(projections).
-3. If your areas and distances are stupidly small (0.001 etc) your data are probably in Geographic (i.e. degrees and not a unit of distance like metres).
-4. Always interrogate and "common-sense-check" your results!!!
-
-<br>
-
-> *Defining Projection is not the same as reprojecting! Think in terms of languages, "I have text in Japanese and want it in English". _Defining_ is saying what it IS ("This text is in Japanese" - defining Japanese as English gives you garbage). _Reprojecting_ is what you want it to be (i.e. translate Japanese to English).
-
-<br>
-
-Two other issues to look out for:
-
-* The official *South African CRS* is waiting to get you. If you see Gauss Conform run screaming, its a left handed CRS based on Southings and Westings (i.e. completely inverted...). Simple, yes?
-* *Datums...* These are essentially models of the shape of the surface of the planet. Most South African datasets (since 1999 at least) use the Hartebeesthoek 94 datum, which is our local "bespoke" solution. It's pretty much the same as the WGS84 datum (a good global datum), and the difference is negligible for most ecological analyses. Our former local "bespoke" datum (the Cape or Clarke1880 datum), which was often used for data before 1999, is out to get you. These datasets will never line up perfectly with modern data sets when reprojected in a normal GIS and will usually be a couple of tens of metres off...
-
+Coordinate Reference Systems (CRS) provide a framework for defining real-world locations. There are many different CRSs, with different properties. They can be a minefield, and I don't have the time to cover them in any detail. I provide some of the basics here, and list some of the golden rules (mostly from the GIS Support Unit) below. 
 
 ### Geographic (or "unprojected") Coordinate Systems
 
@@ -222,6 +202,27 @@ Note that some GIS tools can perform "on the fly" (re)projection of data. For ex
 
 On the fly projection can clearly be very useful, but it can also be misleading if you don't know what its doing. My take is that you should always check the default settings for the software you're using, and check the set CRS(s) and individual dataset CRS(s) to make sure you are working in a suitable CRS for the operations you want to perform...
 
-## Other pitfalls to avoid
+<br>
 
-Here I'll refer you directly to [this chapter](https://mgimond.github.io/Spatial/pitfalls-to-avoid.html) in Manny Gimond's _Intro to GIS and Spatial Analysis_ for further reading.
+### The golden rules...
+
+1. If things don't line up, its probably a CRS issue.
+2. You need to **_know what CRS your dataset is in_**. 
+  - This is essential, because you need to _define_ your projections to be able to compare datasets. If they are not the same, you will need to _reproject_ one to align with the other*. 
+  - If your datasets are not in the same CRS, most GIS software will give you warning or error messages, but not always! Note that not all file formats store the CRS "metadata", so check and store it yourself if needed! 
+2. You need to make sure you **_use a CRS that best preserves the properties you are interested in_** (area, distance, direction, shape). More on this below in section \@ref(projections).
+3. If your areas and distances are stupidly small (0.001 etc) your data are probably in Geographic (i.e. degrees and not a unit of distance like metres).
+4. Always interrogate and "common-sense-check" your results!!!
+
+<br>
+
+> *Defining Projection is not the same as reprojecting! Think in terms of languages, "I have text in Japanese and want it in English". _Defining_ is saying what it IS ("This text is in Japanese" - defining Japanese as English gives you garbage). _Reprojecting_ is what you want it to be (i.e. translate Japanese to English).
+
+<br>
+
+Two other issues to look out for:
+
+* The official *South African CRS* is waiting to get you. If you see Gauss Conform run screaming, its a left handed CRS based on Southings and Westings (i.e. completely inverted...). Simple, yes?
+* *Datums...* These are essentially models of the shape of the surface of the planet. Most South African datasets (since 1999 at least) use the Hartebeesthoek 94 datum, which is our local "bespoke" solution. It's pretty much the same as the WGS84 datum (a good global datum), and the difference is negligible for most ecological analyses. Our former local "bespoke" datum (the Cape or Clarke1880 datum), which was often used for data before 1999, is out to get you. These datasets will never line up perfectly with modern data sets when reprojected in a normal GIS and will usually be a couple of tens of metres off...
+
+**Some other important pitfalls to avoid** are best covered in [this chapter](https://mgimond.github.io/Spatial/pitfalls-to-avoid.html) in Manny Gimond's _Intro to GIS and Spatial Analysis_.

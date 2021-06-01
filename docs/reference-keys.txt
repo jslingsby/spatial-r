@@ -24,6 +24,7 @@ fig:sfcheatsheet1
 fig:sfcheatsheet2
 overview
 general
+using-this-resource
 module-and-project-details
 intro
 gis-basics
@@ -44,14 +45,14 @@ geographic-or-unprojected-coordinate-systems
 projections
 projection-codes
 on-the-fly-vs-manual-projection
-other-pitfalls-to-avoid
+the-golden-rules
 r-as-a-gis
 overview-1
 some-key-r-packages
 for-vector-data
 for-raster-data
-gis-operations-in-r
-case-study-and-demo-datasets
+rdemo
+casestudy
 working-with-vector-data
 reading-and-writing
 basic-plotting
@@ -62,6 +63,3 @@ getinat
 adding-basemaps-to-plots
 interactive-maps-with-leaflet
 intersecting-points-and-polygons
-rdemo
-casestudy
-using-this-resource
