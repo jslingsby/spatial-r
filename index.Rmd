@@ -54,7 +54,7 @@ All code, images, etc can be found [here](https://github.com/jslingsby/spatial-r
 
 <br>
 
-## Using this resource
+## Using this resource {#using}
 
 I've included quite a bit of demonstration R code in Chapter \@ref(rdemo). To tun the code you will need:
 
@@ -96,10 +96,10 @@ I will be available 2-3PM every afternoon (excluding Friday) as a "help desk" to
 
 Some sources of local data to help you get started. Feel free to look for others! If you find good ones, let me know and I'll add them.
 
-* SANBI’s “Biodiversity GIS” - https://bgis.sanbi.org/
-* SANBI’s Botanical Database of South Africa (BODATSA) - http://newposa.sanbi.org/
-* SAEON’s Data Catalogue (in beta) - http://catalogue.saeon.ac.za/
-* City of Cape Town’s Open Data Portal - https://odp.capetown.gov.za/
+* SANBI's "Biodiversity GIS" - https://bgis.sanbi.org/
+* SANBI's Botanical Database of South Africa (BODATSA) - http://newposa.sanbi.org/
+* SAEON's Data Catalogue (in beta) - http://catalogue.saeon.ac.za/
+* City of Cape Town's Open Data Portal - https://odp.capetown.gov.za/
 * iNaturalist - https://www.inaturalist.org/ (accessible from R - see section \@ref(getinat))
 * Google Datasets Search - https://datasetsearch.research.google.com/
 

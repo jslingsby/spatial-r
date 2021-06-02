@@ -126,7 +126,7 @@ There are 4 properties that get distorted, you can pick which one gets preserved
 
 (see [here](https://www.e-education.psu.edu/natureofgeoinfo/c2_p29.html) for a nice description and illustrations)
 
-Some "general purpose" projections, like _Transverse Mercator (TM)_, try to compromise and minimize distortion in all properties, but can't preserve any perfectly. Their distortions also tent to get worse the larger the spatial extent being analyzed.
+Some "general purpose" projections, like _Transverse Mercator (TM)_, try to compromise and minimize distortion in all properties, but can't preserve any perfectly. Their distortions also tend to get worse the larger the spatial extent being analyzed.
 
 Projections get tuned to best fit an area through the use of projection parameters. For example, _Transverse Mercator_, which is used by the 1:50,000 map series and by Municipalities like Cape Town, uses a narrow projection window of 2 degree-wide bands. As a result, our map series projection parameters are set by moving the central meridian (or tangent) line of longitude every odd degree across the country. Cape Town is close to 19°E, so our version is colloquially called 'Lo19'. For Durban you'd use 'Lo31'. _Universal Transverse Mercator (UTM)_ is similar, but uses 6 degree-wide bands so that it can be applied across larger extents.
 
@@ -210,9 +210,9 @@ On the fly projection can clearly be very useful, but it can also be misleading 
 2. You need to **_know what CRS your dataset is in_**. 
   - This is essential, because you need to _define_ your projections to be able to compare datasets. If they are not the same, you will need to _reproject_ one to align with the other*. 
   - If your datasets are not in the same CRS, most GIS software will give you warning or error messages, but not always! Note that not all file formats store the CRS "metadata", so check and store it yourself if needed! 
-2. You need to make sure you **_use a CRS that best preserves the properties you are interested in_** (area, distance, direction, shape). More on this below in section \@ref(projections).
-3. If your areas and distances are stupidly small (0.001 etc) your data are probably in Geographic (i.e. degrees and not a unit of distance like metres).
-4. Always interrogate and "common-sense-check" your results!!!
+3. You need to make sure you **_use a CRS that best preserves the properties you are interested in_** (area, distance, direction, shape). More on this below in section \@ref(projections).
+4. If your areas and distances are stupidly small (0.001 etc) your data are probably in Geographic (i.e. degrees and not a unit of distance like metres).
+5. Always interrogate and "common-sense-check" your results!!!
 
 <br>
 

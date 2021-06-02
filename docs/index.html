@@ -24,7 +24,7 @@
 <meta name="author" content="Jasper Slingsby" />
 
 
-<meta name="date" content="2021-06-01" />
+<meta name="date" content="2021-06-02" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -144,7 +144,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Overview</a>
 <ul>
 <li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#general"><i class="fa fa-check"></i><b>1.1</b> General</a></li>
-<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#using-this-resource"><i class="fa fa-check"></i><b>1.2</b> Using this resource</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#using"><i class="fa fa-check"></i><b>1.2</b> Using this resource</a></li>
 <li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#module-and-project-details"><i class="fa fa-check"></i><b>1.3</b> Module and Project details</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Why care about GIS?</a></li>
@@ -176,8 +176,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.2.2" data-path="some-important-concepts-and-pitfalls.html"><a href="some-important-concepts-and-pitfalls.html#projections"><i class="fa fa-check"></i><b>5.2.2</b> Projected Coordinate Systems</a></li>
 <li class="chapter" data-level="5.2.3" data-path="some-important-concepts-and-pitfalls.html"><a href="some-important-concepts-and-pitfalls.html#projection-codes"><i class="fa fa-check"></i><b>5.2.3</b> Projection codes</a></li>
 <li class="chapter" data-level="5.2.4" data-path="some-important-concepts-and-pitfalls.html"><a href="some-important-concepts-and-pitfalls.html#on-the-fly-vs-manual-projection"><i class="fa fa-check"></i><b>5.2.4</b> “On the fly” vs manual projection</a></li>
+<li class="chapter" data-level="5.2.5" data-path="some-important-concepts-and-pitfalls.html"><a href="some-important-concepts-and-pitfalls.html#the-golden-rules"><i class="fa fa-check"></i><b>5.2.5</b> The golden rules…</a></li>
 </ul></li>
-<li class="chapter" data-level="5.3" data-path="some-important-concepts-and-pitfalls.html"><a href="some-important-concepts-and-pitfalls.html#the-golden-rules"><i class="fa fa-check"></i><b>5.3</b> The golden rules…</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="r-as-a-gis.html"><a href="r-as-a-gis.html"><i class="fa fa-check"></i><b>6</b> R as a GIS</a>
 <ul>
@@ -188,21 +188,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.2.2" data-path="r-as-a-gis.html"><a href="r-as-a-gis.html#for-raster-data"><i class="fa fa-check"></i><b>6.2.2</b> For raster data</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="rdemo.html"><a href="rdemo.html"><i class="fa fa-check"></i><b>7</b> GIS operations in R</a>
+<li class="chapter" data-level="7" data-path="rdemo.html"><a href="rdemo.html"><i class="fa fa-check"></i><b>7</b> Vector GIS operations in R</a>
 <ul>
 <li class="chapter" data-level="7.1" data-path="rdemo.html"><a href="rdemo.html#casestudy"><i class="fa fa-check"></i><b>7.1</b> Case study and demo datasets</a></li>
-<li class="chapter" data-level="7.2" data-path="rdemo.html"><a href="rdemo.html#working-with-vector-data"><i class="fa fa-check"></i><b>7.2</b> Working with vector data</a>
-<ul>
-<li class="chapter" data-level="7.2.1" data-path="rdemo.html"><a href="rdemo.html#reading-and-writing"><i class="fa fa-check"></i><b>7.2.1</b> Reading and writing</a></li>
-<li class="chapter" data-level="7.2.2" data-path="rdemo.html"><a href="rdemo.html#basic-plotting"><i class="fa fa-check"></i><b>7.2.2</b> Basic plotting</a></li>
-<li class="chapter" data-level="7.2.3" data-path="rdemo.html"><a href="rdemo.html#cropping"><i class="fa fa-check"></i><b>7.2.3</b> Cropping</a></li>
-<li class="chapter" data-level="7.2.4" data-path="rdemo.html"><a href="rdemo.html#select-and-subset-by-attribute"><i class="fa fa-check"></i><b>7.2.4</b> Select and subset by attribute</a></li>
-<li class="chapter" data-level="7.2.5" data-path="rdemo.html"><a href="rdemo.html#combine-classes-and-dissolve-by-attribute"><i class="fa fa-check"></i><b>7.2.5</b> Combine classes and dissolve by attribute</a></li>
-<li class="chapter" data-level="7.2.6" data-path="rdemo.html"><a href="rdemo.html#getinat"><i class="fa fa-check"></i><b>7.2.6</b> Calling iNaturalist data from R</a></li>
-<li class="chapter" data-level="7.2.7" data-path="rdemo.html"><a href="rdemo.html#adding-basemaps-to-plots"><i class="fa fa-check"></i><b>7.2.7</b> Adding basemaps to plots</a></li>
-<li class="chapter" data-level="7.2.8" data-path="rdemo.html"><a href="rdemo.html#interactive-maps-with-leaflet"><i class="fa fa-check"></i><b>7.2.8</b> Interactive maps with <em>leaflet</em></a></li>
-<li class="chapter" data-level="7.2.9" data-path="rdemo.html"><a href="rdemo.html#intersecting-points-and-polygons"><i class="fa fa-check"></i><b>7.2.9</b> Intersecting points and polygons</a></li>
-</ul></li>
+<li class="chapter" data-level="7.2" data-path="rdemo.html"><a href="rdemo.html#reading-and-writing"><i class="fa fa-check"></i><b>7.2</b> Reading and writing</a></li>
+<li class="chapter" data-level="7.3" data-path="rdemo.html"><a href="rdemo.html#basic-plotting"><i class="fa fa-check"></i><b>7.3</b> Basic plotting</a></li>
+<li class="chapter" data-level="7.4" data-path="rdemo.html"><a href="rdemo.html#cropping"><i class="fa fa-check"></i><b>7.4</b> Cropping</a></li>
+<li class="chapter" data-level="7.5" data-path="rdemo.html"><a href="rdemo.html#select-and-subset-by-attribute"><i class="fa fa-check"></i><b>7.5</b> Select and subset by attribute</a></li>
+<li class="chapter" data-level="7.6" data-path="rdemo.html"><a href="rdemo.html#combine-classes-and-dissolve-by-attribute"><i class="fa fa-check"></i><b>7.6</b> Combine classes and dissolve by attribute</a></li>
+<li class="chapter" data-level="7.7" data-path="rdemo.html"><a href="rdemo.html#getinat"><i class="fa fa-check"></i><b>7.7</b> Calling iNaturalist locality (point) data from R</a></li>
+<li class="chapter" data-level="7.8" data-path="rdemo.html"><a href="rdemo.html#converting-a-dataframe-into-a-spatial-object"><i class="fa fa-check"></i><b>7.8</b> Converting a dataframe into a spatial object</a></li>
+<li class="chapter" data-level="7.9" data-path="rdemo.html"><a href="rdemo.html#adding-basemaps-to-plots"><i class="fa fa-check"></i><b>7.9</b> Adding basemaps to plots</a></li>
+<li class="chapter" data-level="7.10" data-path="rdemo.html"><a href="rdemo.html#interactive-maps-with-leaflet"><i class="fa fa-check"></i><b>7.10</b> Interactive maps with <em>leaflet</em></a></li>
+<li class="chapter" data-level="7.11" data-path="rdemo.html"><a href="rdemo.html#reprojecting"><i class="fa fa-check"></i><b>7.11</b> Reprojecting</a></li>
+<li class="chapter" data-level="7.12" data-path="rdemo.html"><a href="rdemo.html#intersecting-points-and-polygons"><i class="fa fa-check"></i><b>7.12</b> Intersecting points and polygons</a></li>
+<li class="chapter" data-level="7.13" data-path="rdemo.html"><a href="rdemo.html#colour-or-label-points"><i class="fa fa-check"></i><b>7.13</b> Colour or label points</a></li>
+<li class="chapter" data-level="7.14" data-path="rdemo.html"><a href="rdemo.html#buffering"><i class="fa fa-check"></i><b>7.14</b> Buffering</a></li>
+<li class="chapter" data-level="7.15" data-path="rdemo.html"><a href="rdemo.html#within-distance-and-intersect"><i class="fa fa-check"></i><b>7.15</b> Within distance and intersect</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
@@ -228,7 +230,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="header">
 <h1 class="title">A Minimal Introduction to GIS (in R)</h1>
 <p class="author"><em>Jasper Slingsby</em></p>
-<p class="date"><em>2021-06-01</em></p>
+<p class="date"><em>2021-06-02</em></p>
 </div>
 <div id="overview" class="section level1" number="1">
 <h1><span class="header-section-number">1</span> Overview</h1>
@@ -258,7 +260,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International License</a>.</p>
 <p><br></p>
 </div>
-<div id="using-this-resource" class="section level2" number="1.2">
+<div id="using" class="section level2" number="1.2">
 <h2><span class="header-section-number">1.2</span> Using this resource</h2>
 <p>I’ve included quite a bit of demonstration R code in Chapter <a href="rdemo.html#rdemo">7</a>. To tun the code you will need:</p>
 <ul>
@@ -297,7 +299,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>SANBI’s Botanical Database of South Africa (BODATSA) - <a href="http://newposa.sanbi.org/" class="uri">http://newposa.sanbi.org/</a></li>
 <li>SAEON’s Data Catalogue (in beta) - <a href="http://catalogue.saeon.ac.za/" class="uri">http://catalogue.saeon.ac.za/</a></li>
 <li>City of Cape Town’s Open Data Portal - <a href="https://odp.capetown.gov.za/" class="uri">https://odp.capetown.gov.za/</a></li>
-<li>iNaturalist - <a href="https://www.inaturalist.org/" class="uri">https://www.inaturalist.org/</a> (accessible from R - see section <a href="rdemo.html#getinat">7.2.6</a>)</li>
+<li>iNaturalist - <a href="https://www.inaturalist.org/" class="uri">https://www.inaturalist.org/</a> (accessible from R - see section <a href="rdemo.html#getinat">7.7</a>)</li>
 <li>Google Datasets Search - <a href="https://datasetsearch.research.google.com/" class="uri">https://datasetsearch.research.google.com/</a></li>
 </ul>
 <p><strong><em>Make sure to check the data use policies and make sure you have permission use the datasets!!!</em></strong></p>

@@ -24,7 +24,7 @@ fig:sfcheatsheet1
 fig:sfcheatsheet2
 overview
 general
-using-this-resource
+using
 module-and-project-details
 intro
 gis-basics
@@ -53,13 +53,17 @@ for-vector-data
 for-raster-data
 rdemo
 casestudy
-working-with-vector-data
 reading-and-writing
 basic-plotting
 cropping
 select-and-subset-by-attribute
 combine-classes-and-dissolve-by-attribute
 getinat
+converting-a-dataframe-into-a-spatial-object
 adding-basemaps-to-plots
 interactive-maps-with-leaflet
+reprojecting
 intersecting-points-and-polygons
+colour-or-label-points
+buffering
+within-distance-and-intersect

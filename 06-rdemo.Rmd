@@ -7,7 +7,7 @@
       download: null
 ---
 
-# GIS operations in R {#rdemo}
+# Vector GIS operations in R {#rdemo}
 
 ## Case study and demo datasets {#casestudy}
 Ok, for demonstrating some of the many GIS operations R can perform we will be using data from one of my favourite study areas, the Cape Peninsula.
@@ -20,12 +20,12 @@ The datasets we will use, some of their properties and where to source them are 
 library(knitr) 
 
 datasets <- data.frame(
-  `Name` = c("Localities", "Watercourses", "Vegetation Types", "Elevation"),
-  `Data model` = c("Vector", "Vector", "Vector", "Raster"),
-  `Geometry type` = c("Point", "Line", "Polygon", "Raster"),
-  `File format` = c("", "ESRI shapefile", "ESRI shapefile", "GeoTIFF"),
-  `Data source` = c("iNaturalist", "City of Cape Town", "City of Cape Town", "City of Cape Town"),
-  URL = c("https://www.inaturalist.org/", "https://odp-cctegis.opendata.arcgis.com/datasets/open-watercourse", "https://odp-cctegis.opendata.arcgis.com/datasets/indigenous-vegetation-current-extent", "https://odp-cctegis.opendata.arcgis.com/datasets/digital-elevation-model-10m-grid-general-binary-ascii")
+  `Name` = c("Localities", "Watercourses", "Vegetation Types (historical)", "Vegetation Types (remnants)", "Elevation"),
+  `Data model` = c("Vector", "Vector", "Vector", "Vector", "Raster"),
+  `Geometry type` = c("Point", "Line", "Polygon", "Polygon", "Raster"),
+  `File format` = c("", "ESRI shapefile", "ESRI shapefile", "ESRI shapefile", "GeoTIFF"),
+  `Data source` = c("iNaturalist", "City of Cape Town", "City of Cape Town", "City of Cape Town", "City of Cape Town"),
+  URL = c("https://www.inaturalist.org/", "https://odp-cctegis.opendata.arcgis.com/datasets/cctegis::open-watercourses/about", "https://odp-cctegis.opendata.arcgis.com/datasets/cctegis::indigenous-vegetation-historic-extent/about", "https://odp-cctegis.opendata.arcgis.com/datasets/indigenous-vegetation-current-extent", "https://odp-cctegis.opendata.arcgis.com/datasets/digital-elevation-model-10m-grid-general-binary-ascii")
 )
 
 kable(datasets)
@@ -33,21 +33,21 @@ kable(datasets)
 
 <br>
 
-If you'd like to follow along and run the analyses that follow, please follow the links and download the datasets. Please note that the elevation dataset is ~130MB. I'll also put a copy of all datasets on the Vula site for the course, which I understand is zero-data rated.
+If you'd like to follow along and run the analyses that follow, please follow the links and download the datasets. _If you don't see the links, you need to reduce the font size by clicking the "A" in the taskbar._ The elevation dataset is ~13MB as a .zip file, but will expand to ~130MB   . I'll also put a copy of all datasets on the Vula site for the course, which I understand is zero-data rated. There's no need to download the iNaturalist data as we'll download it directly from R.
+
+For installing R and the required packages see section \@ref(using).
 
 <br>
 
-## Working with vector data
-
-### Reading and writing
+## Reading and writing
 
 _sf_ has a one-size-fits-all approach in that most functions can be applied to most different data types (point, line, polygon, etc) or, in the case of reading and writing, file formats. To read data the function you want is `st_read()`. 
 
 You'll note that most of the _sf_ functions begin with "st_" - this stands for "spatial and temporal" and is the same in some other GIS like PostGIS.
 
-Let's try to read in some dat with `st_read()`:
+Let's try to read in some data with `st_read()`:
 
-> Note that if you're trying any of the read/write code at home, you'll need to set the file path to where you put the data and want the outputs on your local machine. You can also use `?setwd` to simplify this.
+> NOTE: if you're trying any of the read/write code at home, you'll need to set the file path to where you put the data and want the outputs on your local machine. You can also use `?setwd` to simplify this. If you are on Windows, make sure to change the backslashes "\" to either double backslashes or forward slashes "/".
 
 <br>
 
@@ -99,7 +99,7 @@ Note that the function recognised that I wanted to write out an ESRI shapefile f
 
 <br>
 
-### Basic plotting
+## Basic plotting
 
 As with other data types in R (and perhaps even more so with spatial data), you can really go to town with plotting. I'm only going to show you enough to be able to interrogate your data. Making it look pretty is a week-long course or more in its own right. Check out the _"Making maps with R"_ chapter in Lovelace et al's online book [Geocomputation with R](https://geocompr.robinlovelace.net/) for a good start.
 
@@ -134,18 +134,20 @@ That's better for the legend, but now we've squashed the map. Let's narrow in on
 
 <br>
 
-### Cropping
+## Cropping
 
-Here we'll apply the function `st_crop`. To use the function you need an object to crop, and an extent or bounding box to crop to. **_sf_** is clever, and you can set the extent by giving it another object who's extent you'd like to match (check the bounding box given when we read in the data earlier). 
+Here we'll apply the function `st_crop()`. To use the function you need an object to crop, and an extent or bounding box to crop to. **_sf_** is clever, and you can set the extent by giving it another object who's extent you'd like to match (check the bounding box given when we read in the data earlier). 
 
-We don't have a second object in this case, so we have to provide a "numeric vector with named elements xmin, ymin, xmax and ymax", like so:
+We don't have a second object in this case, so we have to provide a "_numeric vector with named elements xmin, ymin, xmax and ymax_", like so:
 
 ```{r}
-ext <- c(-66642.18, -3809853.29, -44412.18, -3750723.29) #Coordinates in metres according to TM Lo19
+#Make a vector of coordinates in metres according to TM Lo19
+ext <- c(-66642.18, -3809853.29, -44412.18, -3750723.29) 
 
 ext
 
-names(ext) <- c("xmin", "ymin", "xmax", "ymax") #Give it names
+#Give the vector names
+names(ext) <- c("xmin", "ymin", "xmax", "ymax") 
 
 ext
 ```
@@ -166,12 +168,12 @@ Which ones do I mean?
 
 <br>
 
-### Select and subset by attribute
+## Select and subset by attribute
 
 Let's select them from the attribute table and plot them.
 
 ```{r}
-#Get a list of the veg types we want
+#Make a vector of the veg types we want
 split_veg <- c("Peninsula Granite Fynbos - North", 
                "Peninsula Granite Fynbos - South", 
                "Cape Flats Dune Strandveld - West Coast", 
@@ -192,12 +194,14 @@ veg %>%
   filter(National_ %in% split_veg) %>%
   ggplot() +
   geom_sf(aes(fill = `National_`))
+
+#The advantage being that you don't have to make the intermediate "vegsub" object
 ```
 
 Ok. What if we decided we don't want them split?
 
 
-### Combine classes and dissolve by attribute
+## Combine classes and dissolve by attribute
 
 We can just rename them in appropriate column in the attribute table...
 
@@ -210,18 +214,19 @@ vegsub$National_ <- str_replace_all(vegsub$National_, c("Peninsula Granite Fynbo
 ggplot() + geom_sf(data=vegsub, aes(fill = `National_`))
 ```
 
-But from the polygon boundaries we see that there are a number of adjacent polygons (i.e. they have shared boundaries) that are of the same veg type. We can "dissolve" these boundaries like so:
+Nice, but from the polygon boundaries we see that there are a number of adjacent polygons (i.e. they have shared boundaries) that are of the same veg type. We can "dissolve" and plot these boundaries like so:
 
 ```{r}
-vs_dissolve <- vegsub %>% group_by(National_) %>% summarize() 
-
-#plot dissolved
-ggplot() + geom_sf(data=vs_dissolve, aes(fill = National_))
+vegsub %>% group_by(National_) %>% 
+  summarize() %>% 
+  ggplot() + geom_sf(aes(fill = National_))
 ```
 
 Ok... I think we've flogged that horse as far as it'll go for now. Let's bring in another dataset. How about points?
 
-### Calling iNaturalist data from R {#getinat}
+<br>
+
+## Calling iNaturalist locality (point) data from R {#getinat}
 
 A very cool feature of [iNaturalist](https://www.inaturalist.org/) is that the team at [rOpenSci](https://ropensci.org/) have built a great R package for interfacing with it directly, called [_rinat!_](https://docs.ropensci.org/rinat/)
 
@@ -232,7 +237,7 @@ library(rinat)
 
 #Call the data directly from iNat
 pc <- get_inat_obs(taxon_name = "Protea cynaroides",
-                   bounds = c(-34.5, 18, -33.5, 18.5),
+                   bounds = c(-35, 18, -33.5, 18.5),
                    maxresults = 1000)
 
 #Filter returned observations by a range of attribute criteria
@@ -242,8 +247,26 @@ pc <- pc %>% filter(positional_accuracy<46 &
                 captive_cultivated == "false" &
                 quality_grade == "research")
 
+class(pc)
+```
+
+Ok, so this is a dataframe with lat/long data, but it isn't registered as an object with spatial attributes (i.e. geometries).
+
+<br>
+
+## Converting a dataframe into a spatial object
+
+To make it an object of `class(sf)` we use the function `st_as_sf()`.
+
+```{r}
 #Make the dataframe a spatial object of class = "sf"
-pc <- st_as_sf(pc, coords = c("longitude", "latitude"), crs = 4326) #Note that I had to define the CRS!!!
+pc <- st_as_sf(pc, coords = c("longitude", "latitude"), crs = 4326) #Note that I had to define the CRS (as Geographic WGS84)!!!
+
+#What class is it?
+class(pc)
+
+#Note the new "geometry" column
+names(pc)
 
 #Plot
 ggplot() + geom_sf(data=pc)
@@ -255,9 +278,9 @@ Great! We got lots of points, but without a base layer its very difficult to tel
 
 <br>
 
-### Adding basemaps to plots
+## Adding basemaps to plots
 
-Let's pull up a base layer from Open Street Maps and plot our points on that.
+There are lots of ways to make the basemap from data objects etc that we can plot our points over, but an easy way is to pull in tiles from Open Street Maps and plot our points on those.
 
 <br>
 
@@ -272,15 +295,17 @@ ggplot() +
 
 <br>
 
-Note that there are quite a few base layer options that can be set with `type = ""`. Try `rosm::osm.types()` to see them all.
+Note that there are quite a few base layer/tile options that can be set with `type = ""`. Try `rosm::osm.types()` to see them all.
 
 This is better than nothing, but the scale of the map is too small to really see where the plants actually are. It would be much easier if we could look at the data interactively?
 
 <br>
 
-### Interactive maps with _leaflet_
+## Interactive maps with _leaflet_
 
 We can generate interactive maps by calling the [leaflet](https://leafletjs.com/) mapserver using wrapper functions in the [leaflet R package](https://rstudio.github.io/leaflet/) written for this purpose.
+
+> NOTE: If you can't get leaflet to work it is probably a CRS problem. Your data need to be in _Geographic_ or _Web Mercator_
 
 <br>
 
@@ -288,10 +313,9 @@ We can generate interactive maps by calling the [leaflet](https://leafletjs.com/
 library(leaflet)
 library(htmltools)
 leaflet() %>%
-  addTiles(group = "Default") %>%  # Add default OpenStreetMap map tiles
-
-#  addPolygons(data=layer, color = "#999999", weight = 1, smoothFactor = 0.5, opacity = 0.75, fillOpacity = 0.15, highlightOptions = highlightOptions(color = "white", weight = 2, bringToFront = F), label=~layer$QUARTERN, group = "Quaternaries") %>%
-  
+  # Add default OpenStreetMap map tiles
+  addTiles(group = "Default") %>%  
+  # Add our points
   addCircleMarkers(data = pc,
                    group = "Protea cynaroides",
                    radius = 3, 
@@ -302,22 +326,241 @@ leaflet() %>%
 
 Much better!
 
-Strange, but even though we filtered our iNaturalist records for `captive_cultivated == "false"` we still have a number of observations that appear to be in people's gardens. **_Let this serve as a warning to be wary of all data! Always do "common-sense-checks" on your data and the outputs of your analyses!!!_**
+Strange, but even though we filtered our iNaturalist records for `captive_cultivated == "false"` we still have a number of observations that appear to be in people's gardens. 
+
+**_Let this serve as a warning to be wary of all data! Always do "common-sense-checks" on your data and the outputs of your analyses!!!_**
 
 <br>
 
-### Intersecting points and polygons
+## Reprojecting
 
-One way to drastically reduce the number of cultivated records is to overlay the localities (points) with the _remaining extent_ of the vegetation types.
+One way to drastically reduce the number of cultivated records is to overlay the localities (points) with the _remaining extent_ of the vegetation types (i.e. anything that is not in natural vegtation is likely to be cultivated). Let's try that...
 
 <br>
 
-```{r}
-
+```{r, error=TRUE}
+#Get the remnants layer
 vegr <- st_read("data/cape_peninsula/veg/Vegetation_Indigenous_Remnants.shp")
 
-#st_join
-#st_intersects
-#st_intersection
+hmm <- st_intersection(pc, vegr)
+```
+Oops! The Coordinate Reference Systems are different! We will need to reproject one of the two datasets...
+
+<br>
+
+Let's see what CRS are currently set:
+
+```{r}
+st_crs(pc)
 ```
 
+So the points are Geographic. Besides having set it ourselves earlier, we know this because it indicates that the unit is degrees.
+
+```{r}
+st_crs(vegr)
+```
+
+The vegetation types are in Transverse Mercator Lo19, because it says "Transverse Mercator" and the "Central_Meridian" is set to 19.
+
+<br>
+
+In this case, either CRS is fine for our purposes, but let's stick with Transverse Mercator Lo19, because it'll be useful later. For this we need to reproject the veg layer like so:
+
+```{r}
+pc <- st_transform(pc, st_crs(vegr)) 
+```
+
+Note that I fed it the CRS from `vegr`. This guarantees that they'll be the same, even if we misidentified what the actual CRS is...
+
+<br>
+
+## Intersecting points and polygons
+
+...and now we can try to intersect the points and polygons again...
+
+First lets see how many rows and columns the point data before the intersection:
+```{r}
+#call the dimensions of pc
+dim(pc)  
+```
+
+<br>
+
+And after the intersection?
+```{r}
+pc <- st_intersection(pc, vegr)
+dim(pc)
+```
+
+Less rows, but more columns! Two things have happened:
+
+1. The attribute data from the polygons in `vegr` intersected by the points in `pc` have been added to the attribute table in `pc`!
+2. All points that do not intersect the polygons in `vegr` were dropped (i.e. those that were recorded outside the remaining extent of natural vegetation).
+
+<br>
+
+Let's have a look
+
+```{r}
+ggplot() + 
+  annotation_map_tile(type = "osm", progress = "none") + 
+  geom_sf(data=pc)
+```
+
+Yup, the localities in suburbia are gone... The map is a bit bland though. How about we use our "new information" about which vegetation types the observations occur in to colour or label the points on the map?
+
+<br>
+
+## Colour or label points
+
+First, let's add colour:
+```{r}
+library(wesanderson)
+
+pal <- wes_palette("Darjeeling1", 7, type = "continuous")
+
+ggplot() + 
+  annotation_map_tile(type = "osm", progress = "none") + 
+  geom_sf(data=pc, aes(col = National_)) +
+  scale_colour_manual(values = pal)
+```
+
+Looks like almost all of them are in Peninsula Sandstone Fynbos...
+
+```{r}
+pc %>% group_by(National_) %>% summarise(n())
+```
+
+Yup! Note the numbers in column `n()`. But I can't see where the Hangklip Sand Fynbos record is, so let's label that one with text using `geom_sf_label()`.
+
+```{r}
+hsf <- pc %>% filter(National_ == "Hangklip Sand Fynbos") #find the locality
+
+ggplot() + 
+  annotation_map_tile(type = "osm", progress = "none") + 
+  geom_sf(data=pc, aes(col = National_)) +
+  scale_colour_manual(values = pal) +
+  geom_sf_label(data=hsf, aes(label = "Here"))
+```
+
+Aha!
+
+Note that you can specify that the `label =` setting points to a column in your dataset with names if you have lots of labels to add.
+
+<br>
+
+## Buffering
+
+One issue here may be that all localities should be in Peninsula Sandstone Fynbos, but the vegetation type boundaries are wrong. After all, the transition or ecotone between two vegetation types is usually diffuse rather than a clear boundary, not to mention that the data may have been digitized at a very _small_ scale, compromizing _precision_ and _accuracy_. One way to check this is to _buffer_ the points using `st_buffer` to see if they are within some distance (say 250m) of the boundary with Peninsula Sandstone Fynbos.
+
+```{r}
+#Find the localities that are not in Peninsula Sandstone Fynbos and add a 250m buffer
+npsf <- pc %>% 
+  filter(National_ != "Peninsula Sandstone Fynbos") %>%
+  st_buffer(dist = 250)
+
+#NOTE that st_buffer() makes them polygons, because they now have area!
+npsf$geometry[1] #The first geometry in npsf
+  
+#Get the number of unique iNaturalist record numbers
+length(unique(npsf$id)) 
+
+#Intersect new polygons with veg remnants and filter for those that overlap Peninsula Sandstone Fynbos only
+npsf <- st_intersection(npsf, vegr) %>% filter(National_.1 == "Peninsula Sandstone Fynbos")
+
+#Get the number of unique iNaturalist record numbers that overlap PSF
+length(unique(npsf$id))
+
+```
+
+So 7 of 16 records are suspiciously close to Peninsula Sandstone Fynbos...
+
+<br>
+
+## Within distance and intersect
+
+Perhaps a more interesting use of buffering is to see if a species is within a certain distance of a particular habitat etc. For example, we could ask if a species is associated with riparian zones by buffering either the localities (points) or rivers (lines) and then doing an intersection.
+
+But of course there are many ways to skin a cat, and it turns out buffering and intersecting may not be the most efficient here. If we don't want to pull the attribute data from one dataset to the other we can just use `st_intersects()` to see if they overlap at all. We can even take it one step further, because _sf_ has the function `st_is_within_distance()`, which is similar to applying `st_buffer()` and `st_intersects()` in one go.
+
+Here we'll use _Brabejum stellatifolium_ (a riparian tree) as our focal species and the watercourse layer from the City of Cape Town.
+
+```{r}
+#Get the watercourse data
+water <- st_read("data/cape_peninsula/Open_Watercourses.geojson")
+
+#Check it's CRS
+st_crs(water)
+
+#Call the data directly from iNat
+bs <- get_inat_obs(taxon_name = "Brabejum stellatifolium",
+                   bounds = c(-35, 18, -33.5, 18.5),
+                   maxresults = 1000)
+
+#Filter returned observations by a range of attribute criteria
+bs <- bs %>% filter(positional_accuracy<46 & 
+                latitude<0 &
+                !is.na(latitude) &
+                captive_cultivated == "false" &
+                quality_grade == "research")
+
+#Make the dataframe a spatial object of class = "sf"
+bs <- st_as_sf(bs, coords = c("longitude", "latitude"), crs = 4326) #Note that I had to define the CRS (as Geographic WGS84)!!!
+
+```
+Let's see what we've got...
+
+```{r}
+#Crop the water courses to the extent of the locality data
+water <- st_crop(water, bs)
+
+#Plot
+ggplot() + 
+  annotation_map_tile(type = "osm", progress = "none") + 
+  geom_sf(data = water, colour = "blue") +
+  geom_sf(data=bs)
+```
+
+Hard to tell, but they could all be on rivers?
+
+Let's try `st_intersects()` without any buffering first to see if they overlap at all.  
+
+```{r}
+st_intersects(bs, water) %>% unlist()
+```
+
+Oops! We forgot to project our data!
+
+```{r}
+bs <- st_transform(bs, st_crs(vegr))
+
+water <-  st_transform(water, st_crs(vegr))
+
+st_intersects(bs, water) %>% unlist()
+```
+
+So none of them intersect, but this is not surprising, because _lines_ and _points_ in GIS do not have _area_, so they can't really intersect unless you buffer them... Let's try `st_is_within_distance()` and set it for 20 metres.
+
+Note that I add `unlist() %>% unique()` because the function returns a list and will return the same feature (line/river) multiple times - once for every point (tree) it is within 20m of. 
+
+```{r}
+st_is_within_distance(bs, water, 20) %>% unlist() %>% unique()
+```
+
+So it's given us the list of lines (rivers) within 20m of our points, but that doesn't tell us how many (or what proportion) of our points are within 20m of a river. Let's apply the function again, swapping the layers around:
+
+```{r}
+st_is_within_distance(water, bs, 20) %>% unlist() %>% unique()
+```
+
+So only ~30 of the trees are within 20m of the rivers. What about 50m?
+
+```{r}
+st_is_within_distance(water, bs, 100) %>% unlist() %>% unique()
+```
+
+So about 90...
+
+It's at this point that it's worth thinking about the _scale_, _precision_ and _accuracy_ of both the species localities and the watercourse data before drawing any strong conclusions!!!
+
+<br>
