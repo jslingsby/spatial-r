@@ -67,3 +67,14 @@ intersecting-points-and-polygons
 colour-or-label-points
 buffering
 within-distance-and-intersect
+raster-gis-operations-in-r
+reading-in-data
+cropping-1
+aggregating-resampling
+basic-plotting-1
+disaggregating
+raster-maths
+terrain-calculations
+raster-stacks
+extracting-raster-to-vector
+rasterizing
