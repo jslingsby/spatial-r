@@ -24,7 +24,7 @@
 <meta name="author" content="Jasper Slingsby" />
 
 
-<meta name="date" content="2021-06-02" />
+<meta name="date" content="2021-06-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -295,110 +295,58 @@ Figure 6.2: Screenshot of the Task View landing page at <a href="https://cran.r-
 <p>Here’s a quick list of the functions available in <em>sf</em>:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="r-as-a-gis.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
 <span id="cb1-2"><a href="r-as-a-gis.html#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">methods</span>(<span class="at">class =</span> <span class="st">&#39;sf&#39;</span>)</span></code></pre></div>
-<pre><code>##   [1] [                    
-##   [2] [[&lt;-                 
-##   [3] $&lt;-                  
-##   [4] aggregate            
-##   [5] anti_join            
-##   [6] arrange              
-##   [7] as.data.frame        
-##   [8] cbind                
-##   [9] coerce               
-##  [10] dbDataType           
-##  [11] dbWriteTable         
-##  [12] distinct             
-##  [13] dplyr_reconstruct    
-##  [14] extent               
-##  [15] extract              
-##  [16] filter               
-##  [17] full_join            
-##  [18] gather               
-##  [19] group_by             
-##  [20] group_split          
-##  [21] identify             
-##  [22] initialize           
-##  [23] inner_join           
-##  [24] left_join            
-##  [25] mask                 
-##  [26] merge                
-##  [27] mutate               
-##  [28] nest                 
-##  [29] plot                 
-##  [30] print                
-##  [31] raster               
-##  [32] rasterize            
-##  [33] rbind                
-##  [34] rename               
-##  [35] right_join           
-##  [36] rowwise              
-##  [37] sample_frac          
-##  [38] sample_n             
-##  [39] select               
-##  [40] semi_join            
-##  [41] separate_rows        
-##  [42] separate             
-##  [43] show                 
-##  [44] slice                
-##  [45] slotsFromS3          
-##  [46] spread               
-##  [47] st_agr               
-##  [48] st_agr&lt;-             
-##  [49] st_area              
-##  [50] st_as_s2             
-##  [51] st_as_sf             
-##  [52] st_bbox              
-##  [53] st_boundary          
-##  [54] st_buffer            
-##  [55] st_cast              
-##  [56] st_centroid          
-##  [57] st_collection_extract
-##  [58] st_convex_hull       
-##  [59] st_coordinates       
-##  [60] st_crop              
-##  [61] st_crs               
-##  [62] st_crs&lt;-             
-##  [63] st_difference        
-##  [64] st_filter            
-##  [65] st_geometry          
-##  [66] st_geometry&lt;-        
-##  [67] st_inscribed_circle  
-##  [68] st_interpolate_aw    
-##  [69] st_intersection      
-##  [70] st_intersects        
-##  [71] st_is_valid          
-##  [72] st_is                
-##  [73] st_join              
-##  [74] st_line_merge        
-##  [75] st_m_range           
-##  [76] st_make_valid        
-##  [77] st_nearest_points    
-##  [78] st_node              
-##  [79] st_normalize         
-##  [80] st_point_on_surface  
-##  [81] st_polygonize        
-##  [82] st_precision         
-##  [83] st_reverse           
-##  [84] st_sample            
-##  [85] st_segmentize        
-##  [86] st_set_precision     
-##  [87] st_shift_longitude   
-##  [88] st_simplify          
-##  [89] st_snap              
-##  [90] st_sym_difference    
-##  [91] st_transform         
-##  [92] st_triangulate       
-##  [93] st_union             
-##  [94] st_voronoi           
-##  [95] st_wrap_dateline     
-##  [96] st_write             
-##  [97] st_z_range           
-##  [98] st_zm                
-##  [99] summarise            
-## [100] transform            
-## [101] transmute            
-## [102] ungroup              
-## [103] unite                
-## [104] unnest               
+<pre><code>##   [1] [                     [[&lt;-                 
+##   [3] $&lt;-                   aggregate            
+##   [5] anti_join             arrange              
+##   [7] as.data.frame         cbind                
+##   [9] coerce                dbDataType           
+##  [11] dbWriteTable          distinct             
+##  [13] dplyr_reconstruct     extent               
+##  [15] extract               filter               
+##  [17] full_join             gather               
+##  [19] group_by              group_split          
+##  [21] identify              initialize           
+##  [23] inner_join            left_join            
+##  [25] mask                  merge                
+##  [27] mutate                nest                 
+##  [29] plot                  print                
+##  [31] raster                rasterize            
+##  [33] rbind                 rename               
+##  [35] right_join            rowwise              
+##  [37] sample_frac           sample_n             
+##  [39] select                semi_join            
+##  [41] separate_rows         separate             
+##  [43] show                  slice                
+##  [45] slotsFromS3           spread               
+##  [47] st_agr                st_agr&lt;-             
+##  [49] st_area               st_as_s2             
+##  [51] st_as_sf              st_bbox              
+##  [53] st_boundary           st_buffer            
+##  [55] st_cast               st_centroid          
+##  [57] st_collection_extract st_convex_hull       
+##  [59] st_coordinates        st_crop              
+##  [61] st_crs                st_crs&lt;-             
+##  [63] st_difference         st_filter            
+##  [65] st_geometry           st_geometry&lt;-        
+##  [67] st_inscribed_circle   st_interpolate_aw    
+##  [69] st_intersection       st_intersects        
+##  [71] st_is_valid           st_is                
+##  [73] st_join               st_line_merge        
+##  [75] st_m_range            st_make_valid        
+##  [77] st_nearest_points     st_node              
+##  [79] st_normalize          st_point_on_surface  
+##  [81] st_polygonize         st_precision         
+##  [83] st_reverse            st_sample            
+##  [85] st_segmentize         st_set_precision     
+##  [87] st_shift_longitude    st_simplify          
+##  [89] st_snap               st_sym_difference    
+##  [91] st_transform          st_triangulate       
+##  [93] st_union              st_voronoi           
+##  [95] st_wrap_dateline      st_write             
+##  [97] st_z_range            st_zm                
+##  [99] summarise             transform            
+## [101] transmute             ungroup              
+## [103] unite                 unnest               
 ## see &#39;?methods&#39; for accessing help and source code</code></pre>
 <p><br></p>
 <p>This doesn’t tell you how to use them though. To get help with a function in R just type “?” followed by the function name, e.g. <code>?st_read</code>, and it’ll take you to the help page.</p>
