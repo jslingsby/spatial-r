@@ -65,7 +65,7 @@ veg <- st_read("/home/jasper/GIT/spatial-r/data/cape_peninsula/veg/Vegetation_In
 dem <- raster("/home/jasper/GIT/spatial-r/data/cape_peninsula/rasters90/elevation.asc")
 
 # Set DEM crs
-proj4string(dem)="+proj=utm +zone=34 +south +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0" #set CRS to geographic
+proj4string(dem)="+proj=utm +zone=34 +south +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0" #set CRS to UTM34S
 
 # Reproject DEM to same CRS as veg layer (TM Lo-19)
 dem <- projectRaster(dem, crs = "+proj=tmerc +lat_0=0 +lon_0=19 +k=1 +x_0=0 +y_0=0 +ellps=WGS84 +units=m +no_defs")
