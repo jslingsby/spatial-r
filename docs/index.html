@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>A Minimal Introduction to GIS (in R)</title>
   <meta name="description" content="This is a minimal introduction to GIS and handling spatial data in R compiled for the Biological Sciences BSc(Honours) class at the University of Cape Town." />
-  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
   <meta property="og:title" content="A Minimal Introduction to GIS (in R)" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Jasper Slingsby" />
 
 
-<meta name="date" content="2021-06-03" />
+<meta name="date" content="2022-04-07" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,8 +33,9 @@
   
 
 <link rel="next" href="intro.html"/>
-<script src="libs/header-attrs-2.6/header-attrs.js"></script>
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -50,80 +51,11 @@
 
 
 
-
-<script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
-<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
-<script src="libs/leaflet-1.3.1/leaflet.js"></script>
-<link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
-<script src="libs/proj4-2.6.2/proj4.min.js"></script>
-<script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
-<link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
-<script src="libs/leaflet-binding-2.0.4.1/leaflet.js"></script>
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 
 
-<style type="text/css">
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-</style>
+
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -214,7 +146,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.4" data-path="raster-gis-operations-in-r.html"><a href="raster-gis-operations-in-r.html#basic-plotting-1"><i class="fa fa-check"></i><b>8.4</b> Basic plotting</a></li>
 <li class="chapter" data-level="8.5" data-path="raster-gis-operations-in-r.html"><a href="raster-gis-operations-in-r.html#disaggregating"><i class="fa fa-check"></i><b>8.5</b> Disaggregating</a></li>
 <li class="chapter" data-level="8.6" data-path="raster-gis-operations-in-r.html"><a href="raster-gis-operations-in-r.html#raster-maths"><i class="fa fa-check"></i><b>8.6</b> Raster maths!</a></li>
-<li class="chapter" data-level="8.7" data-path="raster-gis-operations-in-r.html"><a href="raster-gis-operations-in-r.html#terrain-calculations"><i class="fa fa-check"></i><b>8.7</b> Terrain calculations</a></li>
+<li class="chapter" data-level="8.7" data-path="raster-gis-operations-in-r.html"><a href="raster-gis-operations-in-r.html#focal-and-terrain-calculations"><i class="fa fa-check"></i><b>8.7</b> Focal and terrain calculations</a></li>
 <li class="chapter" data-level="8.8" data-path="raster-gis-operations-in-r.html"><a href="raster-gis-operations-in-r.html#raster-stacks"><i class="fa fa-check"></i><b>8.8</b> Raster stacks</a></li>
 <li class="chapter" data-level="8.9" data-path="raster-gis-operations-in-r.html"><a href="raster-gis-operations-in-r.html#extracting-raster-to-vector"><i class="fa fa-check"></i><b>8.9</b> Extracting raster to vector</a></li>
 <li class="chapter" data-level="8.10" data-path="raster-gis-operations-in-r.html"><a href="raster-gis-operations-in-r.html#rasterizing"><i class="fa fa-check"></i><b>8.10</b> Rasterizing</a></li>
@@ -243,7 +175,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="header">
 <h1 class="title">A Minimal Introduction to GIS (in R)</h1>
 <p class="author"><em>Jasper Slingsby</em></p>
-<p class="date"><em>2021-06-03</em></p>
+<p class="date"><em>2022-04-07</em></p>
 </div>
 <div id="overview" class="section level1" number="1">
 <h1><span class="header-section-number">1</span> Overview</h1>
@@ -290,27 +222,30 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="module-and-project-details" class="section level2" number="1.3">
 <h2><span class="header-section-number">1.3</span> Module and Project details</h2>
 <p><strong>Lectures</strong></p>
-<p>Lectures will be held in the mornings between 10:00 to 12:00 Monday to Thursday (Friday is presentation day - see below). We’ll have 2 or 3 short live online lectures (I’ll aim for &lt;20 min each) with short breaks. You need to attend live (but remotely). The zoom link (see Vula) should stay the same for all lecture sessions.</p>
+<p>Lectures will be held in the mornings between 10:00 to 12:00 Monday to Thursday in BIOLT1. Thursday will be presentation day.</p>
 <p><br></p>
 <p><strong>Projects</strong></p>
-<p>Afternoons are self-study time where you will incrementally develop your own individual GIS project in R and <a href="https://rmarkdown.rstudio.com/">RMarkdown</a>. The project will count 70% of your mark for the module and will be <strong>due on Friday the 11th June</strong>. You will need to submit a .Rmd file and stitched HTML notebook.</p>
-<p>The focus of the assignment is essentially setting up a GIS workflow and will be assessed on whether you’ve absorbed the content of the lectures. The topic and datasets used will be up to you. <strong>Pro tip:</strong> Use this as an opportunity to get a kick start on your Honours projects. If your Honours project doesn’t require GIS then either help a buddy or let your curiosity roam wild! This is a teaching exercise, so it doesn’t even have to be based on biological data, but it would help you to explore some of the data sources suggested below.</p>
+<p>Afternoons are self-study time where you will incrementally develop your own individual GIS project in R and <a href="https://rmarkdown.rstudio.com/">RMarkdown</a>. The project will count 70% of your mark for the module and will be <strong>due on Monday the 25th April</strong>. You will need to submit a .Rmd file and stitched HTML notebook. You’re welcome to do this in a Git Repository, now that we’ve completed the <a href="https://www.ecologi.st/data-management/">Data Management module</a>.</p>
+<p>The focus of the assignment is essentially setting up a GIS workflow and will be assessed on whether you’ve absorbed the content of the lectures. The topic and datasets used will be up to you. <strong>Pro tip:</strong> Use this as an opportunity to get a kick start on your Honours projects. If your Honours project doesn’t require GIS (which is unlikely) then either help a buddy or let your curiosity roam wild! This is a teaching exercise, so it doesn’t even have to be based on biological data, but it would help you to explore some of the data sources suggested below.</p>
 <p>The project objectives, broken down as daily goals to help you pace yourselves:</p>
 <ul>
-<li>Day 1: Define a question that requires GIS, the kinds of data you’ll need to address the question, and describe in words what you think you would need to do with the data to get there. You are welcome to use your Honours project for this and use it as an opportunity to get some GIS help!</li>
-<li>Day 2: Find and describe the datasets you’ll need for your analysis (type, source, how created, etc).</li>
-<li>Day 3: Describe the GIS workflow you think you’ll need to perform your analysis (in words and/or a figure) and the R functions you think you’ll need to use.</li>
-<li>Day 4: Begin coding and running the GIS workflow in R.</li>
-<li>Until the 11th June: Iterate over the previous steps until done!</li>
+<li>Day 1:
+<ul>
+<li>Define a question that requires GIS, the kinds of data you’ll need to address the question, and describe in words what you think you would need to do with the data to get there.</li>
+<li>Find and describe the datasets you’ll need for your analysis (type, source, how created, etc).</li>
+</ul></li>
+<li>Day 2: Describe the GIS workflow you think you’ll need to perform your analysis (in words and/or a figure). Reconsider and refine your datasets.</li>
+<li>Day 3: Translate your workflow into the R functions you think you’ll need to use and begin coding and running the GIS workflow in R.</li>
+<li>Until the 25th April: Iterate over the previous steps until done!</li>
 </ul>
-<p>I will be available 2-3PM every afternoon (excluding Friday) as a “help desk” to assist you refine your projects and help troubleshoot issues.</p>
-<p><strong>Friday (4th June):</strong> you’ll do lightning presentations (30% of your mark for the module) on your GIS projects (1 slide, 2 minutes presentation, 1 minute questions). Don’t worry, you won’t lose marks if your projects are not yet complete! We just want to know what you’re doing your project on, what datasets you’re using, and what you plan to do with them. Please add your slide to the Google slide deck and read the instructions there.</p>
+<p>I will be available 2-3PM every afternoon as a “help desk” to assist you refine your projects and help troubleshoot issues.</p>
+<p><strong>Thursday (14th April):</strong> you’ll do lightning presentations (30% of your mark for the module) on your GIS projects (1 slide, 2 minutes presentation, 1 minute questions). Don’t worry, you won’t lose marks if your projects are not yet complete! We just want to know what you’re doing your project on, what datasets you’re using, and what you plan to do with them. Please add your slide to the Google slide deck and read the instructions there.</p>
 <p><br></p>
 <p>Some sources of local data to help you get started. Feel free to look for others! If you find good ones, let me know and I’ll add them.</p>
 <ul>
 <li>SANBI’s “Biodiversity GIS” - <a href="https://bgis.sanbi.org/" class="uri">https://bgis.sanbi.org/</a></li>
 <li>SANBI’s Botanical Database of South Africa (BODATSA) - <a href="http://newposa.sanbi.org/" class="uri">http://newposa.sanbi.org/</a></li>
-<li>SAEON’s Data Catalogue (in beta) - <a href="http://catalogue.saeon.ac.za/" class="uri">http://catalogue.saeon.ac.za/</a></li>
+<li>SAEON’s Data Catalogue - <a href="http://catalogue.saeon.ac.za/" class="uri">http://catalogue.saeon.ac.za/</a></li>
 <li>City of Cape Town’s Open Data Portal - <a href="https://odp.capetown.gov.za/" class="uri">https://odp.capetown.gov.za/</a></li>
 <li>iNaturalist - <a href="https://www.inaturalist.org/" class="uri">https://www.inaturalist.org/</a> (accessible from R - see section <a href="rdemo.html#getinat">7.7</a>)</li>
 <li>Google Datasets Search - <a href="https://datasetsearch.research.google.com/" class="uri">https://datasetsearch.research.google.com/</a></li>
@@ -330,7 +265,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -349,6 +283,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
@@ -369,6 +304,10 @@ gitbook.start({
 "text": null
 },
 "download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "subsection"
 }
@@ -376,20 +315,6 @@ gitbook.start({
 });
 </script>
 
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
-  (function () {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:")
-      if (/^https?:/.test(src))
-        src = src.replace(/^https?:/, '');
-    script.src = src;
-    document.getElementsByTagName("head")[0].appendChild(script);
-  })();
-</script>
 </body>
 
 </html>

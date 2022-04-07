@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>4 GIS data models and file formats | A Minimal Introduction to GIS (in R)</title>
   <meta name="description" content="This is a minimal introduction to GIS and handling spatial data in R compiled for the Biological Sciences BSc(Honours) class at the University of Cape Town." />
-  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
   <meta property="og:title" content="4 GIS data models and file formats | A Minimal Introduction to GIS (in R)" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Jasper Slingsby" />
 
 
-<meta name="date" content="2021-06-03" />
+<meta name="date" content="2022-04-07" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,8 +33,9 @@
   
 <link rel="prev" href="gis-basics.html"/>
 <link rel="next" href="some-important-concepts-and-pitfalls.html"/>
-<script src="libs/header-attrs-2.6/header-attrs.js"></script>
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -50,21 +51,23 @@
 
 
 
-
-<script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
 <link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
 <script src="libs/leaflet-1.3.1/leaflet.js"></script>
 <link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
 <script src="libs/proj4-2.6.2/proj4.min.js"></script>
 <script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
 <link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
-<script src="libs/leaflet-binding-2.0.4.1/leaflet.js"></script>
+<script src="libs/leaflet-binding-2.1.1/leaflet.js"></script>
 
 
 <style type="text/css">
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
@@ -123,6 +126,29 @@ code span.st { color: #4070a0; } /* String */
 code span.va { color: #19177c; } /* Variable */
 code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -214,7 +240,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.4" data-path="raster-gis-operations-in-r.html"><a href="raster-gis-operations-in-r.html#basic-plotting-1"><i class="fa fa-check"></i><b>8.4</b> Basic plotting</a></li>
 <li class="chapter" data-level="8.5" data-path="raster-gis-operations-in-r.html"><a href="raster-gis-operations-in-r.html#disaggregating"><i class="fa fa-check"></i><b>8.5</b> Disaggregating</a></li>
 <li class="chapter" data-level="8.6" data-path="raster-gis-operations-in-r.html"><a href="raster-gis-operations-in-r.html#raster-maths"><i class="fa fa-check"></i><b>8.6</b> Raster maths!</a></li>
-<li class="chapter" data-level="8.7" data-path="raster-gis-operations-in-r.html"><a href="raster-gis-operations-in-r.html#terrain-calculations"><i class="fa fa-check"></i><b>8.7</b> Terrain calculations</a></li>
+<li class="chapter" data-level="8.7" data-path="raster-gis-operations-in-r.html"><a href="raster-gis-operations-in-r.html#focal-and-terrain-calculations"><i class="fa fa-check"></i><b>8.7</b> Focal and terrain calculations</a></li>
 <li class="chapter" data-level="8.8" data-path="raster-gis-operations-in-r.html"><a href="raster-gis-operations-in-r.html#raster-stacks"><i class="fa fa-check"></i><b>8.8</b> Raster stacks</a></li>
 <li class="chapter" data-level="8.9" data-path="raster-gis-operations-in-r.html"><a href="raster-gis-operations-in-r.html#extracting-raster-to-vector"><i class="fa fa-check"></i><b>8.9</b> Extracting raster to vector</a></li>
 <li class="chapter" data-level="8.10" data-path="raster-gis-operations-in-r.html"><a href="raster-gis-operations-in-r.html#rasterizing"><i class="fa fa-check"></i><b>8.10</b> Rasterizing</a></li>
@@ -248,7 +274,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="vector-data" class="section level3" number="4.1.1">
 <h3><span class="header-section-number">4.1.1</span> Vector data</h3>
 <p>The three basic vector data types are <strong>points</strong>, <strong>lines</strong> (also sometimes referred to as <strong>polylines</strong> or <strong>linestrings</strong>) and <strong>polygons</strong>. While they are treated as different data types, you can also consider them to be a nested hierarchy. For example, to make a line you need two or more points, while a polygon requires three or more lines.</p>
-<div class="figure" style="text-align: center"><span id="fig:vectors"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:vectors"></span>
 <img src="spatial-r_files/figure-html/vectors-1.png" alt="The hierarchical construction of vector data types." width="672" />
 <p class="caption">
 Figure 4.1: The hierarchical construction of vector data types.
@@ -265,7 +291,7 @@ Figure 4.1: The hierarchical construction of vector data types.
 <p><br></p>
 <p>Vector data models are obviously the best way to represent points and lines. Polygons are usually the best way to represent discrete (categorical) data, especially where they may have complex boundaries.</p>
 <p>For example:</p>
-<div class="figure" style="text-align: center"><span id="fig:vectorveg"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:vectorveg"></span>
 <img src="spatial-r_files/figure-html/vectorveg-1.png" alt="Vector (polygon) representation of discrete data; the vegetation types of the Cape Peninsula." width="672" />
 <p class="caption">
 Figure 4.2: Vector (polygon) representation of discrete data; the vegetation types of the Cape Peninsula.
@@ -279,7 +305,7 @@ Figure 4.2: Vector (polygon) representation of discrete data; the vegetation typ
 <h3><span class="header-section-number">4.1.2</span> Raster data</h3>
 <p>Raster data are essentially data stored in a regular grid of pixels (or cells). Digital images like jpeg or png files are essentially rasters without spatial information. The value of each pixel is a number representing a measured value (e.g. continuous data such as sea surface temperature) or a category (e.g. discrete data such as land cover class). All pixels have a value, even if the value is “No Data.” Rasters are particularly useful for representing continuous data.</p>
 <p><br></p>
-<div class="figure" style="text-align: center"><span id="fig:rasterdem"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:rasterdem"></span>
 <img src="spatial-r_files/figure-html/rasterdem-1.png" alt="Raster representation of continuous data; a digital elevation model of the Cape Peninsula." width="336" />
 <p class="caption">
 Figure 4.3: Raster representation of continuous data; a digital elevation model of the Cape Peninsula.
@@ -289,7 +315,7 @@ Figure 4.3: Raster representation of continuous data; a digital elevation model 
 <p>That said, you can quite effectively represent continuous values <em>visually</em> with a vector data model if you bin the continuous data (from the raster) into classes, such as one can do with a filled contour plot (see below). This is not ideal for analyses though, as the binning results in data loss.</p>
 <p>You’ll find that you often need to convert data between vector and raster models for various reasons, and that this usually means some tough decisions need to be made about what is acceptable data loss. We’ll cover that later.</p>
 <p><br></p>
-<div class="figure" style="text-align: center"><span id="fig:contourdem"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:contourdem"></span>
 <img src="spatial-r_files/figure-html/contourdem-1.png" alt="Vector representation of continuous data; a filled contour plot of a digital elevation model of the Cape Peninsula using 100m contours." width="336" />
 <p class="caption">
 Figure 4.4: Vector representation of continuous data; a filled contour plot of a digital elevation model of the Cape Peninsula using 100m contours.
@@ -298,7 +324,7 @@ Figure 4.4: Vector representation of continuous data; a filled contour plot of a
 <p><br></p>
 <p>Conversely, rasters are usually not that good at representing categorical data. Note that most raster file formats (and GIS software) can only store numeric data, so this plot misleadingly represents the vegetation types as continuous data. You can label and represent categorical data in rasters in R, but this is usually more effort than its worth and is almost always less effective than using a vector format… A common exception is land use and land cover (LULC) maps, where remotely sensed satellite imagery (raster data) are classified into predefined classes (e.g. agriculture, rock, grassland, etc) based on various criteria or algorithms. Even then, these are difficult to interpret visually with static maps and are best visualized as interactive maps so you can make sense of them by zooming in and panning around.</p>
 <p><br></p>
-<div class="figure" style="text-align: center"><span id="fig:rasterveg"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:rasterveg"></span>
 <img src="spatial-r_files/figure-html/rasterveg-1.png" alt="Raster representation the discrete data; the vegetation types of the Cape Peninsula." width="307.2" />
 <p class="caption">
 Figure 4.5: Raster representation the discrete data; the vegetation types of the Cape Peninsula.
@@ -341,7 +367,7 @@ Figure 4.5: Raster representation the discrete data; the vegetation types of the
 <td align="left">Beach - FalseBay</td>
 <td align="left">BEACH</td>
 <td align="left">Need to Find Out</td>
-<td align="left">POLYGON ((-46661.36 -380319…</td>
+<td align="left">POLYGON ((-46636.54 -380320…</td>
 </tr>
 <tr class="even">
 <td align="left">67</td>
@@ -350,7 +376,7 @@ Figure 4.5: Raster representation the discrete data; the vegetation types of the
 <td align="left">Beach - FalseBay</td>
 <td align="left">BEACH</td>
 <td align="left">Need to Find Out</td>
-<td align="left">POLYGON ((-47252.77 -380298…</td>
+<td align="left">POLYGON ((-47220.45 -380302…</td>
 </tr>
 <tr class="odd">
 <td align="left">68</td>
@@ -359,7 +385,7 @@ Figure 4.5: Raster representation the discrete data; the vegetation types of the
 <td align="left">Beach - FalseBay</td>
 <td align="left">BEACH</td>
 <td align="left">Need to Find Out</td>
-<td align="left">POLYGON ((-49001.26 -380249…</td>
+<td align="left">POLYGON ((-48967.57 -380253…</td>
 </tr>
 <tr class="even">
 <td align="left">69</td>
@@ -368,7 +394,7 @@ Figure 4.5: Raster representation the discrete data; the vegetation types of the
 <td align="left">Beach - FalseBay</td>
 <td align="left">BEACH</td>
 <td align="left">Need to Find Out</td>
-<td align="left">POLYGON ((-49353.38 -380223…</td>
+<td align="left">POLYGON ((-49355.61 -380223…</td>
 </tr>
 <tr class="odd">
 <td align="left">70</td>
@@ -377,7 +403,7 @@ Figure 4.5: Raster representation the discrete data; the vegetation types of the
 <td align="left">Beach - FalseBay</td>
 <td align="left">BEACH</td>
 <td align="left">Need to Find Out</td>
-<td align="left">POLYGON ((-50030.98 -380131…</td>
+<td align="left">POLYGON ((-50008.26 -380132…</td>
 </tr>
 <tr class="even">
 <td align="left">71</td>
@@ -386,7 +412,7 @@ Figure 4.5: Raster representation the discrete data; the vegetation types of the
 <td align="left">Beach - FalseBay</td>
 <td align="left">BEACH</td>
 <td align="left">Need to Find Out</td>
-<td align="left">POLYGON ((-53108.73 -379998…</td>
+<td align="left">POLYGON ((-52927.7 -3800156…</td>
 </tr>
 </tbody>
 </table>
@@ -429,112 +455,112 @@ Figure 4.5: Raster representation the discrete data; the vegetation types of the
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">AeronavFAA</td>
-<td align="left">Aeronav FAA</td>
-<td align="left">FALSE</td>
+<td align="left">AmigoCloud</td>
+<td align="left">AmigoCloud</td>
+<td align="left">TRUE</td>
 <td align="left">FALSE</td>
 <td align="left">TRUE</td>
 </tr>
 <tr class="even">
-<td align="left">AmigoCloud</td>
-<td align="left">AmigoCloud</td>
-<td align="left">TRUE</td>
-<td align="left">FALSE</td>
-<td align="left">TRUE</td>
-</tr>
-<tr class="odd">
 <td align="left">ARCGEN</td>
 <td align="left">Arc/Info Generate</td>
 <td align="left">FALSE</td>
 <td align="left">FALSE</td>
 <td align="left">TRUE</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">AVCBin</td>
 <td align="left">Arc/Info Binary Coverage</td>
 <td align="left">FALSE</td>
 <td align="left">FALSE</td>
 <td align="left">TRUE</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">AVCE00</td>
 <td align="left">Arc/Info E00 (ASCII) Coverage</td>
 <td align="left">FALSE</td>
 <td align="left">FALSE</td>
 <td align="left">TRUE</td>
 </tr>
-<tr class="even">
-<td align="left">BNA</td>
-<td align="left">Atlas BNA</td>
+<tr class="odd">
+<td align="left">BAG</td>
+<td align="left">Bathymetry Attributed Grid</td>
 <td align="left">TRUE</td>
-<td align="left">FALSE</td>
+<td align="left">TRUE</td>
 <td align="left">TRUE</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">CAD</td>
 <td align="left">AutoCAD Driver</td>
 <td align="left">FALSE</td>
 <td align="left">FALSE</td>
 <td align="left">TRUE</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">Carto</td>
 <td align="left">Carto</td>
 <td align="left">TRUE</td>
 <td align="left">FALSE</td>
 <td align="left">TRUE</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">Cloudant</td>
 <td align="left">Cloudant / CouchDB</td>
 <td align="left">TRUE</td>
 <td align="left">FALSE</td>
 <td align="left">TRUE</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">CouchDB</td>
 <td align="left">CouchDB / GeoCouch</td>
 <td align="left">TRUE</td>
 <td align="left">FALSE</td>
 <td align="left">TRUE</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">CSV</td>
 <td align="left">Comma Separated Value (.csv)</td>
 <td align="left">TRUE</td>
 <td align="left">FALSE</td>
 <td align="left">TRUE</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">CSW</td>
 <td align="left">OGC CSW (Catalog Service for the Web)</td>
 <td align="left">FALSE</td>
 <td align="left">FALSE</td>
 <td align="left">TRUE</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">DGN</td>
 <td align="left">Microstation DGN</td>
 <td align="left">TRUE</td>
 <td align="left">FALSE</td>
 <td align="left">TRUE</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">DXF</td>
 <td align="left">AutoCAD DXF</td>
 <td align="left">TRUE</td>
 <td align="left">FALSE</td>
 <td align="left">TRUE</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">EDIGEO</td>
 <td align="left">French EDIGEO exchange format</td>
 <td align="left">FALSE</td>
 <td align="left">FALSE</td>
 <td align="left">TRUE</td>
 </tr>
+<tr class="odd">
+<td align="left">EEDA</td>
+<td align="left">Earth Engine Data API</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
 <tr class="even">
-<td align="left">ElasticSearch</td>
+<td align="left">Elasticsearch</td>
 <td align="left">Elastic Search</td>
 <td align="left">TRUE</td>
 <td align="left">FALSE</td>
@@ -548,6 +574,34 @@ Figure 4.5: Raster representation the discrete data; the vegetation types of the
 <td align="left">TRUE</td>
 </tr>
 <tr class="even">
+<td align="left">ESRIC</td>
+<td align="left">Esri Compact Cache</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">ESRIJSON</td>
+<td align="left">ESRIJSON</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">FITS</td>
+<td align="left">Flexible Image Transport System</td>
+<td align="left">TRUE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">FlatGeobuf</td>
+<td align="left">FlatGeobuf</td>
+<td align="left">TRUE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
 <td align="left">Geoconcept</td>
 <td align="left">Geoconcept</td>
 <td align="left">TRUE</td>
@@ -562,22 +616,22 @@ Figure 4.5: Raster representation the discrete data; the vegetation types of the
 <td align="left">TRUE</td>
 </tr>
 <tr class="even">
+<td align="left">GeoJSONSeq</td>
+<td align="left">GeoJSON Sequence</td>
+<td align="left">TRUE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
 <td align="left">Geomedia</td>
 <td align="left">Geomedia .mdb</td>
 <td align="left">FALSE</td>
 <td align="left">FALSE</td>
 <td align="left">TRUE</td>
 </tr>
-<tr class="odd">
-<td align="left">GeoRSS</td>
-<td align="left">GeoRSS</td>
-<td align="left">TRUE</td>
-<td align="left">FALSE</td>
-<td align="left">TRUE</td>
-</tr>
 <tr class="even">
-<td align="left">GFT</td>
-<td align="left">Google Fusion Tables</td>
+<td align="left">GeoRSS</td>
+<td align="left">GeoRSS</td>
 <td align="left">TRUE</td>
 <td align="left">FALSE</td>
 <td align="left">TRUE</td>
@@ -625,65 +679,65 @@ Figure 4.5: Raster representation the discrete data; the vegetation types of the
 <td align="left">TRUE</td>
 </tr>
 <tr class="odd">
-<td align="left">HTF</td>
-<td align="left">Hydrographic Transfer Vector</td>
-<td align="left">FALSE</td>
-<td align="left">FALSE</td>
-<td align="left">TRUE</td>
-</tr>
-<tr class="even">
 <td align="left">HTTP</td>
 <td align="left">HTTP Fetching Wrapper</td>
 <td align="left">FALSE</td>
 <td align="left">FALSE</td>
 <td align="left">TRUE</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">Idrisi</td>
 <td align="left">Idrisi Vector (.vct)</td>
 <td align="left">FALSE</td>
 <td align="left">FALSE</td>
 <td align="left">TRUE</td>
 </tr>
+<tr class="odd">
+<td align="left">Interlis 1</td>
+<td align="left">Interlis 1</td>
+<td align="left">TRUE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
 <tr class="even">
-<td align="left">Interlis 1</td>
-<td align="left">Interlis 1</td>
+<td align="left">Interlis 2</td>
+<td align="left">Interlis 2</td>
 <td align="left">TRUE</td>
 <td align="left">FALSE</td>
 <td align="left">TRUE</td>
 </tr>
 <tr class="odd">
-<td align="left">Interlis 2</td>
-<td align="left">Interlis 2</td>
-<td align="left">TRUE</td>
-<td align="left">FALSE</td>
-<td align="left">TRUE</td>
-</tr>
-<tr class="even">
 <td align="left">JML</td>
 <td align="left">OpenJUMP JML</td>
 <td align="left">TRUE</td>
 <td align="left">FALSE</td>
 <td align="left">TRUE</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">JP2OpenJPEG</td>
 <td align="left">JPEG-2000 driver based on OpenJPEG library</td>
 <td align="left">FALSE</td>
 <td align="left">TRUE</td>
 <td align="left">TRUE</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">KML</td>
 <td align="left">Keyhole Markup Language (KML)</td>
 <td align="left">TRUE</td>
 <td align="left">FALSE</td>
 <td align="left">TRUE</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">LIBKML</td>
 <td align="left">Keyhole Markup Language (LIBKML)</td>
 <td align="left">TRUE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">LVBAG</td>
+<td align="left">Kadaster LV BAG Extract 2.0</td>
+<td align="left">FALSE</td>
 <td align="left">FALSE</td>
 <td align="left">TRUE</td>
 </tr>
@@ -692,6 +746,20 @@ Figure 4.5: Raster representation the discrete data; the vegetation types of the
 <td align="left">MapInfo File</td>
 <td align="left">TRUE</td>
 <td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">MapML</td>
+<td align="left">MapML</td>
+<td align="left">TRUE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">MBTiles</td>
+<td align="left">MBTiles</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
 <td align="left">TRUE</td>
 </tr>
 <tr class="odd">
@@ -709,85 +777,99 @@ Figure 4.5: Raster representation the discrete data; the vegetation types of the
 <td align="left">TRUE</td>
 </tr>
 <tr class="odd">
+<td align="left">MVT</td>
+<td align="left">Mapbox Vector Tiles</td>
+<td align="left">TRUE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
 <td align="left">MySQL</td>
 <td align="left">MySQL</td>
 <td align="left">TRUE</td>
 <td align="left">FALSE</td>
 <td align="left">TRUE</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">NAS</td>
 <td align="left">NAS - ALKIS</td>
 <td align="left">FALSE</td>
 <td align="left">FALSE</td>
 <td align="left">TRUE</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">netCDF</td>
 <td align="left">Network Common Data Format</td>
 <td align="left">TRUE</td>
 <td align="left">TRUE</td>
 <td align="left">TRUE</td>
 </tr>
-<tr class="even">
-<td align="left">ODBC</td>
-<td align="left">ODBC</td>
+<tr class="odd">
+<td align="left">NGW</td>
+<td align="left">NextGIS Web</td>
 <td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">OAPIF</td>
+<td align="left">OGC API - Features</td>
+<td align="left">FALSE</td>
 <td align="left">FALSE</td>
 <td align="left">TRUE</td>
 </tr>
 <tr class="odd">
+<td align="left">ODBC</td>
+<td align="left"></td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
 <td align="left">ODS</td>
 <td align="left">Open Document/ LibreOffice / OpenOffice Spreadsheet</td>
 <td align="left">TRUE</td>
 <td align="left">FALSE</td>
 <td align="left">TRUE</td>
 </tr>
-<tr class="even">
-<td align="left">OGR_DODS</td>
-<td align="left">OGR_DODS</td>
+<tr class="odd">
+<td align="left">OGCAPI</td>
+<td align="left">OGCAPI</td>
 <td align="left">FALSE</td>
 <td align="left">FALSE</td>
 <td align="left">TRUE</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">OGR_GMT</td>
 <td align="left">GMT ASCII Vectors (.gmt)</td>
 <td align="left">TRUE</td>
 <td align="left">FALSE</td>
 <td align="left">TRUE</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">OGR_OGDI</td>
 <td align="left">OGDI Vectors (VPF, VMAP, DCW)</td>
 <td align="left">FALSE</td>
 <td align="left">FALSE</td>
 <td align="left">TRUE</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">OGR_PDS</td>
 <td align="left">Planetary Data Systems TABLE</td>
 <td align="left">FALSE</td>
 <td align="left">FALSE</td>
 <td align="left">TRUE</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">OGR_SDTS</td>
 <td align="left">SDTS</td>
 <td align="left">FALSE</td>
 <td align="left">FALSE</td>
 <td align="left">TRUE</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">OGR_VRT</td>
 <td align="left">VRT - Virtual Datasource</td>
-<td align="left">FALSE</td>
-<td align="left">FALSE</td>
-<td align="left">TRUE</td>
-</tr>
-<tr class="even">
-<td align="left">OpenAir</td>
-<td align="left">OpenAir</td>
 <td align="left">FALSE</td>
 <td align="left">FALSE</td>
 <td align="left">TRUE</td>
@@ -821,86 +903,72 @@ Figure 4.5: Raster representation the discrete data; the vegetation types of the
 <td align="left">TRUE</td>
 </tr>
 <tr class="odd">
+<td align="left">PDS4</td>
+<td align="left">NASA Planetary Data System 4</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
 <td align="left">PGDUMP</td>
 <td align="left">PostgreSQL SQL dump</td>
 <td align="left">TRUE</td>
 <td align="left">FALSE</td>
 <td align="left">TRUE</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">PGeo</td>
 <td align="left">ESRI Personal GeoDatabase</td>
 <td align="left">FALSE</td>
 <td align="left">FALSE</td>
 <td align="left">TRUE</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">PLSCENES</td>
 <td align="left">Planet Labs Scenes API</td>
 <td align="left">FALSE</td>
 <td align="left">FALSE</td>
 <td align="left">TRUE</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">PostgreSQL</td>
 <td align="left">PostgreSQL/PostGIS</td>
 <td align="left">TRUE</td>
 <td align="left">FALSE</td>
 <td align="left">TRUE</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">REC</td>
 <td align="left">EPIInfo .REC</td>
 <td align="left">FALSE</td>
 <td align="left">FALSE</td>
 <td align="left">TRUE</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">S57</td>
 <td align="left">IHO S-57 (ENC)</td>
 <td align="left">TRUE</td>
 <td align="left">FALSE</td>
 <td align="left">TRUE</td>
 </tr>
-<tr class="odd">
-<td align="left">SEGUKOOA</td>
-<td align="left">SEG-P1 / UKOOA P1/90</td>
-<td align="left">FALSE</td>
-<td align="left">FALSE</td>
-<td align="left">TRUE</td>
-</tr>
 <tr class="even">
-<td align="left">SEGY</td>
-<td align="left">SEG-Y</td>
-<td align="left">FALSE</td>
-<td align="left">FALSE</td>
-<td align="left">TRUE</td>
-</tr>
-<tr class="odd">
 <td align="left">Selafin</td>
 <td align="left">Selafin</td>
 <td align="left">TRUE</td>
 <td align="left">FALSE</td>
 <td align="left">TRUE</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">SOSI</td>
 <td align="left">Norwegian SOSI Standard</td>
 <td align="left">FALSE</td>
 <td align="left">FALSE</td>
 <td align="left">TRUE</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">SQLite</td>
 <td align="left">SQLite / Spatialite</td>
 <td align="left">TRUE</td>
-<td align="left">FALSE</td>
-<td align="left">TRUE</td>
-</tr>
-<tr class="even">
-<td align="left">SUA</td>
-<td align="left">Tim Newport-Peace’s Special Use Airspace Format</td>
-<td align="left">FALSE</td>
 <td align="left">FALSE</td>
 <td align="left">TRUE</td>
 </tr>
@@ -926,29 +994,43 @@ Figure 4.5: Raster representation the discrete data; the vegetation types of the
 <td align="left">TRUE</td>
 </tr>
 <tr class="even">
+<td align="left">TopoJSON</td>
+<td align="left">TopoJSON</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
 <td align="left">UK .NTF</td>
 <td align="left">UK .NTF</td>
 <td align="left">FALSE</td>
 <td align="left">FALSE</td>
 <td align="left">TRUE</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">VDV</td>
 <td align="left">VDV-451/VDV-452/INTREST Data Format</td>
 <td align="left">TRUE</td>
 <td align="left">FALSE</td>
 <td align="left">TRUE</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">VFK</td>
 <td align="left">Czech Cadastral Exchange Data Format</td>
 <td align="left">FALSE</td>
 <td align="left">FALSE</td>
 <td align="left">TRUE</td>
 </tr>
+<tr class="even">
+<td align="left">VICAR</td>
+<td align="left">MIPL VICAR file</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+</tr>
 <tr class="odd">
 <td align="left">Walk</td>
-<td align="left">Walk</td>
+<td align="left"></td>
 <td align="left">FALSE</td>
 <td align="left">FALSE</td>
 <td align="left">TRUE</td>
@@ -978,13 +1060,6 @@ Figure 4.5: Raster representation the discrete data; the vegetation types of the
 <td align="left">XLSX</td>
 <td align="left">MS Office Open XML spreadsheet</td>
 <td align="left">TRUE</td>
-<td align="left">FALSE</td>
-<td align="left">TRUE</td>
-</tr>
-<tr class="even">
-<td align="left">XPlane</td>
-<td align="left">X-Plane/Flightgear aeronautical data</td>
-<td align="left">FALSE</td>
 <td align="left">FALSE</td>
 <td align="left">TRUE</td>
 </tr>
@@ -1056,8 +1131,8 @@ Figure 4.5: Raster representation the discrete data; the vegetation types of the
 <tr class="odd">
 <td align="left">BAG</td>
 <td align="left">Bathymetry Attributed Grid</td>
-<td align="left">FALSE</td>
-<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
 <td align="left">TRUE</td>
 </tr>
 <tr class="even">
@@ -1096,31 +1171,45 @@ Figure 4.5: Raster representation the discrete data; the vegetation types of the
 <td align="left">TRUE</td>
 </tr>
 <tr class="odd">
+<td align="left">BYN</td>
+<td align="left">Natural Resources Canada’s Geoid</td>
+<td align="left">TRUE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
 <td align="left">CAD</td>
 <td align="left">AutoCAD Driver</td>
 <td align="left">FALSE</td>
 <td align="left">FALSE</td>
 <td align="left">TRUE</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">CALS</td>
 <td align="left">CALS (Type 1)</td>
 <td align="left">FALSE</td>
 <td align="left">TRUE</td>
 <td align="left">TRUE</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">CEOS</td>
 <td align="left">CEOS Image</td>
 <td align="left">FALSE</td>
 <td align="left">FALSE</td>
 <td align="left">TRUE</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">COASP</td>
 <td align="left">DRDC COASP SAR Processor Raster</td>
 <td align="left">FALSE</td>
 <td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">COG</td>
+<td align="left">Cloud optimized GeoTIFF generator</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
 <td align="left">TRUE</td>
 </tr>
 <tr class="odd">
@@ -1152,29 +1241,29 @@ Figure 4.5: Raster representation the discrete data; the vegetation types of the
 <td align="left">TRUE</td>
 </tr>
 <tr class="odd">
+<td align="left">DAAS</td>
+<td align="left">Airbus DS Intelligence Data As A Service driver</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
 <td align="left">DERIVED</td>
 <td align="left">Derived datasets using VRT pixel functions</td>
 <td align="left">FALSE</td>
 <td align="left">FALSE</td>
 <td align="left">TRUE</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">DIMAP</td>
 <td align="left">SPOT DIMAP</td>
 <td align="left">FALSE</td>
 <td align="left">FALSE</td>
 <td align="left">TRUE</td>
 </tr>
-<tr class="odd">
-<td align="left">DIPEx</td>
-<td align="left">DIPEx</td>
-<td align="left">FALSE</td>
-<td align="left">FALSE</td>
-<td align="left">TRUE</td>
-</tr>
 <tr class="even">
-<td align="left">DODS</td>
-<td align="left">DAP 3.x servers</td>
+<td align="left">DIPEx</td>
+<td align="left">DIPEx</td>
 <td align="left">FALSE</td>
 <td align="left">FALSE</td>
 <td align="left">TRUE</td>
@@ -1201,15 +1290,15 @@ Figure 4.5: Raster representation the discrete data; the vegetation types of the
 <td align="left">TRUE</td>
 </tr>
 <tr class="even">
-<td align="left">E00GRID</td>
-<td align="left">Arc/Info Export E00 GRID</td>
+<td align="left">ECRGTOC</td>
+<td align="left">ECRG TOC format</td>
 <td align="left">FALSE</td>
 <td align="left">FALSE</td>
 <td align="left">TRUE</td>
 </tr>
 <tr class="odd">
-<td align="left">ECRGTOC</td>
-<td align="left">ECRG TOC format</td>
+<td align="left">EEDAI</td>
+<td align="left">Earth Engine Data API Image</td>
 <td align="left">FALSE</td>
 <td align="left">FALSE</td>
 <td align="left">TRUE</td>
@@ -1243,22 +1332,22 @@ Figure 4.5: Raster representation the discrete data; the vegetation types of the
 <td align="left">TRUE</td>
 </tr>
 <tr class="even">
-<td align="left">EPSILON</td>
-<td align="left">Epsilon wavelets</td>
-<td align="left">FALSE</td>
-<td align="left">TRUE</td>
-<td align="left">TRUE</td>
-</tr>
-<tr class="odd">
 <td align="left">ERS</td>
 <td align="left">ERMapper .ers Labelled</td>
 <td align="left">TRUE</td>
 <td align="left">FALSE</td>
 <td align="left">TRUE</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">ESAT</td>
 <td align="left">Envisat Image Format</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">ESRIC</td>
+<td align="left">Esri Compact Cache</td>
 <td align="left">FALSE</td>
 <td align="left">FALSE</td>
 <td align="left">TRUE</td>
@@ -1278,134 +1367,148 @@ Figure 4.5: Raster representation the discrete data; the vegetation types of the
 <td align="left">TRUE</td>
 </tr>
 <tr class="odd">
+<td align="left">FITS</td>
+<td align="left">Flexible Image Transport System</td>
+<td align="left">TRUE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
 <td align="left">FujiBAS</td>
 <td align="left">Fuji BAS Scanner Image</td>
 <td align="left">FALSE</td>
 <td align="left">FALSE</td>
 <td align="left">TRUE</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">GenBin</td>
 <td align="left">Generic Binary (.hdr Labelled)</td>
 <td align="left">FALSE</td>
 <td align="left">FALSE</td>
 <td align="left">TRUE</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">GFF</td>
 <td align="left">Ground-based SAR Applications Testbed File Format (.gff)</td>
 <td align="left">FALSE</td>
 <td align="left">FALSE</td>
 <td align="left">TRUE</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">GIF</td>
 <td align="left">Graphics Interchange Format (.gif)</td>
 <td align="left">FALSE</td>
 <td align="left">TRUE</td>
 <td align="left">TRUE</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">GMT</td>
 <td align="left">GMT NetCDF Grid Format</td>
 <td align="left">FALSE</td>
 <td align="left">TRUE</td>
 <td align="left">TRUE</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">GPKG</td>
 <td align="left">GeoPackage</td>
 <td align="left">TRUE</td>
 <td align="left">TRUE</td>
 <td align="left">TRUE</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">GRASSASCIIGrid</td>
 <td align="left">GRASS ASCII Grid</td>
 <td align="left">FALSE</td>
 <td align="left">FALSE</td>
 <td align="left">TRUE</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">GRIB</td>
-<td align="left">GRIdded Binary (.grb)</td>
-<td align="left">FALSE</td>
+<td align="left">GRIdded Binary (.grb, .grb2)</td>
 <td align="left">FALSE</td>
 <td align="left">TRUE</td>
+<td align="left">TRUE</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">GS7BG</td>
 <td align="left">Golden Software 7 Binary Grid (.grd)</td>
 <td align="left">TRUE</td>
 <td align="left">TRUE</td>
 <td align="left">TRUE</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">GSAG</td>
 <td align="left">Golden Software ASCII Grid (.grd)</td>
 <td align="left">FALSE</td>
 <td align="left">TRUE</td>
 <td align="left">TRUE</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">GSBG</td>
 <td align="left">Golden Software Binary Grid (.grd)</td>
 <td align="left">TRUE</td>
 <td align="left">TRUE</td>
 <td align="left">TRUE</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">GSC</td>
 <td align="left">GSC Geogrid</td>
 <td align="left">FALSE</td>
 <td align="left">FALSE</td>
 <td align="left">TRUE</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">GTiff</td>
 <td align="left">GeoTIFF</td>
 <td align="left">TRUE</td>
 <td align="left">TRUE</td>
 <td align="left">TRUE</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">GTX</td>
 <td align="left">NOAA Vertical Datum .GTX</td>
 <td align="left">TRUE</td>
 <td align="left">FALSE</td>
 <td align="left">TRUE</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">GXF</td>
 <td align="left">GeoSoft Grid Exchange Format</td>
 <td align="left">FALSE</td>
 <td align="left">FALSE</td>
 <td align="left">TRUE</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">HDF4</td>
 <td align="left">Hierarchical Data Format Release 4</td>
 <td align="left">FALSE</td>
 <td align="left">FALSE</td>
 <td align="left">TRUE</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">HDF4Image</td>
 <td align="left">HDF4 Dataset</td>
 <td align="left">TRUE</td>
 <td align="left">FALSE</td>
 <td align="left">TRUE</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">HDF5</td>
 <td align="left">Hierarchical Data Format Release 5</td>
 <td align="left">FALSE</td>
 <td align="left">FALSE</td>
 <td align="left">TRUE</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">HDF5Image</td>
 <td align="left">HDF5 Dataset</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">HEIF</td>
+<td align="left">ISO/IEC 23008-12:2017 High Efficiency Image File Format</td>
 <td align="left">FALSE</td>
 <td align="left">FALSE</td>
 <td align="left">TRUE</td>
@@ -1467,43 +1570,57 @@ Figure 4.5: Raster representation the discrete data; the vegetation types of the
 <td align="left">TRUE</td>
 </tr>
 <tr class="even">
+<td align="left">ISG</td>
+<td align="left">International Service for the Geoid</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
 <td align="left">ISIS2</td>
 <td align="left">USGS Astrogeology ISIS cube (Version 2)</td>
 <td align="left">TRUE</td>
 <td align="left">FALSE</td>
 <td align="left">TRUE</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">ISIS3</td>
 <td align="left">USGS Astrogeology ISIS cube (Version 3)</td>
 <td align="left">TRUE</td>
 <td align="left">TRUE</td>
 <td align="left">TRUE</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">JAXAPALSAR</td>
 <td align="left">JAXA PALSAR Product Reader (Level 1.1/1.5)</td>
 <td align="left">FALSE</td>
 <td align="left">FALSE</td>
 <td align="left">TRUE</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">JDEM</td>
 <td align="left">Japanese DEM (.mem)</td>
 <td align="left">FALSE</td>
 <td align="left">FALSE</td>
 <td align="left">TRUE</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">JP2OpenJPEG</td>
 <td align="left">JPEG-2000 driver based on OpenJPEG library</td>
 <td align="left">FALSE</td>
 <td align="left">TRUE</td>
 <td align="left">TRUE</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">JPEG</td>
 <td align="left">JPEG JFIF</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">JPEGLS</td>
+<td align="left">JPEGLS</td>
 <td align="left">FALSE</td>
 <td align="left">TRUE</td>
 <td align="left">TRUE</td>
@@ -1628,80 +1745,94 @@ Figure 4.5: Raster representation the discrete data; the vegetation types of the
 <td align="left">TRUE</td>
 </tr>
 <tr class="odd">
+<td align="left">NGW</td>
+<td align="left">NextGIS Web</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
 <td align="left">NITF</td>
 <td align="left">National Imagery Transmission Format</td>
 <td align="left">TRUE</td>
 <td align="left">TRUE</td>
 <td align="left">TRUE</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">NTv2</td>
 <td align="left">NTv2 Datum Grid Shift</td>
 <td align="left">TRUE</td>
 <td align="left">FALSE</td>
 <td align="left">TRUE</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">NWT_GRC</td>
 <td align="left">Northwood Classified Grid Format .grc/.tab</td>
 <td align="left">FALSE</td>
 <td align="left">FALSE</td>
 <td align="left">TRUE</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">NWT_GRD</td>
 <td align="left">Northwood Numeric Grid Format .grd/.tab</td>
 <td align="left">TRUE</td>
 <td align="left">TRUE</td>
 <td align="left">TRUE</td>
 </tr>
-<tr class="odd">
-<td align="left">OGDI</td>
-<td align="left">OGDI Bridge</td>
+<tr class="even">
+<td align="left">OGCAPI</td>
+<td align="left">OGCAPI</td>
 <td align="left">FALSE</td>
 <td align="left">FALSE</td>
 <td align="left">TRUE</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">OZI</td>
 <td align="left">OziExplorer Image File</td>
 <td align="left">FALSE</td>
 <td align="left">FALSE</td>
 <td align="left">TRUE</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">PAux</td>
 <td align="left">PCI .aux Labelled</td>
 <td align="left">TRUE</td>
 <td align="left">FALSE</td>
 <td align="left">TRUE</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">PCIDSK</td>
 <td align="left">PCIDSK Database File</td>
 <td align="left">TRUE</td>
 <td align="left">FALSE</td>
 <td align="left">TRUE</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">PCRaster</td>
 <td align="left">PCRaster Raster File</td>
 <td align="left">TRUE</td>
 <td align="left">TRUE</td>
 <td align="left">TRUE</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">PDF</td>
 <td align="left">Geospatial PDF</td>
 <td align="left">TRUE</td>
 <td align="left">TRUE</td>
 <td align="left">TRUE</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">PDS</td>
 <td align="left">NASA Planetary Data System</td>
 <td align="left">FALSE</td>
 <td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">PDS4</td>
+<td align="left">NASA Planetary Data System 4</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
 <td align="left">TRUE</td>
 </tr>
 <tr class="even">
@@ -1761,94 +1892,108 @@ Figure 4.5: Raster representation the discrete data; the vegetation types of the
 <td align="left">TRUE</td>
 </tr>
 <tr class="even">
+<td align="left">RDA</td>
+<td align="left">DigitalGlobe Raster Data Access driver</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
 <td align="left">RIK</td>
 <td align="left">Swedish Grid RIK (.rik)</td>
 <td align="left">FALSE</td>
 <td align="left">FALSE</td>
 <td align="left">TRUE</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">RMF</td>
 <td align="left">Raster Matrix Format</td>
 <td align="left">TRUE</td>
 <td align="left">FALSE</td>
 <td align="left">TRUE</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">ROI_PAC</td>
 <td align="left">ROI_PAC raster</td>
 <td align="left">TRUE</td>
 <td align="left">FALSE</td>
 <td align="left">TRUE</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">RPFTOC</td>
 <td align="left">Raster Product Format TOC format</td>
 <td align="left">FALSE</td>
 <td align="left">FALSE</td>
 <td align="left">TRUE</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">RRASTER</td>
 <td align="left">R Raster</td>
-<td align="left">FALSE</td>
-<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
 <td align="left">TRUE</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">RS2</td>
 <td align="left">RadarSat 2 XML Product</td>
 <td align="left">FALSE</td>
 <td align="left">FALSE</td>
 <td align="left">TRUE</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">RST</td>
 <td align="left">Idrisi Raster A.1</td>
 <td align="left">TRUE</td>
 <td align="left">TRUE</td>
 <td align="left">TRUE</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">SAFE</td>
 <td align="left">Sentinel-1 SAR SAFE Product</td>
 <td align="left">FALSE</td>
 <td align="left">FALSE</td>
 <td align="left">TRUE</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">SAGA</td>
-<td align="left">SAGA GIS Binary Grid (.sdat)</td>
+<td align="left">SAGA GIS Binary Grid (.sdat, .sg-grd-z)</td>
 <td align="left">TRUE</td>
 <td align="left">TRUE</td>
 <td align="left">TRUE</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">SAR_CEOS</td>
 <td align="left">CEOS SAR Image</td>
 <td align="left">FALSE</td>
 <td align="left">FALSE</td>
 <td align="left">TRUE</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">SDTS</td>
 <td align="left">SDTS Raster</td>
 <td align="left">FALSE</td>
 <td align="left">FALSE</td>
 <td align="left">TRUE</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">SENTINEL2</td>
 <td align="left">Sentinel 2</td>
 <td align="left">FALSE</td>
 <td align="left">FALSE</td>
 <td align="left">TRUE</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">SGI</td>
 <td align="left">SGI Image File Format 1.0</td>
 <td align="left">TRUE</td>
 <td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">SIGDEM</td>
+<td align="left">Scaled Integer Gridded DEM .sigdem</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
 <td align="left">TRUE</td>
 </tr>
 <tr class="odd">
@@ -1873,6 +2018,20 @@ Figure 4.5: Raster representation the discrete data; the vegetation types of the
 <td align="left">TRUE</td>
 </tr>
 <tr class="even">
+<td align="left">STACIT</td>
+<td align="left">Spatio-Temporal Asset Catalog Items</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">STACTA</td>
+<td align="left">Spatio-Temporal Asset Catalog Tiled Assets</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
 <td align="left">Terragen</td>
 <td align="left">Terragen heightfield</td>
 <td align="left">TRUE</td>
@@ -1880,80 +2039,94 @@ Figure 4.5: Raster representation the discrete data; the vegetation types of the
 <td align="left">TRUE</td>
 </tr>
 <tr class="odd">
+<td align="left">TGA</td>
+<td align="left">TGA/TARGA Image File Format</td>
+<td align="left">FALSE</td>
+<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
 <td align="left">TIL</td>
 <td align="left">EarthWatch .TIL</td>
 <td align="left">FALSE</td>
 <td align="left">FALSE</td>
 <td align="left">TRUE</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">TSX</td>
 <td align="left">TerraSAR-X Product</td>
 <td align="left">FALSE</td>
 <td align="left">FALSE</td>
 <td align="left">TRUE</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">USGSDEM</td>
 <td align="left">USGS Optional ASCII DEM (and CDED)</td>
 <td align="left">FALSE</td>
 <td align="left">TRUE</td>
 <td align="left">TRUE</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">VICAR</td>
 <td align="left">MIPL VICAR file</td>
-<td align="left">FALSE</td>
-<td align="left">FALSE</td>
+<td align="left">TRUE</td>
+<td align="left">TRUE</td>
 <td align="left">TRUE</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">VRT</td>
 <td align="left">Virtual Raster</td>
 <td align="left">TRUE</td>
 <td align="left">TRUE</td>
 <td align="left">TRUE</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">WCS</td>
 <td align="left">OGC Web Coverage Service</td>
 <td align="left">FALSE</td>
 <td align="left">FALSE</td>
 <td align="left">TRUE</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">WEBP</td>
 <td align="left">WEBP</td>
 <td align="left">FALSE</td>
 <td align="left">TRUE</td>
 <td align="left">TRUE</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">WMS</td>
 <td align="left">OGC Web Map Service</td>
 <td align="left">FALSE</td>
 <td align="left">TRUE</td>
 <td align="left">TRUE</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">WMTS</td>
-<td align="left">OGC Web Mab Tile Service</td>
+<td align="left">OGC Web Map Tile Service</td>
 <td align="left">FALSE</td>
 <td align="left">TRUE</td>
 <td align="left">TRUE</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">XPM</td>
 <td align="left">X11 PixMap Format</td>
 <td align="left">FALSE</td>
 <td align="left">TRUE</td>
 <td align="left">TRUE</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">XYZ</td>
 <td align="left">ASCII Gridded XYZ</td>
 <td align="left">FALSE</td>
 <td align="left">TRUE</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="odd">
+<td align="left">Zarr</td>
+<td align="left">Zarr</td>
+<td align="left">TRUE</td>
+<td align="left">FALSE</td>
 <td align="left">TRUE</td>
 </tr>
 <tr class="even">
@@ -1987,7 +2160,6 @@ Figure 4.5: Raster representation the discrete data; the vegetation types of the
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -2006,6 +2178,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
@@ -2026,6 +2199,10 @@ gitbook.start({
 "text": null
 },
 "download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "subsection"
 }

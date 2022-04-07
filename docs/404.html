@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Page not found | A Minimal Introduction to GIS (in R)</title>
+  <meta name="description" content="This is a minimal introduction to GIS and handling spatial data in R compiled for the Biological Sciences BSc(Honours) class at the University of Cape Town." />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Page not found | A Minimal Introduction to GIS (in R)" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This is a minimal introduction to GIS and handling spatial data in R compiled for the Biological Sciences BSc(Honours) class at the University of Cape Town." />
+  <meta name="github-repo" content="jslingsby/spatial-r" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Page not found | A Minimal Introduction to GIS (in R)" />
+  
+  <meta name="twitter:description" content="This is a minimal introduction to GIS and handling spatial data in R compiled for the Biological Sciences BSc(Honours) class at the University of Cape Town." />
+  
+
+<meta name="author" content="Jasper Slingsby" />
+
+
+<meta name="date" content="2022-04-07" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+
+
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Intro to GIS in R</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Overview</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#general"><i class="fa fa-check"></i><b>1.1</b> General</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#using"><i class="fa fa-check"></i><b>1.2</b> Using this resource</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#module-and-project-details"><i class="fa fa-check"></i><b>1.3</b> Module and Project details</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Why care about GIS?</a></li>
+<li class="chapter" data-level="3" data-path="gis-basics.html"><a href="gis-basics.html"><i class="fa fa-check"></i><b>3</b> GIS basics</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="gis-basics.html"><a href="gis-basics.html#what-is-gis"><i class="fa fa-check"></i><b>3.1</b> What is GIS?</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="gis-basics.html"><a href="gis-basics.html#an-example-workflow"><i class="fa fa-check"></i><b>3.1.1</b> An example workflow</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="gis-basics.html"><a href="gis-basics.html#how-do-we-do-gis"><i class="fa fa-check"></i><b>3.2</b> How do we do GIS?</a></li>
+<li class="chapter" data-level="3.3" data-path="gis-basics.html"><a href="gis-basics.html#ucthelp"><i class="fa fa-check"></i><b>3.3</b> How to get help?</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="gis-data-models-and-file-formats.html"><a href="gis-data-models-and-file-formats.html"><i class="fa fa-check"></i><b>4</b> GIS data models and file formats</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="gis-data-models-and-file-formats.html"><a href="gis-data-models-and-file-formats.html#data-models"><i class="fa fa-check"></i><b>4.1</b> Data models</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="gis-data-models-and-file-formats.html"><a href="gis-data-models-and-file-formats.html#vector-data"><i class="fa fa-check"></i><b>4.1.1</b> Vector data</a></li>
+<li class="chapter" data-level="4.1.2" data-path="gis-data-models-and-file-formats.html"><a href="gis-data-models-and-file-formats.html#raster-data"><i class="fa fa-check"></i><b>4.1.2</b> Raster data</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="gis-data-models-and-file-formats.html"><a href="gis-data-models-and-file-formats.html#attribute-data"><i class="fa fa-check"></i><b>4.2</b> Attribute data</a></li>
+<li class="chapter" data-level="4.3" data-path="gis-data-models-and-file-formats.html"><a href="gis-data-models-and-file-formats.html#file-formats"><i class="fa fa-check"></i><b>4.3</b> File formats</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="some-important-concepts-and-pitfalls.html"><a href="some-important-concepts-and-pitfalls.html"><i class="fa fa-check"></i><b>5</b> Some important concepts and pitfalls</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="some-important-concepts-and-pitfalls.html"><a href="some-important-concepts-and-pitfalls.html#scale"><i class="fa fa-check"></i><b>5.1</b> Scale</a></li>
+<li class="chapter" data-level="5.2" data-path="some-important-concepts-and-pitfalls.html"><a href="some-important-concepts-and-pitfalls.html#coordinate-reference-systems-crs"><i class="fa fa-check"></i><b>5.2</b> Coordinate Reference Systems (CRS)</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="some-important-concepts-and-pitfalls.html"><a href="some-important-concepts-and-pitfalls.html#geographic-or-unprojected-coordinate-systems"><i class="fa fa-check"></i><b>5.2.1</b> Geographic (or “unprojected”) Coordinate Systems</a></li>
+<li class="chapter" data-level="5.2.2" data-path="some-important-concepts-and-pitfalls.html"><a href="some-important-concepts-and-pitfalls.html#projections"><i class="fa fa-check"></i><b>5.2.2</b> Projected Coordinate Systems</a></li>
+<li class="chapter" data-level="5.2.3" data-path="some-important-concepts-and-pitfalls.html"><a href="some-important-concepts-and-pitfalls.html#projection-codes"><i class="fa fa-check"></i><b>5.2.3</b> Projection codes</a></li>
+<li class="chapter" data-level="5.2.4" data-path="some-important-concepts-and-pitfalls.html"><a href="some-important-concepts-and-pitfalls.html#on-the-fly-vs-manual-projection"><i class="fa fa-check"></i><b>5.2.4</b> “On the fly” vs manual projection</a></li>
+<li class="chapter" data-level="5.2.5" data-path="some-important-concepts-and-pitfalls.html"><a href="some-important-concepts-and-pitfalls.html#the-golden-rules"><i class="fa fa-check"></i><b>5.2.5</b> The golden rules…</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="r-as-a-gis.html"><a href="r-as-a-gis.html"><i class="fa fa-check"></i><b>6</b> R as a GIS</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="r-as-a-gis.html"><a href="r-as-a-gis.html#overview-1"><i class="fa fa-check"></i><b>6.1</b> Overview</a></li>
+<li class="chapter" data-level="6.2" data-path="r-as-a-gis.html"><a href="r-as-a-gis.html#some-key-r-packages"><i class="fa fa-check"></i><b>6.2</b> Some key R packages</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="r-as-a-gis.html"><a href="r-as-a-gis.html#for-vector-data"><i class="fa fa-check"></i><b>6.2.1</b> For vector data</a></li>
+<li class="chapter" data-level="6.2.2" data-path="r-as-a-gis.html"><a href="r-as-a-gis.html#for-raster-data"><i class="fa fa-check"></i><b>6.2.2</b> For raster data</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="rdemo.html"><a href="rdemo.html"><i class="fa fa-check"></i><b>7</b> Vector GIS operations in R</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="rdemo.html"><a href="rdemo.html#casestudy"><i class="fa fa-check"></i><b>7.1</b> Case study and demo datasets</a></li>
+<li class="chapter" data-level="7.2" data-path="rdemo.html"><a href="rdemo.html#reading-and-writing"><i class="fa fa-check"></i><b>7.2</b> Reading and writing</a></li>
+<li class="chapter" data-level="7.3" data-path="rdemo.html"><a href="rdemo.html#basic-plotting"><i class="fa fa-check"></i><b>7.3</b> Basic plotting</a></li>
+<li class="chapter" data-level="7.4" data-path="rdemo.html"><a href="rdemo.html#cropping"><i class="fa fa-check"></i><b>7.4</b> Cropping</a></li>
+<li class="chapter" data-level="7.5" data-path="rdemo.html"><a href="rdemo.html#select-and-subset-by-attribute"><i class="fa fa-check"></i><b>7.5</b> Select and subset by attribute</a></li>
+<li class="chapter" data-level="7.6" data-path="rdemo.html"><a href="rdemo.html#combine-classes-and-dissolve-by-attribute"><i class="fa fa-check"></i><b>7.6</b> Combine classes and dissolve by attribute</a></li>
+<li class="chapter" data-level="7.7" data-path="rdemo.html"><a href="rdemo.html#getinat"><i class="fa fa-check"></i><b>7.7</b> Calling iNaturalist locality (point) data from R</a></li>
+<li class="chapter" data-level="7.8" data-path="rdemo.html"><a href="rdemo.html#converting-a-dataframe-into-a-spatial-object"><i class="fa fa-check"></i><b>7.8</b> Converting a dataframe into a spatial object</a></li>
+<li class="chapter" data-level="7.9" data-path="rdemo.html"><a href="rdemo.html#adding-basemaps-to-plots"><i class="fa fa-check"></i><b>7.9</b> Adding basemaps to plots</a></li>
+<li class="chapter" data-level="7.10" data-path="rdemo.html"><a href="rdemo.html#interactive-maps-with-leaflet"><i class="fa fa-check"></i><b>7.10</b> Interactive maps with <em>leaflet</em></a></li>
+<li class="chapter" data-level="7.11" data-path="rdemo.html"><a href="rdemo.html#reprojecting"><i class="fa fa-check"></i><b>7.11</b> Reprojecting</a></li>
+<li class="chapter" data-level="7.12" data-path="rdemo.html"><a href="rdemo.html#intersecting-points-and-polygons"><i class="fa fa-check"></i><b>7.12</b> Intersecting points and polygons</a></li>
+<li class="chapter" data-level="7.13" data-path="rdemo.html"><a href="rdemo.html#colour-or-label-points"><i class="fa fa-check"></i><b>7.13</b> Colour or label points</a></li>
+<li class="chapter" data-level="7.14" data-path="rdemo.html"><a href="rdemo.html#buffering"><i class="fa fa-check"></i><b>7.14</b> Buffering</a></li>
+<li class="chapter" data-level="7.15" data-path="rdemo.html"><a href="rdemo.html#within-distance-and-intersect"><i class="fa fa-check"></i><b>7.15</b> Within distance and intersect</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="raster-gis-operations-in-r.html"><a href="raster-gis-operations-in-r.html"><i class="fa fa-check"></i><b>8</b> Raster GIS operations in R</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="raster-gis-operations-in-r.html"><a href="raster-gis-operations-in-r.html#reading-in-data"><i class="fa fa-check"></i><b>8.1</b> Reading in data</a></li>
+<li class="chapter" data-level="8.2" data-path="raster-gis-operations-in-r.html"><a href="raster-gis-operations-in-r.html#cropping-1"><i class="fa fa-check"></i><b>8.2</b> Cropping</a></li>
+<li class="chapter" data-level="8.3" data-path="raster-gis-operations-in-r.html"><a href="raster-gis-operations-in-r.html#aggregating-resampling"><i class="fa fa-check"></i><b>8.3</b> Aggregating / Resampling</a></li>
+<li class="chapter" data-level="8.4" data-path="raster-gis-operations-in-r.html"><a href="raster-gis-operations-in-r.html#basic-plotting-1"><i class="fa fa-check"></i><b>8.4</b> Basic plotting</a></li>
+<li class="chapter" data-level="8.5" data-path="raster-gis-operations-in-r.html"><a href="raster-gis-operations-in-r.html#disaggregating"><i class="fa fa-check"></i><b>8.5</b> Disaggregating</a></li>
+<li class="chapter" data-level="8.6" data-path="raster-gis-operations-in-r.html"><a href="raster-gis-operations-in-r.html#raster-maths"><i class="fa fa-check"></i><b>8.6</b> Raster maths!</a></li>
+<li class="chapter" data-level="8.7" data-path="raster-gis-operations-in-r.html"><a href="raster-gis-operations-in-r.html#focal-and-terrain-calculations"><i class="fa fa-check"></i><b>8.7</b> Focal and terrain calculations</a></li>
+<li class="chapter" data-level="8.8" data-path="raster-gis-operations-in-r.html"><a href="raster-gis-operations-in-r.html#raster-stacks"><i class="fa fa-check"></i><b>8.8</b> Raster stacks</a></li>
+<li class="chapter" data-level="8.9" data-path="raster-gis-operations-in-r.html"><a href="raster-gis-operations-in-r.html#extracting-raster-to-vector"><i class="fa fa-check"></i><b>8.9</b> Extracting raster to vector</a></li>
+<li class="chapter" data-level="8.10" data-path="raster-gis-operations-in-r.html"><a href="raster-gis-operations-in-r.html#rasterizing"><i class="fa fa-check"></i><b>8.10</b> Rasterizing</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">A Minimal Introduction to GIS (in R)</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="page-not-found" class="section level1">
+<h1>Page not found</h1>
+<p>The page you requested cannot be found (perhaps it was moved or renamed).</p>
+<p>You may want to try searching to find the page's new location, or use
+the table of contents to find the page you are looking for.</p>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/jslingsby/spatial-r/edit/master/%s",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": "https://github.com/jslingsby/spatial-r/blob/master/%s",
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

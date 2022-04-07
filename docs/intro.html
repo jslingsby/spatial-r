@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>2 Why care about GIS? | A Minimal Introduction to GIS (in R)</title>
   <meta name="description" content="This is a minimal introduction to GIS and handling spatial data in R compiled for the Biological Sciences BSc(Honours) class at the University of Cape Town." />
-  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
   <meta property="og:title" content="2 Why care about GIS? | A Minimal Introduction to GIS (in R)" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Jasper Slingsby" />
 
 
-<meta name="date" content="2021-06-03" />
+<meta name="date" content="2022-04-07" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,8 +33,9 @@
   
 <link rel="prev" href="index.html"/>
 <link rel="next" href="gis-basics.html"/>
-<script src="libs/header-attrs-2.6/header-attrs.js"></script>
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -50,21 +51,23 @@
 
 
 
-
-<script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
 <link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
 <script src="libs/leaflet-1.3.1/leaflet.js"></script>
 <link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
 <script src="libs/proj4-2.6.2/proj4.min.js"></script>
 <script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
 <link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
-<script src="libs/leaflet-binding-2.0.4.1/leaflet.js"></script>
+<script src="libs/leaflet-binding-2.1.1/leaflet.js"></script>
 
 
 <style type="text/css">
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
@@ -123,6 +126,29 @@ code span.st { color: #4070a0; } /* String */
 code span.va { color: #19177c; } /* Variable */
 code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -214,7 +240,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.4" data-path="raster-gis-operations-in-r.html"><a href="raster-gis-operations-in-r.html#basic-plotting-1"><i class="fa fa-check"></i><b>8.4</b> Basic plotting</a></li>
 <li class="chapter" data-level="8.5" data-path="raster-gis-operations-in-r.html"><a href="raster-gis-operations-in-r.html#disaggregating"><i class="fa fa-check"></i><b>8.5</b> Disaggregating</a></li>
 <li class="chapter" data-level="8.6" data-path="raster-gis-operations-in-r.html"><a href="raster-gis-operations-in-r.html#raster-maths"><i class="fa fa-check"></i><b>8.6</b> Raster maths!</a></li>
-<li class="chapter" data-level="8.7" data-path="raster-gis-operations-in-r.html"><a href="raster-gis-operations-in-r.html#terrain-calculations"><i class="fa fa-check"></i><b>8.7</b> Terrain calculations</a></li>
+<li class="chapter" data-level="8.7" data-path="raster-gis-operations-in-r.html"><a href="raster-gis-operations-in-r.html#focal-and-terrain-calculations"><i class="fa fa-check"></i><b>8.7</b> Focal and terrain calculations</a></li>
 <li class="chapter" data-level="8.8" data-path="raster-gis-operations-in-r.html"><a href="raster-gis-operations-in-r.html#raster-stacks"><i class="fa fa-check"></i><b>8.8</b> Raster stacks</a></li>
 <li class="chapter" data-level="8.9" data-path="raster-gis-operations-in-r.html"><a href="raster-gis-operations-in-r.html#extracting-raster-to-vector"><i class="fa fa-check"></i><b>8.9</b> Extracting raster to vector</a></li>
 <li class="chapter" data-level="8.10" data-path="raster-gis-operations-in-r.html"><a href="raster-gis-operations-in-r.html#rasterizing"><i class="fa fa-check"></i><b>8.10</b> Rasterizing</a></li>
@@ -243,7 +269,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="intro" class="section level1" number="2">
 <h1><span class="header-section-number">2</span> Why care about GIS?</h1>
 <p>How lost would you be without Google Maps?</p>
-<div class="figure" style="text-align: center"><span id="fig:googlemap"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:googlemap"></span>
 <img src="img/googlemaps.jpg" alt="Screenshot of [Google Maps](http://maps.google.co.za/) for Cape Town." width="600" />
 <p class="caption">
 Figure 2.1: Screenshot of <a href="http://maps.google.co.za/">Google Maps</a> for Cape Town.
@@ -251,7 +277,7 @@ Figure 2.1: Screenshot of <a href="http://maps.google.co.za/">Google Maps</a> fo
 </div>
 <p><br></p>
 <p>If we search “Geographic Information Systems OR GIS” in Web of Science, it is clear that the number of papers using GIS has exploded over time!</p>
-<div class="figure" style="text-align: center"><span id="fig:gisbyyear"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:gisbyyear"></span>
 <img src="img/gis_by_year.png" alt="The number of papers on Web of Science when searching `Geographic Information Systems` OR `GIS`." width="670" />
 <p class="caption">
 Figure 2.2: The number of papers on Web of Science when searching <code>Geographic Information Systems</code> OR <code>GIS</code>.
@@ -259,7 +285,7 @@ Figure 2.2: The number of papers on Web of Science when searching <code>Geograph
 </div>
 <p><br></p>
 <p>GIS is especially important in environment and life sciences!</p>
-<div class="figure" style="text-align: center"><span id="fig:gisbyfield"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:gisbyfield"></span>
 <img src="img/gis_by_field.png" alt="The number of papers on Web of Science by theme when searching `Geographic Information Systems` OR `GIS`." width="680" />
 <p class="caption">
 Figure 2.3: The number of papers on Web of Science by theme when searching <code>Geographic Information Systems</code> OR <code>GIS</code>.
@@ -267,27 +293,27 @@ Figure 2.3: The number of papers on Web of Science by theme when searching <code
 </div>
 <p><br></p>
 <p>We use it for things like mapping ecosystems and biomes.</p>
-<div class="figure" style="text-align: center"><span id="fig:biomes"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:biomes"></span>
 <img src="img/biomes.png" alt="The historical extent of the biomes of South Africa from @Mucina2006." width="531" />
 <p class="caption">
-Figure 2.4: The historical extent of the biomes of South Africa from <span class="citation"><a href="references.html#ref-Mucina2006" role="doc-biblioref">Mucina, Rutherford, and Others</a> (<a href="references.html#ref-Mucina2006" role="doc-biblioref">2006</a>)</span>.
+Figure 2.4: The historical extent of the biomes of South Africa from <span class="citation"><a href="#ref-Mucina2006" role="doc-biblioref">Mucina, Rutherford, and Others</a> (<a href="#ref-Mucina2006" role="doc-biblioref">2006</a>)</span>.
 </p>
 </div>
 <p><br></p>
 <p>Or the loss of ecosystems and biomes.</p>
-<div class="figure" style="text-align: center"><span id="fig:biomeremnants"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:biomeremnants"></span>
 <img src="img/biome_remnants.png" alt="The remaining extent of the biomes of South Africa from @Skowno2021." width="531" />
 <p class="caption">
-Figure 2.5: The remaining extent of the biomes of South Africa from <span class="citation"><a href="references.html#ref-Skowno2021" role="doc-biblioref">Skowno, Jewitt, and Slingsby</a> (<a href="references.html#ref-Skowno2021" role="doc-biblioref">2021</a>)</span>.
+Figure 2.5: The remaining extent of the biomes of South Africa from <span class="citation"><a href="#ref-Skowno2021" role="doc-biblioref">Skowno, Jewitt, and Slingsby</a> (<a href="#ref-Skowno2021" role="doc-biblioref">2021</a>)</span>.
 </p>
 </div>
 <p><br></p>
-<p>Although the outcomes of GIS analyses are not always maps, e.g. this table from Skowno et al. <span class="citation">(<a href="references.html#ref-Skowno2021" role="doc-biblioref">2021</a>)</span>.</p>
+<p>Although the outcomes of GIS analyses are not always maps, e.g. this table from Skowno et al. -<span class="citation"><a href="#ref-Skowno2021" role="doc-biblioref">Skowno, Jewitt, and Slingsby</a> (<a href="#ref-Skowno2021" role="doc-biblioref">2021</a>)</span>.</p>
 <p><img src="img/skowno2021.png" width="676" style="display: block; margin: auto;" /></p>
 <p><br></p>
 <p>But it can also be interactive!</p>
-<div class="figure" style="text-align: center"><span id="fig:globalforestwatch"></span>
-<iframe src="https://www.globalforestwatch.org/map/?showcase=0" width="288" height="600px">
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:globalforestwatch"></span>
+<iframe src="https://www.globalforestwatch.org/map/?showcase=0" width="288" height="600px" data-external="1">
 </iframe>
 <p class="caption">
 Figure 2.6: The <a href="https://www.globalforestwatch.org/map/">Global Forest Watch</a> app.
@@ -295,6 +321,15 @@ Figure 2.6: The <a href="https://www.globalforestwatch.org/map/">Global Forest W
 </div>
 <p><br></p>
 
+</div>
+<h3>References</h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-Mucina2006" class="csl-entry">
+Mucina, Ladislav, Michael C Rutherford, and Others. 2006. <em><span class="nocase">The vegetation of South Africa, Lesotho and Swaziland</span></em>. South African National Biodiversity Institute.
+</div>
+<div id="ref-Skowno2021" class="csl-entry">
+Skowno, Andrew L, Debbie Jewitt, and Jasper A Slingsby. 2021. <span>“<span class="nocase">Rates and patterns of habitat loss across South Africa’s vegetation biomes</span>.”</span> <em>South African Journal of Science</em> 117 (1/2). <a href="https://doi.org/10.17159/sajs.2021/8182">https://doi.org/10.17159/sajs.2021/8182</a>.
+</div>
 </div>
             </section>
 
@@ -306,7 +341,6 @@ Figure 2.6: The <a href="https://www.globalforestwatch.org/map/">Global Forest W
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -325,6 +359,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
@@ -345,6 +380,10 @@ gitbook.start({
 "text": null
 },
 "download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "subsection"
 }
