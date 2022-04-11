@@ -18,17 +18,19 @@ The datasets we will use, some of their properties and where to source them are 
 
 ```{r datasets, echo = F, warning=F, message=F}
 library(knitr) 
+library(kableExtra)
 
-datasets <- data.frame(
+URL = c("https://www.inaturalist.org/", "https://odp-cctegis.opendata.arcgis.com/datasets/cctegis::open-watercourses/about", "https://odp-cctegis.opendata.arcgis.com/datasets/cctegis::indigenous-vegetation-historic-extent/about", "https://odp-cctegis.opendata.arcgis.com/datasets/indigenous-vegetation-current-extent", "https://odp-cctegis.opendata.arcgis.com/datasets/digital-elevation-model-10m-grid-general-binary-ascii")
+
+datasets <- tibble(
   `Name` = c("Localities", "Watercourses", "Vegetation Types (historical)", "Vegetation Types (remnants)", "Elevation"),
+  `Data source` = c("iNaturalist", "City of Cape Town", "City of Cape Town", "City of Cape Town", "City of Cape Town"),
   `Data model` = c("Vector", "Vector", "Vector", "Vector", "Raster"),
   `Geometry type` = c("Point", "Line", "Polygon", "Polygon", "Raster"),
-  `File format` = c("", "ESRI shapefile", "ESRI shapefile", "ESRI shapefile", "GeoTIFF"),
-  `Data source` = c("iNaturalist", "City of Cape Town", "City of Cape Town", "City of Cape Town", "City of Cape Town"),
-  URL = c("https://www.inaturalist.org/", "https://odp-cctegis.opendata.arcgis.com/datasets/cctegis::open-watercourses/about", "https://odp-cctegis.opendata.arcgis.com/datasets/cctegis::indigenous-vegetation-historic-extent/about", "https://odp-cctegis.opendata.arcgis.com/datasets/indigenous-vegetation-current-extent", "https://odp-cctegis.opendata.arcgis.com/datasets/digital-elevation-model-10m-grid-general-binary-ascii")
-)
+  `File format` = c("", "ESRI shapefile", "ESRI shapefile", "ESRI shapefile", "GeoTIFF")) %>%
+  mutate(`Name` = text_spec(Name, "html", link = URL))
 
-kable(datasets)
+kable(datasets, "html", escape = FALSE)
 ```
 
 <br>

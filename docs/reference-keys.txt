@@ -78,4 +78,3 @@ focal-and-terrain-calculations
 raster-stacks
 extracting-raster-to-vector
 rasterizing
-sf
