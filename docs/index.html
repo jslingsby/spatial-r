@@ -24,7 +24,7 @@
 <meta name="author" content="Jasper Slingsby" />
 
 
-<meta name="date" content="2022-04-07" />
+<meta name="date" content="2022-04-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -175,7 +175,7 @@
 <div id="header">
 <h1 class="title">A Minimal Introduction to GIS (in R)</h1>
 <p class="author"><em>Jasper Slingsby</em></p>
-<p class="date"><em>2022-04-07</em></p>
+<p class="date"><em>2022-04-11</em></p>
 </div>
 <div id="overview" class="section level1" number="1">
 <h1><span class="header-section-number">1</span> Overview</h1>
@@ -212,8 +212,8 @@
 <li>to have working R and RStudio installations - <a href="https://learnr-examples.shinyapps.io/ex-setup-r/">this</a> tutorial may help if needed</li>
 <li>to install the following R packages (you can copy and run the code):
 <ul>
-<li>required: <code>install.packages(c("tidyverse", "sp", "rgdal", "raster", "sf", "lwgeom"))</code></li>
-<li>optional, but handy for some visualizations: <code>install.packages(c("cowplot", "hrbrthemes", "knitr", "leaflet", "htmltools", "rosm", "ggspatial", "rnaturalearth"))</code></li>
+<li>required: <code>install.packages(c("tidyverse", "sp", "rgdal", "raster", "sf", "lwgeom", "terra", "stars", "exactextractr"))</code></li>
+<li>optional, but handy for some visualizations: <code>install.packages(c("cowplot", "hrbrthemes", "knitr", "leaflet", "htmltools", "rosm", "ggspatial", "rnaturalearth", "mapview", "tmap"))</code></li>
 </ul></li>
 <li>to download the datasets discussed in section <a href="rdemo.html#casestudy">7.1</a></li>
 </ul>
@@ -234,12 +234,23 @@
 <li>Define a question that requires GIS, the kinds of data you’ll need to address the question, and describe in words what you think you would need to do with the data to get there.</li>
 <li>Find and describe the datasets you’ll need for your analysis (type, source, how created, etc).</li>
 </ul></li>
-<li>Day 2: Describe the GIS workflow you think you’ll need to perform your analysis (in words and/or a figure). Reconsider and refine your datasets.</li>
-<li>Day 3: Translate your workflow into the R functions you think you’ll need to use and begin coding and running the GIS workflow in R.</li>
+<li>Day 2:
+<ul>
+<li>Describe the GIS workflow you think you’ll need to perform your analysis (in words and/or a figure). Reconsider and refine your datasets.</li>
+</ul></li>
+<li>Day 3:
+<ul>
+<li>Translate your workflow into the R functions you think you’ll need to use and begin coding and running the GIS workflow in R.</li>
+</ul></li>
+<li>Day 4:
+<ul>
+<li>Keep working on the code.</li>
+<li>Develop and present your 1 slide lightning talk - examples from last year <a href="https://docs.google.com/presentation/d/1591HITImkhsf0VT96ae2JqAguy3K0lPeGn0-spA1M18/edit?usp=sharing">here</a>.</li>
+</ul></li>
 <li>Until the 25th April: Iterate over the previous steps until done!</li>
 </ul>
-<p>I will be available 2-3PM every afternoon as a “help desk” to assist you refine your projects and help troubleshoot issues.</p>
-<p><strong>Thursday (14th April):</strong> you’ll do lightning presentations (30% of your mark for the module) on your GIS projects (1 slide, 2 minutes presentation, 1 minute questions). Don’t worry, you won’t lose marks if your projects are not yet complete! We just want to know what you’re doing your project on, what datasets you’re using, and what you plan to do with them. Please add your slide to the Google slide deck and read the instructions there.</p>
+<p>I will be available 2-3PM on Tuesday and Wednesday afternoons as a “help desk” to assist you refine your projects and help troubleshoot issues.</p>
+<p><strong>Lightning talks:</strong> you’ll do online lightning presentations (30% of your mark for the module) on your GIS projects (1 slide, 2 minutes presentation, 1 minute questions) on <strong>Thursday afternoon (2PM, 14th April)</strong>. Don’t worry, you won’t lose marks if your projects are not yet complete! We just want to know what you’re doing your project on, what datasets you’re using, and what you plan to do with them. Please add your slide to the Google slide deck and read the instructions there.</p>
 <p><br></p>
 <p>Some sources of local data to help you get started. Feel free to look for others! If you find good ones, let me know and I’ll add them.</p>
 <ul>

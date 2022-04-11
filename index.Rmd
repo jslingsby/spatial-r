@@ -60,8 +60,8 @@ I've included quite a bit of demonstration R code in Chapter \@ref(rdemo). To tu
 
 * to have working R and RStudio installations - [this](https://learnr-examples.shinyapps.io/ex-setup-r/) tutorial may help if needed
 * to install the following R packages (you can copy and run the code):
-  - required: `install.packages(c("tidyverse", "sp", "rgdal", "raster", "sf", "lwgeom"))`
-  - optional, but handy for some visualizations: `install.packages(c("cowplot", "hrbrthemes", "knitr", "leaflet", "htmltools", "rosm", "ggspatial", "rnaturalearth"))`
+  - required: `install.packages(c("tidyverse", "sp", "rgdal", "raster", "sf", "lwgeom", "terra", "stars", "exactextractr"))`
+  - optional, but handy for some visualizations: `install.packages(c("cowplot", "hrbrthemes", "knitr", "leaflet", "htmltools", "rosm", "ggspatial", "rnaturalearth", "mapview", "tmap"))`
 * to download the datasets discussed in section \@ref(casestudy)
 
 <br>
@@ -85,13 +85,18 @@ The project objectives, broken down as daily goals to help you pace yourselves:
 * Day 1: 
   - Define a question that requires GIS, the kinds of data you'll need to address the question, and describe in words what you think you would need to do with the data to get there.
   - Find and describe the datasets you’ll need for your analysis (type, source, how created, etc).
-* Day 2: Describe the GIS workflow you think you'll need to perform your analysis (in words and/or a figure). Reconsider and refine your datasets.
-* Day 3: Translate your workflow into the R functions you think you'll need to use and begin coding and running the GIS workflow in R.
+* Day 2: 
+  - Describe the GIS workflow you think you'll need to perform your analysis (in words and/or a figure). Reconsider and refine your datasets.
+* Day 3: 
+  - Translate your workflow into the R functions you think you'll need to use and begin coding and running the GIS workflow in R.
+* Day 4: 
+  - Keep working on the code. 
+  - Develop and present your 1 slide lightning talk - examples from last year [here](https://docs.google.com/presentation/d/1591HITImkhsf0VT96ae2JqAguy3K0lPeGn0-spA1M18/edit?usp=sharing).
 * Until the 25th April: Iterate over the previous steps until done!
 
-I will be available 2-3PM every afternoon as a "help desk" to assist you refine your projects and help troubleshoot issues.
+I will be available 2-3PM on Tuesday and Wednesday afternoons as a "help desk" to assist you refine your projects and help troubleshoot issues.
 
-**Thursday (14th April):** you'll do lightning presentations (30% of your mark for the module) on your GIS projects (1 slide, 2 minutes presentation, 1 minute questions). Don't worry, you won't lose marks if your projects are not yet complete! We just want to know what you're doing your project on, what datasets you're using, and what you plan to do with them. Please add your slide to the Google slide deck and read the instructions there.
+**Lightning talks:** you'll do online lightning presentations (30% of your mark for the module) on your GIS projects (1 slide, 2 minutes presentation, 1 minute questions) on **Thursday afternoon (2PM, 14th April)**. Don't worry, you won't lose marks if your projects are not yet complete! We just want to know what you're doing your project on, what datasets you're using, and what you plan to do with them. Please add your slide to the Google slide deck and read the instructions there.
 
 <br>
 

@@ -76,7 +76,7 @@ We can also do GIS by calling the geospatial libraries and other GIS software ty
 * Python
 * JavaScript
 
-A major advantage of using these general purpose programming languages for your GIS work is that it allows you take advantage of their functions for statistical analyses and presentation etc all in one environment and/or work flow. This also makes it much easier to make your [research reproducible](https://ropensci.github.io/reproducibility-guide/sections/introduction/).
+A major advantage of using these general purpose programming languages for your GIS work is that it allows you take advantage of their functions for statistical analyses and presentation etc all in one environment and/or work flow. This also makes it much easier to make your [research reproducible](https://www.ecologi.st/data-management/reproducibility.html).
 
 Note that the geospatial libraries and the other GIS softwares that we call are coded in a variety of other languages, such as Java, C/C++, C# or SQL, but these languages are typically less user friendly and/or more difficult to learn.
 

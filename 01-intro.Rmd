@@ -49,7 +49,7 @@ knitr::include_graphics("img/biome_remnants.png")
 
 <br>
 
-Although the outcomes of GIS analyses are not always maps, e.g. this table from Skowno et al. -@Skowno2021.
+Although the outcomes of GIS analyses are not always maps, e.g. this table from @Skowno2021.
 
 ```{r biomeloss, echo=FALSE, fig.cap = "", fig.width=3, fig.align = 'center'}
 knitr::include_graphics("img/skowno2021.png")
