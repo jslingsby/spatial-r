@@ -88,8 +88,10 @@ Coordinate Reference Systems (CRS) provide a framework for defining real-world l
 The most common coordinate system is latitude/longitude, also known as _geographic_, lat/long or sometimes _WGS84_. There are many ways to record geographic coordinates:
 
 * Degrees, Minutes & Seconds: S33°26’46”,E18°10’23’’
+* Degrees and decimal minutes: S33°26.7666667’,E18°10.3833333’ (out to get you!)
 * Decimal Degrees: -33.4461111,18.17305556
-* Most GIS prefer decimal degrees...
+
+> Most GIS prefer decimal degrees...
 
 The problem with doing analyses using geographic CRS is that lat/long coordinates are actually angular measurements on a 3D sphere (Geodesic) and degrees differ in their actual ground distance depending on where you are on the planet. They also differ in the N-S vs W-E plane!
 
@@ -134,9 +136,11 @@ Projections get tuned to best fit an area through the use of projection paramete
 
 ### Projection codes
 
-The type of CRS is usually (but not always) stored in the metadata of your file (or dataset, if it is comprised of multiple files like an ESRI shapefile). There are various formats for this, such as EPSG, PROJ4 or WKT (be warned, there are many more...). In R, to apply a CRS or reproject your data you typically need to know the EPSG or PROJ4 code. Fortunately, there is a huge online library of these at [https://spatialreference.org/](https://spatialreference.org/). I also provide **some suggested projections**, based on the properties you'd like to preserve, and their codes [here](https://docs.google.com/spreadsheets/d/1Hvkub7syQNP6GsgaSh5SZNEd3VR9-9j94M5W-hmvm24/edit?usp=sharing). Note that for UTM and TM you may need to adjust the PROJ4 strings for your area - read the comments.
+The type of CRS is usually (but not always) stored in the metadata of your file (or dataset, if it is comprised of multiple files like an ESRI shapefile). There are various formats for this, the most commonly used in R being known as EPSG, PROJ4 or WKT codes or strings (be warned, there are many more...). To assign a CRS or reproject your data in R you need to know the appropriate code in the format required by the function. Fortunately, there is a huge online library of the codes at [https://spatialreference.org/](https://spatialreference.org/). I also provide **some suggested projections**, based on the properties you'd like to preserve, and their codes [here](https://docs.google.com/spreadsheets/d/1Hvkub7syQNP6GsgaSh5SZNEd3VR9-9j94M5W-hmvm24/edit?usp=sharing). Note that for UTM and TM you may need to adjust the PROJ4 strings for your area - read the comments.
 
-Why do projections matter?
+<br>
+
+**Why do projections matter?**
 
 ```{r africaporjected, fig.cap='Africa, visualized with different coordinate reference systems. All four maps are different, even if the differences may be subtle!', fig.align='center', echo=FALSE, warning=F, message=F}
 
@@ -165,7 +169,7 @@ afrgeo <- ggplot() +
 afrutm <- ggplot() +
   geom_sf(data=afrUTM, aes(fill = `name`)) +
   theme(legend.position = "none") +
-  ggtitle("Africa (UTM)")
+  ggtitle("Africa (UTM 34S)")
 
 afrlambert <- ggplot() +
   geom_sf(data=afrLambert, aes(fill = `name`)) +
@@ -223,6 +227,6 @@ On the fly projection can clearly be very useful, but it can also be misleading 
 Two other issues to look out for:
 
 * The official *South African CRS* is waiting to get you. If you see Gauss Conform run screaming, its a left handed CRS based on Southings and Westings (i.e. completely inverted...). Simple, yes?
-* *Datums...* These are essentially models of the shape of the surface of the planet. Most South African datasets (since 1999 at least) use the Hartebeesthoek 94 datum, which is our local "bespoke" solution. It's pretty much the same as the WGS84 datum (a good global datum), and the difference is negligible for most ecological analyses. Our former local "bespoke" datum (the Cape or Clarke1880 datum), which was often used for data before 1999, is out to get you. These datasets will never line up perfectly with modern data sets when reprojected in a normal GIS and will usually be a couple of tens of metres off...
+* *Datums...* These are essentially models of the shape of the surface of the planet. Most South African datasets (since 1999 at least) use the Hartebeesthoek 94 datum, which is our local "bespoke" solution. It's pretty much the same as the WGS84 datum (a good global datum), and the difference is negligible for most ecological analyses. Our former local "bespoke" datum (the Cape or Clarke1880 datum), which was often used for **data before 1999**, is out to get you. These datasets will never line up perfectly with modern data sets when reprojected in a normal GIS and will usually be a couple of tens of metres off...
 
 **Some other important pitfalls to avoid** are best covered in [this chapter](https://mgimond.github.io/Spatial/pitfalls-to-avoid.html) in Manny Gimond's _Intro to GIS and Spatial Analysis_.

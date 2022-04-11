@@ -382,8 +382,8 @@ div.csl-indent {
 <h2><span class="header-section-number">8.6</span> Raster maths!</h2>
 <p>The <em>raster</em> package makes this easy, because you can do maths with rasters, treating tham as variables in an equation. This means we can explore the data loss by calculating the difference between the original and disaggregated DEMS, like so.</p>
 <div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="raster-gis-operations-in-r.html#cb104-1" aria-hidden="true" tabindex="-1"></a>diff <span class="ot">&lt;-</span> dem <span class="sc">-</span> dem10</span></code></pre></div>
-<pre><code>## Warning in dem - dem10: Raster objects have different extents. Result for
-## their intersection is returned</code></pre>
+<pre><code>## Warning in dem - dem10: Raster objects have different extents. Result for their
+## intersection is returned</code></pre>
 <p>Note that the error is because we lost some of the 10m cells along the edges when we aggregated… We can ignore this in this example.</p>
 <div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="raster-gis-operations-in-r.html#cb106-1" aria-hidden="true" tabindex="-1"></a>diffdf <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">rasterToPoints</span>(diff, <span class="at">spatial =</span> <span class="cn">TRUE</span>))</span>
 <span id="cb106-2"><a href="raster-gis-operations-in-r.html#cb106-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -478,8 +478,7 @@ div.csl-indent {
 <span id="cb118-24"><a href="raster-gis-operations-in-r.html#cb118-24" aria-hidden="true" tabindex="-1"></a>pc <span class="ot">&lt;-</span> <span class="fu">st_as_sf</span>(pc, <span class="at">coords =</span> <span class="fu">c</span>(<span class="st">&quot;longitude&quot;</span>, <span class="st">&quot;latitude&quot;</span>), <span class="at">crs =</span> <span class="dv">4326</span>)</span></code></pre></div>
 <p>Now let’s extract the data to the points.</p>
 <div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="raster-gis-operations-in-r.html#cb119-1" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">extract</span>(dem30, pc)</span></code></pre></div>
-<pre><code>## Warning in .local(x, y, ...): Transforming SpatialPoints to the crs of the
-## Raster</code></pre>
+<pre><code>## Warning in .local(x, y, ...): Transforming SpatialPoints to the crs of the Raster</code></pre>
 <p>Note how <em>raster</em> conveniently handled my error in not making sure the CRS are the same for both layers! In general, you should avoid relying on automated fixes like this…</p>
 <div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="raster-gis-operations-in-r.html#cb121-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(dat)</span></code></pre></div>
 <pre><code>## [1] 444.8889 358.5556 730.4444 805.6667 842.5556 840.1111</code></pre>
@@ -493,8 +492,7 @@ div.csl-indent {
 <p>Ok, that’s handy, but what if we have data lots of rasters? We don’t want to have to do that for every raster! This is where rasterstacks come into their own!</p>
 <div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="raster-gis-operations-in-r.html#cb124-1" aria-hidden="true" tabindex="-1"></a><span class="co">#extract from stack</span></span>
 <span id="cb124-2"><a href="raster-gis-operations-in-r.html#cb124-2" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">extract</span>(dstack, pc) </span></code></pre></div>
-<pre><code>## Warning in .local(x, y, ...): Transforming SpatialPoints to the crs of the
-## Raster</code></pre>
+<pre><code>## Warning in .local(x, y, ...): Transforming SpatialPoints to the crs of the Raster</code></pre>
 <div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="raster-gis-operations-in-r.html#cb126-1" aria-hidden="true" tabindex="-1"></a><span class="co">#bind columns to points to match thenames</span></span>
 <span id="cb126-2"><a href="raster-gis-operations-in-r.html#cb126-2" aria-hidden="true" tabindex="-1"></a>edat <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="fu">as.data.frame</span>(pc), dat)</span>
 <span id="cb126-3"><a href="raster-gis-operations-in-r.html#cb126-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -512,8 +510,7 @@ div.csl-indent {
 <p><br></p>
 <p>Something I should have mentioned is that if you would like each point to sample a larger region you can add a <code>buffer =</code> argument to the <code>extract()</code> function, and a function (<code>fun =</code>) to summarize the neighbourhood of pixels sampled, like so:</p>
 <div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="raster-gis-operations-in-r.html#cb127-1" aria-hidden="true" tabindex="-1"></a>pc<span class="sc">$</span>dem30 <span class="ot">&lt;-</span> <span class="fu">extract</span>(dem30, pc, <span class="at">buffer =</span> <span class="dv">200</span>, <span class="at">fun =</span> mean)</span></code></pre></div>
-<pre><code>## Warning in .local(x, y, ...): Transforming SpatialPoints to the crs of the
-## Raster</code></pre>
+<pre><code>## Warning in .local(x, y, ...): Transforming SpatialPoints to the crs of the Raster</code></pre>
 <div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="raster-gis-operations-in-r.html#cb129-1" aria-hidden="true" tabindex="-1"></a>pc <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
 <span id="cb129-2"><a href="raster-gis-operations-in-r.html#cb129-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(scientific_name, dem30))</span></code></pre></div>
 <p><img src="spatial-r_files/figure-html/unnamed-chunk-62-1.png" width="672" /></p>
@@ -531,8 +528,8 @@ div.csl-indent {
 ## Projected CRS: WGS_1984_Transverse_Mercator</code></pre>
 <div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="raster-gis-operations-in-r.html#cb132-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Crop to same extent as DEM</span></span>
 <span id="cb132-2"><a href="raster-gis-operations-in-r.html#cb132-2" aria-hidden="true" tabindex="-1"></a>veg <span class="ot">&lt;-</span> <span class="fu">st_crop</span>(veg, <span class="fu">extent</span>(dem30)) <span class="co">#Note that I just fed it the extent of the DEM</span></span></code></pre></div>
-<pre><code>## Warning: attribute variables are assumed to be spatially constant throughout
-## all geometries</code></pre>
+<pre><code>## Warning: attribute variables are assumed to be spatially constant throughout all
+## geometries</code></pre>
 <div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="raster-gis-operations-in-r.html#cb134-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Best to dissolve polygons first - otherwise you get repeat outputs for each polygone within each veg type</span></span>
 <span id="cb134-2"><a href="raster-gis-operations-in-r.html#cb134-2" aria-hidden="true" tabindex="-1"></a>vegsum <span class="ot">&lt;-</span> veg <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(National_) <span class="sc">%&gt;%</span> </span>
 <span id="cb134-3"><a href="raster-gis-operations-in-r.html#cb134-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>()</span>
