@@ -62,7 +62,6 @@ getinat
 converting-a-dataframe-into-a-spatial-object
 adding-basemaps-to-plots
 interactive-maps-with-leaflet
-reprojecting
 intersecting-points-and-polygons
 colour-or-label-points
 buffering

@@ -27,7 +27,7 @@ datasets <- tibble(
   `Data source` = c("iNaturalist", "City of Cape Town", "City of Cape Town", "City of Cape Town", "City of Cape Town"),
   `Data model` = c("Vector", "Vector", "Vector", "Vector", "Raster"),
   `Geometry type` = c("Point", "Line", "Polygon", "Polygon", "Raster"),
-  `File format` = c("", "ESRI shapefile", "ESRI shapefile", "ESRI shapefile", "GeoTIFF")) %>%
+  `File format` = c("Data frame from API", "ESRI shapefile", "ESRI shapefile", "ESRI shapefile", "GeoTIFF")) %>%
   mutate(`Name` = text_spec(Name, "html", link = URL))
 
 kable(datasets, "html", escape = FALSE)
@@ -35,7 +35,7 @@ kable(datasets, "html", escape = FALSE)
 
 <br>
 
-If you'd like to follow along and run the analyses that follow, please follow the links and download the datasets. _If you don't see the links, you need to reduce the font size by clicking the "A" in the taskbar._ The elevation dataset is ~13MB as a .zip file, but will expand to ~130MB   . I'll also put a copy of all datasets on the Vula site for the course, which I understand is zero-data rated. There's no need to download the iNaturalist data as we'll download it directly from R.
+If you'd like to follow along and run the analyses that follow, please follow the links and download the datasets. The elevation dataset is ~13MB as a .zip file, but will expand to ~130MB. There's no need to download the iNaturalist data as we'll download it directly from R.
 
 For installing R and the required packages see section \@ref(using).
 
@@ -59,9 +59,23 @@ library(sf)
 veg <- st_read("data/cape_peninsula/veg/Vegetation_Indigenous.shp")
 ```
 
-This has successfully read in the data and given us a summary of some of its properties. Note the projection (proj4string). This is Transverse Mercator Lo19 (i.e. centred on the 19 degree line of longitude), which has a unit in metres (see the bounding box coordinates). It's a good projection for most calculations at this scale (and on this line of longitude*).
+This has successfully read in the data and given us a summary of some of its properties. Note the "Projected CRS" `WGS_1984_Transverse_Mercator`, so it is Transverse Mercator (TM), using the WGS84 datum, but it hasn't told us what line of longitude it's centred on, which is an essential feature of any TM projection.
 
->*If you're using Transverse Mercator, always make sure it is set for your closest "odd" line of longitude (i.e. Lo19, Lo21, Lo23)!
+The first thing you should do when interrogating any spatial data is to check the coordinate reference system (CRS). In _sf_, you do this with the function `st_crs`, like so:
+
+```{r}
+st_crs(veg)
+```
+
+This shows us the CRS as a WKT string and looks very complicated... Essentially there are three components to it: 
+
+* `BASEGEOGCRS` - the geographic (or unprojected) CRS
+* `CONVERSION` - the projection, which includes a lot of information, but essentially tells us it's Transverse Mercator, and the `"Longitude of natural origin",19` indicates that it is centred on the 19 degree line of longitude (i.e. we're dealing with Transverse Mercator Lo19)
+* `CS` - the cartesian axes, showing that we're dealing with axes oriented to North and East and units of metres
+
+TM Lo19 is a good projection for most calculations at this scale (and on this line of longitude). _If you're using Transverse Mercator, always make sure it is set for your closest "odd" line of longitude (i.e. Lo19, Lo21, Lo23)!_
+
+More on working with coordinate reference systems in see section \@ref(projections).
 
 <br>
 
@@ -73,25 +87,29 @@ class(veg)
 
 It is an object of two different "classes", a `data.frame`, which is an R object class you should be familiar with, and class `sf`, which is the native class for the _sf_ library.
 
-The nice thing about being both classes is it means you can apply the functions built for either class, e.g.
+The nice thing about being both classes is it means you can apply the functions built for either class, such as `head`, a commonly used function for looking at the first few rows of a dataframe. 
 
 ```{r}
 head(veg)
 ```
 
-This is a commonly used function for looking at the first few rows of a dataframe. Note there are 5 attribute columns and a 6th `geometry` column. All _sf_ objects have a geometry column. This is where it stores the geometry - i.e. the point, line, polygon etc - associated with each row of attribute data.
+Note there are 5 attribute columns (the _attribute table_ as you would see in most GIS software) and a 6th `geometry` column. All _sf_ objects have a geometry column. This is where it stores the geometry - i.e. the point, line, polygon etc - associated with each row of attribute data.
 
 <br>
 
 To write data with _sf_ you use `st_write()`, like so:
 
 ```{r}
-st_write(veg, "data/cape_peninsula/veg/Vegetation_Indigenous_duplicate.shp")
+st_write(veg, "data/cape_peninsula/veg/Vegetation_Indigenous_duplicate.shp", append = FALSE)
 ```
 
+Note that I added `, append = FALSE` because in my case it I want it to overwrite an existing file by the same name, and this command suppresses the warning it would usually give.
+
 ```{r}
-file.exists("data/cape_peninsula/veg/Vegetation_Indigenous_duplicate.shp") # Just to confirm for you that the file exists
+file.exists("data/cape_peninsula/veg/Vegetation_Indigenous_duplicate.shp")
 ```
+
+Confirms that the file exists, so it has written a file out successfully.
 
 ```{r, echo = F}
 unlink("data/cape_peninsula/veg/Vegetation_Indigenous_duplicate*") # Deletes the file
@@ -143,7 +161,7 @@ Here we'll apply the function `st_crop()`. To use the function you need an objec
 We don't have a second object in this case, so we have to provide a "_numeric vector with named elements xmin, ymin, xmax and ymax_", like so:
 
 ```{r}
-#Make a vector of coordinates in metres according to TM Lo19
+#Make a vector with desired coordinates in metres according to TM Lo19
 ext <- c(-66642.18, -3809853.29, -44412.18, -3750723.29) 
 
 ext
@@ -157,7 +175,7 @@ ext
 Now we can feed that into `st_crop`
 
 ```{r}
-veg <- st_crop(veg, ext) #Note that I'm overwriting the old data object
+veg <- st_crop(veg, ext) #Note that I'm overwriting the old data object "veg"
 
 ggplot() + geom_sf(data=veg, aes(fill = `National_`))
 ```
@@ -208,15 +226,16 @@ Ok. What if we decided we don't want them split?
 We can just rename them in appropriate column in the attribute table...
 
 ```{r}
-vegsub$National_ <- str_replace_all(vegsub$National_, c("Peninsula Granite Fynbos - North" = "Peninsula Granite Fynbos", 
-               "Peninsula Granite Fynbos - South" = "Peninsula Granite Fynbos", 
-               "Cape Flats Dune Strandveld - West Coast" = "Cape Flats Dune Strandveld", 
-               "Cape Flats Dune Strandveld - False Bay" = "Cape Flats Dune Strandveld"))
+vegsub$National_ <- str_replace_all(vegsub$National_,
+                  c("Peninsula Granite Fynbos - North" = "Peninsula Granite Fynbos", 
+                  "Peninsula Granite Fynbos - South" = "Peninsula Granite Fynbos", 
+                  "Cape Flats Dune Strandveld - West Coast" = "Cape Flats Dune Strandveld", 
+                  "Cape Flats Dune Strandveld - False Bay" = "Cape Flats Dune Strandveld"))
 
 ggplot() + geom_sf(data=vegsub, aes(fill = `National_`))
 ```
 
-Nice, but from the polygon boundaries we see that there are a number of adjacent polygons (i.e. they have shared boundaries) that are of the same veg type. We can "dissolve" and plot these boundaries like so:
+Nice, but from the polygon boundaries we see that there are a number of adjacent polygons (i.e. they have shared boundaries) that are of the same veg type. We can "dissolve" and plot it without the unwanted boundaries using `summarize()`:
 
 ```{r}
 vegsub %>% group_by(National_) %>% 
@@ -242,7 +261,10 @@ pc <- get_inat_obs(taxon_name = "Protea cynaroides",
                    bounds = c(-35, 18, -33.5, 18.5),
                    maxresults = 1000)
 
-#Filter returned observations by a range of attribute criteria
+#View the first few rows of data
+head(pc)
+
+#Filter returned observations by a range of column attribute criteria
 pc <- pc %>% filter(positional_accuracy<46 & 
                 latitude<0 &
                 !is.na(latitude) &
@@ -262,8 +284,12 @@ To make it an object of `class(sf)` we use the function `st_as_sf()`.
 
 ```{r}
 #Make the dataframe a spatial object of class = "sf"
-pc <- st_as_sf(pc, coords = c("longitude", "latitude"), crs = 4326) #Note that I had to define the CRS (as Geographic WGS84)!!!
+pc <- st_as_sf(pc, coords = c("longitude", "latitude"), crs = 4326)
+```
 
+Note that I had to define the CRS!!! I defined it to be Geographic WGS84, using the EPSG code in this case.
+
+```{r}
 #What class is it?
 class(pc)
 
@@ -334,7 +360,7 @@ Strange, but even though we filtered our iNaturalist records for `captive_cultiv
 
 <br>
 
-## Reprojecting
+## Reprojecting {#projections}
 
 One way to drastically reduce the number of cultivated records is to overlay the localities (points) with the _remaining extent_ of the vegetation types (i.e. anything that is not in natural vegtation is likely to be cultivated). Let's try that...
 
@@ -356,13 +382,13 @@ Let's see what CRS are currently set:
 st_crs(pc)
 ```
 
-So the points are Geographic. Besides having set it ourselves earlier, we know this because it indicates that the unit is degrees.
+So the points are Geographic, with no projected CRS `CONVERSION`.
 
 ```{r}
 st_crs(vegr)
 ```
 
-The vegetation types are in Transverse Mercator Lo19, because it says "Transverse Mercator" and the "Central_Meridian" is set to 19.
+The remnants of vegetation types are in Transverse Mercator Lo19, just like the dataset of the historical extent of the veg types we were working with earlier.
 
 <br>
 
@@ -475,17 +501,17 @@ length(unique(npsf$id))
 
 ```
 
-So 7 of 16 records are suspiciously close to Peninsula Sandstone Fynbos...
+So 6 of 11 records are suspiciously close to Peninsula Sandstone Fynbos...
 
 <br>
 
 ## Within distance and intersect
 
-Perhaps a more interesting use of buffering is to see if a species is within a certain distance of a particular habitat etc. For example, we could ask if a species is associated with riparian zones by buffering either the localities (points) or rivers (lines) and then doing an intersection.
+Perhaps a more interesting use of buffering is to see if a species' locality is within a certain distance of a particular habitat etc. For example, we could ask if a species is associated with riparian zones by buffering either the localities (points) or rivers (lines) and then doing an intersection.
 
 But of course there are many ways to skin a cat, and it turns out buffering and intersecting may not be the most efficient here. If we don't want to pull the attribute data from one dataset to the other we can just use `st_intersects()` to see if they overlap at all. We can even take it one step further, because _sf_ has the function `st_is_within_distance()`, which is similar to applying `st_buffer()` and `st_intersects()` in one go.
 
-Here we'll use _Brabejum stellatifolium_ (a riparian tree) as our focal species and the watercourse layer from the City of Cape Town.
+Here we'll use _Brabejum stellatifolium_ (a riparian tree in the Proteaceae) as our focal species and the watercourse layer from the City of Cape Town.
 
 ```{r}
 #Get the watercourse data
@@ -506,10 +532,14 @@ bs <- bs %>% filter(positional_accuracy<46 &
                 captive_cultivated == "false" &
                 quality_grade == "research")
 
+#See how many records we got
+nrow(bs)
+
 #Make the dataframe a spatial object of class = "sf"
 bs <- st_as_sf(bs, coords = c("longitude", "latitude"), crs = 4326) #Note that I had to define the CRS (as Geographic WGS84)!!!
 
 ```
+
 Let's see what we've got...
 
 ```{r}
@@ -543,7 +573,7 @@ st_intersects(bs, water) %>% unlist()
 
 So none of them intersect, but this is not surprising, because _lines_ and _points_ in GIS do not have _area_, so they can't really intersect unless you buffer them... Let's try `st_is_within_distance()` and set it for 20 metres.
 
-Note that I add `unlist() %>% unique()` because the function returns a list and will return the same feature (line/river) multiple times - once for every point (tree) it is within 20m of. 
+Note that I add `unlist() %>% unique()` so that it gives me a vector of the unique features (i.e. once each) that are within 20m, because the function returns a list and will return the same feature (line/river) multiple times - once for every point (tree) it is within 20m of. 
 
 ```{r}
 st_is_within_distance(bs, water, 20) %>% unlist() %>% unique()
@@ -555,13 +585,13 @@ So it's given us the list of lines (rivers) within 20m of our points, but that d
 st_is_within_distance(water, bs, 20) %>% unlist() %>% unique()
 ```
 
-So only ~30 of the trees are within 20m of the rivers. What about 50m?
+So only ~45 of the trees are within 20m of the rivers. What about 50m?
 
 ```{r}
 st_is_within_distance(water, bs, 100) %>% unlist() %>% unique()
 ```
 
-So about 90...
+So about 120...
 
 It's at this point that it's worth thinking about the _scale_, _precision_ and _accuracy_ of both the species localities and the watercourse data before drawing any strong conclusions!!!
 
