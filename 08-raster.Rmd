@@ -7,49 +7,51 @@
       download: null
 ---
 
-# Raster GIS operations in R with _terra_
+# Raster GIS operations in R
+
+> **WARNING!!! READ THIS!!!** This section focuses on `library(raster)` which is being phased out and will not be maintained in the long term. This is because it relies on other packages that are no longer maintained, because their creators have retired. I have kept this section for posterity and for those who rely on it, but will remove it in the next year or so. **I strongly recommend you ignore this section and move on to the next, which focuses on the new replacement `library(terra)`!**
 
 ## Reading in data
 
-Ok, now to look at handling rasters. As with _sf_, the _terra_ package has one function -`rast()`- that can read in just about any raster file format, which it assigns it's own class `SpatRaster`. Let's get started and read in the digital elevation model (DEM) for the City of Cape Town.
+Ok, now to look at handling rasters. As with _sf_, the _raster_ package has one function -`raster()`- that can read in just about any raster file format. Let's get started and read in the digital elevation model (DEM) for the City of Cape Town.
 
 ```{r}
-library(terra)
+library(raster)
 
-dem <- rast("/home/jasper/Documents/Datasets/CoCT/10m_Grid_GeoTiff/10m_BA.tif")
+dem <- raster("/home/jasper/Documents/Datasets/CoCT/10m_Grid_GeoTiff/10m_BA.tif")
 
 class(dem)
 
-dem #Typing the name of a "SpatRaster" class data object gives you the details
+dem #Typing the name of a "raster" class data object gives you the details
 ```
 
-The `coord. ref.` field shows `GCS_WGS_1984`, which is Geographic Coordinates, but perhaps there is a projected CRS too? from which we can deduce that the coordinate reference system is Transverse Mercator Lo19. If you just want to know the CRS from a SpatRaster, you just call `crs()` like so:
+The _crs_ field shows a _proj4string_, from which we can deduce that the coordinate reference system is Transverse Mercator Lo19. If you just want to know the CRS from a raster, you just call the _proj4string_ like so:
 
 ```{r}
-crs(dem)
+proj4string(dem)
 ```
 
 Similar to `st_crs()`, you can define a projection using the syntax:
 
-`crs(your_raster) <- "your_crs"`, where the new CRS can be in WKT, and EPSG code, or a PROJ string. 
+`proj4string(your_raster) <- "your_proj4string"`. 
 
-For reprojecting, you use the function `project()`. We'll look at it later.
+For reprojecting, you use the function `projectRaster()`. We'll look at it later.
 
 <br>
 
 ## Cropping
 
-Ok, before we try to anything with this dataset, let's think about how big it is... One of the outputs of calling `dem` was the row reading `dimensions : 9902, 6518, 1  (nrow, ncol, nlyr)`. Given that we are talking about 10m pixels, this information tells us that the extent of the region is roughly 100km by 65km and that there are ~65 million pixels! No wonder the file is ~130MB. 
+Ok, before we try to anything with this dataset, let's think about how big it is... One of the outputs of calling `dem` was the row reading `dimensions : 9902, 6518, 64541236  (nrow, ncol, ncell)`. Given that we are talking about 10m pixels, this information tells us that the extent of the region is roughly 100km by 65km and that there are ~65 million pixels! No wonder the file is ~130MB. 
 
-While R can handle this, it does become slow when dealing with very large files. There are many ways to improve the efficiency of handling big rasters in R (see [this slightly dated post for details](https://www.ecologi.st/post/big-spatial-data/) if you're interested), but for the purposes of this tutorial we're going to take the easy option and just crop it to a smaller extent, like so:
+While R can handle this, it will be slow! There are many ways to improve the efficiency of handling big rasters in R (see [this post for details](https://www.ecologi.st/post/big-spatial-data/) if you're interested), but for the purposes of this tutorial we're going to take the easy option and just crop it to a smaller extent, like so:
 
 ```{r}
-dem <- crop(dem, ext(c(-66642.18, -44412.18, -3809853.29, -3750723.29)))
+dem <- crop(dem, extent(c(-66642.18, -44412.18, -3809853.29, -3750723.29)))
 ```
 
-Note that the `crop()` function requires us to pass it an object of class `SpatExtent`. Just like `st_crop()` from _sf_, `crop()` can derive the extent from another data object. 
+Note that the `crop()` function requires us to pass it an object of class `extent`. Just like `st_crop()` from _sf_, `crop()` can derive the extent from another data object. 
 
-One silly difference, is that if you pass it the coordinates of the extent manually (as above), you first need to pass it to the `ext()` function, and they need to follow the order _xmin, xmax, ymin, ymax_ (as opposed to _xmin, ymin, xmax, ymax_ as you do for `st_crop()`). Keep your eye out for these little differences, because they will trip you up...
+One silly difference, is that if you pass it the coordinates of the extent manually (as above), you first need to pass it to the `extent()` function, and they need to follow the order _xmin, xmax, ymin, ymax_ (as opposed to _xmin, ymin, xmax, ymax_ as you do for `st_crop()`). Keep your eye out for these little differences, because they will trip you up...
 
 Ok, so how big is our dataset now?
 
@@ -89,31 +91,36 @@ plot(dem30)
 
 Or with the _Tidyverse_...
 
-Note that `ggplot()` doesn't accept rasters, so we need to give it a dataframe with _x_ and _y_ columns for the coordinates, and a column containing the values to plot. This is easily done, firstly by converting the raster to a vector layer of points, and then by coercing that into a dataframe, like so:
+Note that `ggplot()` doesn't accept rasters, so we need to give it a dataframe with _x_ and _y_ columns for the coordinates, and a column containing the values to plot. This is easily done, firstly by converting the raster to a vector layer of points, and then by coorcing that into a dataframe, like so:
 
 ```{r, fig.width=3.5}
-#convert to a dataframe
-dem30df <- as.data.frame(dem30, xy = TRUE)
+#convert to points
+dem30df <- rasterToPoints(dem30, spatial = TRUE)
+
+class(dem30df) #note that this is a class from library(sp)
+
+#coerce to a dataframe
+dem30df <- data.frame(dem30df)
 
 #have a look at the column names
-names(dem30df) # "10m_BA" is the elevation data... Note that you need to use ` ` around a variable name if it starts with a digit
+names(dem30df) # "X10m_BA" is the elevation data...
 
 #call tidyverse libraries and plot
 library(tidyverse)
 
 dem30df %>%
   ggplot() +
-  geom_raster(aes(x = x, y = y, fill = `10m_BA`))
+  geom_raster(aes(x = x, y = y, fill = X10m_BA))
 ```
 
 Ok, how different does our 30m raster look to the 10m version?
 
 ```{r, fig.width=3.5}
-demdf <- as.data.frame(dem, xy = TRUE)
+demdf <- data.frame(rasterToPoints(dem, spatial = TRUE))
 
 demdf %>%
   ggplot() +
-  geom_raster(aes(x = x, y = y, fill = `10m_BA`))
+  geom_raster(aes(x = x, y = y, fill = X10m_BA))
 ```
 
 Not noticeably different at this scale!
@@ -122,10 +129,10 @@ Not noticeably different at this scale!
 
 ## Disaggregating
 
-One way to explore the degree of data loss is to `disagg()` our 30m DEM back to 10m and then compare it to the original.
+One way to explore the degree of data loss is to `disaggregate()` our 30m DEM back to 10m and then compare it to the original.
 
 ```{r}
-dem10 <- disagg(dem30, fact = 3, method = "bilinear")
+dem10 <- disaggregate(dem30, fact = 3, method = "bilinear")
 ```
 
 Note that I've tried to use _bilinear interpolation_ to give it a fair chance of getting nearer the original values. You can google this on your own, but it essentially smooths the data by averaging across neighbouring pixels.
@@ -136,7 +143,7 @@ Now, how can I compare my two 10m rasters?
 
 ## Raster maths!
 
-The _raster_ package makes this easy, because you can do maths with rasters, treating tham as variables in an equation. This means we can explore the data loss by calculating the difference between the original and disaggregated DEMS, like so.
+The _raster_ package makes this easy, because you can do maths with rasters, treating them as variables in an equation. This means we can explore the data loss by calculating the difference between the original and disaggregated DEMS, like so.
 
 ```{r}
 diff <- dem - dem10
@@ -145,9 +152,9 @@ diff <- dem - dem10
 Note that the error is because we lost some of the 10m cells along the edges when we aggregated... We can ignore this in this example.
 
 ```{r, fig.width=3.5}
-diffdf <- as.data.frame(diff, xy = TRUE)
+diffdf <- data.frame(rasterToPoints(diff, spatial = TRUE))
 
-names(diffdf) #note that the elevation column is now called "layer", which we need to feed to ggplot()
+names(diffdf) #note that the elevation column is now calles "layer", which we need to feed to ggplot()
 
 diffdf %>%
   ggplot() +

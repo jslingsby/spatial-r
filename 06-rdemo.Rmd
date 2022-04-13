@@ -12,7 +12,7 @@
 ## Case study and demo datasets {#casestudy}
 Ok, for demonstrating some of the many GIS operations R can perform we will be using data from one of my favourite study areas, the Cape Peninsula.
 
-The datasets we will use, some of their properties and where to source them are tabled below:
+The datasets we will use, some of their properties and where to source them are tabled below. You can also download them as one .zip file [here](https://www.dropbox.com/s/vuzzrsitk9oqafg/TutorialData.zip?dl=0), because the City of Cape Town updates the files from time to time and small changes in format, naming etc break the code to come. Please do not use the version from the .zip file in any real analyses etc, because I can make no guarantees about their accuracy etc. It is best to use the latest version from the links in the table.
 
 <br>
 
