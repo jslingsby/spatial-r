@@ -79,6 +79,7 @@ raster-stacks
 extracting-raster-to-vector
 rasterizing
 visualizing-multiple-datasets-on-one-map
+cloud-optimized-geotiffs-cogs
 raster-gis-operations-in-r
 reading-in-data-1
 cropping-2

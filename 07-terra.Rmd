@@ -385,3 +385,51 @@ ggplot() +
 ```
 
 For more inspiration on mapping with R, check out https://slingsby-maps.myshopify.com/. I've been generating the majority of the basemap (terrain colour, hillshade, contours, streams, etc) for these in R for the past few years.
+
+<br>
+
+## Cloud Optimized GeoTiffs (COGs)!!!
+
+I thought I'd add this as a bonus section, reinforcing the value of standardized open metadata and file formats from the [Data Management](https://www.ecologi.st/data-management/data.html#describe) module.
+
+First, let's open a connection to our COG, which is stored in the cloud. To do this, we need to pass a URL to the file's online location to _terra_.
+
+```{r}
+cog.url <- "/vsicurl/https://storage.googleapis.com/grootbos-tiff/grootbos_cog.tif"
+
+grootbos <- rast(cog.url)
+
+grootbos
+```
+
+This has given us the metadata about the file, but has not read it into R's memory. The file is ~1.8GB so it would do bad things if we tried to read the whole thing in...
+
+Now let's retrieve a subset of the file. To do this we need to make a vector polygon for our region of interest, like so:
+
+```{r}
+roi <- vect(data.frame(lon = c(19.433975, 19.436451),
+                       lat = c(-34.522733, -34.520735)),
+            crs = "epsg:4326")
+```
+
+And transform it to the same projection as the COG:
+
+```{r}
+roi <- project(roi, crs(grootbos))
+```
+
+And then extract our ROI
+
+```{r}
+roi_ras <- crop(grootbos, roi)
+
+roi_ras
+```
+
+Now we have a raster with 3 layers in memory. There are Red Green and Blue, so we should be able to plot them, like so:
+
+```{r}
+plotRGB(roi_ras)
+```
+
+Familiar?
