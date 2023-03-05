@@ -80,7 +80,7 @@ extracting-raster-to-vector
 rasterizing
 visualizing-multiple-datasets-on-one-map
 cloud-optimized-geotiffs-cogs
-raster-gis-operations-in-r
+old-raster-gis-operations-in-r-with-raster
 reading-in-data-1
 cropping-2
 aggregating-resampling-1
@@ -91,3 +91,4 @@ focal-and-terrain-calculations-1
 raster-stacks-1
 extracting-raster-to-vector-1
 rasterizing-1
+fig:africaprojected

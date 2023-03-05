@@ -59,10 +59,10 @@ library(tidyverse)
 ### Get data, project and crop
 
 # Get vector layer of Cape Town's historical vegetation
-veg <- st_read("/home/jasper/GIT/spatial-r/data/cape_peninsula/veg/Vegetation_Indigenous.shp", quiet = T)
+veg <- st_read("data/cape_peninsula/veg/Vegetation_Indigenous.shp", quiet = T)
 
 # Get raster digital elevation model (DEM)
-dem <- raster("/home/jasper/GIT/spatial-r/data/cape_peninsula/rasters90/elevation.asc")
+dem <- raster("data/cape_peninsula/rasters90/elevation.asc")
 
 # Set DEM crs
 proj4string(dem)="+proj=utm +zone=34 +south +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0" #set CRS to UTM34S

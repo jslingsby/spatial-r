@@ -7,7 +7,7 @@
       download: null
 ---
 
-# Raster GIS operations in R
+# (Old!) Raster GIS operations in R with _raster_ 
 
 > **WARNING!!! READ THIS!!!** This section focuses on `library(raster)` which is being phased out and will not be maintained in the long term. This is because it relies on other packages that are no longer maintained, because their creators have retired. I used `raster` in the first iteration of these notes so I've kept this section for posterity and for those who rely on it, but will remove it in the next year or so. **I strongly recommend you ignore this section and move on to the next, which focuses on the new replacement `library(terra)`!** I have kept to the same set of examples in that section, and many of the function names are the same or similar, so shifting to `terra` should be easy.
 
@@ -18,7 +18,7 @@ Ok, now to look at handling rasters. As with _sf_, the _raster_ package has one 
 ```{r}
 library(raster)
 
-dem <- raster("/home/jasper/Documents/Datasets/CoCT/10m_Grid_GeoTiff/10m_BA.tif")
+dem <- raster("data/cape_peninsula/CoCT_10m.tif")
 
 class(dem)
 

@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>8 Raster GIS operations in R with terra | A Minimal Introduction to GIS (in R)</title>
   <meta name="description" content="This is a minimal introduction to GIS and handling spatial data in R compiled for the Biological Sciences BSc(Honours) class at the University of Cape Town." />
-  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.32 and GitBook 2.6.7" />
 
   <meta property="og:title" content="8 Raster GIS operations in R with terra | A Minimal Introduction to GIS (in R)" />
   <meta property="og:type" content="book" />
-  
   
   <meta property="og:description" content="This is a minimal introduction to GIS and handling spatial data in R compiled for the Biological Sciences BSc(Honours) class at the University of Cape Town." />
   <meta name="github-repo" content="jslingsby/spatial-r" />
@@ -24,7 +23,7 @@
 <meta name="author" content="Jasper Slingsby" />
 
 
-<meta name="date" content="2022-04-14" />
+<meta name="date" content="2023-03-05" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -32,8 +31,7 @@
   
   
 <link rel="prev" href="rdemo.html"/>
-<link rel="next" href="raster-gis-operations-in-r.html"/>
-<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<link rel="next" href="old-raster-gis-operations-in-r-with-raster.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -51,9 +49,10 @@
 
 
 
-<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
-<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/htmlwidgets-1.6.1/htmlwidgets.js"></script>
 <link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
 <script src="libs/leaflet-1.3.1/leaflet.js"></script>
 <link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
@@ -101,7 +100,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -114,7 +113,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -247,18 +246,18 @@ div.csl-indent {
 <li class="chapter" data-level="8.11" data-path="raster-gis-operations-in-r-with-terra.html"><a href="raster-gis-operations-in-r-with-terra.html#visualizing-multiple-datasets-on-one-map"><i class="fa fa-check"></i><b>8.11</b> Visualizing multiple datasets on one map</a></li>
 <li class="chapter" data-level="8.12" data-path="raster-gis-operations-in-r-with-terra.html"><a href="raster-gis-operations-in-r-with-terra.html#cloud-optimized-geotiffs-cogs"><i class="fa fa-check"></i><b>8.12</b> Cloud Optimized GeoTiffs (COGs)!!!</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="raster-gis-operations-in-r.html"><a href="raster-gis-operations-in-r.html"><i class="fa fa-check"></i><b>9</b> Raster GIS operations in R</a>
+<li class="chapter" data-level="9" data-path="old-raster-gis-operations-in-r-with-raster.html"><a href="old-raster-gis-operations-in-r-with-raster.html"><i class="fa fa-check"></i><b>9</b> (Old!) Raster GIS operations in R with <em>raster</em></a>
 <ul>
-<li class="chapter" data-level="9.1" data-path="raster-gis-operations-in-r.html"><a href="raster-gis-operations-in-r.html#reading-in-data-1"><i class="fa fa-check"></i><b>9.1</b> Reading in data</a></li>
-<li class="chapter" data-level="9.2" data-path="raster-gis-operations-in-r.html"><a href="raster-gis-operations-in-r.html#cropping-2"><i class="fa fa-check"></i><b>9.2</b> Cropping</a></li>
-<li class="chapter" data-level="9.3" data-path="raster-gis-operations-in-r.html"><a href="raster-gis-operations-in-r.html#aggregating-resampling-1"><i class="fa fa-check"></i><b>9.3</b> Aggregating / Resampling</a></li>
-<li class="chapter" data-level="9.4" data-path="raster-gis-operations-in-r.html"><a href="raster-gis-operations-in-r.html#basic-plotting-2"><i class="fa fa-check"></i><b>9.4</b> Basic plotting</a></li>
-<li class="chapter" data-level="9.5" data-path="raster-gis-operations-in-r.html"><a href="raster-gis-operations-in-r.html#disaggregating-1"><i class="fa fa-check"></i><b>9.5</b> Disaggregating</a></li>
-<li class="chapter" data-level="9.6" data-path="raster-gis-operations-in-r.html"><a href="raster-gis-operations-in-r.html#raster-maths-1"><i class="fa fa-check"></i><b>9.6</b> Raster maths!</a></li>
-<li class="chapter" data-level="9.7" data-path="raster-gis-operations-in-r.html"><a href="raster-gis-operations-in-r.html#focal-and-terrain-calculations-1"><i class="fa fa-check"></i><b>9.7</b> Focal and terrain calculations</a></li>
-<li class="chapter" data-level="9.8" data-path="raster-gis-operations-in-r.html"><a href="raster-gis-operations-in-r.html#raster-stacks-1"><i class="fa fa-check"></i><b>9.8</b> Raster stacks</a></li>
-<li class="chapter" data-level="9.9" data-path="raster-gis-operations-in-r.html"><a href="raster-gis-operations-in-r.html#extracting-raster-to-vector-1"><i class="fa fa-check"></i><b>9.9</b> Extracting raster to vector</a></li>
-<li class="chapter" data-level="9.10" data-path="raster-gis-operations-in-r.html"><a href="raster-gis-operations-in-r.html#rasterizing-1"><i class="fa fa-check"></i><b>9.10</b> Rasterizing</a></li>
+<li class="chapter" data-level="9.1" data-path="old-raster-gis-operations-in-r-with-raster.html"><a href="old-raster-gis-operations-in-r-with-raster.html#reading-in-data-1"><i class="fa fa-check"></i><b>9.1</b> Reading in data</a></li>
+<li class="chapter" data-level="9.2" data-path="old-raster-gis-operations-in-r-with-raster.html"><a href="old-raster-gis-operations-in-r-with-raster.html#cropping-2"><i class="fa fa-check"></i><b>9.2</b> Cropping</a></li>
+<li class="chapter" data-level="9.3" data-path="old-raster-gis-operations-in-r-with-raster.html"><a href="old-raster-gis-operations-in-r-with-raster.html#aggregating-resampling-1"><i class="fa fa-check"></i><b>9.3</b> Aggregating / Resampling</a></li>
+<li class="chapter" data-level="9.4" data-path="old-raster-gis-operations-in-r-with-raster.html"><a href="old-raster-gis-operations-in-r-with-raster.html#basic-plotting-2"><i class="fa fa-check"></i><b>9.4</b> Basic plotting</a></li>
+<li class="chapter" data-level="9.5" data-path="old-raster-gis-operations-in-r-with-raster.html"><a href="old-raster-gis-operations-in-r-with-raster.html#disaggregating-1"><i class="fa fa-check"></i><b>9.5</b> Disaggregating</a></li>
+<li class="chapter" data-level="9.6" data-path="old-raster-gis-operations-in-r-with-raster.html"><a href="old-raster-gis-operations-in-r-with-raster.html#raster-maths-1"><i class="fa fa-check"></i><b>9.6</b> Raster maths!</a></li>
+<li class="chapter" data-level="9.7" data-path="old-raster-gis-operations-in-r-with-raster.html"><a href="old-raster-gis-operations-in-r-with-raster.html#focal-and-terrain-calculations-1"><i class="fa fa-check"></i><b>9.7</b> Focal and terrain calculations</a></li>
+<li class="chapter" data-level="9.8" data-path="old-raster-gis-operations-in-r-with-raster.html"><a href="old-raster-gis-operations-in-r-with-raster.html#raster-stacks-1"><i class="fa fa-check"></i><b>9.8</b> Raster stacks</a></li>
+<li class="chapter" data-level="9.9" data-path="old-raster-gis-operations-in-r-with-raster.html"><a href="old-raster-gis-operations-in-r-with-raster.html#extracting-raster-to-vector-1"><i class="fa fa-check"></i><b>9.9</b> Extracting raster to vector</a></li>
+<li class="chapter" data-level="9.10" data-path="old-raster-gis-operations-in-r-with-raster.html"><a href="old-raster-gis-operations-in-r-with-raster.html#rasterizing-1"><i class="fa fa-check"></i><b>9.10</b> Rasterizing</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
@@ -281,349 +280,333 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="raster-gis-operations-in-r-with-terra" class="section level1" number="8">
-<h1><span class="header-section-number">8</span> Raster GIS operations in R with <em>terra</em></h1>
-<div id="reading-in-data" class="section level2" number="8.1">
-<h2><span class="header-section-number">8.1</span> Reading in data</h2>
+<div id="raster-gis-operations-in-r-with-terra" class="section level1 hasAnchor" number="8">
+<h1><span class="header-section-number">8</span> Raster GIS operations in R with <em>terra</em><a href="raster-gis-operations-in-r-with-terra.html#raster-gis-operations-in-r-with-terra" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="reading-in-data" class="section level2 hasAnchor" number="8.1">
+<h2><span class="header-section-number">8.1</span> Reading in data<a href="raster-gis-operations-in-r-with-terra.html#reading-in-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Ok, now to look at handling rasters. As with <em>sf</em>, the <em>terra</em> package has one function -<code>rast()</code>- that can read in just about any raster file format, which it assigns it’s own class <code>SpatRaster</code>. Let’s get started and read in the digital elevation model (DEM) for the City of Cape Town.</p>
-<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="raster-gis-operations-in-r-with-terra.html#cb91-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(terra)</span></code></pre></div>
-<pre><code>## terra 1.5.21</code></pre>
-<pre><code>## 
-## Attaching package: &#39;terra&#39;</code></pre>
-<pre><code>## The following object is masked from &#39;package:rgdal&#39;:
-## 
-##     project</code></pre>
-<pre><code>## The following object is masked from &#39;package:knitr&#39;:
-## 
-##     spin</code></pre>
-<pre><code>## The following object is masked from &#39;package:dplyr&#39;:
-## 
-##     src</code></pre>
-<pre><code>## The following object is masked from &#39;package:tidyr&#39;:
-## 
-##     extract</code></pre>
-<pre><code>## The following object is masked from &#39;package:ggplot2&#39;:
-## 
-##     arrow</code></pre>
-<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="raster-gis-operations-in-r-with-terra.html#cb99-1" aria-hidden="true" tabindex="-1"></a>dem <span class="ot">&lt;-</span> <span class="fu">rast</span>(<span class="st">&quot;/home/jasper/Documents/Datasets/CoCT/10m_Grid_GeoTiff/10m_BA.tif&quot;</span>)</span>
-<span id="cb99-2"><a href="raster-gis-operations-in-r-with-terra.html#cb99-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb99-3"><a href="raster-gis-operations-in-r-with-terra.html#cb99-3" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(dem)</span></code></pre></div>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="raster-gis-operations-in-r-with-terra.html#cb83-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(terra)</span>
+<span id="cb83-2"><a href="raster-gis-operations-in-r-with-terra.html#cb83-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb83-3"><a href="raster-gis-operations-in-r-with-terra.html#cb83-3" aria-hidden="true" tabindex="-1"></a>dem <span class="ot">&lt;-</span> <span class="fu">rast</span>(<span class="st">&quot;data/cape_peninsula/CoCT_10m.tif&quot;</span>)</span>
+<span id="cb83-4"><a href="raster-gis-operations-in-r-with-terra.html#cb83-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb83-5"><a href="raster-gis-operations-in-r-with-terra.html#cb83-5" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(dem)</span></code></pre></div>
 <pre><code>## [1] &quot;SpatRaster&quot;
 ## attr(,&quot;package&quot;)
 ## [1] &quot;terra&quot;</code></pre>
-<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="raster-gis-operations-in-r-with-terra.html#cb101-1" aria-hidden="true" tabindex="-1"></a>dem <span class="co">#Typing the name of a &quot;SpatRaster&quot; class data object gives you the details</span></span></code></pre></div>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="raster-gis-operations-in-r-with-terra.html#cb85-1" aria-hidden="true" tabindex="-1"></a>dem <span class="co">#Typing the name of a &quot;SpatRaster&quot; class data object gives you the details</span></span></code></pre></div>
 <pre><code>## class       : SpatRaster 
 ## dimensions  : 9902, 6518, 1  (nrow, ncol, nlyr)
 ## resolution  : 10, 10  (x, y)
 ## extent      : -64180, 1000, -3804020, -3705000  (xmin, xmax, ymin, ymax)
 ## coord. ref. : GCS_WGS_1984 
-## source      : 10m_BA.tif 
-## name        : 10m_BA</code></pre>
+## source      : CoCT_10m.tif 
+## name        : 10m_BA 
+## min value   :    -35 
+## max value   :   1590</code></pre>
 <p>The <code>coord. ref.</code> field shows <code>GCS_WGS_1984</code>, which is Geographic Coordinates, but perhaps there is a projected CRS too? from which we can deduce that the coordinate reference system is Transverse Mercator Lo19. If you just want to know the CRS from a SpatRaster, you just call <code>crs()</code> like so:</p>
-<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="raster-gis-operations-in-r-with-terra.html#cb103-1" aria-hidden="true" tabindex="-1"></a><span class="fu">crs</span>(dem)</span></code></pre></div>
-<pre><code>## [1] &quot;PROJCRS[\&quot;GCS_WGS_1984\&quot;,\n    BASEGEOGCRS[\&quot;WGS 84\&quot;,\n        DATUM[\&quot;World Geodetic System 1984\&quot;,\n            ELLIPSOID[\&quot;WGS 84\&quot;,6378137,298.25722356049,\n                LENGTHUNIT[\&quot;metre\&quot;,1]]],\n        PRIMEM[\&quot;Greenwich\&quot;,0,\n            ANGLEUNIT[\&quot;degree\&quot;,0.0174532925199433]],\n        ID[\&quot;EPSG\&quot;,4326]],\n    CONVERSION[\&quot;unnamed\&quot;,\n        METHOD[\&quot;Transverse Mercator\&quot;,\n            ID[\&quot;EPSG\&quot;,9807]],\n        PARAMETER[\&quot;Latitude of natural origin\&quot;,0,\n            ANGLEUNIT[\&quot;degree\&quot;,0.0174532925199433],\n            ID[\&quot;EPSG\&quot;,8801]],\n        PARAMETER[\&quot;Longitude of natural origin\&quot;,19,\n            ANGLEUNIT[\&quot;degree\&quot;,0.0174532925199433],\n            ID[\&quot;EPSG\&quot;,8802]],\n        PARAMETER[\&quot;Scale factor at natural origin\&quot;,1,\n            SCALEUNIT[\&quot;unity\&quot;,1],\n            ID[\&quot;EPSG\&quot;,8805]],\n        PARAMETER[\&quot;False easting\&quot;,0,\n            LENGTHUNIT[\&quot;metre\&quot;,1],\n            ID[\&quot;EPSG\&quot;,8806]],\n        PARAMETER[\&quot;False northing\&quot;,0,\n            LENGTHUNIT[\&quot;metre\&quot;,1],\n            ID[\&quot;EPSG\&quot;,8807]]],\n    CS[Cartesian,2],\n        AXIS[\&quot;easting\&quot;,east,\n            ORDER[1],\n            LENGTHUNIT[\&quot;metre\&quot;,1,\n                ID[\&quot;EPSG\&quot;,9001]]],\n        AXIS[\&quot;northing\&quot;,north,\n            ORDER[2],\n            LENGTHUNIT[\&quot;metre\&quot;,1,\n                ID[\&quot;EPSG\&quot;,9001]]]]&quot;</code></pre>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="raster-gis-operations-in-r-with-terra.html#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="fu">crs</span>(dem)</span></code></pre></div>
+<pre><code>## [1] &quot;PROJCRS[\&quot;GCS_WGS_1984\&quot;,\n    BASEGEOGCRS[\&quot;WGS 84\&quot;,\n        DATUM[\&quot;World Geodetic System 1984\&quot;,\n            ELLIPSOID[\&quot;WGS 84\&quot;,6378137,298.25722356049,\n                LENGTHUNIT[\&quot;metre\&quot;,1]]],\n        PRIMEM[\&quot;Greenwich\&quot;,0,\n            ANGLEUNIT[\&quot;degree\&quot;,0.0174532925199433]],\n        ID[\&quot;EPSG\&quot;,4326]],\n    CONVERSION[\&quot;Transverse Mercator\&quot;,\n        METHOD[\&quot;Transverse Mercator\&quot;,\n            ID[\&quot;EPSG\&quot;,9807]],\n        PARAMETER[\&quot;Latitude of natural origin\&quot;,0,\n            ANGLEUNIT[\&quot;degree\&quot;,0.0174532925199433],\n            ID[\&quot;EPSG\&quot;,8801]],\n        PARAMETER[\&quot;Longitude of natural origin\&quot;,19,\n            ANGLEUNIT[\&quot;degree\&quot;,0.0174532925199433],\n            ID[\&quot;EPSG\&quot;,8802]],\n        PARAMETER[\&quot;Scale factor at natural origin\&quot;,1,\n            SCALEUNIT[\&quot;unity\&quot;,1],\n            ID[\&quot;EPSG\&quot;,8805]],\n        PARAMETER[\&quot;False easting\&quot;,0,\n            LENGTHUNIT[\&quot;metre\&quot;,1],\n            ID[\&quot;EPSG\&quot;,8806]],\n        PARAMETER[\&quot;False northing\&quot;,0,\n            LENGTHUNIT[\&quot;metre\&quot;,1],\n            ID[\&quot;EPSG\&quot;,8807]]],\n    CS[Cartesian,2],\n        AXIS[\&quot;easting\&quot;,east,\n            ORDER[1],\n            LENGTHUNIT[\&quot;metre\&quot;,1,\n                ID[\&quot;EPSG\&quot;,9001]]],\n        AXIS[\&quot;northing\&quot;,north,\n            ORDER[2],\n            LENGTHUNIT[\&quot;metre\&quot;,1,\n                ID[\&quot;EPSG\&quot;,9001]]]]&quot;</code></pre>
 <p>Similar to <code>st_crs()</code>, you can define a projection using the syntax:</p>
 <p><code>crs(your_raster) &lt;- "your_crs"</code>, where the new CRS can be in WKT, and EPSG code, or a PROJ string.</p>
 <p>For reprojecting, you use the function <code>project()</code>. We’ll look at it later.</p>
 <p><br></p>
 </div>
-<div id="cropping-1" class="section level2" number="8.2">
-<h2><span class="header-section-number">8.2</span> Cropping</h2>
+<div id="cropping-1" class="section level2 hasAnchor" number="8.2">
+<h2><span class="header-section-number">8.2</span> Cropping<a href="raster-gis-operations-in-r-with-terra.html#cropping-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Ok, before we try to anything with this dataset, let’s think about how big it is… One of the outputs of calling <code>dem</code> was the row reading <code>dimensions : 9902, 6518, 1  (nrow, ncol, nlyr)</code>. Given that we are talking about 10m pixels, this information tells us that the extent of the region is roughly 100km by 65km and that there are ~65 million pixels! No wonder the file is ~130MB.</p>
 <p>While R can handle this, it does become slow when dealing with very large files. There are many ways to improve the efficiency of handling big rasters in R (see <a href="https://www.ecologi.st/post/big-spatial-data/">this slightly dated post for details</a> if you’re interested), but for the purposes of this tutorial we’re going to take the easy option and just crop it to a smaller extent, like so:</p>
-<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="raster-gis-operations-in-r-with-terra.html#cb105-1" aria-hidden="true" tabindex="-1"></a>dem <span class="ot">&lt;-</span> <span class="fu">crop</span>(dem, <span class="fu">ext</span>(<span class="fu">c</span>(<span class="sc">-</span><span class="fl">66642.18</span>, <span class="sc">-</span><span class="fl">44412.18</span>, <span class="sc">-</span><span class="fl">3809853.29</span>, <span class="sc">-</span><span class="fl">3750723.29</span>)))</span></code></pre></div>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="raster-gis-operations-in-r-with-terra.html#cb89-1" aria-hidden="true" tabindex="-1"></a>dem <span class="ot">&lt;-</span> <span class="fu">crop</span>(dem, <span class="fu">ext</span>(<span class="fu">c</span>(<span class="sc">-</span><span class="fl">66642.18</span>, <span class="sc">-</span><span class="fl">44412.18</span>, <span class="sc">-</span><span class="fl">3809853.29</span>, <span class="sc">-</span><span class="fl">3750723.29</span>)))</span></code></pre></div>
 <p>Note that the <code>crop()</code> function requires us to pass it an object of class <code>SpatExtent</code>. Just like <code>st_crop()</code> from <em>sf</em>, <code>crop()</code> can derive the extent from another data object.</p>
 <p>One silly difference, is that if you pass it the coordinates of the extent manually (as above), you first need to pass it to the <code>ext()</code> function, and they need to follow the order <em>xmin, xmax, ymin, ymax</em> (as opposed to <em>xmin, ymin, xmax, ymax</em> as you do for <code>st_crop()</code>). Keep your eye out for these little differences, because they will trip you up…</p>
 <p>Ok, so how big is our dataset now?</p>
-<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="raster-gis-operations-in-r-with-terra.html#cb106-1" aria-hidden="true" tabindex="-1"></a>dem</span></code></pre></div>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="raster-gis-operations-in-r-with-terra.html#cb90-1" aria-hidden="true" tabindex="-1"></a>dem</span></code></pre></div>
 <pre><code>## class       : SpatRaster 
 ## dimensions  : 5330, 1977, 1  (nrow, ncol, nlyr)
 ## resolution  : 10, 10  (x, y)
 ## extent      : -64180, -44410, -3804020, -3750720  (xmin, xmax, ymin, ymax)
 ## coord. ref. : GCS_WGS_1984 
-## source      : memory 
+## source(s)   : memory
 ## name        : 10m_BA 
 ## min value   :    -15 
 ## max value   :   1084</code></pre>
 <p>…still &gt;10 million pixels…</p>
 <p><br></p>
 </div>
-<div id="aggregating-resampling" class="section level2" number="8.3">
-<h2><span class="header-section-number">8.3</span> Aggregating / Resampling</h2>
+<div id="aggregating-resampling" class="section level2 hasAnchor" number="8.3">
+<h2><span class="header-section-number">8.3</span> Aggregating / Resampling<a href="raster-gis-operations-in-r-with-terra.html#aggregating-resampling" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Do we need 10m data? If your analysis doesn’t need such fine resolution data, you can resample the raster to a larger pixel size, like 30m. The <code>aggregate()</code> function in the <em>raster</em> package does this very efficiently, like so:</p>
-<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="raster-gis-operations-in-r-with-terra.html#cb108-1" aria-hidden="true" tabindex="-1"></a>dem30 <span class="ot">&lt;-</span> <span class="fu">aggregate</span>(dem, <span class="at">fact =</span> <span class="dv">3</span>, <span class="at">fun =</span> mean)</span></code></pre></div>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="raster-gis-operations-in-r-with-terra.html#cb92-1" aria-hidden="true" tabindex="-1"></a>dem30 <span class="ot">&lt;-</span> <span class="fu">aggregate</span>(dem, <span class="at">fact =</span> <span class="dv">3</span>, <span class="at">fun =</span> mean)</span></code></pre></div>
+<pre><code>## 
+|---------|---------|---------|---------|
+=========================================
+                                          </code></pre>
 <p>Here I’ve told it to aggregate by a factor of 3 (i.e. bin 9 neighbouring pixels (3x3) into one) and to assign the bigger pixel the mean of the 9 original pixels. This obviously results in some data loss, but that can be acceptable, depending on the purpose of your analysis. Note that you can pass just about any function to <code>fun =</code>, like <code>min()</code>, <code>max()</code> or even your own function.</p>
-<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="raster-gis-operations-in-r-with-terra.html#cb109-1" aria-hidden="true" tabindex="-1"></a>dem30</span></code></pre></div>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="raster-gis-operations-in-r-with-terra.html#cb94-1" aria-hidden="true" tabindex="-1"></a>dem30</span></code></pre></div>
 <pre><code>## class       : SpatRaster 
 ## dimensions  : 1777, 659, 1  (nrow, ncol, nlyr)
 ## resolution  : 30, 30  (x, y)
 ## extent      : -64180, -44410, -3804030, -3750720  (xmin, xmax, ymin, ymax)
 ## coord. ref. : GCS_WGS_1984 
-## source      : memory 
+## source(s)   : memory
 ## name        :   10m_BA 
-## min value   :      -15 
+## min value   :  -15.000 
 ## max value   : 1083.556</code></pre>
 <p>Ok, so we’ve reduced the size of the raster by a factor of 9 and only have a little over 1 million pixels to deal with. Much more reasonable! Now let’s have a look at what we’re dealing with.</p>
 <p><br></p>
 </div>
-<div id="basic-plotting-1" class="section level2" number="8.4">
-<h2><span class="header-section-number">8.4</span> Basic plotting</h2>
+<div id="basic-plotting-1" class="section level2 hasAnchor" number="8.4">
+<h2><span class="header-section-number">8.4</span> Basic plotting<a href="raster-gis-operations-in-r-with-terra.html#basic-plotting-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Now that we’ve reduced the size of the dataset, we can try the base plotting function:</p>
-<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="raster-gis-operations-in-r-with-terra.html#cb111-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(dem30)</span></code></pre></div>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="raster-gis-operations-in-r-with-terra.html#cb96-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(dem30)</span></code></pre></div>
 <p><img src="spatial-r_files/figure-html/unnamed-chunk-48-1.png" width="672" /></p>
 <p>Or with the <em>Tidyverse</em>…</p>
 <p>Note that <code>ggplot()</code> doesn’t accept rasters, so we need to give it a dataframe with <em>x</em> and <em>y</em> columns for the coordinates, and a column containing the values to plot. This is easily done by coercing the raster into a dataframe, like so:</p>
-<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="raster-gis-operations-in-r-with-terra.html#cb112-1" aria-hidden="true" tabindex="-1"></a><span class="co">#call tidyverse libraries and plot</span></span>
-<span id="cb112-2"><a href="raster-gis-operations-in-r-with-terra.html#cb112-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb112-3"><a href="raster-gis-operations-in-r-with-terra.html#cb112-3" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb112-4"><a href="raster-gis-operations-in-r-with-terra.html#cb112-4" aria-hidden="true" tabindex="-1"></a>dem30 <span class="sc">%&gt;%</span> <span class="fu">as.data.frame</span>(<span class="at">xy =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb112-5"><a href="raster-gis-operations-in-r-with-terra.html#cb112-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb112-6"><a href="raster-gis-operations-in-r-with-terra.html#cb112-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_raster</span>(<span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">fill =</span> <span class="st">`</span><span class="at">10m_BA</span><span class="st">`</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="raster-gis-operations-in-r-with-terra.html#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="co">#call tidyverse libraries and plot</span></span>
+<span id="cb97-2"><a href="raster-gis-operations-in-r-with-terra.html#cb97-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb97-3"><a href="raster-gis-operations-in-r-with-terra.html#cb97-3" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb97-4"><a href="raster-gis-operations-in-r-with-terra.html#cb97-4" aria-hidden="true" tabindex="-1"></a>dem30 <span class="sc">%&gt;%</span> <span class="fu">as.data.frame</span>(<span class="at">xy =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb97-5"><a href="raster-gis-operations-in-r-with-terra.html#cb97-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb97-6"><a href="raster-gis-operations-in-r-with-terra.html#cb97-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_raster</span>(<span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">fill =</span> <span class="st">`</span><span class="at">10m_BA</span><span class="st">`</span>))</span></code></pre></div>
 <p><img src="spatial-r_files/figure-html/unnamed-chunk-49-1.png" width="336" /></p>
-<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="raster-gis-operations-in-r-with-terra.html#cb113-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Note that I had to know that the column name for the elevation data is &quot;10m_BA&quot;... and that you need to use ` ` around a variable name when feeding it to a function if it starts with a digit.</span></span></code></pre></div>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="raster-gis-operations-in-r-with-terra.html#cb98-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Note that I had to know that the column name for the elevation data is &quot;10m_BA&quot;... and that you need to use ` ` around a variable name when feeding it to a function if it starts with a digit.</span></span></code></pre></div>
 <p>Ok, how different does our 30m raster look to the 10m version?</p>
-<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="raster-gis-operations-in-r-with-terra.html#cb114-1" aria-hidden="true" tabindex="-1"></a>dem <span class="sc">%&gt;%</span></span>
-<span id="cb114-2"><a href="raster-gis-operations-in-r-with-terra.html#cb114-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>(<span class="at">xy =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb114-3"><a href="raster-gis-operations-in-r-with-terra.html#cb114-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb114-4"><a href="raster-gis-operations-in-r-with-terra.html#cb114-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_raster</span>(<span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">fill =</span> <span class="st">`</span><span class="at">10m_BA</span><span class="st">`</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="raster-gis-operations-in-r-with-terra.html#cb99-1" aria-hidden="true" tabindex="-1"></a>dem <span class="sc">%&gt;%</span></span>
+<span id="cb99-2"><a href="raster-gis-operations-in-r-with-terra.html#cb99-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>(<span class="at">xy =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb99-3"><a href="raster-gis-operations-in-r-with-terra.html#cb99-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb99-4"><a href="raster-gis-operations-in-r-with-terra.html#cb99-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_raster</span>(<span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">fill =</span> <span class="st">`</span><span class="at">10m_BA</span><span class="st">`</span>))</span></code></pre></div>
 <p><img src="spatial-r_files/figure-html/unnamed-chunk-50-1.png" width="336" /></p>
 <p>Not noticeably different at this scale!</p>
 <p><br></p>
 </div>
-<div id="disaggregating" class="section level2" number="8.5">
-<h2><span class="header-section-number">8.5</span> Disaggregating</h2>
+<div id="disaggregating" class="section level2 hasAnchor" number="8.5">
+<h2><span class="header-section-number">8.5</span> Disaggregating<a href="raster-gis-operations-in-r-with-terra.html#disaggregating" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>One way to explore the degree of data loss is to <code>disagg()</code> our 30m DEM back to 10m and then compare it to the original.</p>
-<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="raster-gis-operations-in-r-with-terra.html#cb115-1" aria-hidden="true" tabindex="-1"></a>dem10 <span class="ot">&lt;-</span> <span class="fu">disagg</span>(dem30, <span class="at">fact =</span> <span class="dv">3</span>, <span class="at">method =</span> <span class="st">&quot;bilinear&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="raster-gis-operations-in-r-with-terra.html#cb100-1" aria-hidden="true" tabindex="-1"></a>dem10 <span class="ot">&lt;-</span> <span class="fu">disagg</span>(dem30, <span class="at">fact =</span> <span class="dv">3</span>, <span class="at">method =</span> <span class="st">&quot;bilinear&quot;</span>)</span></code></pre></div>
 <p>Note that I’ve tried to use <em>bilinear interpolation</em> to give it a fair chance of getting nearer the original values. You can google this on your own, but it essentially smooths the data by averaging across neighbouring pixels.</p>
 <p>Now, how can I compare my two 10m rasters?</p>
 <p><br></p>
 </div>
-<div id="raster-maths" class="section level2" number="8.6">
-<h2><span class="header-section-number">8.6</span> Raster maths!</h2>
+<div id="raster-maths" class="section level2 hasAnchor" number="8.6">
+<h2><span class="header-section-number">8.6</span> Raster maths!<a href="raster-gis-operations-in-r-with-terra.html#raster-maths" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The <em>raster</em> and <em>terra</em> packages make this easy, because you can do maths with rasters, treating them as variables in an equation. This means we can explore the data loss by calculating the difference between the original and disaggregated DEMS.</p>
 <p>Note that when aggregating you often lose some of the cells along the edges, and that you can’t do raster maths on rasters with different extents… We can fix this by cropping the larger raster with the smaller first.</p>
-<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="raster-gis-operations-in-r-with-terra.html#cb116-1" aria-hidden="true" tabindex="-1"></a>dem10 <span class="ot">&lt;-</span> <span class="fu">crop</span>(dem10, dem)</span>
-<span id="cb116-2"><a href="raster-gis-operations-in-r-with-terra.html#cb116-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb116-3"><a href="raster-gis-operations-in-r-with-terra.html#cb116-3" aria-hidden="true" tabindex="-1"></a>diff <span class="ot">&lt;-</span> dem <span class="sc">-</span> dem10 <span class="co">#maths with rasters!</span></span></code></pre></div>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="raster-gis-operations-in-r-with-terra.html#cb101-1" aria-hidden="true" tabindex="-1"></a>dem10 <span class="ot">&lt;-</span> <span class="fu">crop</span>(dem10, dem)</span>
+<span id="cb101-2"><a href="raster-gis-operations-in-r-with-terra.html#cb101-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb101-3"><a href="raster-gis-operations-in-r-with-terra.html#cb101-3" aria-hidden="true" tabindex="-1"></a>diff <span class="ot">&lt;-</span> dem <span class="sc">-</span> dem10 <span class="co">#maths with rasters!</span></span></code></pre></div>
 <p>And plot the result!</p>
-<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="raster-gis-operations-in-r-with-terra.html#cb117-1" aria-hidden="true" tabindex="-1"></a>diff <span class="sc">%&gt;%</span></span>
-<span id="cb117-2"><a href="raster-gis-operations-in-r-with-terra.html#cb117-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>(<span class="at">xy =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb117-3"><a href="raster-gis-operations-in-r-with-terra.html#cb117-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb117-4"><a href="raster-gis-operations-in-r-with-terra.html#cb117-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_raster</span>(<span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">fill =</span> <span class="st">`</span><span class="at">10m_BA</span><span class="st">`</span>)) </span></code></pre></div>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="raster-gis-operations-in-r-with-terra.html#cb102-1" aria-hidden="true" tabindex="-1"></a>diff <span class="sc">%&gt;%</span></span>
+<span id="cb102-2"><a href="raster-gis-operations-in-r-with-terra.html#cb102-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>(<span class="at">xy =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb102-3"><a href="raster-gis-operations-in-r-with-terra.html#cb102-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb102-4"><a href="raster-gis-operations-in-r-with-terra.html#cb102-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_raster</span>(<span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">fill =</span> <span class="st">`</span><span class="at">10m_BA</span><span class="st">`</span>)) </span></code></pre></div>
 <p><img src="spatial-r_files/figure-html/unnamed-chunk-53-1.png" width="336" /></p>
 <p>If you look <em>really</em> closely, you’ll see the outline of the cliffs of Table Mountain, where you’d expect the data loss to be worst. The colour ramp tells us that the worst distortion was up to 100m, or about 10% of the elevation range in this dataset, but don’t be fooled by the extremes! Let’s have a look at all the values as a histogram.</p>
-<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="raster-gis-operations-in-r-with-terra.html#cb118-1" aria-hidden="true" tabindex="-1"></a>diff <span class="sc">%&gt;%</span></span>
-<span id="cb118-2"><a href="raster-gis-operations-in-r-with-terra.html#cb118-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>(<span class="at">xy =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb118-3"><a href="raster-gis-operations-in-r-with-terra.html#cb118-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb118-4"><a href="raster-gis-operations-in-r-with-terra.html#cb118-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="st">`</span><span class="at">10m_BA</span><span class="st">`</span>))</span></code></pre></div>
-<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with
-## `binwidth`.</code></pre>
+<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="raster-gis-operations-in-r-with-terra.html#cb103-1" aria-hidden="true" tabindex="-1"></a>diff <span class="sc">%&gt;%</span></span>
+<span id="cb103-2"><a href="raster-gis-operations-in-r-with-terra.html#cb103-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>(<span class="at">xy =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb103-3"><a href="raster-gis-operations-in-r-with-terra.html#cb103-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb103-4"><a href="raster-gis-operations-in-r-with-terra.html#cb103-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="st">`</span><span class="at">10m_BA</span><span class="st">`</span>))</span></code></pre></div>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
 <p><img src="spatial-r_files/figure-html/unnamed-chunk-54-1.png" width="672" /></p>
 <p>Looks like most values are within 10 or so metres of their original values, so the data loss really wasn’t that bad!</p>
 <p><br></p>
 </div>
-<div id="focal-and-terrain-calculations" class="section level2" number="8.7">
-<h2><span class="header-section-number">8.7</span> Focal and terrain calculations</h2>
+<div id="focal-and-terrain-calculations" class="section level2 hasAnchor" number="8.7">
+<h2><span class="header-section-number">8.7</span> Focal and terrain calculations<a href="raster-gis-operations-in-r-with-terra.html#focal-and-terrain-calculations" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>In addition to maths with multiple rasters, you can do all kinds of calculations within a raster using <code>focal()</code>. This essentially applies a moving window, calculating values for a neighbourhood of cells as it goes, using whatever function you supply (mean, max, your own, etc).</p>
 <p>The function <code>terrain()</code> is a special case of <code>focal()</code>, optimized for calculating <em>slope, aspect, topographic position index (TPI), topographic roughness index (TRI), roughness, or flow direction</em>.</p>
 <p>Here I’ll calculate the slope and aspect so that we can pass them to the function <code>shade()</code> to make a pretty hillshade layer.</p>
-<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="raster-gis-operations-in-r-with-terra.html#cb120-1" aria-hidden="true" tabindex="-1"></a>aspect <span class="ot">&lt;-</span> <span class="fu">terrain</span>(dem30, <span class="st">&quot;aspect&quot;</span>, <span class="at">unit =</span> <span class="st">&quot;radians&quot;</span>)</span>
-<span id="cb120-2"><a href="raster-gis-operations-in-r-with-terra.html#cb120-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb120-3"><a href="raster-gis-operations-in-r-with-terra.html#cb120-3" aria-hidden="true" tabindex="-1"></a>slope <span class="ot">&lt;-</span> <span class="fu">terrain</span>(dem30, <span class="st">&quot;slope&quot;</span>, <span class="at">unit =</span> <span class="st">&quot;radians&quot;</span>)</span>
-<span id="cb120-4"><a href="raster-gis-operations-in-r-with-terra.html#cb120-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb120-5"><a href="raster-gis-operations-in-r-with-terra.html#cb120-5" aria-hidden="true" tabindex="-1"></a>hillshade <span class="ot">&lt;-</span> <span class="fu">shade</span>(slope, aspect)</span>
-<span id="cb120-6"><a href="raster-gis-operations-in-r-with-terra.html#cb120-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb120-7"><a href="raster-gis-operations-in-r-with-terra.html#cb120-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(hillshade)</span></code></pre></div>
+<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="raster-gis-operations-in-r-with-terra.html#cb105-1" aria-hidden="true" tabindex="-1"></a>aspect <span class="ot">&lt;-</span> <span class="fu">terrain</span>(dem30, <span class="st">&quot;aspect&quot;</span>, <span class="at">unit =</span> <span class="st">&quot;radians&quot;</span>)</span>
+<span id="cb105-2"><a href="raster-gis-operations-in-r-with-terra.html#cb105-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb105-3"><a href="raster-gis-operations-in-r-with-terra.html#cb105-3" aria-hidden="true" tabindex="-1"></a>slope <span class="ot">&lt;-</span> <span class="fu">terrain</span>(dem30, <span class="st">&quot;slope&quot;</span>, <span class="at">unit =</span> <span class="st">&quot;radians&quot;</span>)</span>
+<span id="cb105-4"><a href="raster-gis-operations-in-r-with-terra.html#cb105-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb105-5"><a href="raster-gis-operations-in-r-with-terra.html#cb105-5" aria-hidden="true" tabindex="-1"></a>hillshade <span class="ot">&lt;-</span> <span class="fu">shade</span>(slope, aspect)</span>
+<span id="cb105-6"><a href="raster-gis-operations-in-r-with-terra.html#cb105-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb105-7"><a href="raster-gis-operations-in-r-with-terra.html#cb105-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(hillshade)</span></code></pre></div>
 <p><img src="spatial-r_files/figure-html/unnamed-chunk-55-1.png" width="672" /></p>
 <p>Probably prettier with <em>Tidyverse</em>:</p>
-<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="raster-gis-operations-in-r-with-terra.html#cb121-1" aria-hidden="true" tabindex="-1"></a>hillshade <span class="sc">%&gt;%</span></span>
-<span id="cb121-2"><a href="raster-gis-operations-in-r-with-terra.html#cb121-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>(<span class="at">xy =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb121-3"><a href="raster-gis-operations-in-r-with-terra.html#cb121-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb121-4"><a href="raster-gis-operations-in-r-with-terra.html#cb121-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_raster</span>(<span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">fill =</span> lyr1)) <span class="sc">+</span> <span class="co">#note that the hillshade column name in this case is &quot;lyr1&quot;</span></span>
-<span id="cb121-5"><a href="raster-gis-operations-in-r-with-terra.html#cb121-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_gradient</span>(<span class="at">low =</span> <span class="st">&quot;grey10&quot;</span>, <span class="at">high =</span> <span class="st">&quot;grey90&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="raster-gis-operations-in-r-with-terra.html#cb106-1" aria-hidden="true" tabindex="-1"></a>hillshade <span class="sc">%&gt;%</span></span>
+<span id="cb106-2"><a href="raster-gis-operations-in-r-with-terra.html#cb106-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>(<span class="at">xy =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb106-3"><a href="raster-gis-operations-in-r-with-terra.html#cb106-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb106-4"><a href="raster-gis-operations-in-r-with-terra.html#cb106-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_raster</span>(<span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">fill =</span> hillshade)) <span class="sc">+</span> <span class="co">#note that the hillshade column name in this case is &quot;hillshade&quot;</span></span>
+<span id="cb106-5"><a href="raster-gis-operations-in-r-with-terra.html#cb106-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_gradient</span>(<span class="at">low =</span> <span class="st">&quot;grey10&quot;</span>, <span class="at">high =</span> <span class="st">&quot;grey90&quot;</span>)</span></code></pre></div>
 <p><img src="spatial-r_files/figure-html/unnamed-chunk-56-1.png" width="336" /></p>
 <p>Nice ne?</p>
 <p><br></p>
 </div>
-<div id="raster-stacks" class="section level2" number="8.8">
-<h2><span class="header-section-number">8.8</span> Raster stacks</h2>
+<div id="raster-stacks" class="section level2 hasAnchor" number="8.8">
+<h2><span class="header-section-number">8.8</span> Raster stacks<a href="raster-gis-operations-in-r-with-terra.html#raster-stacks" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Another nice thing about rasters is that if you have multiple rasters “on the same grid” (i.e. with the same pixel size, extent and CRS) then you can stack them and work with them as a single object. <code>library(raster)</code> users will be familiar with <code>stack()</code>, but in <em>terra</em> you just use the base function <code>c()</code>, like so:</p>
-<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="raster-gis-operations-in-r-with-terra.html#cb122-1" aria-hidden="true" tabindex="-1"></a>dstack <span class="ot">&lt;-</span> <span class="fu">c</span>(dem30, slope, aspect, hillshade)</span>
-<span id="cb122-2"><a href="raster-gis-operations-in-r-with-terra.html#cb122-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb122-3"><a href="raster-gis-operations-in-r-with-terra.html#cb122-3" aria-hidden="true" tabindex="-1"></a>dstack</span></code></pre></div>
+<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="raster-gis-operations-in-r-with-terra.html#cb107-1" aria-hidden="true" tabindex="-1"></a>dstack <span class="ot">&lt;-</span> <span class="fu">c</span>(dem30, slope, aspect, hillshade)</span>
+<span id="cb107-2"><a href="raster-gis-operations-in-r-with-terra.html#cb107-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb107-3"><a href="raster-gis-operations-in-r-with-terra.html#cb107-3" aria-hidden="true" tabindex="-1"></a>dstack</span></code></pre></div>
 <pre><code>## class       : SpatRaster 
 ## dimensions  : 1777, 659, 4  (nrow, ncol, nlyr)
 ## resolution  : 30, 30  (x, y)
 ## extent      : -64180, -44410, -3804030, -3750720  (xmin, xmax, ymin, ymax)
 ## coord. ref. : GCS_WGS_1984 
-## sources     : memory  
-##               memory  
-##               memory  
-##               ... and 1 more source(s)
-## names       :       10m_BA,        slope,       aspect,         lyr1 
-## min values  :  -15.0000000,    0.0000000,    0.0000000,   -0.4906481 
-## max values  : 1083.5555556,    1.3708258,    6.2831853,    0.9999974</code></pre>
+## source(s)   : memory
+## names       :   10m_BA,    slope,   aspect,  hillshade 
+## min values  :  -15.000, 0.000000, 0.000000, -0.4906481 
+## max values  : 1083.556, 1.370826, 6.283185,  0.9999974</code></pre>
 <p>As you can see the “dimensions” now report 4 layers, and there are 4 names. Some of the names don’t look all that informative though, so let’s rename them.</p>
-<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="raster-gis-operations-in-r-with-terra.html#cb124-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(dstack) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;elevation&quot;</span>, <span class="st">&quot;slope&quot;</span>, <span class="st">&quot;aspect&quot;</span>, <span class="st">&quot;shade&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="raster-gis-operations-in-r-with-terra.html#cb109-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(dstack) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;elevation&quot;</span>, <span class="st">&quot;slope&quot;</span>, <span class="st">&quot;aspect&quot;</span>, <span class="st">&quot;shade&quot;</span>)</span></code></pre></div>
 <p><br></p>
 </div>
-<div id="extracting-raster-to-vector" class="section level2" number="8.9">
-<h2><span class="header-section-number">8.9</span> Extracting raster to vector</h2>
+<div id="extracting-raster-to-vector" class="section level2 hasAnchor" number="8.9">
+<h2><span class="header-section-number">8.9</span> Extracting raster to vector<a href="raster-gis-operations-in-r-with-terra.html#extracting-raster-to-vector" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Ok, enough fooling around. More often than not, we just want to extract data from rasters for further analyses (e.g. climate layers, etc), so let’s cover that base here.</p>
 <p><br></p>
 <p><strong>Extract to points</strong></p>
 <p>First, let’s get some points for two species in the Proteaceae, <em>Protea cynaroides</em> and <em>Leucadendron laureolum</em>…</p>
-<div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="raster-gis-operations-in-r-with-terra.html#cb125-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rinat)</span>
-<span id="cb125-2"><a href="raster-gis-operations-in-r-with-terra.html#cb125-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
-<span id="cb125-3"><a href="raster-gis-operations-in-r-with-terra.html#cb125-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb125-4"><a href="raster-gis-operations-in-r-with-terra.html#cb125-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Call data for two species directly from iNat</span></span>
-<span id="cb125-5"><a href="raster-gis-operations-in-r-with-terra.html#cb125-5" aria-hidden="true" tabindex="-1"></a>pc <span class="ot">&lt;-</span> <span class="fu">get_inat_obs</span>(<span class="at">taxon_name =</span> <span class="st">&quot;Protea cynaroides&quot;</span>,</span>
-<span id="cb125-6"><a href="raster-gis-operations-in-r-with-terra.html#cb125-6" aria-hidden="true" tabindex="-1"></a>                   <span class="at">bounds =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">35</span>, <span class="dv">18</span>, <span class="sc">-</span><span class="fl">33.5</span>, <span class="fl">18.5</span>),</span>
-<span id="cb125-7"><a href="raster-gis-operations-in-r-with-terra.html#cb125-7" aria-hidden="true" tabindex="-1"></a>                   <span class="at">maxresults =</span> <span class="dv">1000</span>)</span>
-<span id="cb125-8"><a href="raster-gis-operations-in-r-with-terra.html#cb125-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb125-9"><a href="raster-gis-operations-in-r-with-terra.html#cb125-9" aria-hidden="true" tabindex="-1"></a>ll <span class="ot">&lt;-</span> <span class="fu">get_inat_obs</span>(<span class="at">taxon_name =</span> <span class="st">&quot;Leucadendron laureolum&quot;</span>,</span>
-<span id="cb125-10"><a href="raster-gis-operations-in-r-with-terra.html#cb125-10" aria-hidden="true" tabindex="-1"></a>                   <span class="at">bounds =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">35</span>, <span class="dv">18</span>, <span class="sc">-</span><span class="fl">33.5</span>, <span class="fl">18.5</span>),</span>
-<span id="cb125-11"><a href="raster-gis-operations-in-r-with-terra.html#cb125-11" aria-hidden="true" tabindex="-1"></a>                   <span class="at">maxresults =</span> <span class="dv">1000</span>)</span>
-<span id="cb125-12"><a href="raster-gis-operations-in-r-with-terra.html#cb125-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb125-13"><a href="raster-gis-operations-in-r-with-terra.html#cb125-13" aria-hidden="true" tabindex="-1"></a><span class="co">#Combine the records into one dataframe</span></span>
-<span id="cb125-14"><a href="raster-gis-operations-in-r-with-terra.html#cb125-14" aria-hidden="true" tabindex="-1"></a>pc <span class="ot">&lt;-</span> <span class="fu">rbind</span>(pc,ll)</span>
-<span id="cb125-15"><a href="raster-gis-operations-in-r-with-terra.html#cb125-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb125-16"><a href="raster-gis-operations-in-r-with-terra.html#cb125-16" aria-hidden="true" tabindex="-1"></a><span class="co">#Filter returned observations by a range of attribute criteria</span></span>
-<span id="cb125-17"><a href="raster-gis-operations-in-r-with-terra.html#cb125-17" aria-hidden="true" tabindex="-1"></a>pc <span class="ot">&lt;-</span> pc <span class="sc">%&gt;%</span> <span class="fu">filter</span>(positional_accuracy<span class="sc">&lt;</span><span class="dv">46</span> <span class="sc">&amp;</span> </span>
-<span id="cb125-18"><a href="raster-gis-operations-in-r-with-terra.html#cb125-18" aria-hidden="true" tabindex="-1"></a>                latitude<span class="sc">&lt;</span><span class="dv">0</span> <span class="sc">&amp;</span></span>
-<span id="cb125-19"><a href="raster-gis-operations-in-r-with-terra.html#cb125-19" aria-hidden="true" tabindex="-1"></a>                <span class="sc">!</span><span class="fu">is.na</span>(latitude) <span class="sc">&amp;</span></span>
-<span id="cb125-20"><a href="raster-gis-operations-in-r-with-terra.html#cb125-20" aria-hidden="true" tabindex="-1"></a>                captive_cultivated <span class="sc">==</span> <span class="st">&quot;false&quot;</span> <span class="sc">&amp;</span></span>
-<span id="cb125-21"><a href="raster-gis-operations-in-r-with-terra.html#cb125-21" aria-hidden="true" tabindex="-1"></a>                quality_grade <span class="sc">==</span> <span class="st">&quot;research&quot;</span>)</span>
-<span id="cb125-22"><a href="raster-gis-operations-in-r-with-terra.html#cb125-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb125-23"><a href="raster-gis-operations-in-r-with-terra.html#cb125-23" aria-hidden="true" tabindex="-1"></a><span class="co">#Make the dataframe a spatial object of class = &quot;sf&quot;</span></span>
-<span id="cb125-24"><a href="raster-gis-operations-in-r-with-terra.html#cb125-24" aria-hidden="true" tabindex="-1"></a>pc <span class="ot">&lt;-</span> <span class="fu">st_as_sf</span>(pc, <span class="at">coords =</span> <span class="fu">c</span>(<span class="st">&quot;longitude&quot;</span>, <span class="st">&quot;latitude&quot;</span>), <span class="at">crs =</span> <span class="dv">4326</span>)</span>
-<span id="cb125-25"><a href="raster-gis-operations-in-r-with-terra.html#cb125-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb125-26"><a href="raster-gis-operations-in-r-with-terra.html#cb125-26" aria-hidden="true" tabindex="-1"></a><span class="co">#Set to the same projection as the elevation data</span></span>
-<span id="cb125-27"><a href="raster-gis-operations-in-r-with-terra.html#cb125-27" aria-hidden="true" tabindex="-1"></a>pc <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(pc, <span class="fu">crs</span>(dem30))</span></code></pre></div>
+<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="raster-gis-operations-in-r-with-terra.html#cb110-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rinat)</span>
+<span id="cb110-2"><a href="raster-gis-operations-in-r-with-terra.html#cb110-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
+<span id="cb110-3"><a href="raster-gis-operations-in-r-with-terra.html#cb110-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-4"><a href="raster-gis-operations-in-r-with-terra.html#cb110-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Call data for two species directly from iNat</span></span>
+<span id="cb110-5"><a href="raster-gis-operations-in-r-with-terra.html#cb110-5" aria-hidden="true" tabindex="-1"></a>pc <span class="ot">&lt;-</span> <span class="fu">get_inat_obs</span>(<span class="at">taxon_name =</span> <span class="st">&quot;Protea cynaroides&quot;</span>,</span>
+<span id="cb110-6"><a href="raster-gis-operations-in-r-with-terra.html#cb110-6" aria-hidden="true" tabindex="-1"></a>                   <span class="at">bounds =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">35</span>, <span class="dv">18</span>, <span class="sc">-</span><span class="fl">33.5</span>, <span class="fl">18.5</span>),</span>
+<span id="cb110-7"><a href="raster-gis-operations-in-r-with-terra.html#cb110-7" aria-hidden="true" tabindex="-1"></a>                   <span class="at">maxresults =</span> <span class="dv">1000</span>)</span>
+<span id="cb110-8"><a href="raster-gis-operations-in-r-with-terra.html#cb110-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-9"><a href="raster-gis-operations-in-r-with-terra.html#cb110-9" aria-hidden="true" tabindex="-1"></a>ll <span class="ot">&lt;-</span> <span class="fu">get_inat_obs</span>(<span class="at">taxon_name =</span> <span class="st">&quot;Leucadendron laureolum&quot;</span>,</span>
+<span id="cb110-10"><a href="raster-gis-operations-in-r-with-terra.html#cb110-10" aria-hidden="true" tabindex="-1"></a>                   <span class="at">bounds =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">35</span>, <span class="dv">18</span>, <span class="sc">-</span><span class="fl">33.5</span>, <span class="fl">18.5</span>),</span>
+<span id="cb110-11"><a href="raster-gis-operations-in-r-with-terra.html#cb110-11" aria-hidden="true" tabindex="-1"></a>                   <span class="at">maxresults =</span> <span class="dv">1000</span>)</span>
+<span id="cb110-12"><a href="raster-gis-operations-in-r-with-terra.html#cb110-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-13"><a href="raster-gis-operations-in-r-with-terra.html#cb110-13" aria-hidden="true" tabindex="-1"></a><span class="co">#Combine the records into one dataframe</span></span>
+<span id="cb110-14"><a href="raster-gis-operations-in-r-with-terra.html#cb110-14" aria-hidden="true" tabindex="-1"></a>pc <span class="ot">&lt;-</span> <span class="fu">rbind</span>(pc,ll)</span>
+<span id="cb110-15"><a href="raster-gis-operations-in-r-with-terra.html#cb110-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-16"><a href="raster-gis-operations-in-r-with-terra.html#cb110-16" aria-hidden="true" tabindex="-1"></a><span class="co">#Filter returned observations by a range of attribute criteria</span></span>
+<span id="cb110-17"><a href="raster-gis-operations-in-r-with-terra.html#cb110-17" aria-hidden="true" tabindex="-1"></a>pc <span class="ot">&lt;-</span> pc <span class="sc">%&gt;%</span> <span class="fu">filter</span>(positional_accuracy<span class="sc">&lt;</span><span class="dv">46</span> <span class="sc">&amp;</span> </span>
+<span id="cb110-18"><a href="raster-gis-operations-in-r-with-terra.html#cb110-18" aria-hidden="true" tabindex="-1"></a>                latitude<span class="sc">&lt;</span><span class="dv">0</span> <span class="sc">&amp;</span></span>
+<span id="cb110-19"><a href="raster-gis-operations-in-r-with-terra.html#cb110-19" aria-hidden="true" tabindex="-1"></a>                <span class="sc">!</span><span class="fu">is.na</span>(latitude) <span class="sc">&amp;</span></span>
+<span id="cb110-20"><a href="raster-gis-operations-in-r-with-terra.html#cb110-20" aria-hidden="true" tabindex="-1"></a>                captive_cultivated <span class="sc">==</span> <span class="st">&quot;false&quot;</span> <span class="sc">&amp;</span></span>
+<span id="cb110-21"><a href="raster-gis-operations-in-r-with-terra.html#cb110-21" aria-hidden="true" tabindex="-1"></a>                quality_grade <span class="sc">==</span> <span class="st">&quot;research&quot;</span>)</span>
+<span id="cb110-22"><a href="raster-gis-operations-in-r-with-terra.html#cb110-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-23"><a href="raster-gis-operations-in-r-with-terra.html#cb110-23" aria-hidden="true" tabindex="-1"></a><span class="co">#Make the dataframe a spatial object of class = &quot;sf&quot;</span></span>
+<span id="cb110-24"><a href="raster-gis-operations-in-r-with-terra.html#cb110-24" aria-hidden="true" tabindex="-1"></a>pc <span class="ot">&lt;-</span> <span class="fu">st_as_sf</span>(pc, <span class="at">coords =</span> <span class="fu">c</span>(<span class="st">&quot;longitude&quot;</span>, <span class="st">&quot;latitude&quot;</span>), <span class="at">crs =</span> <span class="dv">4326</span>)</span>
+<span id="cb110-25"><a href="raster-gis-operations-in-r-with-terra.html#cb110-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-26"><a href="raster-gis-operations-in-r-with-terra.html#cb110-26" aria-hidden="true" tabindex="-1"></a><span class="co">#Set to the same projection as the elevation data</span></span>
+<span id="cb110-27"><a href="raster-gis-operations-in-r-with-terra.html#cb110-27" aria-hidden="true" tabindex="-1"></a>pc <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(pc, <span class="fu">crs</span>(dem30))</span></code></pre></div>
 <p>Now let’s extract the data to the points.</p>
 <p>NOTE!!! <em>terra</em> doesn’t play nicely with <em>sf</em> objects at this stage, so you need to coerce them into <em>terra’s</em> own vector format using <code>vect()</code>.</p>
-<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="raster-gis-operations-in-r-with-terra.html#cb126-1" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">extract</span>(dem30, <span class="fu">vect</span>(pc)) <span class="co"># note vect()</span></span>
-<span id="cb126-2"><a href="raster-gis-operations-in-r-with-terra.html#cb126-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb126-3"><a href="raster-gis-operations-in-r-with-terra.html#cb126-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(dat)</span></code></pre></div>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="raster-gis-operations-in-r-with-terra.html#cb111-1" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">extract</span>(dem30, <span class="fu">vect</span>(pc)) <span class="co"># note vect()</span></span>
+<span id="cb111-2"><a href="raster-gis-operations-in-r-with-terra.html#cb111-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb111-3"><a href="raster-gis-operations-in-r-with-terra.html#cb111-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(dat)</span></code></pre></div>
 <pre><code>##   ID   10m_BA
-## 1  1 453.2222
-## 2  2 463.3333
-## 3  3 358.5556
-## 4  4 341.2222
-## 5  5 314.6667
-## 6  6 444.8889</code></pre>
+## 1  1 867.0000
+## 2  2 612.0000
+## 3  3 810.3333
+## 4  4 876.2222
+## 5  5 573.2222
+## 6  6 749.3333</code></pre>
 <p>Nice, but not all that handy on it’s own. Let’s add the elevation column to our points layer, so we can match it with the species names and plot.</p>
-<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="raster-gis-operations-in-r-with-terra.html#cb128-1" aria-hidden="true" tabindex="-1"></a>pc<span class="sc">$</span>dem <span class="ot">&lt;-</span> dat<span class="sc">$</span><span class="st">`</span><span class="at">10m_BA</span><span class="st">`</span></span>
-<span id="cb128-2"><a href="raster-gis-operations-in-r-with-terra.html#cb128-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb128-3"><a href="raster-gis-operations-in-r-with-terra.html#cb128-3" aria-hidden="true" tabindex="-1"></a>pc <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb128-4"><a href="raster-gis-operations-in-r-with-terra.html#cb128-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(scientific_name, dem))</span></code></pre></div>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="raster-gis-operations-in-r-with-terra.html#cb113-1" aria-hidden="true" tabindex="-1"></a>pc<span class="sc">$</span>dem <span class="ot">&lt;-</span> dat<span class="sc">$</span><span class="st">`</span><span class="at">10m_BA</span><span class="st">`</span></span>
+<span id="cb113-2"><a href="raster-gis-operations-in-r-with-terra.html#cb113-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb113-3"><a href="raster-gis-operations-in-r-with-terra.html#cb113-3" aria-hidden="true" tabindex="-1"></a>pc <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb113-4"><a href="raster-gis-operations-in-r-with-terra.html#cb113-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(scientific_name, dem))</span></code></pre></div>
 <p><img src="spatial-r_files/figure-html/unnamed-chunk-61-1.png" width="672" /></p>
 <p>(Hmm… do you think those <em>Leucadendron laureolum</em> outliers that must be near Maclear’s Beacon could actually be <em>Leucadendron strobilinum</em>?)</p>
 <p><br></p>
 <p>Ok, that’s handy, but what if we have data lots of rasters? We don’t want to have to do that for every raster! This is where raster stacks come into their own!</p>
-<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="raster-gis-operations-in-r-with-terra.html#cb129-1" aria-hidden="true" tabindex="-1"></a><span class="co">#extract from stack</span></span>
-<span id="cb129-2"><a href="raster-gis-operations-in-r-with-terra.html#cb129-2" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">extract</span>(dstack, <span class="fu">vect</span>(pc)) </span>
-<span id="cb129-3"><a href="raster-gis-operations-in-r-with-terra.html#cb129-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb129-4"><a href="raster-gis-operations-in-r-with-terra.html#cb129-4" aria-hidden="true" tabindex="-1"></a><span class="co">#bind columns to points to match the names</span></span>
-<span id="cb129-5"><a href="raster-gis-operations-in-r-with-terra.html#cb129-5" aria-hidden="true" tabindex="-1"></a>edat <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="fu">as.data.frame</span>(pc), dat)</span>
-<span id="cb129-6"><a href="raster-gis-operations-in-r-with-terra.html#cb129-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb129-7"><a href="raster-gis-operations-in-r-with-terra.html#cb129-7" aria-hidden="true" tabindex="-1"></a><span class="co">#select columns we want and tidy data into long format</span></span>
-<span id="cb129-8"><a href="raster-gis-operations-in-r-with-terra.html#cb129-8" aria-hidden="true" tabindex="-1"></a>edat <span class="ot">&lt;-</span> edat <span class="sc">%&gt;%</span> </span>
-<span id="cb129-9"><a href="raster-gis-operations-in-r-with-terra.html#cb129-9" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(scientific_name, elevation, slope, aspect, shade) <span class="sc">%&gt;%</span> </span>
-<span id="cb129-10"><a href="raster-gis-operations-in-r-with-terra.html#cb129-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="fu">c</span>(elevation, slope, aspect, shade))</span>
-<span id="cb129-11"><a href="raster-gis-operations-in-r-with-terra.html#cb129-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb129-12"><a href="raster-gis-operations-in-r-with-terra.html#cb129-12" aria-hidden="true" tabindex="-1"></a><span class="co">#panel boxplot of the variables extracted</span></span>
-<span id="cb129-13"><a href="raster-gis-operations-in-r-with-terra.html#cb129-13" aria-hidden="true" tabindex="-1"></a>edat <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb129-14"><a href="raster-gis-operations-in-r-with-terra.html#cb129-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(scientific_name, value)) <span class="sc">+</span></span>
-<span id="cb129-15"><a href="raster-gis-operations-in-r-with-terra.html#cb129-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>name, <span class="at">scales =</span> <span class="st">&quot;free&quot;</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="raster-gis-operations-in-r-with-terra.html#cb114-1" aria-hidden="true" tabindex="-1"></a><span class="co">#extract from stack</span></span>
+<span id="cb114-2"><a href="raster-gis-operations-in-r-with-terra.html#cb114-2" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">extract</span>(dstack, <span class="fu">vect</span>(pc)) </span>
+<span id="cb114-3"><a href="raster-gis-operations-in-r-with-terra.html#cb114-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb114-4"><a href="raster-gis-operations-in-r-with-terra.html#cb114-4" aria-hidden="true" tabindex="-1"></a><span class="co">#bind columns to points to match the names</span></span>
+<span id="cb114-5"><a href="raster-gis-operations-in-r-with-terra.html#cb114-5" aria-hidden="true" tabindex="-1"></a>edat <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="fu">as.data.frame</span>(pc), dat)</span>
+<span id="cb114-6"><a href="raster-gis-operations-in-r-with-terra.html#cb114-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb114-7"><a href="raster-gis-operations-in-r-with-terra.html#cb114-7" aria-hidden="true" tabindex="-1"></a><span class="co">#select columns we want and tidy data into long format</span></span>
+<span id="cb114-8"><a href="raster-gis-operations-in-r-with-terra.html#cb114-8" aria-hidden="true" tabindex="-1"></a>edat <span class="ot">&lt;-</span> edat <span class="sc">%&gt;%</span> </span>
+<span id="cb114-9"><a href="raster-gis-operations-in-r-with-terra.html#cb114-9" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(scientific_name, elevation, slope, aspect, shade) <span class="sc">%&gt;%</span> </span>
+<span id="cb114-10"><a href="raster-gis-operations-in-r-with-terra.html#cb114-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="fu">c</span>(elevation, slope, aspect, shade))</span>
+<span id="cb114-11"><a href="raster-gis-operations-in-r-with-terra.html#cb114-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb114-12"><a href="raster-gis-operations-in-r-with-terra.html#cb114-12" aria-hidden="true" tabindex="-1"></a><span class="co">#panel boxplot of the variables extracted</span></span>
+<span id="cb114-13"><a href="raster-gis-operations-in-r-with-terra.html#cb114-13" aria-hidden="true" tabindex="-1"></a>edat <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb114-14"><a href="raster-gis-operations-in-r-with-terra.html#cb114-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(scientific_name, value)) <span class="sc">+</span></span>
+<span id="cb114-15"><a href="raster-gis-operations-in-r-with-terra.html#cb114-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>name, <span class="at">scales =</span> <span class="st">&quot;free&quot;</span>) </span></code></pre></div>
 <p><img src="spatial-r_files/figure-html/unnamed-chunk-62-1.png" width="672" /></p>
 <p><br></p>
 <p>Something I should have mentioned is that if you would like each point to sample a larger region you can add a <code>buffer =</code> argument to the <code>extract()</code> function, and a function (<code>fun =</code>) to summarize the neighbourhood of pixels sampled, like so:</p>
-<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="raster-gis-operations-in-r-with-terra.html#cb130-1" aria-hidden="true" tabindex="-1"></a>pc<span class="sc">$</span>dem30 <span class="ot">&lt;-</span> <span class="fu">extract</span>(dem30, <span class="fu">vect</span>(pc), <span class="at">buffer =</span> <span class="dv">200</span>, <span class="at">fun =</span> mean)<span class="sc">$</span>X10m_BA <span class="co">#Note the sneaky use of $ to access the column I want</span></span>
-<span id="cb130-2"><a href="raster-gis-operations-in-r-with-terra.html#cb130-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb130-3"><a href="raster-gis-operations-in-r-with-terra.html#cb130-3" aria-hidden="true" tabindex="-1"></a>pc <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb130-4"><a href="raster-gis-operations-in-r-with-terra.html#cb130-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(scientific_name, dem30))</span></code></pre></div>
+<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="raster-gis-operations-in-r-with-terra.html#cb115-1" aria-hidden="true" tabindex="-1"></a>pc<span class="sc">$</span>dem30 <span class="ot">&lt;-</span> <span class="fu">extract</span>(dem30, <span class="fu">vect</span>(pc), <span class="at">buffer =</span> <span class="dv">200</span>, <span class="at">fun =</span> mean)<span class="sc">$</span>X10m_BA <span class="co">#Note the sneaky use of $ to access the column I want</span></span>
+<span id="cb115-2"><a href="raster-gis-operations-in-r-with-terra.html#cb115-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb115-3"><a href="raster-gis-operations-in-r-with-terra.html#cb115-3" aria-hidden="true" tabindex="-1"></a>pc <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb115-4"><a href="raster-gis-operations-in-r-with-terra.html#cb115-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(scientific_name, dem30))</span></code></pre></div>
 <p><img src="spatial-r_files/figure-html/unnamed-chunk-63-1.png" width="672" /></p>
 <p><strong>Extract to polygons</strong></p>
 <p>Now let’s try that with our vegetation polygons.</p>
-<div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb131-1"><a href="raster-gis-operations-in-r-with-terra.html#cb131-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Get historical vegetation layer</span></span>
-<span id="cb131-2"><a href="raster-gis-operations-in-r-with-terra.html#cb131-2" aria-hidden="true" tabindex="-1"></a>veg <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="st">&quot;data/cape_peninsula/veg/Vegetation_Indigenous.shp&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="raster-gis-operations-in-r-with-terra.html#cb116-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Get historical vegetation layer</span></span>
+<span id="cb116-2"><a href="raster-gis-operations-in-r-with-terra.html#cb116-2" aria-hidden="true" tabindex="-1"></a>veg <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="st">&quot;data/cape_peninsula/veg/Vegetation_Indigenous.shp&quot;</span>)</span></code></pre></div>
 <pre><code>## Reading layer `Vegetation_Indigenous&#39; from data source 
-##   `/home/jasper/GIT/spatial-r/data/cape_peninsula/veg/Vegetation_Indigenous.shp&#39; 
+##   `/Users/jasper/GIT/spatial-r/data/cape_peninsula/veg/Vegetation_Indigenous.shp&#39; 
 ##   using driver `ESRI Shapefile&#39;
 ## Simple feature collection with 1325 features and 5 fields
 ## Geometry type: POLYGON
 ## Dimension:     XY
 ## Bounding box:  xmin: -63972.95 ymin: -3803535 xmax: 430.8125 ymax: -3705149
 ## Projected CRS: WGS_1984_Transverse_Mercator</code></pre>
-<div class="sourceCode" id="cb133"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb133-1"><a href="raster-gis-operations-in-r-with-terra.html#cb133-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Crop to same extent as DEM</span></span>
-<span id="cb133-2"><a href="raster-gis-operations-in-r-with-terra.html#cb133-2" aria-hidden="true" tabindex="-1"></a>veg <span class="ot">&lt;-</span> <span class="fu">st_crop</span>(veg, <span class="fu">ext</span>(dem30)) <span class="co">#Note that I just fed it the extent of the DEM</span></span></code></pre></div>
-<pre><code>## Warning: attribute variables are assumed to be spatially
-## constant throughout all geometries</code></pre>
-<div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb135-1"><a href="raster-gis-operations-in-r-with-terra.html#cb135-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Best to dissolve polygons first - otherwise you get repeat outputs for each polygon within each veg type</span></span>
-<span id="cb135-2"><a href="raster-gis-operations-in-r-with-terra.html#cb135-2" aria-hidden="true" tabindex="-1"></a>vegsum <span class="ot">&lt;-</span> veg <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(National_) <span class="sc">%&gt;%</span> </span>
-<span id="cb135-3"><a href="raster-gis-operations-in-r-with-terra.html#cb135-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>()</span>
-<span id="cb135-4"><a href="raster-gis-operations-in-r-with-terra.html#cb135-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb135-5"><a href="raster-gis-operations-in-r-with-terra.html#cb135-5" aria-hidden="true" tabindex="-1"></a><span class="co">#Do extraction - note the summary function</span></span>
-<span id="cb135-6"><a href="raster-gis-operations-in-r-with-terra.html#cb135-6" aria-hidden="true" tabindex="-1"></a>vegdem <span class="ot">&lt;-</span> <span class="fu">extract</span>(dem30, <span class="fu">vect</span>(vegsum), <span class="at">fun =</span> mean, <span class="at">na.rm =</span> T)</span>
-<span id="cb135-7"><a href="raster-gis-operations-in-r-with-terra.html#cb135-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb135-8"><a href="raster-gis-operations-in-r-with-terra.html#cb135-8" aria-hidden="true" tabindex="-1"></a><span class="co">#Combine the names and vector extracted means into a dataframe</span></span>
-<span id="cb135-9"><a href="raster-gis-operations-in-r-with-terra.html#cb135-9" aria-hidden="true" tabindex="-1"></a>vegdem <span class="ot">&lt;-</span> <span class="fu">cbind</span>(vegdem, vegsum<span class="sc">$</span>National_)</span>
-<span id="cb135-10"><a href="raster-gis-operations-in-r-with-terra.html#cb135-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb135-11"><a href="raster-gis-operations-in-r-with-terra.html#cb135-11" aria-hidden="true" tabindex="-1"></a><span class="co">#Rename the columns to something meaningful</span></span>
-<span id="cb135-12"><a href="raster-gis-operations-in-r-with-terra.html#cb135-12" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(vegdem) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;ID&quot;</span>, <span class="st">&quot;Mean elevation (m)&quot;</span>, <span class="st">&quot;Vegetation type&quot;</span>)</span>
-<span id="cb135-13"><a href="raster-gis-operations-in-r-with-terra.html#cb135-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb135-14"><a href="raster-gis-operations-in-r-with-terra.html#cb135-14" aria-hidden="true" tabindex="-1"></a><span class="co">#Plot</span></span>
-<span id="cb135-15"><a href="raster-gis-operations-in-r-with-terra.html#cb135-15" aria-hidden="true" tabindex="-1"></a>vegdem <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb135-16"><a href="raster-gis-operations-in-r-with-terra.html#cb135-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="fu">aes</span>(<span class="at">y =</span> <span class="st">`</span><span class="at">Mean elevation (m)</span><span class="st">`</span>, <span class="at">x =</span> <span class="st">`</span><span class="at">Vegetation type</span><span class="st">`</span>)) <span class="sc">+</span></span>
-<span id="cb135-17"><a href="raster-gis-operations-in-r-with-terra.html#cb135-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>, <span class="at">vjust =</span> <span class="fl">0.5</span>, <span class="at">hjust=</span><span class="dv">1</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="raster-gis-operations-in-r-with-terra.html#cb118-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Crop to same extent as DEM</span></span>
+<span id="cb118-2"><a href="raster-gis-operations-in-r-with-terra.html#cb118-2" aria-hidden="true" tabindex="-1"></a>veg <span class="ot">&lt;-</span> <span class="fu">st_crop</span>(veg, <span class="fu">ext</span>(dem30)) <span class="co">#Note that I just fed it the extent of the DEM</span></span>
+<span id="cb118-3"><a href="raster-gis-operations-in-r-with-terra.html#cb118-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-4"><a href="raster-gis-operations-in-r-with-terra.html#cb118-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Best to dissolve polygons first - otherwise you get repeat outputs for each polygon within each veg type</span></span>
+<span id="cb118-5"><a href="raster-gis-operations-in-r-with-terra.html#cb118-5" aria-hidden="true" tabindex="-1"></a>vegsum <span class="ot">&lt;-</span> veg <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(National_) <span class="sc">%&gt;%</span> </span>
+<span id="cb118-6"><a href="raster-gis-operations-in-r-with-terra.html#cb118-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>()</span>
+<span id="cb118-7"><a href="raster-gis-operations-in-r-with-terra.html#cb118-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-8"><a href="raster-gis-operations-in-r-with-terra.html#cb118-8" aria-hidden="true" tabindex="-1"></a><span class="co">#Do extraction - note the summary function</span></span>
+<span id="cb118-9"><a href="raster-gis-operations-in-r-with-terra.html#cb118-9" aria-hidden="true" tabindex="-1"></a>vegdem <span class="ot">&lt;-</span> <span class="fu">extract</span>(dem30, <span class="fu">vect</span>(vegsum), <span class="at">fun =</span> mean, <span class="at">na.rm =</span> T)</span>
+<span id="cb118-10"><a href="raster-gis-operations-in-r-with-terra.html#cb118-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-11"><a href="raster-gis-operations-in-r-with-terra.html#cb118-11" aria-hidden="true" tabindex="-1"></a><span class="co">#Combine the names and vector extracted means into a dataframe</span></span>
+<span id="cb118-12"><a href="raster-gis-operations-in-r-with-terra.html#cb118-12" aria-hidden="true" tabindex="-1"></a>vegdem <span class="ot">&lt;-</span> <span class="fu">cbind</span>(vegdem, vegsum<span class="sc">$</span>National_)</span>
+<span id="cb118-13"><a href="raster-gis-operations-in-r-with-terra.html#cb118-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-14"><a href="raster-gis-operations-in-r-with-terra.html#cb118-14" aria-hidden="true" tabindex="-1"></a><span class="co">#Rename the columns to something meaningful</span></span>
+<span id="cb118-15"><a href="raster-gis-operations-in-r-with-terra.html#cb118-15" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(vegdem) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;ID&quot;</span>, <span class="st">&quot;Mean elevation (m)&quot;</span>, <span class="st">&quot;Vegetation type&quot;</span>)</span>
+<span id="cb118-16"><a href="raster-gis-operations-in-r-with-terra.html#cb118-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-17"><a href="raster-gis-operations-in-r-with-terra.html#cb118-17" aria-hidden="true" tabindex="-1"></a><span class="co">#Plot</span></span>
+<span id="cb118-18"><a href="raster-gis-operations-in-r-with-terra.html#cb118-18" aria-hidden="true" tabindex="-1"></a>vegdem <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb118-19"><a href="raster-gis-operations-in-r-with-terra.html#cb118-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="fu">aes</span>(<span class="at">y =</span> <span class="st">`</span><span class="at">Mean elevation (m)</span><span class="st">`</span>, <span class="at">x =</span> <span class="st">`</span><span class="at">Vegetation type</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb118-20"><a href="raster-gis-operations-in-r-with-terra.html#cb118-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>, <span class="at">vjust =</span> <span class="fl">0.5</span>, <span class="at">hjust=</span><span class="dv">1</span>))</span></code></pre></div>
 <p><img src="spatial-r_files/figure-html/unnamed-chunk-64-1.png" width="672" /></p>
 <p>Ok, I did a lot of things there…, but you get it right? Note that I applied a function to the <code>extract()</code> to summarize the output, because each polygon usually returns multiple raster cell values. You can choose (or code up) your own function.</p>
 <p><br></p>
 <p>Here’s a different approach…</p>
 <p><br></p>
 </div>
-<div id="rasterizing" class="section level2" number="8.10">
-<h2><span class="header-section-number">8.10</span> Rasterizing</h2>
+<div id="rasterizing" class="section level2 hasAnchor" number="8.10">
+<h2><span class="header-section-number">8.10</span> Rasterizing<a href="raster-gis-operations-in-r-with-terra.html#rasterizing" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p><em>Rasterizing</em> essentially means turning a vector layer into a raster. To rasterize, you need an existing raster grid to rasterize to, like <code>dem30</code> in this case.</p>
-<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="raster-gis-operations-in-r-with-terra.html#cb136-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Make the vegetation type a factor</span></span>
-<span id="cb136-2"><a href="raster-gis-operations-in-r-with-terra.html#cb136-2" aria-hidden="true" tabindex="-1"></a>vegsum<span class="sc">$</span>National_ <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(vegsum<span class="sc">$</span>National_)</span>
-<span id="cb136-3"><a href="raster-gis-operations-in-r-with-terra.html#cb136-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb136-4"><a href="raster-gis-operations-in-r-with-terra.html#cb136-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Rasterize</span></span>
-<span id="cb136-5"><a href="raster-gis-operations-in-r-with-terra.html#cb136-5" aria-hidden="true" tabindex="-1"></a>vegras <span class="ot">&lt;-</span> <span class="fu">rasterize</span>(<span class="fu">vect</span>(vegsum), dem30, <span class="at">field =</span> <span class="st">&quot;National_&quot;</span>)</span>
-<span id="cb136-6"><a href="raster-gis-operations-in-r-with-terra.html#cb136-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb136-7"><a href="raster-gis-operations-in-r-with-terra.html#cb136-7" aria-hidden="true" tabindex="-1"></a><span class="co">#Plot</span></span>
-<span id="cb136-8"><a href="raster-gis-operations-in-r-with-terra.html#cb136-8" aria-hidden="true" tabindex="-1"></a>vegras <span class="sc">%&gt;%</span> </span>
-<span id="cb136-9"><a href="raster-gis-operations-in-r-with-terra.html#cb136-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>(<span class="at">xy =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb136-10"><a href="raster-gis-operations-in-r-with-terra.html#cb136-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb136-11"><a href="raster-gis-operations-in-r-with-terra.html#cb136-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_raster</span>(<span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">fill =</span> National_))</span></code></pre></div>
+<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="raster-gis-operations-in-r-with-terra.html#cb119-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Make the vegetation type a factor</span></span>
+<span id="cb119-2"><a href="raster-gis-operations-in-r-with-terra.html#cb119-2" aria-hidden="true" tabindex="-1"></a>vegsum<span class="sc">$</span>National_ <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(vegsum<span class="sc">$</span>National_)</span>
+<span id="cb119-3"><a href="raster-gis-operations-in-r-with-terra.html#cb119-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb119-4"><a href="raster-gis-operations-in-r-with-terra.html#cb119-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Rasterize</span></span>
+<span id="cb119-5"><a href="raster-gis-operations-in-r-with-terra.html#cb119-5" aria-hidden="true" tabindex="-1"></a>vegras <span class="ot">&lt;-</span> <span class="fu">rasterize</span>(<span class="fu">vect</span>(vegsum), dem30, <span class="at">field =</span> <span class="st">&quot;National_&quot;</span>)</span>
+<span id="cb119-6"><a href="raster-gis-operations-in-r-with-terra.html#cb119-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb119-7"><a href="raster-gis-operations-in-r-with-terra.html#cb119-7" aria-hidden="true" tabindex="-1"></a><span class="co">#Plot</span></span>
+<span id="cb119-8"><a href="raster-gis-operations-in-r-with-terra.html#cb119-8" aria-hidden="true" tabindex="-1"></a>vegras <span class="sc">%&gt;%</span> </span>
+<span id="cb119-9"><a href="raster-gis-operations-in-r-with-terra.html#cb119-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>(<span class="at">xy =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb119-10"><a href="raster-gis-operations-in-r-with-terra.html#cb119-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb119-11"><a href="raster-gis-operations-in-r-with-terra.html#cb119-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_raster</span>(<span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">fill =</span> National_))</span></code></pre></div>
 <p><img src="spatial-r_files/figure-html/unnamed-chunk-65-1.png" width="528" /></p>
-<p>I’m sure this plot is a surprise to those who worked with <em>raster</em>. Usually rasters want to work with numbers. <em>terra</em> can work with (and rasterize) data of class “factor,” opening up all kinds of opportunities.</p>
+<p>I’m sure this plot is a surprise to those who worked with <em>raster</em>. Usually rasters want to work with numbers. <em>terra</em> can work with (and rasterize) data of class “factor”, opening up all kinds of opportunities.</p>
 <p><br></p>
 </div>
-<div id="visualizing-multiple-datasets-on-one-map" class="section level2" number="8.11">
-<h2><span class="header-section-number">8.11</span> Visualizing multiple datasets on one map</h2>
+<div id="visualizing-multiple-datasets-on-one-map" class="section level2 hasAnchor" number="8.11">
+<h2><span class="header-section-number">8.11</span> Visualizing multiple datasets on one map<a href="raster-gis-operations-in-r-with-terra.html#visualizing-multiple-datasets-on-one-map" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>What about if we want to plot multiple datasets on one map?</p>
 <p>This is easy, if you can feed each dataset into a separate ggplot function. Here’s the veg types with contours and the iNaturalist records we retrieved earlier.</p>
-<div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb137-1"><a href="raster-gis-operations-in-r-with-terra.html#cb137-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb137-2"><a href="raster-gis-operations-in-r-with-terra.html#cb137-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_raster</span>(<span class="at">data =</span> <span class="fu">as.data.frame</span>(vegras, <span class="at">xy =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb137-3"><a href="raster-gis-operations-in-r-with-terra.html#cb137-3" aria-hidden="true" tabindex="-1"></a>              <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">fill =</span> National_)) <span class="sc">+</span></span>
-<span id="cb137-4"><a href="raster-gis-operations-in-r-with-terra.html#cb137-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_contour</span>(<span class="at">data =</span> <span class="fu">as.data.frame</span>(dem30, <span class="at">xy =</span> <span class="cn">TRUE</span>), </span>
-<span id="cb137-5"><a href="raster-gis-operations-in-r-with-terra.html#cb137-5" aria-hidden="true" tabindex="-1"></a>               <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">z =</span> <span class="st">`</span><span class="at">10m_BA</span><span class="st">`</span>), <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1100</span>, <span class="dv">100</span>), <span class="at">colour =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
-<span id="cb137-6"><a href="raster-gis-operations-in-r-with-terra.html#cb137-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data=</span>pc, <span class="at">colour =</span> <span class="st">&quot;white&quot;</span>, <span class="at">size =</span> <span class="fl">0.5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="raster-gis-operations-in-r-with-terra.html#cb120-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb120-2"><a href="raster-gis-operations-in-r-with-terra.html#cb120-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_raster</span>(<span class="at">data =</span> <span class="fu">as.data.frame</span>(vegras, <span class="at">xy =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb120-3"><a href="raster-gis-operations-in-r-with-terra.html#cb120-3" aria-hidden="true" tabindex="-1"></a>              <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">fill =</span> National_)) <span class="sc">+</span></span>
+<span id="cb120-4"><a href="raster-gis-operations-in-r-with-terra.html#cb120-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_contour</span>(<span class="at">data =</span> <span class="fu">as.data.frame</span>(dem30, <span class="at">xy =</span> <span class="cn">TRUE</span>), </span>
+<span id="cb120-5"><a href="raster-gis-operations-in-r-with-terra.html#cb120-5" aria-hidden="true" tabindex="-1"></a>               <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">z =</span> <span class="st">`</span><span class="at">10m_BA</span><span class="st">`</span>), <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1100</span>, <span class="dv">100</span>), <span class="at">colour =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
+<span id="cb120-6"><a href="raster-gis-operations-in-r-with-terra.html#cb120-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data=</span>pc, <span class="at">colour =</span> <span class="st">&quot;white&quot;</span>, <span class="at">size =</span> <span class="fl">0.5</span>)</span></code></pre></div>
 <p><img src="spatial-r_files/figure-html/unnamed-chunk-66-1.png" width="576" /></p>
 <p>For more inspiration on mapping with R, check out <a href="https://slingsby-maps.myshopify.com/" class="uri">https://slingsby-maps.myshopify.com/</a>. I’ve been generating the majority of the basemap (terrain colour, hillshade, contours, streams, etc) for these in R for the past few years.</p>
 <p><br></p>
 </div>
-<div id="cloud-optimized-geotiffs-cogs" class="section level2" number="8.12">
-<h2><span class="header-section-number">8.12</span> Cloud Optimized GeoTiffs (COGs)!!!</h2>
+<div id="cloud-optimized-geotiffs-cogs" class="section level2 hasAnchor" number="8.12">
+<h2><span class="header-section-number">8.12</span> Cloud Optimized GeoTiffs (COGs)!!!<a href="raster-gis-operations-in-r-with-terra.html#cloud-optimized-geotiffs-cogs" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>I thought I’d add this as a bonus section, reinforcing the value of standardized open metadata and file formats from the <a href="https://www.ecologi.st/data-management/data.html#describe">Data Management</a> module.</p>
 <p>First, let’s open a connection to our COG, which is stored in the cloud. To do this, we need to pass a URL to the file’s online location to <em>terra</em>.</p>
-<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="raster-gis-operations-in-r-with-terra.html#cb138-1" aria-hidden="true" tabindex="-1"></a>cog.url <span class="ot">&lt;-</span> <span class="st">&quot;/vsicurl/https://storage.googleapis.com/grootbos-tiff/grootbos_cog.tif&quot;</span></span>
-<span id="cb138-2"><a href="raster-gis-operations-in-r-with-terra.html#cb138-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb138-3"><a href="raster-gis-operations-in-r-with-terra.html#cb138-3" aria-hidden="true" tabindex="-1"></a>grootbos <span class="ot">&lt;-</span> <span class="fu">rast</span>(cog.url)</span>
-<span id="cb138-4"><a href="raster-gis-operations-in-r-with-terra.html#cb138-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb138-5"><a href="raster-gis-operations-in-r-with-terra.html#cb138-5" aria-hidden="true" tabindex="-1"></a>grootbos</span></code></pre></div>
+<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="raster-gis-operations-in-r-with-terra.html#cb121-1" aria-hidden="true" tabindex="-1"></a>cog.url <span class="ot">&lt;-</span> <span class="st">&quot;/vsicurl/https://storage.googleapis.com/grootbos-tiff/grootbos_cog.tif&quot;</span></span>
+<span id="cb121-2"><a href="raster-gis-operations-in-r-with-terra.html#cb121-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb121-3"><a href="raster-gis-operations-in-r-with-terra.html#cb121-3" aria-hidden="true" tabindex="-1"></a>grootbos <span class="ot">&lt;-</span> <span class="fu">rast</span>(cog.url)</span>
+<span id="cb121-4"><a href="raster-gis-operations-in-r-with-terra.html#cb121-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb121-5"><a href="raster-gis-operations-in-r-with-terra.html#cb121-5" aria-hidden="true" tabindex="-1"></a>grootbos</span></code></pre></div>
 <pre><code>## class       : SpatRaster 
 ## dimensions  : 100024, 121627, 3  (nrow, ncol, nlyr)
 ## resolution  : 0.08, 0.08  (x, y)
@@ -634,29 +617,29 @@ div.csl-indent {
 ## names       : grootbos_cog_1, grootbos_cog_2, grootbos_cog_3</code></pre>
 <p>This has given us the metadata about the file, but has not read it into R’s memory. The file is ~1.8GB so it would do bad things if we tried to read the whole thing in…</p>
 <p>Now let’s retrieve a subset of the file. To do this we need to make a vector polygon for our region of interest, like so:</p>
-<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="raster-gis-operations-in-r-with-terra.html#cb140-1" aria-hidden="true" tabindex="-1"></a>roi <span class="ot">&lt;-</span> <span class="fu">vect</span>(<span class="fu">data.frame</span>(<span class="at">lon =</span> <span class="fu">c</span>(<span class="fl">19.433975</span>, <span class="fl">19.436451</span>),</span>
-<span id="cb140-2"><a href="raster-gis-operations-in-r-with-terra.html#cb140-2" aria-hidden="true" tabindex="-1"></a>                       <span class="at">lat =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">34.522733</span>, <span class="sc">-</span><span class="fl">34.520735</span>)),</span>
-<span id="cb140-3"><a href="raster-gis-operations-in-r-with-terra.html#cb140-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">crs =</span> <span class="st">&quot;epsg:4326&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="raster-gis-operations-in-r-with-terra.html#cb123-1" aria-hidden="true" tabindex="-1"></a>roi <span class="ot">&lt;-</span> <span class="fu">vect</span>(<span class="fu">data.frame</span>(<span class="at">lon =</span> <span class="fu">c</span>(<span class="fl">19.433975</span>, <span class="fl">19.436451</span>),</span>
+<span id="cb123-2"><a href="raster-gis-operations-in-r-with-terra.html#cb123-2" aria-hidden="true" tabindex="-1"></a>                       <span class="at">lat =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">34.522733</span>, <span class="sc">-</span><span class="fl">34.520735</span>)),</span>
+<span id="cb123-3"><a href="raster-gis-operations-in-r-with-terra.html#cb123-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">crs =</span> <span class="st">&quot;epsg:4326&quot;</span>)</span></code></pre></div>
 <p>And transform it to the same projection as the COG:</p>
-<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="raster-gis-operations-in-r-with-terra.html#cb141-1" aria-hidden="true" tabindex="-1"></a>roi <span class="ot">&lt;-</span> <span class="fu">project</span>(roi, <span class="fu">crs</span>(grootbos))</span></code></pre></div>
+<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="raster-gis-operations-in-r-with-terra.html#cb124-1" aria-hidden="true" tabindex="-1"></a>roi <span class="ot">&lt;-</span> <span class="fu">project</span>(roi, <span class="fu">crs</span>(grootbos))</span></code></pre></div>
 <p>And then extract our ROI</p>
-<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="raster-gis-operations-in-r-with-terra.html#cb142-1" aria-hidden="true" tabindex="-1"></a>roi_ras <span class="ot">&lt;-</span> <span class="fu">crop</span>(grootbos, roi)</span>
-<span id="cb142-2"><a href="raster-gis-operations-in-r-with-terra.html#cb142-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb142-3"><a href="raster-gis-operations-in-r-with-terra.html#cb142-3" aria-hidden="true" tabindex="-1"></a>roi_ras</span></code></pre></div>
+<div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="raster-gis-operations-in-r-with-terra.html#cb125-1" aria-hidden="true" tabindex="-1"></a>roi_ras <span class="ot">&lt;-</span> <span class="fu">crop</span>(grootbos, roi)</span>
+<span id="cb125-2"><a href="raster-gis-operations-in-r-with-terra.html#cb125-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb125-3"><a href="raster-gis-operations-in-r-with-terra.html#cb125-3" aria-hidden="true" tabindex="-1"></a>roi_ras</span></code></pre></div>
 <pre><code>## class       : SpatRaster 
 ## dimensions  : 2758, 2853, 3  (nrow, ncol, nlyr)
 ## resolution  : 0.08, 0.08  (x, y)
 ## extent      : 39845.61, 40073.85, -3821732, -3821512  (xmin, xmax, ymin, ymax)
 ## coord. ref. : LO19 
-## source      : spat_4sNq2j4MElbiml2_18837.tif 
+## source(s)   : memory
 ## colors RGB  : 1, 2, 3 
 ## names       : grootbos_cog_1, grootbos_cog_2, grootbos_cog_3 
-## min values  :             26,             48,             56 
+## min values  :             28,             47,             56 
 ## max values  :            255,            255,            255</code></pre>
 <p>Now we have a raster with 3 layers in memory. There are Red Green and Blue, so we should be able to plot them, like so:</p>
-<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="raster-gis-operations-in-r-with-terra.html#cb144-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotRGB</span>(roi_ras)</span></code></pre></div>
+<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="raster-gis-operations-in-r-with-terra.html#cb127-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotRGB</span>(roi_ras)</span></code></pre></div>
 <p><img src="spatial-r_files/figure-html/unnamed-chunk-71-1.png" width="672" /></p>
-<p>Familiar?</p>
+<p>This somewhat arbitrary looking site is where we did some fieldwork with the 2022 class…</p>
 
 </div>
 </div>
@@ -666,7 +649,7 @@ div.csl-indent {
         </div>
       </div>
 <a href="rdemo.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="raster-gis-operations-in-r.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="old-raster-gis-operations-in-r-with-raster.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -726,7 +709,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');

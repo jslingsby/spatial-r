@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>5 Some important concepts and pitfalls | A Minimal Introduction to GIS (in R)</title>
   <meta name="description" content="This is a minimal introduction to GIS and handling spatial data in R compiled for the Biological Sciences BSc(Honours) class at the University of Cape Town." />
-  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.32 and GitBook 2.6.7" />
 
   <meta property="og:title" content="5 Some important concepts and pitfalls | A Minimal Introduction to GIS (in R)" />
   <meta property="og:type" content="book" />
-  
   
   <meta property="og:description" content="This is a minimal introduction to GIS and handling spatial data in R compiled for the Biological Sciences BSc(Honours) class at the University of Cape Town." />
   <meta name="github-repo" content="jslingsby/spatial-r" />
@@ -24,7 +23,7 @@
 <meta name="author" content="Jasper Slingsby" />
 
 
-<meta name="date" content="2022-04-14" />
+<meta name="date" content="2023-03-05" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +32,6 @@
   
 <link rel="prev" href="gis-data-models-and-file-formats.html"/>
 <link rel="next" href="r-as-a-gis.html"/>
-<script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -51,105 +49,12 @@
 
 
 
-<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
-<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
-<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
-<script src="libs/leaflet-1.3.1/leaflet.js"></script>
-<link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
-<script src="libs/proj4-2.6.2/proj4.min.js"></script>
-<script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
-<link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
-<script src="libs/leaflet-binding-2.1.1/leaflet.js"></script>
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 
 
-<style type="text/css">
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-</style>
 
-<style type="text/css">
-/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-}
-.hanging div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}
-</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -247,18 +152,18 @@ div.csl-indent {
 <li class="chapter" data-level="8.11" data-path="raster-gis-operations-in-r-with-terra.html"><a href="raster-gis-operations-in-r-with-terra.html#visualizing-multiple-datasets-on-one-map"><i class="fa fa-check"></i><b>8.11</b> Visualizing multiple datasets on one map</a></li>
 <li class="chapter" data-level="8.12" data-path="raster-gis-operations-in-r-with-terra.html"><a href="raster-gis-operations-in-r-with-terra.html#cloud-optimized-geotiffs-cogs"><i class="fa fa-check"></i><b>8.12</b> Cloud Optimized GeoTiffs (COGs)!!!</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="raster-gis-operations-in-r.html"><a href="raster-gis-operations-in-r.html"><i class="fa fa-check"></i><b>9</b> Raster GIS operations in R</a>
+<li class="chapter" data-level="9" data-path="old-raster-gis-operations-in-r-with-raster.html"><a href="old-raster-gis-operations-in-r-with-raster.html"><i class="fa fa-check"></i><b>9</b> (Old!) Raster GIS operations in R with <em>raster</em></a>
 <ul>
-<li class="chapter" data-level="9.1" data-path="raster-gis-operations-in-r.html"><a href="raster-gis-operations-in-r.html#reading-in-data-1"><i class="fa fa-check"></i><b>9.1</b> Reading in data</a></li>
-<li class="chapter" data-level="9.2" data-path="raster-gis-operations-in-r.html"><a href="raster-gis-operations-in-r.html#cropping-2"><i class="fa fa-check"></i><b>9.2</b> Cropping</a></li>
-<li class="chapter" data-level="9.3" data-path="raster-gis-operations-in-r.html"><a href="raster-gis-operations-in-r.html#aggregating-resampling-1"><i class="fa fa-check"></i><b>9.3</b> Aggregating / Resampling</a></li>
-<li class="chapter" data-level="9.4" data-path="raster-gis-operations-in-r.html"><a href="raster-gis-operations-in-r.html#basic-plotting-2"><i class="fa fa-check"></i><b>9.4</b> Basic plotting</a></li>
-<li class="chapter" data-level="9.5" data-path="raster-gis-operations-in-r.html"><a href="raster-gis-operations-in-r.html#disaggregating-1"><i class="fa fa-check"></i><b>9.5</b> Disaggregating</a></li>
-<li class="chapter" data-level="9.6" data-path="raster-gis-operations-in-r.html"><a href="raster-gis-operations-in-r.html#raster-maths-1"><i class="fa fa-check"></i><b>9.6</b> Raster maths!</a></li>
-<li class="chapter" data-level="9.7" data-path="raster-gis-operations-in-r.html"><a href="raster-gis-operations-in-r.html#focal-and-terrain-calculations-1"><i class="fa fa-check"></i><b>9.7</b> Focal and terrain calculations</a></li>
-<li class="chapter" data-level="9.8" data-path="raster-gis-operations-in-r.html"><a href="raster-gis-operations-in-r.html#raster-stacks-1"><i class="fa fa-check"></i><b>9.8</b> Raster stacks</a></li>
-<li class="chapter" data-level="9.9" data-path="raster-gis-operations-in-r.html"><a href="raster-gis-operations-in-r.html#extracting-raster-to-vector-1"><i class="fa fa-check"></i><b>9.9</b> Extracting raster to vector</a></li>
-<li class="chapter" data-level="9.10" data-path="raster-gis-operations-in-r.html"><a href="raster-gis-operations-in-r.html#rasterizing-1"><i class="fa fa-check"></i><b>9.10</b> Rasterizing</a></li>
+<li class="chapter" data-level="9.1" data-path="old-raster-gis-operations-in-r-with-raster.html"><a href="old-raster-gis-operations-in-r-with-raster.html#reading-in-data-1"><i class="fa fa-check"></i><b>9.1</b> Reading in data</a></li>
+<li class="chapter" data-level="9.2" data-path="old-raster-gis-operations-in-r-with-raster.html"><a href="old-raster-gis-operations-in-r-with-raster.html#cropping-2"><i class="fa fa-check"></i><b>9.2</b> Cropping</a></li>
+<li class="chapter" data-level="9.3" data-path="old-raster-gis-operations-in-r-with-raster.html"><a href="old-raster-gis-operations-in-r-with-raster.html#aggregating-resampling-1"><i class="fa fa-check"></i><b>9.3</b> Aggregating / Resampling</a></li>
+<li class="chapter" data-level="9.4" data-path="old-raster-gis-operations-in-r-with-raster.html"><a href="old-raster-gis-operations-in-r-with-raster.html#basic-plotting-2"><i class="fa fa-check"></i><b>9.4</b> Basic plotting</a></li>
+<li class="chapter" data-level="9.5" data-path="old-raster-gis-operations-in-r-with-raster.html"><a href="old-raster-gis-operations-in-r-with-raster.html#disaggregating-1"><i class="fa fa-check"></i><b>9.5</b> Disaggregating</a></li>
+<li class="chapter" data-level="9.6" data-path="old-raster-gis-operations-in-r-with-raster.html"><a href="old-raster-gis-operations-in-r-with-raster.html#raster-maths-1"><i class="fa fa-check"></i><b>9.6</b> Raster maths!</a></li>
+<li class="chapter" data-level="9.7" data-path="old-raster-gis-operations-in-r-with-raster.html"><a href="old-raster-gis-operations-in-r-with-raster.html#focal-and-terrain-calculations-1"><i class="fa fa-check"></i><b>9.7</b> Focal and terrain calculations</a></li>
+<li class="chapter" data-level="9.8" data-path="old-raster-gis-operations-in-r-with-raster.html"><a href="old-raster-gis-operations-in-r-with-raster.html#raster-stacks-1"><i class="fa fa-check"></i><b>9.8</b> Raster stacks</a></li>
+<li class="chapter" data-level="9.9" data-path="old-raster-gis-operations-in-r-with-raster.html"><a href="old-raster-gis-operations-in-r-with-raster.html#extracting-raster-to-vector-1"><i class="fa fa-check"></i><b>9.9</b> Extracting raster to vector</a></li>
+<li class="chapter" data-level="9.10" data-path="old-raster-gis-operations-in-r-with-raster.html"><a href="old-raster-gis-operations-in-r-with-raster.html#rasterizing-1"><i class="fa fa-check"></i><b>9.10</b> Rasterizing</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
@@ -281,10 +186,10 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="some-important-concepts-and-pitfalls" class="section level1" number="5">
-<h1><span class="header-section-number">5</span> Some important concepts and pitfalls</h1>
-<div id="scale" class="section level2" number="5.1">
-<h2><span class="header-section-number">5.1</span> Scale</h2>
+<div id="some-important-concepts-and-pitfalls" class="section level1 hasAnchor" number="5">
+<h1><span class="header-section-number">5</span> Some important concepts and pitfalls<a href="some-important-concepts-and-pitfalls.html#some-important-concepts-and-pitfalls" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="scale" class="section level2 hasAnchor" number="5.1">
+<h2><span class="header-section-number">5.1</span> Scale<a href="some-important-concepts-and-pitfalls.html#scale" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>All maps have a scale. Scale is the ratio between the size of the representation of an object and its size in reality. E.g. objects on a 1:50,000 scale map are drawn at 1/50,000 their size, so 1cm on the map represents a distance of 500m in reality (i.e. <span class="math inline">\(1*50,000 = 50,000cm = 500m\)</span>).</p>
 <p><br></p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:onein50"></span>
@@ -329,15 +234,15 @@ Figure 5.3: The difference between accuracy and precision, where the true value 
 <p><br></p>
 <p><strong>A last word on Scale…</strong></p>
 <p>For vector data, we typically refer to scale when describing a data set.</p>
-<p>For raster data, we typically refer to pixel resolution (or sample interval). For example, a 30m digital elevation model is made up of pixels 30m across. For remotely sensed imagery (i.e. from drone, plane or satellite), one often uses the term “ground sample distance.”</p>
+<p>For raster data, we typically refer to pixel resolution (or sample interval). For example, a 30m digital elevation model is made up of pixels 30m across. For remotely sensed imagery (i.e. from drone, plane or satellite), one often uses the term “ground sample distance”.</p>
 <p><strong><em>BEWARE!!!</em></strong> If you convert between raster and vector data formats (e.g. by “rasterizing” a vector layer, or “binning” a raster into polygons), it <strong><em>will</em></strong> affect all three of <em>precision, accuracy</em> and <em>representation</em>, so you need to give careful thought to whether what you are doing is appropriate for the analysis you are doing!</p>
 <p><br></p>
 </div>
-<div id="coordinate-reference-systems-crs" class="section level2" number="5.2">
-<h2><span class="header-section-number">5.2</span> Coordinate Reference Systems (CRS)</h2>
+<div id="coordinate-reference-systems-crs" class="section level2 hasAnchor" number="5.2">
+<h2><span class="header-section-number">5.2</span> Coordinate Reference Systems (CRS)<a href="some-important-concepts-and-pitfalls.html#coordinate-reference-systems-crs" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Coordinate Reference Systems (CRS) provide a framework for defining real-world locations. There are many different CRSs, with different properties. They can be a minefield, and I don’t have the time to cover them in any detail. I provide some of the basics here, and list some of the golden rules (mostly from the GIS Support Unit) below.</p>
-<div id="geographic-or-unprojected-coordinate-systems" class="section level3" number="5.2.1">
-<h3><span class="header-section-number">5.2.1</span> Geographic (or “unprojected”) Coordinate Systems</h3>
+<div id="geographic-or-unprojected-coordinate-systems" class="section level3 hasAnchor" number="5.2.1">
+<h3><span class="header-section-number">5.2.1</span> Geographic (or “unprojected”) Coordinate Systems<a href="some-important-concepts-and-pitfalls.html#geographic-or-unprojected-coordinate-systems" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The most common coordinate system is latitude/longitude, also known as <em>geographic</em>, lat/long or sometimes <em>WGS84</em>. There are many ways to record geographic coordinates:</p>
 <ul>
 <li>Degrees, Minutes &amp; Seconds: S33°26’46”,E18°10’23’’</li>
@@ -359,8 +264,8 @@ Figure 5.4: Map highlighting that a degree is larger at the equator than at the 
 <p>This means that Euclidean measurement calculations are not appropriate for calculating areas and distances.</p>
 <p><br></p>
 </div>
-<div id="projection" class="section level3" number="5.2.2">
-<h3><span class="header-section-number">5.2.2</span> Projected Coordinate Systems</h3>
+<div id="projection" class="section level3 hasAnchor" number="5.2.2">
+<h3><span class="header-section-number">5.2.2</span> Projected Coordinate Systems<a href="some-important-concepts-and-pitfalls.html#projection" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>To perform linear measurements from a 3D shape using Euclidean methods, you need to squash that shape into a 2D plane. This <em>squashing</em> is called a <em>projection</em>…</p>
 <p><br></p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:naartjie"></span>
@@ -379,37 +284,37 @@ Figure 5.5: How many different ways could you flatten a naartjie peel?
 </ul>
 <p>(see <a href="https://www.e-education.psu.edu/natureofgeoinfo/c2_p29.html">here</a> for a nice description and illustrations)</p>
 <p>Some “general purpose” projections, like <em>Transverse Mercator (TM)</em>, try to compromise and minimize distortion in all properties, but can’t preserve any perfectly. Their distortions also tend to get worse the larger the spatial extent being analyzed.</p>
-<p>Projections get tuned to best fit an area through the use of projection parameters. For example, <em>Transverse Mercator</em>, which is used by the 1:50,000 map series and by Municipalities like Cape Town, uses a narrow projection window of 2 degree-wide bands. As a result, our map series projection parameters are set by moving the central meridian (or tangent) line of longitude every odd degree across the country. Cape Town is close to 19°E, so our version is colloquially called ‘Lo19.’ For Durban you’d use ‘Lo31.’ <em>Universal Transverse Mercator (UTM)</em> is similar, but uses 6 degree-wide bands so that it can be applied across larger extents.</p>
+<p>Projections get tuned to best fit an area through the use of projection parameters. For example, <em>Transverse Mercator</em>, which is used by the 1:50,000 map series and by Municipalities like Cape Town, uses a narrow projection window of 2 degree-wide bands. As a result, our map series projection parameters are set by moving the central meridian (or tangent) line of longitude every odd degree across the country. Cape Town is close to 19°E, so our version is colloquially called ‘Lo19’. For Durban you’d use ‘Lo31’. <em>Universal Transverse Mercator (UTM)</em> is similar, but uses 6 degree-wide bands so that it can be applied across larger extents.</p>
 <p><br></p>
 </div>
-<div id="projection-codes" class="section level3" number="5.2.3">
-<h3><span class="header-section-number">5.2.3</span> Projection codes</h3>
+<div id="projection-codes" class="section level3 hasAnchor" number="5.2.3">
+<h3><span class="header-section-number">5.2.3</span> Projection codes<a href="some-important-concepts-and-pitfalls.html#projection-codes" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The type of CRS is usually (but not always) stored in the metadata of your file (or dataset, if it is comprised of multiple files like an ESRI shapefile). There are various formats for this, the most commonly used in R being known as EPSG, PROJ4 or WKT codes or strings (be warned, there are many more…). To assign a CRS or reproject your data in R you need to know the appropriate code in the format required by the function. Fortunately, there is a huge online library of the codes at <a href="https://spatialreference.org/">https://spatialreference.org/</a>. I also provide <strong>some suggested projections</strong>, based on the properties you’d like to preserve, and their codes <a href="https://docs.google.com/spreadsheets/d/1Hvkub7syQNP6GsgaSh5SZNEd3VR9-9j94M5W-hmvm24/edit?usp=sharing">here</a>. Note that for UTM and TM you may need to adjust the PROJ4 strings for your area - read the comments.</p>
 <p><br></p>
 <p><strong>Why do projections matter?</strong></p>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:africaporjected"></span>
-<img src="spatial-r_files/figure-html/africaporjected-1.png" alt="Africa, visualized with different coordinate reference systems. All four maps are different, even if the differences may be subtle!" width="672" />
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:africaprojected"></span>
+<img src="spatial-r_files/figure-html/africaprojected-1.png" alt="Africa, visualized with different coordinate reference systems. All four maps are different, even if the differences may be subtle!" width="672" />
 <p class="caption">
 Figure 5.6: Africa, visualized with different coordinate reference systems. All four maps are different, even if the differences may be subtle!
 </p>
 </div>
 <p><br></p>
 </div>
-<div id="on-the-fly-vs-manual-projection" class="section level3" number="5.2.4">
-<h3><span class="header-section-number">5.2.4</span> “On the fly” vs manual projection</h3>
+<div id="on-the-fly-vs-manual-projection" class="section level3 hasAnchor" number="5.2.4">
+<h3><span class="header-section-number">5.2.4</span> “On the fly” vs manual projection<a href="some-important-concepts-and-pitfalls.html#on-the-fly-vs-manual-projection" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Note that some GIS tools can perform “on the fly” (re)projection of data. For example, by default ArcGIS sets the CRS for a project from the first dataset imported. When you want to visualize the data, it will reproject all other datasets to the set CRS so that it can visualize it properly. Similarly, ArcGIS and other software can project data in a geographic CRS to a projected CRS on the fly when asked to perform Euclidean measurement calculations.</p>
 <p>On the fly projection can clearly be very useful, but it can also be misleading if you don’t know what its doing. My take is that you should always check the default settings for the software you’re using, and check the set CRS(s) and individual dataset CRS(s) to make sure you are working in a suitable CRS for the operations you want to perform…</p>
 <p><br></p>
 </div>
-<div id="the-golden-rules" class="section level3" number="5.2.5">
-<h3><span class="header-section-number">5.2.5</span> The golden rules…</h3>
+<div id="the-golden-rules" class="section level3 hasAnchor" number="5.2.5">
+<h3><span class="header-section-number">5.2.5</span> The golden rules…<a href="some-important-concepts-and-pitfalls.html#the-golden-rules" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ol style="list-style-type: decimal">
 <li>If things don’t line up, its probably a CRS issue.</li>
 <li>You need to <strong><em>know what CRS your dataset is in</em></strong>.</li>
 </ol>
 <ul>
 <li>This is essential, because you need to <em>define</em> your projections to be able to compare datasets. If they are not the same, you will need to <em>reproject</em> one to align with the other*.</li>
-<li>If your datasets are not in the same CRS, most GIS software will give you warning or error messages, but not always! Note that not all file formats store the CRS “metadata,” so check and store it yourself if needed!</li>
+<li>If your datasets are not in the same CRS, most GIS software will give you warning or error messages, but not always! Note that not all file formats store the CRS “metadata”, so check and store it yourself if needed!</li>
 </ul>
 <ol start="3" style="list-style-type: decimal">
 <li>You need to make sure you <strong><em>use a CRS that best preserves the properties you are interested in</em></strong> (area, distance, direction, shape). More on this below in section <a href="some-important-concepts-and-pitfalls.html#projection">5.2.2</a>.</li>
@@ -418,7 +323,7 @@ Figure 5.6: Africa, visualized with different coordinate reference systems. All 
 </ol>
 <p><br></p>
 <blockquote>
-<p>*Defining Projection is not the same as reprojecting! Think in terms of languages, “I have text in Japanese and want it in English.” <em>Defining</em> is saying what it IS (“This text is in Japanese” - defining Japanese as English gives you garbage). <em>Reprojecting</em> is what you want it to be (i.e. translate Japanese to English).</p>
+<p>*Defining Projection is not the same as reprojecting! Think in terms of languages, “I have text in Japanese and want it in English”. <em>Defining</em> is saying what it IS (“This text is in Japanese” - defining Japanese as English gives you garbage). <em>Reprojecting</em> is what you want it to be (i.e. translate Japanese to English).</p>
 </blockquote>
 <p><br></p>
 <p>Two other issues to look out for:</p>
@@ -497,7 +402,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');

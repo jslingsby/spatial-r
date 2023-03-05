@@ -12,7 +12,7 @@
 ## Case study and demo datasets {#casestudy}
 Ok, for demonstrating some of the many GIS operations R can perform we will be using data from one of my favourite study areas, the Cape Peninsula.
 
-The datasets we will use, some of their properties and where to source them are tabled below. You can also download them as one .zip file [here](https://www.dropbox.com/s/vuzzrsitk9oqafg/TutorialData.zip?dl=0), because the City of Cape Town updates the files from time to time and small changes in format, naming etc break the code to come. Please do not use the version from the .zip file in any real analyses etc, because I can make no guarantees about their accuracy etc. It is best to use the latest version from the links in the table.
+The datasets we will use, some of their properties and where to source them are tabled below. You can also download them as one (40MB) .zip file [**here**](https://www.dropbox.com/s/lozee7h3jkkkk3d/cape_peninsula.zip?dl=0), because the City of Cape Town updates the files from time to time and small changes in format, naming etc break the code to come. Please do not use the version from the .zip file in any real analyses etc, because I can make no guarantees about their accuracy etc. It is best to use the latest version from the links in the table.
 
 <br>
 
@@ -20,7 +20,7 @@ The datasets we will use, some of their properties and where to source them are 
 library(knitr) 
 library(kableExtra)
 
-URL = c("https://www.inaturalist.org/", "https://odp-cctegis.opendata.arcgis.com/datasets/cctegis::open-watercourses/about", "https://odp-cctegis.opendata.arcgis.com/datasets/cctegis::indigenous-vegetation-historic-extent/about", "https://odp-cctegis.opendata.arcgis.com/datasets/indigenous-vegetation-current-extent", "https://odp-cctegis.opendata.arcgis.com/datasets/digital-elevation-model-10m-grid-general-binary-ascii")
+URL = c("https://www.inaturalist.org/", "https://odp-cctegis.opendata.arcgis.com/datasets/cctegis::open-watercourses/about", "https://odp-cctegis.opendata.arcgis.com/datasets/cctegis::indigenous-vegetation-historic-extent/about", "https://odp-cctegis.opendata.arcgis.com/datasets/indigenous-vegetation-current-extent", "https://odp-cctegis.opendata.arcgis.com/documents/cctegis::draft-ground-level-map-5m-dem-cct-glm-2019/explore")
 
 datasets <- tibble(
   `Name` = c("Localities", "Watercourses", "Vegetation Types (historical)", "Vegetation Types (remnants)", "Elevation"),
@@ -35,7 +35,7 @@ kable(datasets, "html", escape = FALSE)
 
 <br>
 
-If you'd like to follow along and run the analyses that follow, please follow the links and download the datasets. The elevation dataset is ~13MB as a .zip file, but will expand to ~130MB. There's no need to download the iNaturalist data as we'll download it directly from R.
+If you'd like to follow along and run the analyses that follow, please download the datasets. There's no need to download the iNaturalist data as we'll download it directly from R.
 
 For installing R and the required packages see section \@ref(using).
 

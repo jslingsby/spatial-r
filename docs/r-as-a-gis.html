@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>6 R as a GIS | A Minimal Introduction to GIS (in R)</title>
   <meta name="description" content="This is a minimal introduction to GIS and handling spatial data in R compiled for the Biological Sciences BSc(Honours) class at the University of Cape Town." />
-  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.32 and GitBook 2.6.7" />
 
   <meta property="og:title" content="6 R as a GIS | A Minimal Introduction to GIS (in R)" />
   <meta property="og:type" content="book" />
-  
   
   <meta property="og:description" content="This is a minimal introduction to GIS and handling spatial data in R compiled for the Biological Sciences BSc(Honours) class at the University of Cape Town." />
   <meta name="github-repo" content="jslingsby/spatial-r" />
@@ -24,7 +23,7 @@
 <meta name="author" content="Jasper Slingsby" />
 
 
-<meta name="date" content="2022-04-14" />
+<meta name="date" content="2023-03-05" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +32,6 @@
   
 <link rel="prev" href="some-important-concepts-and-pitfalls.html"/>
 <link rel="next" href="rdemo.html"/>
-<script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -51,9 +49,10 @@
 
 
 
-<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
-<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/htmlwidgets-1.6.1/htmlwidgets.js"></script>
 <link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
 <script src="libs/leaflet-1.3.1/leaflet.js"></script>
 <link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
@@ -101,7 +100,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -114,7 +113,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -247,18 +246,18 @@ div.csl-indent {
 <li class="chapter" data-level="8.11" data-path="raster-gis-operations-in-r-with-terra.html"><a href="raster-gis-operations-in-r-with-terra.html#visualizing-multiple-datasets-on-one-map"><i class="fa fa-check"></i><b>8.11</b> Visualizing multiple datasets on one map</a></li>
 <li class="chapter" data-level="8.12" data-path="raster-gis-operations-in-r-with-terra.html"><a href="raster-gis-operations-in-r-with-terra.html#cloud-optimized-geotiffs-cogs"><i class="fa fa-check"></i><b>8.12</b> Cloud Optimized GeoTiffs (COGs)!!!</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="raster-gis-operations-in-r.html"><a href="raster-gis-operations-in-r.html"><i class="fa fa-check"></i><b>9</b> Raster GIS operations in R</a>
+<li class="chapter" data-level="9" data-path="old-raster-gis-operations-in-r-with-raster.html"><a href="old-raster-gis-operations-in-r-with-raster.html"><i class="fa fa-check"></i><b>9</b> (Old!) Raster GIS operations in R with <em>raster</em></a>
 <ul>
-<li class="chapter" data-level="9.1" data-path="raster-gis-operations-in-r.html"><a href="raster-gis-operations-in-r.html#reading-in-data-1"><i class="fa fa-check"></i><b>9.1</b> Reading in data</a></li>
-<li class="chapter" data-level="9.2" data-path="raster-gis-operations-in-r.html"><a href="raster-gis-operations-in-r.html#cropping-2"><i class="fa fa-check"></i><b>9.2</b> Cropping</a></li>
-<li class="chapter" data-level="9.3" data-path="raster-gis-operations-in-r.html"><a href="raster-gis-operations-in-r.html#aggregating-resampling-1"><i class="fa fa-check"></i><b>9.3</b> Aggregating / Resampling</a></li>
-<li class="chapter" data-level="9.4" data-path="raster-gis-operations-in-r.html"><a href="raster-gis-operations-in-r.html#basic-plotting-2"><i class="fa fa-check"></i><b>9.4</b> Basic plotting</a></li>
-<li class="chapter" data-level="9.5" data-path="raster-gis-operations-in-r.html"><a href="raster-gis-operations-in-r.html#disaggregating-1"><i class="fa fa-check"></i><b>9.5</b> Disaggregating</a></li>
-<li class="chapter" data-level="9.6" data-path="raster-gis-operations-in-r.html"><a href="raster-gis-operations-in-r.html#raster-maths-1"><i class="fa fa-check"></i><b>9.6</b> Raster maths!</a></li>
-<li class="chapter" data-level="9.7" data-path="raster-gis-operations-in-r.html"><a href="raster-gis-operations-in-r.html#focal-and-terrain-calculations-1"><i class="fa fa-check"></i><b>9.7</b> Focal and terrain calculations</a></li>
-<li class="chapter" data-level="9.8" data-path="raster-gis-operations-in-r.html"><a href="raster-gis-operations-in-r.html#raster-stacks-1"><i class="fa fa-check"></i><b>9.8</b> Raster stacks</a></li>
-<li class="chapter" data-level="9.9" data-path="raster-gis-operations-in-r.html"><a href="raster-gis-operations-in-r.html#extracting-raster-to-vector-1"><i class="fa fa-check"></i><b>9.9</b> Extracting raster to vector</a></li>
-<li class="chapter" data-level="9.10" data-path="raster-gis-operations-in-r.html"><a href="raster-gis-operations-in-r.html#rasterizing-1"><i class="fa fa-check"></i><b>9.10</b> Rasterizing</a></li>
+<li class="chapter" data-level="9.1" data-path="old-raster-gis-operations-in-r-with-raster.html"><a href="old-raster-gis-operations-in-r-with-raster.html#reading-in-data-1"><i class="fa fa-check"></i><b>9.1</b> Reading in data</a></li>
+<li class="chapter" data-level="9.2" data-path="old-raster-gis-operations-in-r-with-raster.html"><a href="old-raster-gis-operations-in-r-with-raster.html#cropping-2"><i class="fa fa-check"></i><b>9.2</b> Cropping</a></li>
+<li class="chapter" data-level="9.3" data-path="old-raster-gis-operations-in-r-with-raster.html"><a href="old-raster-gis-operations-in-r-with-raster.html#aggregating-resampling-1"><i class="fa fa-check"></i><b>9.3</b> Aggregating / Resampling</a></li>
+<li class="chapter" data-level="9.4" data-path="old-raster-gis-operations-in-r-with-raster.html"><a href="old-raster-gis-operations-in-r-with-raster.html#basic-plotting-2"><i class="fa fa-check"></i><b>9.4</b> Basic plotting</a></li>
+<li class="chapter" data-level="9.5" data-path="old-raster-gis-operations-in-r-with-raster.html"><a href="old-raster-gis-operations-in-r-with-raster.html#disaggregating-1"><i class="fa fa-check"></i><b>9.5</b> Disaggregating</a></li>
+<li class="chapter" data-level="9.6" data-path="old-raster-gis-operations-in-r-with-raster.html"><a href="old-raster-gis-operations-in-r-with-raster.html#raster-maths-1"><i class="fa fa-check"></i><b>9.6</b> Raster maths!</a></li>
+<li class="chapter" data-level="9.7" data-path="old-raster-gis-operations-in-r-with-raster.html"><a href="old-raster-gis-operations-in-r-with-raster.html#focal-and-terrain-calculations-1"><i class="fa fa-check"></i><b>9.7</b> Focal and terrain calculations</a></li>
+<li class="chapter" data-level="9.8" data-path="old-raster-gis-operations-in-r-with-raster.html"><a href="old-raster-gis-operations-in-r-with-raster.html#raster-stacks-1"><i class="fa fa-check"></i><b>9.8</b> Raster stacks</a></li>
+<li class="chapter" data-level="9.9" data-path="old-raster-gis-operations-in-r-with-raster.html"><a href="old-raster-gis-operations-in-r-with-raster.html#extracting-raster-to-vector-1"><i class="fa fa-check"></i><b>9.9</b> Extracting raster to vector</a></li>
+<li class="chapter" data-level="9.10" data-path="old-raster-gis-operations-in-r-with-raster.html"><a href="old-raster-gis-operations-in-r-with-raster.html#rasterizing-1"><i class="fa fa-check"></i><b>9.10</b> Rasterizing</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
@@ -281,10 +280,10 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="r-as-a-gis" class="section level1" number="6">
-<h1><span class="header-section-number">6</span> R as a GIS</h1>
-<div id="overview-1" class="section level2" number="6.1">
-<h2><span class="header-section-number">6.1</span> Overview</h2>
+<div id="r-as-a-gis" class="section level1 hasAnchor" number="6">
+<h1><span class="header-section-number">6</span> R as a GIS<a href="r-as-a-gis.html#r-as-a-gis" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="overview-1" class="section level2 hasAnchor" number="6.1">
+<h2><span class="header-section-number">6.1</span> Overview<a href="r-as-a-gis.html#overview-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Points, lines, polygons and rasters - R can handle them all and more! <a href="https://www.r-project.org/">R</a> is a free software environment for statistical computing and graphics, but its abilities have been extended into many realms through the ~18,000 (!) contributed <a href="https://cran.r-project.org/web/packages/available_packages_by_name.html">extension packages</a> (also called libraries).</p>
 <p>The list of packages can be bewildering, but fortunately some great folks have taken the time to sift through and make some sense of them for different focal topics and created <em>Task Views</em>.</p>
 <p><br></p>
@@ -303,7 +302,7 @@ Figure 6.1: Screenshot of the “Spatial” Task View at <a href="https://cran.r
 </p>
 </div>
 <p><br></p>
-<p>The Spatial Task View focuses on “Analysis of Spatial Data,” with sections on:</p>
+<p>The Spatial Task View focuses on “Analysis of Spatial Data”, with sections on:</p>
 <ul>
 <li>Classes for spatial data and metadata</li>
 <li>Reading and writing spatial data</li>
@@ -322,75 +321,80 @@ Figure 6.2: Screenshot of the Task View landing page at <a href="https://cran.r-
 </div>
 <p><br></p>
 </div>
-<div id="some-key-r-packages" class="section level2" number="6.2">
-<h2><span class="header-section-number">6.2</span> Some key R packages</h2>
+<div id="some-key-r-packages" class="section level2 hasAnchor" number="6.2">
+<h2><span class="header-section-number">6.2</span> Some key R packages<a href="r-as-a-gis.html#some-key-r-packages" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>We don’t have time to go through all packages or provide a full history, but here are some notes in brief.</p>
-<div id="for-vector-data" class="section level3" number="6.2.1">
-<h3><span class="header-section-number">6.2.1</span> For vector data</h3>
+<div id="for-vector-data" class="section level3 hasAnchor" number="6.2.1">
+<h3><span class="header-section-number">6.2.1</span> For vector data<a href="r-as-a-gis.html#for-vector-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>(although some of these packages can handle rasters too)</p>
 <blockquote>
 <p>The two leading packages were <a href="https://cran.r-project.org/web/packages/sp/index.html"><em>sp</em></a> and <a href="https://cran.r-project.org/web/packages/rgdal/index.html"><em>rgdal</em></a>. While these are still active and useful, they are being superseded by a newer package <a href="https://cran.r-project.org/web/packages/sf/index.html"><em>sf</em></a>, which is a modern implementation and standardization of parts of <em>sp</em>. It is highly recommended that you use <em>sf</em> over these older packages as they will not be maintained in the long term, largely because they rely on other packages that are no longer maintained because their creators have retired.</p>
 </blockquote>
 <p><br></p>
-<p><em><strong>sf</strong></em> stands for “Simple Features for R,” in compliance with the <a href="https://www.ogc.org/standards/sfa">OGC Simple Feature standard</a>. It is highly efficient, and comes with the advantage that it uses <a href="https://www.tidyverse.org/"><em>Tidyverse</em></a> principles and coding styles, e.g. allowing use of the pipe operator (<code>%&gt;%</code>) and the direct application of library(dplyr) data manipulation and library(ggplot2) visualization functions.</p>
+<p><em><strong>sf</strong></em> stands for “Simple Features for R”, in compliance with the <a href="https://www.ogc.org/standards/sfa">OGC Simple Feature standard</a>. It is highly efficient, and comes with the advantage that it uses <a href="https://www.tidyverse.org/"><em>Tidyverse</em></a> principles and coding styles, e.g. allowing use of the pipe operator (<code>%&gt;%</code>) and the direct application of library(dplyr) data manipulation and library(ggplot2) visualization functions.</p>
 <p>I will use <em>sf</em> for the most part in the demonstration material. Unfortunately, not all operations are available in <em>sf</em> yet and I may still have to use <em>sp</em> at times, especially when performing operations using both vector and raster data.</p>
 <p>Here’s a quick list of the functions available in <em>sf</em>:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="r-as-a-gis.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
 <span id="cb1-2"><a href="r-as-a-gis.html#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">methods</span>(<span class="at">class =</span> <span class="st">&#39;sf&#39;</span>)</span></code></pre></div>
-<pre><code>##   [1] [                     [[&lt;-                 
-##   [3] $&lt;-                   aggregate            
-##   [5] anti_join             arrange              
-##   [7] as.data.frame         cbind                
-##   [9] coerce                dbDataType           
-##  [11] dbWriteTable          distinct             
-##  [13] dplyr_reconstruct     extent               
-##  [15] extract               filter               
-##  [17] full_join             gather               
-##  [19] group_by              group_split          
-##  [21] identify              initialize           
-##  [23] inner_join            left_join            
-##  [25] mask                  merge                
-##  [27] mutate                nest                 
-##  [29] pivot_longer          plot                 
-##  [31] print                 raster               
-##  [33] rasterize             rbind                
-##  [35] rename                right_join           
-##  [37] rowwise               sample_frac          
-##  [39] sample_n              select               
-##  [41] semi_join             separate_rows        
-##  [43] separate              show                 
-##  [45] slice                 slotsFromS3          
-##  [47] spread                st_agr               
-##  [49] st_agr&lt;-              st_area              
-##  [51] st_as_s2              st_as_sf             
-##  [53] st_as_sfc             st_bbox              
-##  [55] st_boundary           st_buffer            
-##  [57] st_cast               st_centroid          
-##  [59] st_collection_extract st_convex_hull       
-##  [61] st_coordinates        st_crop              
-##  [63] st_crs                st_crs&lt;-             
-##  [65] st_difference         st_drop_geometry     
-##  [67] st_filter             st_geometry          
-##  [69] st_geometry&lt;-         st_inscribed_circle  
-##  [71] st_interpolate_aw     st_intersection      
-##  [73] st_intersects         st_is_valid          
-##  [75] st_is                 st_join              
-##  [77] st_line_merge         st_m_range           
-##  [79] st_make_valid         st_nearest_points    
-##  [81] st_node               st_normalize         
-##  [83] st_point_on_surface   st_polygonize        
-##  [85] st_precision          st_reverse           
-##  [87] st_sample             st_segmentize        
-##  [89] st_set_precision      st_shift_longitude   
-##  [91] st_simplify           st_snap              
-##  [93] st_sym_difference     st_transform         
-##  [95] st_triangulate        st_union             
-##  [97] st_voronoi            st_wrap_dateline     
-##  [99] st_write              st_z_range           
-## [101] st_zm                 summarise            
-## [103] transform             transmute            
-## [105] ungroup               unite                
-## [107] unnest               
+<pre><code>##   [1] [                            [[&lt;-                        
+##   [3] $&lt;-                          aggregate                   
+##   [5] anti_join                    arrange                     
+##   [7] as.data.frame                cbind                       
+##   [9] coerce                       crs                         
+##  [11] dbDataType                   dbWriteTable                
+##  [13] df_spatial                   distance                    
+##  [15] distinct                     dplyr_reconstruct           
+##  [17] drop_na                      ext                         
+##  [19] extent                       extract                     
+##  [21] filter                       full_join                   
+##  [23] gather                       group_by                    
+##  [25] group_split                  identify                    
+##  [27] initialize                   inner_join                  
+##  [29] left_join                    mask                        
+##  [31] merge                        mutate                      
+##  [33] nest                         pivot_longer                
+##  [35] pivot_wider                  plot                        
+##  [37] print                        raster                      
+##  [39] rasterize                    rbind                       
+##  [41] rename                       right_join                  
+##  [43] rowwise                      sample_frac                 
+##  [45] sample_n                     select                      
+##  [47] semi_join                    separate_rows               
+##  [49] separate                     show                        
+##  [51] slice                        slotsFromS3                 
+##  [53] spread                       st_agr                      
+##  [55] st_agr&lt;-                     st_area                     
+##  [57] st_as_s2                     st_as_sf                    
+##  [59] st_as_sfc                    st_bbox                     
+##  [61] st_boundary                  st_break_antimeridian       
+##  [63] st_buffer                    st_cast                     
+##  [65] st_centroid                  st_collection_extract       
+##  [67] st_convex_hull               st_coordinates              
+##  [69] st_crop                      st_crs                      
+##  [71] st_crs&lt;-                     st_difference               
+##  [73] st_drop_geometry             st_filter                   
+##  [75] st_geometry                  st_geometry&lt;-               
+##  [77] st_inscribed_circle          st_interpolate_aw           
+##  [79] st_intersection              st_intersects               
+##  [81] st_is_valid                  st_is                       
+##  [83] st_join                      st_line_merge               
+##  [85] st_m_range                   st_make_valid               
+##  [87] st_minimum_rotated_rectangle st_nearest_points           
+##  [89] st_node                      st_normalize                
+##  [91] st_point_on_surface          st_polygonize               
+##  [93] st_precision                 st_reverse                  
+##  [95] st_sample                    st_segmentize               
+##  [97] st_set_precision             st_shift_longitude          
+##  [99] st_simplify                  st_snap                     
+## [101] st_sym_difference            st_transform                
+## [103] st_triangulate               st_union                    
+## [105] st_voronoi                   st_wrap_dateline            
+## [107] st_write                     st_z_range                  
+## [109] st_zm                        summarise                   
+## [111] svc                          transform                   
+## [113] transmute                    ungroup                     
+## [115] unite                        unnest                      
+## [117] vect                        
 ## see &#39;?methods&#39; for accessing help and source code</code></pre>
 <p><br></p>
 <p>This doesn’t tell you how to use them though. To get help with a function in R just type “?” followed by the function name, e.g. <code>?st_read</code>, and it’ll take you to the help page.</p>
@@ -411,8 +415,8 @@ Figure 6.4: An R <a href="https://github.com/rstudio/cheatsheets/blob/master/sf.
 </div>
 <p><br></p>
 </div>
-<div id="for-raster-data" class="section level3" number="6.2.2">
-<h3><span class="header-section-number">6.2.2</span> For raster data</h3>
+<div id="for-raster-data" class="section level3 hasAnchor" number="6.2.2">
+<h3><span class="header-section-number">6.2.2</span> For raster data<a href="r-as-a-gis.html#for-raster-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>By far the best package <strong>has been</strong> <a href="https://cran.r-project.org/web/packages/raster/index.html"><em>raster</em></a>, maintained by Robert Hijmans (of <a href="https://www.worldclim.org/">WorldClim</a> fame), and can do just about anything with rasters and interfaces with <em>sp</em> very nicely. Unfortunately, both <em>raster</em> and <em>sp</em> are being phased out as explained above. <em>raster</em> is currently being superseded by a new package called <a href=""><em>terra</em></a>, also being developed by Hijmans.</p>
 <blockquote>
 <p><em>“terra is very similar to the raster package; but terra is simpler, better, and faster”</em> - Roger Bivand</p>
@@ -490,7 +494,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');

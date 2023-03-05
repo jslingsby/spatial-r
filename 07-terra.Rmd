@@ -16,7 +16,7 @@ Ok, now to look at handling rasters. As with _sf_, the _terra_ package has one f
 ```{r}
 library(terra)
 
-dem <- rast("/home/jasper/Documents/Datasets/CoCT/10m_Grid_GeoTiff/10m_BA.tif")
+dem <- rast("data/cape_peninsula/CoCT_10m.tif")
 
 class(dem)
 
@@ -187,7 +187,7 @@ Probably prettier with _Tidyverse_:
 hillshade %>%
   as.data.frame(xy = TRUE) %>%
   ggplot() +
-  geom_raster(aes(x = x, y = y, fill = lyr1)) + #note that the hillshade column name in this case is "lyr1"
+  geom_raster(aes(x = x, y = y, fill = hillshade)) + #note that the hillshade column name in this case is "hillshade"
   scale_fill_gradient(low = "grey10", high = "grey90")
 ```
 
@@ -432,4 +432,4 @@ Now we have a raster with 3 layers in memory. There are Red Green and Blue, so w
 plotRGB(roi_ras)
 ```
 
-Familiar?
+This somewhat arbitrary looking site is where we did some fieldwork with the 2022 class...

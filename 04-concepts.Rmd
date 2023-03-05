@@ -19,7 +19,7 @@ All maps have a scale. Scale is the ratio between the size of the representation
 #library(raster)
 
 knitr::include_graphics("img/CapePen_1in50_3418AB_AD.jpg")
-#one50 <- raster("/home/jasper/GIT/spatial-r/data/cape_peninsula/1in50topo/3418AB_AD_2000_ED7_GEO.TIF")
+#one50 <- raster("data/cape_peninsula/1in50topo/3418AB_AD_2000_ED7_GEO.TIF")
 
 #plot(one50)
 ```
@@ -142,7 +142,7 @@ The type of CRS is usually (but not always) stored in the metadata of your file 
 
 **Why do projections matter?**
 
-```{r africaporjected, fig.cap='Africa, visualized with different coordinate reference systems. All four maps are different, even if the differences may be subtle!', fig.align='center', echo=FALSE, warning=F, message=F}
+```{r africaprojected, fig.cap='Africa, visualized with different coordinate reference systems. All four maps are different, even if the differences may be subtle!', fig.align='center', echo=FALSE, warning=F, message=F}
 
 library(tidyverse)
 library(sf)
