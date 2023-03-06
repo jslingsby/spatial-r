@@ -17,7 +17,7 @@ fig:chapmans
 fig:accuracyprecision
 fig:geocoords
 fig:naartjie
-fig:africaporjected
+fig:africaprojected
 fig:spatialTV
 fig:taskviews
 fig:sfcheatsheet1
@@ -67,7 +67,7 @@ intersecting-points-and-polygons
 colour-or-label-points
 buffering
 within-distance-and-intersect
-raster-gis-operations-in-r-with-terra
+terra
 reading-in-data
 cropping-1
 aggregating-resampling
@@ -91,4 +91,3 @@ focal-and-terrain-calculations-1
 raster-stacks-1
 extracting-raster-to-vector-1
 rasterizing-1
-fig:africaprojected

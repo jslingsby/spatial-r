@@ -170,6 +170,10 @@ A handy feature of most GIS systems is that they can treat attribute tables like
 
 <br>
 
+*WARNING!* The values in attribute tables are typically static and are not recalculated every time you alter the feature of interest. For example, you can crop the Cape Peninsula vegetation layer, but the values in the AREA_HCTR (area) and PRMT_MTR (perimeter) columns of the attribute table will not change, even if the polygons in question are now smaller!
+
+<br>
+
 ## File formats
 
 Linked to data models, and attributes, is file formats. Generally, there are separate file formats for vector vs raster data. Usually, we even have separate files for the different types of vectors (points, lines, polygons, etc), but this is changing as new "database" formats evolve. 

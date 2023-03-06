@@ -56,7 +56,7 @@ All code, images, etc can be found [here](https://github.com/jslingsby/spatial-r
 
 ## Using this resource {#using}
 
-I've included quite a bit of demonstration R code in Chapter \@ref(rdemo). To run the code you will need:
+I've included quite a bit of demonstration R code in Chapters \@ref(rdemo) and \@ref(terra). To run the code you will need:
 
 * to have working R and RStudio installations - [this](https://learnr-examples.shinyapps.io/ex-setup-r/) tutorial may help if needed
 * to install the following R packages (you can copy and run the code):
@@ -76,9 +76,11 @@ Lectures will be held in the mornings between 10:00 to 12:00 Monday to Thursday 
 
 **Projects**
 
-Afternoons are self-study time where you will incrementally develop your own individual GIS project in R and [RMarkdown](https://rmarkdown.rstudio.com/) or [Quarto](https://quarto.org/). The project will count 70% of your mark for the module and will be **due on Thursday the 16th March**. You will need to submit a .Rmd or .Qmd file and stitched HTML notebook. You're welcome to do this in a Git Repository (nudge nudge), now that we've completed the [Data Management module](https://www.ecologi.st/data-management/).
+Afternoons are self-study time where you will incrementally develop your own individual GIS project in R and [RMarkdown](https://rmarkdown.rstudio.com/) or [Quarto](https://quarto.org/). The project will count 70% of your mark for the module and will be **due on Thursday the 16th March**. You will need to submit a .Rmd or .Qmd file and stitched HTML notebook. You're welcome to do this in a Git Repository (nudge nudge), now that we've completed the [Reproducible Research](https://www.ecologi.st/data-management/) module.
 
-The focus of the assignment is essentially setting up a GIS workflow and will be assessed on whether you've absorbed the content of the lectures. The topic and datasets used will be up to you. **Pro tip:** Use this as an opportunity to get a kick start on your Honours projects. If your Honours project doesn't require GIS (which is unlikely) then either help a buddy or let your curiosity roam wild! This is a teaching exercise, so it doesn't even have to be based on biological data, but it would help you to explore some of the data sources suggested below.
+The focus of the assignment is essentially setting up a GIS workflow and will be assessed on whether you've absorbed the content of the lectures. The topic and datasets used will be up to you. 
+
+>**Pro tip:** Use this as an opportunity to get a kick start on your Honours projects. If your Honours project doesn't require GIS (which is unlikely) then either help a buddy or let your curiosity roam wild! This is a teaching exercise, so it doesn't even have to be based on biological data, but it would help you to explore some of the data sources suggested below.
 
 The project objectives, broken down as daily goals to help you pace yourselves:
 
@@ -94,7 +96,7 @@ The project objectives, broken down as daily goals to help you pace yourselves:
   - Develop and present your 1 slide lightning talk - examples from the class of 2021 are [here](https://docs.google.com/presentation/d/1591HITImkhsf0VT96ae2JqAguy3K0lPeGn0-spA1M18/edit?usp=sharing) and 2022 are [here](https://docs.google.com/presentation/d/1C8kseabbqRiP1VFxnY_7znP7L2_QogmVjMMTB7mUflw/edit?usp=sharing).
 * Until the 16th March: Iterate over the previous steps until done!
 
-I will be available 2-3PM on Wednesday afternoon as a "help desk" to assist you refine your projects and help troubleshoot issues.
+I will be available 2-3PM on Wednesday afternoon and 10-11AM on Friday morning as a "help desk" to assist you refine your projects and help troubleshoot issues.
 
 **Lightning talks:** you'll do online lightning presentations (30% of your mark for the module) on your GIS projects (1 slide, 2 minutes presentation, 1 minute questions) on **Thursday afternoon (2PM, 9th March)**. Don't worry, you won't lose marks if your projects are not yet complete! We just want to know what you're doing your project on, what datasets you're using, and what you plan to do with them. Please read the instructions in the Google slide deck and add your slide.
 

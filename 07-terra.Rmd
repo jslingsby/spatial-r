@@ -7,7 +7,7 @@
       download: null
 ---
 
-# Raster GIS operations in R with _terra_
+# Raster GIS operations in R with _terra_ {#terra}
 
 ## Reading in data
 
