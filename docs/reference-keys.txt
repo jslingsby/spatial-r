@@ -80,6 +80,7 @@ extracting-raster-to-vector
 rasterizing
 visualizing-multiple-datasets-on-one-map
 cloud-optimized-geotiffs-cogs
+obtaining-satellite-data-from-apis
 old-raster-gis-operations-in-r-with-raster
 reading-in-data-1
 cropping-2

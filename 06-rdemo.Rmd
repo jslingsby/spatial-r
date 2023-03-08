@@ -392,7 +392,7 @@ The remnants of vegetation types are in Transverse Mercator Lo19, just like the 
 
 <br>
 
-In this case, either CRS is fine for our purposes, but let's stick with Transverse Mercator Lo19, because it'll be useful later. For this we need to reproject the veg layer like so:
+In this case, either CRS is fine for our purposes, but let's stick with Transverse Mercator Lo19, because it'll be useful later. For this we need to project the points like so:
 
 ```{r}
 pc <- st_transform(pc, st_crs(vegr)) 
@@ -501,7 +501,7 @@ length(unique(npsf$id))
 
 ```
 
-So 6 of 11 records are suspiciously close to Peninsula Sandstone Fynbos...
+So a fair proportion of the records are suspiciously close to Peninsula Sandstone Fynbos...
 
 <br>
 
@@ -585,13 +585,13 @@ So it's given us the list of lines (rivers) within 20m of our points, but that d
 st_is_within_distance(water, bs, 20) %>% unlist() %>% unique()
 ```
 
-So only ~45 of the trees are within 20m of the rivers. What about 50m?
+So only `r st_is_within_distance(water, bs, 20) %>% unlist() %>% unique() %>% length()` of the trees are within 20m of the rivers. What about 100m?
 
 ```{r}
 st_is_within_distance(water, bs, 100) %>% unlist() %>% unique()
 ```
 
-So about 120...
+`r st_is_within_distance(water, bs, 100) %>% unlist() %>% unique() %>% length()`
 
 It's at this point that it's worth thinking about the _scale_, _precision_ and _accuracy_ of both the species localities and the watercourse data before drawing any strong conclusions!!!
 

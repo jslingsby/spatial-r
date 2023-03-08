@@ -23,11 +23,13 @@ class(dem)
 dem #Typing the name of a "SpatRaster" class data object gives you the details
 ```
 
-The `coord. ref.` field shows `GCS_WGS_1984`, which is Geographic Coordinates, but perhaps there is a projected CRS too? from which we can deduce that the coordinate reference system is Transverse Mercator Lo19. If you just want to know the CRS from a SpatRaster, you just call `crs()` like so:
+The `coord. ref.` field shows `GCS_WGS_1984`, which is Geographic Coordinates, but perhaps there is a projected CRS too? The extent appears to be in metres, with the eastings being a mix of positive and negative numbers, from which we can deduce that the coordinate reference system may be Transverse Mercator centred on Lo19, as for the other datasets we obtained from the City of Cape Town. Best to make sure! If you just want to know the CRS from a SpatRaster, you just call `crs()` like so:
 
 ```{r}
 crs(dem)
 ```
+
+Messy, but somewhere in there it says "Longitude of natural origin 19" and "Transverse Mercator"...
 
 Similar to `st_crs()`, you can define a projection using the syntax:
 
@@ -39,7 +41,7 @@ For reprojecting, you use the function `project()`. We'll look at it later.
 
 ## Cropping
 
-Ok, before we try to anything with this dataset, let's think about how big it is... One of the outputs of calling `dem` was the row reading `dimensions : 9902, 6518, 1  (nrow, ncol, nlyr)`. Given that we are talking about 10m pixels, this information tells us that the extent of the region is roughly 100km by 65km and that there are ~65 million pixels! No wonder the file is ~130MB. 
+Ok, before we try to anything with this dataset, let's think about how big it is... One of the outputs of calling `dem` was the row reading `dimensions : 9902, 6518, 1  (nrow, ncol, nlyr)`. Given that we are talking about 10m pixels, this information tells us that the extent of the region is roughly 100km by 65km and that there are ~65 million pixels! No wonder the original file was ~130MB (I reduced the one I shared with you slightly). 
 
 While R can handle this, it does become slow when dealing with very large files. There are many ways to improve the efficiency of handling big rasters in R (see [this slightly dated post for details](https://www.ecologi.st/post/big-spatial-data/) if you're interested), but for the purposes of this tutorial we're going to take the easy option and just crop it to a smaller extent, like so:
 
@@ -63,7 +65,7 @@ dem
 
 ## Aggregating / Resampling
 
-Do we need 10m data? If your analysis doesn't need such fine resolution data, you can resample the raster to a larger pixel size, like 30m. The `aggregate()` function in the _raster_ package does this very efficiently, like so:
+Do we need 10m data? If your analysis doesn't need such fine resolution data, you can resample the raster to a larger pixel size, like 30m. The `aggregate()` function does this very efficiently, like so:
 
 ```{r}
 dem30 <- aggregate(dem, fact = 3, fun = mean)
@@ -273,7 +275,7 @@ pc %>% ggplot() +
   geom_boxplot(aes(scientific_name, dem))
 ```
 
-(Hmm... do you think those _Leucadendron laureolum_ outliers that must be near Maclear's Beacon could actually be _Leucadendron strobilinum_?)
+A clear separation in the preferred elevation range between the two species.
 
 <br>
 
@@ -404,7 +406,7 @@ grootbos
 
 This has given us the metadata about the file, but has not read it into R's memory. The file is ~1.8GB so it would do bad things if we tried to read the whole thing in...
 
-Now let's retrieve a subset of the file. To do this we need to make a vector polygon for our region of interest, like so:
+Now let's retrieve a subset of the file. To do this we need to make a vector polygon for our region of interest (ROI), like so:
 
 ```{r}
 roi <- vect(data.frame(lon = c(19.433975, 19.436451),
@@ -432,4 +434,60 @@ Now we have a raster with 3 layers in memory. There are Red Green and Blue, so w
 plotRGB(roi_ras)
 ```
 
-This somewhat arbitrary looking site is where we did some fieldwork with the 2022 class...
+This somewhat arbitrary looking site is where we did some fieldwork in the Grootbos Private Nature Reserve with the 2022 class...
+
+<br>
+
+## Obtaining satellite data from APIs
+
+There are also R packages like [MODISTools](https://cran.r-project.org/web/packages/MODISTools/index.html) that allow you to query the online databases.
+
+MODISTools interfaces with the 'MODIS Land Products Subsets' Web Services to download various products. In this case we'll be downloading the "MOD13Q1" product, which is the Vegetation Indices product for the Terra satellite, generated every 16 days at 250 meter (m) spatial resolution. The algorithm chooses the best available pixel value from all (daily) the acquisitions from the 16 day period, minimizing clouds, low view angle, and selecting the highest NDVI/EVI value.
+
+WARNING! This code can take a while to run! Hence, I have wrapped it in an `if()` statement that tells the code not to run if the file already exists.
+
+```{r}
+if(!file.exists("data/MODISdat_batch_30Jan2023.csv")) # if the file does not exist, then run... otherwise do nothing...
+  {
+
+library(MODISTools)
+
+sites <- data.frame(site_name = c("grassy field", "invasion", "renosterveld", "sand", "sandstone", "limestone"),
+                    lat = c(-34.375052, -34.386014, -34.374259, -34.3961, -34.3748, -34.4309),
+                    lon = c(20.531749, 20.534986, 20.504233, 20.5494, 20.5428, 20.5666))
+
+### Here's some code if you want to use an existing layer of points instead of entering them manually
+# sites <- st_read("/home/jasper/GIT/BIO3018F/prac/Potberg_prac_sites.kml")
+# sites <- data.frame(site_name = sites$Name, lat = st_coordinates(sites)[,2], lon = st_coordinates(sites)[,1])
+
+dat <- mt_batch_subset(df = sites,
+                        product = "MOD13Q1",
+                        band = "250m_16_days_NDVI",
+                        internal = TRUE,
+                        start = "2000-01-01",
+                        end = "2023-01-30")
+
+write_csv(dat, "data/MODISdat_batch_30Jan2023.csv")
+}
+```
+
+Plot all time series
+
+```{r, message = FALSE}
+read_csv("data/MODISdat_batch_30Jan2023.csv") %>%
+  ggplot(aes(x = calendar_date, y = value*0.0001)) +
+  geom_line() +
+  #  geom_point() +
+  facet_wrap(.~ site) +
+  ylab("NDVI") +
+  ylim(0.2, 0.9)
+```
+
+
+There are many more complex spatial and remote sensing analyses you can do by interaction with the cloud from R. Here are some links to a few:
+
+- [Cloud-based processing of satellite image collections with `rstac` and `gdalcubes`](https://r-spatial.org//r/2021/04/23/cloud-based-cubes.html)
+- [Run Google Earth Engine from R with `rgee`](https://csaybar.github.io/rgee-examples/)
+- [Obtain spatial data from ESRI REST APIs in R](https://kdvdecisions-blog.netlify.app/2020/04/18/obtaining-spatial-data-from-esri-rest-apis-in-r/) or see package [`arcpullr`](https://cran.r-project.org/web/packages/arcpullr/index.html)
+
+There are many more!!!

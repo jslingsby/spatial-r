@@ -23,7 +23,7 @@
 <meta name="author" content="Jasper Slingsby" />
 
 
-<meta name="date" content="2023-03-06" />
+<meta name="date" content="2023-03-08" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -52,14 +52,6 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
-<script src="libs/htmlwidgets-1.6.1/htmlwidgets.js"></script>
-<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
-<script src="libs/leaflet-1.3.1/leaflet.js"></script>
-<link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
-<script src="libs/proj4-2.6.2/proj4.min.js"></script>
-<script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
-<link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
-<script src="libs/leaflet-binding-2.1.1/leaflet.js"></script>
 
 
 <style type="text/css">
@@ -127,28 +119,6 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
-<style type="text/css">
-/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-}
-.hanging div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}
-</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -245,6 +215,7 @@ div.csl-indent {
 <li class="chapter" data-level="8.10" data-path="terra.html"><a href="terra.html#rasterizing"><i class="fa fa-check"></i><b>8.10</b> Rasterizing</a></li>
 <li class="chapter" data-level="8.11" data-path="terra.html"><a href="terra.html#visualizing-multiple-datasets-on-one-map"><i class="fa fa-check"></i><b>8.11</b> Visualizing multiple datasets on one map</a></li>
 <li class="chapter" data-level="8.12" data-path="terra.html"><a href="terra.html#cloud-optimized-geotiffs-cogs"><i class="fa fa-check"></i><b>8.12</b> Cloud Optimized GeoTiffs (COGs)!!!</a></li>
+<li class="chapter" data-level="8.13" data-path="terra.html"><a href="terra.html#obtaining-satellite-data-from-apis"><i class="fa fa-check"></i><b>8.13</b> Obtaining satellite data from APIs</a></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="old-raster-gis-operations-in-r-with-raster.html"><a href="old-raster-gis-operations-in-r-with-raster.html"><i class="fa fa-check"></i><b>9</b> (Old!) Raster GIS operations in R with <em>raster</em></a>
 <ul>
@@ -346,20 +317,6 @@ gitbook.start({
 });
 </script>
 
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
-  (function () {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    var src = "true";
-    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:")
-      if (/^https?:/.test(src))
-        src = src.replace(/^https?:/, '');
-    script.src = src;
-    document.getElementsByTagName("head")[0].appendChild(script);
-  })();
-</script>
 </body>
 
 </html>

@@ -23,7 +23,7 @@
 <meta name="author" content="Jasper Slingsby" />
 
 
-<meta name="date" content="2023-03-06" />
+<meta name="date" content="2023-03-08" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -245,6 +245,7 @@ div.csl-indent {
 <li class="chapter" data-level="8.10" data-path="terra.html"><a href="terra.html#rasterizing"><i class="fa fa-check"></i><b>8.10</b> Rasterizing</a></li>
 <li class="chapter" data-level="8.11" data-path="terra.html"><a href="terra.html#visualizing-multiple-datasets-on-one-map"><i class="fa fa-check"></i><b>8.11</b> Visualizing multiple datasets on one map</a></li>
 <li class="chapter" data-level="8.12" data-path="terra.html"><a href="terra.html#cloud-optimized-geotiffs-cogs"><i class="fa fa-check"></i><b>8.12</b> Cloud Optimized GeoTiffs (COGs)!!!</a></li>
+<li class="chapter" data-level="8.13" data-path="terra.html"><a href="terra.html#obtaining-satellite-data-from-apis"><i class="fa fa-check"></i><b>8.13</b> Obtaining satellite data from APIs</a></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="old-raster-gis-operations-in-r-with-raster.html"><a href="old-raster-gis-operations-in-r-with-raster.html"><i class="fa fa-check"></i><b>9</b> (Old!) Raster GIS operations in R with <em>raster</em></a>
 <ul>
@@ -413,8 +414,7 @@ GeoTIFF
 <span id="cb3-2"><a href="rdemo.html#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-3"><a href="rdemo.html#cb3-3" aria-hidden="true" tabindex="-1"></a>veg <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="st">&quot;data/cape_peninsula/veg/Vegetation_Indigenous.shp&quot;</span>)</span></code></pre></div>
 <pre><code>## Reading layer `Vegetation_Indigenous&#39; from data source 
-##   `/Users/jasper/GIT/spatial-r/data/cape_peninsula/veg/Vegetation_Indigenous.shp&#39; 
-##   using driver `ESRI Shapefile&#39;
+##   `/Users/jasper/GIT/spatial-r/data/cape_peninsula/veg/Vegetation_Indigenous.shp&#39; using driver `ESRI Shapefile&#39;
 ## Simple feature collection with 1325 features and 5 fields
 ## Geometry type: POLYGON
 ## Dimension:     XY
@@ -481,20 +481,20 @@ GeoTIFF
 ## Dimension:     XY
 ## Bounding box:  xmin: -51324.95 ymin: -3732075 xmax: -35653.98 ymax: -3718136
 ## Projected CRS: WGS_1984_Transverse_Mercator
-##      AREA_HCTR   PRMT_MTR            National_                      Subtype
-## 1 1807.5183616 24763.8073 Atlantis Sand Fynbos on marine-derived acid sands
-## 2    2.1437754   609.5892 Atlantis Sand Fynbos on marine-derived acid sands
-## 3    0.2134855   185.5566 Atlantis Sand Fynbos on marine-derived acid sands
-## 4    2.8602421   652.1671 Atlantis Sand Fynbos on marine-derived acid sands
-## 5    0.5468058   336.8006 Atlantis Sand Fynbos on marine-derived acid sands
-## 6    0.4172046   259.7772 Atlantis Sand Fynbos on marine-derived acid sands
-##          Community                       geometry
-## 1 Need to Find Out POLYGON ((-48203.88 -372294...
-## 2 Need to Find Out POLYGON ((-36676.72 -371974...
-## 3 Need to Find Out POLYGON ((-35891.46 -371837...
-## 4 Need to Find Out POLYGON ((-35750.07 -371847...
-## 5 Need to Find Out POLYGON ((-35823.89 -371817...
-## 6 Need to Find Out POLYGON ((-35929.18 -371824...</code></pre>
+##      AREA_HCTR   PRMT_MTR            National_                      Subtype        Community
+## 1 1807.5183616 24763.8073 Atlantis Sand Fynbos on marine-derived acid sands Need to Find Out
+## 2    2.1437754   609.5892 Atlantis Sand Fynbos on marine-derived acid sands Need to Find Out
+## 3    0.2134855   185.5566 Atlantis Sand Fynbos on marine-derived acid sands Need to Find Out
+## 4    2.8602421   652.1671 Atlantis Sand Fynbos on marine-derived acid sands Need to Find Out
+## 5    0.5468058   336.8006 Atlantis Sand Fynbos on marine-derived acid sands Need to Find Out
+## 6    0.4172046   259.7772 Atlantis Sand Fynbos on marine-derived acid sands Need to Find Out
+##                         geometry
+## 1 POLYGON ((-48203.88 -372294...
+## 2 POLYGON ((-36676.72 -371974...
+## 3 POLYGON ((-35891.46 -371837...
+## 4 POLYGON ((-35750.07 -371847...
+## 5 POLYGON ((-35823.89 -371817...
+## 6 POLYGON ((-35929.18 -371824...</code></pre>
 <p>Note there are 5 attribute columns (the <em>attribute table</em> as you would see in most GIS software) and a 6th <code>geometry</code> column. All <em>sf</em> objects have a geometry column. This is where it stores the geometry - i.e. the point, line, polygon etc - associated with each row of attribute data.</p>
 <p><br></p>
 <p>To write data with <em>sf</em> you use <code>st_write()</code>, like so:</p>
@@ -515,18 +515,18 @@ GeoTIFF
 <p><br></p>
 <p>The easiest way to plot datasets in R is often a bad thing to do when working with spatial datasets!</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="rdemo.html#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(veg)</span></code></pre></div>
-<p><img src="spatial-r_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<p><img src="spatial-r_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
 <p>Fortunately, in this case the dataset isn’t too big, but often you’ll either be overwhelmed with plots or your computer will crash…</p>
 <p>Why 5 plots and not one? This is because <em>sf</em> wants to plot the properties of each attribute in the attribute table. Fortunately, there were only 5, but there could have been hundreds! You can select the one you want with indexing like so:</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="rdemo.html#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(veg[<span class="dv">3</span>])</span></code></pre></div>
-<p><img src="spatial-r_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<p><img src="spatial-r_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
 <p>These are the National Vegetation Types for the City of Cape Town municipality.</p>
 <p>You’ll note that we’re using the base R graphics functions. I mentioned before that <em>sf</em> integrates well with the <a href="https://www.tidyverse.org/"><em>Tidyverse</em></a>, so this could also be plotted like so:</p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="rdemo.html#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse) <span class="co">#calls ggplot2 and other Tidyverse packages together</span></span>
 <span id="cb17-2"><a href="rdemo.html#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-3"><a href="rdemo.html#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
 <span id="cb17-4"><a href="rdemo.html#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data=</span>veg, <span class="fu">aes</span>(<span class="at">fill =</span> <span class="st">`</span><span class="at">National_</span><span class="st">`</span>))</span></code></pre></div>
-<p><img src="spatial-r_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<p><img src="spatial-r_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
 <p>That’s better for the legend, but now we’ve squashed the map. Let’s narrow in on the Cape Peninsula for convenience.</p>
 <p><br></p>
 </div>
@@ -546,10 +546,10 @@ GeoTIFF
 <pre><code>##        xmin        ymin        xmax        ymax 
 ##   -66642.18 -3809853.29   -44412.18 -3750723.29</code></pre>
 <p>Now we can feed that into <code>st_crop</code></p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="rdemo.html#cb22-1" aria-hidden="true" tabindex="-1"></a>veg <span class="ot">&lt;-</span> <span class="fu">st_crop</span>(veg, ext) <span class="co">#Note that I&#39;m overwriting the old data object &quot;veg&quot;</span></span>
-<span id="cb22-2"><a href="rdemo.html#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-3"><a href="rdemo.html#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> <span class="fu">geom_sf</span>(<span class="at">data=</span>veg, <span class="fu">aes</span>(<span class="at">fill =</span> <span class="st">`</span><span class="at">National_</span><span class="st">`</span>))</span></code></pre></div>
-<p><img src="spatial-r_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="rdemo.html#cb22-1" aria-hidden="true" tabindex="-1"></a>veg <span class="ot">&lt;-</span> <span class="fu">st_crop</span>(veg, ext) <span class="co">#Note that I&#39;m overwriting the old data object &quot;veg&quot;</span></span></code></pre></div>
+<pre><code>## Warning: attribute variables are assumed to be spatially constant throughout all geometries</code></pre>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="rdemo.html#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> <span class="fu">geom_sf</span>(<span class="at">data=</span>veg, <span class="fu">aes</span>(<span class="at">fill =</span> <span class="st">`</span><span class="at">National_</span><span class="st">`</span>))</span></code></pre></div>
+<p><img src="spatial-r_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
 <p>Better?</p>
 <p>But what about the silly splits like <em>Peninsula Granite Fynbos - North/South</em> and <em>Cape Flats Dune Strandveld - West Coast/False Bay</em>.</p>
 <p>Which ones do I mean?</p>
@@ -558,44 +558,44 @@ GeoTIFF
 <div id="select-and-subset-by-attribute" class="section level2 hasAnchor" number="7.5">
 <h2><span class="header-section-number">7.5</span> Select and subset by attribute<a href="rdemo.html#select-and-subset-by-attribute" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Let’s select them from the attribute table and plot them.</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="rdemo.html#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Make a vector of the veg types we want</span></span>
-<span id="cb23-2"><a href="rdemo.html#cb23-2" aria-hidden="true" tabindex="-1"></a>split_veg <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Peninsula Granite Fynbos - North&quot;</span>, </span>
-<span id="cb23-3"><a href="rdemo.html#cb23-3" aria-hidden="true" tabindex="-1"></a>               <span class="st">&quot;Peninsula Granite Fynbos - South&quot;</span>, </span>
-<span id="cb23-4"><a href="rdemo.html#cb23-4" aria-hidden="true" tabindex="-1"></a>               <span class="st">&quot;Cape Flats Dune Strandveld - West Coast&quot;</span>, </span>
-<span id="cb23-5"><a href="rdemo.html#cb23-5" aria-hidden="true" tabindex="-1"></a>               <span class="st">&quot;Cape Flats Dune Strandveld - False Bay&quot;</span>)</span>
-<span id="cb23-6"><a href="rdemo.html#cb23-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-7"><a href="rdemo.html#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="co">#Use base R indexing to select attributes</span></span>
-<span id="cb23-8"><a href="rdemo.html#cb23-8" aria-hidden="true" tabindex="-1"></a>vegsub <span class="ot">&lt;-</span> veg[<span class="fu">which</span>(veg<span class="sc">$</span>National_ <span class="sc">%in%</span> split_veg),]</span>
-<span id="cb23-9"><a href="rdemo.html#cb23-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-10"><a href="rdemo.html#cb23-10" aria-hidden="true" tabindex="-1"></a><span class="co">#Plot</span></span>
-<span id="cb23-11"><a href="rdemo.html#cb23-11" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> <span class="fu">geom_sf</span>(<span class="at">data=</span>vegsub, <span class="fu">aes</span>(<span class="at">fill =</span> <span class="st">`</span><span class="at">National_</span><span class="st">`</span>))</span></code></pre></div>
-<p><img src="spatial-r_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="rdemo.html#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Make a vector of the veg types we want</span></span>
+<span id="cb25-2"><a href="rdemo.html#cb25-2" aria-hidden="true" tabindex="-1"></a>split_veg <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Peninsula Granite Fynbos - North&quot;</span>, </span>
+<span id="cb25-3"><a href="rdemo.html#cb25-3" aria-hidden="true" tabindex="-1"></a>               <span class="st">&quot;Peninsula Granite Fynbos - South&quot;</span>, </span>
+<span id="cb25-4"><a href="rdemo.html#cb25-4" aria-hidden="true" tabindex="-1"></a>               <span class="st">&quot;Cape Flats Dune Strandveld - West Coast&quot;</span>, </span>
+<span id="cb25-5"><a href="rdemo.html#cb25-5" aria-hidden="true" tabindex="-1"></a>               <span class="st">&quot;Cape Flats Dune Strandveld - False Bay&quot;</span>)</span>
+<span id="cb25-6"><a href="rdemo.html#cb25-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-7"><a href="rdemo.html#cb25-7" aria-hidden="true" tabindex="-1"></a><span class="co">#Use base R indexing to select attributes</span></span>
+<span id="cb25-8"><a href="rdemo.html#cb25-8" aria-hidden="true" tabindex="-1"></a>vegsub <span class="ot">&lt;-</span> veg[<span class="fu">which</span>(veg<span class="sc">$</span>National_ <span class="sc">%in%</span> split_veg),]</span>
+<span id="cb25-9"><a href="rdemo.html#cb25-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-10"><a href="rdemo.html#cb25-10" aria-hidden="true" tabindex="-1"></a><span class="co">#Plot</span></span>
+<span id="cb25-11"><a href="rdemo.html#cb25-11" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> <span class="fu">geom_sf</span>(<span class="at">data=</span>vegsub, <span class="fu">aes</span>(<span class="at">fill =</span> <span class="st">`</span><span class="at">National_</span><span class="st">`</span>))</span></code></pre></div>
+<p><img src="spatial-r_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
 <p>Or tidyverse…</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="rdemo.html#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Using tidyverse piping to filter and plot</span></span>
-<span id="cb24-2"><a href="rdemo.html#cb24-2" aria-hidden="true" tabindex="-1"></a>veg <span class="sc">%&gt;%</span> </span>
-<span id="cb24-3"><a href="rdemo.html#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(National_ <span class="sc">%in%</span> split_veg) <span class="sc">%&gt;%</span></span>
-<span id="cb24-4"><a href="rdemo.html#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb24-5"><a href="rdemo.html#cb24-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">fill =</span> <span class="st">`</span><span class="at">National_</span><span class="st">`</span>))</span></code></pre></div>
-<p><img src="spatial-r_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="rdemo.html#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co">#The advantage being that you don&#39;t have to make the intermediate &quot;vegsub&quot; object</span></span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="rdemo.html#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Using tidyverse piping to filter and plot</span></span>
+<span id="cb26-2"><a href="rdemo.html#cb26-2" aria-hidden="true" tabindex="-1"></a>veg <span class="sc">%&gt;%</span> </span>
+<span id="cb26-3"><a href="rdemo.html#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(National_ <span class="sc">%in%</span> split_veg) <span class="sc">%&gt;%</span></span>
+<span id="cb26-4"><a href="rdemo.html#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb26-5"><a href="rdemo.html#cb26-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">fill =</span> <span class="st">`</span><span class="at">National_</span><span class="st">`</span>))</span></code></pre></div>
+<p><img src="spatial-r_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="rdemo.html#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co">#The advantage being that you don&#39;t have to make the intermediate &quot;vegsub&quot; object</span></span></code></pre></div>
 <p>Ok. What if we decided we don’t want them split?</p>
 </div>
 <div id="combine-classes-and-dissolve-by-attribute" class="section level2 hasAnchor" number="7.6">
 <h2><span class="header-section-number">7.6</span> Combine classes and dissolve by attribute<a href="rdemo.html#combine-classes-and-dissolve-by-attribute" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>We can just rename them in appropriate column in the attribute table…</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="rdemo.html#cb26-1" aria-hidden="true" tabindex="-1"></a>vegsub<span class="sc">$</span>National_ <span class="ot">&lt;-</span> <span class="fu">str_replace_all</span>(vegsub<span class="sc">$</span>National_,</span>
-<span id="cb26-2"><a href="rdemo.html#cb26-2" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">c</span>(<span class="st">&quot;Peninsula Granite Fynbos - North&quot;</span> <span class="ot">=</span> <span class="st">&quot;Peninsula Granite Fynbos&quot;</span>, </span>
-<span id="cb26-3"><a href="rdemo.html#cb26-3" aria-hidden="true" tabindex="-1"></a>                  <span class="st">&quot;Peninsula Granite Fynbos - South&quot;</span> <span class="ot">=</span> <span class="st">&quot;Peninsula Granite Fynbos&quot;</span>, </span>
-<span id="cb26-4"><a href="rdemo.html#cb26-4" aria-hidden="true" tabindex="-1"></a>                  <span class="st">&quot;Cape Flats Dune Strandveld - West Coast&quot;</span> <span class="ot">=</span> <span class="st">&quot;Cape Flats Dune Strandveld&quot;</span>, </span>
-<span id="cb26-5"><a href="rdemo.html#cb26-5" aria-hidden="true" tabindex="-1"></a>                  <span class="st">&quot;Cape Flats Dune Strandveld - False Bay&quot;</span> <span class="ot">=</span> <span class="st">&quot;Cape Flats Dune Strandveld&quot;</span>))</span>
-<span id="cb26-6"><a href="rdemo.html#cb26-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-7"><a href="rdemo.html#cb26-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> <span class="fu">geom_sf</span>(<span class="at">data=</span>vegsub, <span class="fu">aes</span>(<span class="at">fill =</span> <span class="st">`</span><span class="at">National_</span><span class="st">`</span>))</span></code></pre></div>
-<p><img src="spatial-r_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="rdemo.html#cb28-1" aria-hidden="true" tabindex="-1"></a>vegsub<span class="sc">$</span>National_ <span class="ot">&lt;-</span> <span class="fu">str_replace_all</span>(vegsub<span class="sc">$</span>National_,</span>
+<span id="cb28-2"><a href="rdemo.html#cb28-2" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">c</span>(<span class="st">&quot;Peninsula Granite Fynbos - North&quot;</span> <span class="ot">=</span> <span class="st">&quot;Peninsula Granite Fynbos&quot;</span>, </span>
+<span id="cb28-3"><a href="rdemo.html#cb28-3" aria-hidden="true" tabindex="-1"></a>                  <span class="st">&quot;Peninsula Granite Fynbos - South&quot;</span> <span class="ot">=</span> <span class="st">&quot;Peninsula Granite Fynbos&quot;</span>, </span>
+<span id="cb28-4"><a href="rdemo.html#cb28-4" aria-hidden="true" tabindex="-1"></a>                  <span class="st">&quot;Cape Flats Dune Strandveld - West Coast&quot;</span> <span class="ot">=</span> <span class="st">&quot;Cape Flats Dune Strandveld&quot;</span>, </span>
+<span id="cb28-5"><a href="rdemo.html#cb28-5" aria-hidden="true" tabindex="-1"></a>                  <span class="st">&quot;Cape Flats Dune Strandveld - False Bay&quot;</span> <span class="ot">=</span> <span class="st">&quot;Cape Flats Dune Strandveld&quot;</span>))</span>
+<span id="cb28-6"><a href="rdemo.html#cb28-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-7"><a href="rdemo.html#cb28-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> <span class="fu">geom_sf</span>(<span class="at">data=</span>vegsub, <span class="fu">aes</span>(<span class="at">fill =</span> <span class="st">`</span><span class="at">National_</span><span class="st">`</span>))</span></code></pre></div>
+<p><img src="spatial-r_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
 <p>Nice, but from the polygon boundaries we see that there are a number of adjacent polygons (i.e. they have shared boundaries) that are of the same veg type. We can “dissolve” and plot it without the unwanted boundaries using <code>summarize()</code>:</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="rdemo.html#cb27-1" aria-hidden="true" tabindex="-1"></a>vegsub <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(National_) <span class="sc">%&gt;%</span> </span>
-<span id="cb27-2"><a href="rdemo.html#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb27-3"><a href="rdemo.html#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">fill =</span> National_))</span></code></pre></div>
-<p><img src="spatial-r_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="rdemo.html#cb29-1" aria-hidden="true" tabindex="-1"></a>vegsub <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(National_) <span class="sc">%&gt;%</span> </span>
+<span id="cb29-2"><a href="rdemo.html#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb29-3"><a href="rdemo.html#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">fill =</span> National_))</span></code></pre></div>
+<p><img src="spatial-r_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
 <p>Ok… I think we’ve flogged that horse as far as it’ll go for now. Let’s bring in another dataset. How about points?</p>
 <p><br></p>
 </div>
@@ -603,100 +603,93 @@ GeoTIFF
 <h2><span class="header-section-number">7.7</span> Calling iNaturalist locality (point) data from R<a href="rdemo.html#getinat" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>A very cool feature of <a href="https://www.inaturalist.org/">iNaturalist</a> is that the team at <a href="https://ropensci.org/">rOpenSci</a> have built a great R package for interfacing with it directly, called <a href="https://docs.ropensci.org/rinat/"><em>rinat!</em></a></p>
 <p>Let’s get all the records we can for the King Protea (<em>Protea cynaroides</em>).</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="rdemo.html#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rinat)</span>
-<span id="cb28-2"><a href="rdemo.html#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-3"><a href="rdemo.html#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="co">#Call the data directly from iNat</span></span>
-<span id="cb28-4"><a href="rdemo.html#cb28-4" aria-hidden="true" tabindex="-1"></a>pc <span class="ot">&lt;-</span> <span class="fu">get_inat_obs</span>(<span class="at">taxon_name =</span> <span class="st">&quot;Protea cynaroides&quot;</span>,</span>
-<span id="cb28-5"><a href="rdemo.html#cb28-5" aria-hidden="true" tabindex="-1"></a>                   <span class="at">bounds =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">35</span>, <span class="dv">18</span>, <span class="sc">-</span><span class="fl">33.5</span>, <span class="fl">18.5</span>),</span>
-<span id="cb28-6"><a href="rdemo.html#cb28-6" aria-hidden="true" tabindex="-1"></a>                   <span class="at">maxresults =</span> <span class="dv">1000</span>)</span>
-<span id="cb28-7"><a href="rdemo.html#cb28-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-8"><a href="rdemo.html#cb28-8" aria-hidden="true" tabindex="-1"></a><span class="co">#View the first few rows of data</span></span>
-<span id="cb28-9"><a href="rdemo.html#cb28-9" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(pc)</span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="rdemo.html#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rinat)</span>
+<span id="cb30-2"><a href="rdemo.html#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-3"><a href="rdemo.html#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="co">#Call the data directly from iNat</span></span>
+<span id="cb30-4"><a href="rdemo.html#cb30-4" aria-hidden="true" tabindex="-1"></a>pc <span class="ot">&lt;-</span> <span class="fu">get_inat_obs</span>(<span class="at">taxon_name =</span> <span class="st">&quot;Protea cynaroides&quot;</span>,</span>
+<span id="cb30-5"><a href="rdemo.html#cb30-5" aria-hidden="true" tabindex="-1"></a>                   <span class="at">bounds =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">35</span>, <span class="dv">18</span>, <span class="sc">-</span><span class="fl">33.5</span>, <span class="fl">18.5</span>),</span>
+<span id="cb30-6"><a href="rdemo.html#cb30-6" aria-hidden="true" tabindex="-1"></a>                   <span class="at">maxresults =</span> <span class="dv">1000</span>)</span>
+<span id="cb30-7"><a href="rdemo.html#cb30-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-8"><a href="rdemo.html#cb30-8" aria-hidden="true" tabindex="-1"></a><span class="co">#View the first few rows of data</span></span>
+<span id="cb30-9"><a href="rdemo.html#cb30-9" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(pc)</span></code></pre></div>
 <pre><code>##     scientific_name                  datetime description
-## 1 Protea cynaroides 2022-04-27 09:18:16 +0200            
-## 2 Protea cynaroides 2023-03-04 09:59:03 +0200            
-## 3 Protea cynaroides 2023-02-18 13:08:50 +0200            
-## 4 Protea cynaroides                                      
-## 5 Protea cynaroides 2023-03-03 16:05:40 +0200            
-## 6 Protea cynaroides 2023-03-02 10:41:45 +0200            
-##                                         place_guess  latitude longitude tag_list
-## 1   Table Mountain National Park, Cape Town, WC, ZA -33.96995  18.40080         
-## 2   Table Mountain National Park, Cape Town, WC, ZA -33.98456  18.41809         
-## 3   Table Mountain National Park, Cape Town, WC, ZA -33.97511  18.42066         
-## 4                                        Cape Point -34.35477  18.47857         
-## 5 Table Mountain National Park, ZA-WC-CT, ZA-WC, ZA -33.96752  18.40833         
-## 6 Table Mountain National Park, ZA-WC-CT, ZA-WC, ZA -34.06220  18.39634         
-##   common_name                                                url
-## 1 King Protea https://www.inaturalist.org/observations/150288119
-## 2 King Protea https://www.inaturalist.org/observations/150284352
-## 3 King Protea https://www.inaturalist.org/observations/150208745
-## 4 King Protea https://www.inaturalist.org/observations/150187921
-## 5 King Protea https://www.inaturalist.org/observations/150150887
-## 6 King Protea https://www.inaturalist.org/observations/150045731
-##                                                                     image_url
-## 1  https://inaturalist-open-data.s3.amazonaws.com/photos/259113769/medium.jpg
-## 2  https://inaturalist-open-data.s3.amazonaws.com/photos/259106410/medium.jpg
-## 3  https://inaturalist-open-data.s3.amazonaws.com/photos/258959881/medium.jpg
-## 4                 https://static.inaturalist.org/photos/258922896/medium.jpeg
-## 5 https://inaturalist-open-data.s3.amazonaws.com/photos/258850178/medium.jpeg
-## 6 https://inaturalist-open-data.s3.amazonaws.com/photos/258653357/medium.jpeg
-##      user_login        id species_guess iconic_taxon_name taxon_id
-## 1        edrich 150288119   King Protea           Plantae   132848
-## 2       karl13n 150284352   King Protea           Plantae   132848
-## 3     ajvandijk 150208745   King Protea           Plantae   132848
-## 4   rebecca1308 150187921   King Protea           Plantae   132848
-## 5      dryfveer 150150887   King Protea           Plantae   132848
-## 6 susanthescout 150045731   King Protea           Plantae   132848
-##   num_identification_agreements num_identification_disagreements
-## 1                             2                                0
-## 2                             1                                0
-## 3                             2                                0
-## 4                             2                                0
-## 5                             1                                0
-## 6                             3                                0
-##          observed_on_string observed_on        time_observed_at time_zone
-## 1 2022-04-27 09:18:16+02:00  2022-04-27 2022-04-27 07:18:16 UTC  Pretoria
-## 2 2023-03-04 09:59:03+02:00  2023-03-04 2023-03-04 07:59:03 UTC  Pretoria
-## 3 2023-02-18 13:08:50+02:00  2023-02-18 2023-02-18 11:08:50 UTC  Pretoria
-## 4                                                                Pretoria
-## 5       2023-03-03 16:05:40  2023-03-03 2023-03-03 14:05:40 UTC  Pretoria
-## 6       2023-03-02 10:41:45  2023-03-02 2023-03-02 08:41:45 UTC  Pretoria
-##   positional_accuracy public_positional_accuracy geoprivacy taxon_geoprivacy
-## 1                   4                          4       &lt;NA&gt;             open
-## 2                  31                         31       &lt;NA&gt;             open
-## 3                   3                          3       &lt;NA&gt;             open
-## 4                 203                        203       &lt;NA&gt;             open
-## 5                  12                         12       &lt;NA&gt;             open
-## 6                   2                          2       &lt;NA&gt;             open
+## 1 Protea cynaroides 2023-02-28 00:00:00 +0200            
+## 2 Protea cynaroides 2022-04-27 09:18:16 +0200            
+## 3 Protea cynaroides 2023-03-04 09:59:03 +0200            
+## 4 Protea cynaroides 2023-02-18 13:08:50 +0200            
+## 5 Protea cynaroides                                      
+## 6 Protea cynaroides 2023-03-03 16:05:40 +0200            
+##                                         place_guess  latitude longitude tag_list common_name
+## 1     Wynberg NU (2), Cape Town, 7824, South Africa -33.99381  18.41977          King Protea
+## 2   Table Mountain National Park, Cape Town, WC, ZA -33.96995  18.40080          King Protea
+## 3   Table Mountain National Park, Cape Town, WC, ZA -33.98456  18.41809          King Protea
+## 4   Table Mountain National Park, Cape Town, WC, ZA -33.97511  18.42066          King Protea
+## 5                                        Cape Point -34.35477  18.47857          King Protea
+## 6 Table Mountain National Park, ZA-WC-CT, ZA-WC, ZA -33.96752  18.40833          King Protea
+##                                                  url
+## 1 https://www.inaturalist.org/observations/150493345
+## 2 https://www.inaturalist.org/observations/150288119
+## 3 https://www.inaturalist.org/observations/150284352
+## 4 https://www.inaturalist.org/observations/150208745
+## 5 https://www.inaturalist.org/observations/150187921
+## 6 https://www.inaturalist.org/observations/150150887
+##                                                                     image_url  user_login        id
+## 1  https://inaturalist-open-data.s3.amazonaws.com/photos/259510627/medium.jpg     ydnewp2 150493345
+## 2  https://inaturalist-open-data.s3.amazonaws.com/photos/259113769/medium.jpg      edrich 150288119
+## 3  https://inaturalist-open-data.s3.amazonaws.com/photos/259106410/medium.jpg     karl13n 150284352
+## 4  https://inaturalist-open-data.s3.amazonaws.com/photos/258959881/medium.jpg   ajvandijk 150208745
+## 5                 https://static.inaturalist.org/photos/258922896/medium.jpeg rebecca1308 150187921
+## 6 https://inaturalist-open-data.s3.amazonaws.com/photos/258850178/medium.jpeg    dryfveer 150150887
+##   species_guess iconic_taxon_name taxon_id num_identification_agreements
+## 1   King Protea           Plantae   132848                             2
+## 2   King Protea           Plantae   132848                             3
+## 3   King Protea           Plantae   132848                             2
+## 4   King Protea           Plantae   132848                             3
+## 5   King Protea           Plantae   132848                             2
+## 6   King Protea           Plantae   132848                             1
+##   num_identification_disagreements        observed_on_string observed_on        time_observed_at
+## 1                                0       2023/02/28  10h30AM  2023-02-28                        
+## 2                                0 2022-04-27 09:18:16+02:00  2022-04-27 2022-04-27 07:18:16 UTC
+## 3                                0 2023-03-04 09:59:03+02:00  2023-03-04 2023-03-04 07:59:03 UTC
+## 4                                0 2023-02-18 13:08:50+02:00  2023-02-18 2023-02-18 11:08:50 UTC
+## 5                                0                                                              
+## 6                                0       2023-03-03 16:05:40  2023-03-03 2023-03-03 14:05:40 UTC
+##   time_zone positional_accuracy public_positional_accuracy geoprivacy taxon_geoprivacy
+## 1  Pretoria                 678                        678       &lt;NA&gt;             open
+## 2  Pretoria                   4                          4       &lt;NA&gt;             open
+## 3  Pretoria                  31                         31       &lt;NA&gt;             open
+## 4  Pretoria                   3                          3       &lt;NA&gt;             open
+## 5  Pretoria                 203                        203       &lt;NA&gt;             open
+## 6  Pretoria                  12                         12       &lt;NA&gt;             open
 ##   coordinates_obscured positioning_method positioning_device user_id    user_name
-## 1                false                                       6548136             
-## 2                false                                       6506594             
-## 3                false                                       1480751             
-## 4                false                gps                gps 5136962 Rebecca Lain
-## 5                false                                       2173153 Santie Gouws
-## 6                false                                       1495441 Susan Gammon
+## 1                false                                        772460        Wendy
+## 2                false                                       6548136             
+## 3                false                                       6506594             
+## 4                false                                       1480751             
+## 5                false                gps                gps 5136962 Rebecca Lain
+## 6                false                                       2173153 Santie Gouws
 ##                created_at              updated_at quality_grade  license sound_url
-## 1 2023-03-05 07:51:44 UTC 2023-03-05 10:51:28 UTC      research CC-BY-NC        NA
-## 2 2023-03-05 06:23:29 UTC 2023-03-05 06:58:09 UTC      research CC-BY-NC        NA
-## 3 2023-03-04 13:57:43 UTC 2023-03-04 14:42:09 UTC      research CC-BY-NC        NA
-## 4 2023-03-04 06:07:27 UTC 2023-03-04 08:09:54 UTC        casual                 NA
-## 5 2023-03-03 20:11:37 UTC 2023-03-03 20:31:31 UTC      research CC-BY-NC        NA
-## 6 2023-03-02 10:46:22 UTC 2023-03-03 21:15:49 UTC      research CC-BY-NC        NA
+## 1 2023-03-07 15:03:44 UTC 2023-03-08 05:19:13 UTC      research CC-BY-NC        NA
+## 2 2023-03-05 07:51:44 UTC 2023-03-07 07:00:03 UTC      research CC-BY-NC        NA
+## 3 2023-03-05 06:23:29 UTC 2023-03-07 07:01:38 UTC      research CC-BY-NC        NA
+## 4 2023-03-04 13:57:43 UTC 2023-03-07 07:10:30 UTC      research CC-BY-NC        NA
+## 5 2023-03-04 06:07:27 UTC 2023-03-04 08:09:54 UTC        casual                 NA
+## 6 2023-03-03 20:11:37 UTC 2023-03-03 20:31:31 UTC      research CC-BY-NC        NA
 ##   oauth_application_id captive_cultivated
-## 1                    3              false
+## 1                   NA              false
 ## 2                    3              false
 ## 3                    3              false
-## 4                    2              false
+## 4                    3              false
 ## 5                    2              false
 ## 6                    2              false</code></pre>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="rdemo.html#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Filter returned observations by a range of column attribute criteria</span></span>
-<span id="cb30-2"><a href="rdemo.html#cb30-2" aria-hidden="true" tabindex="-1"></a>pc <span class="ot">&lt;-</span> pc <span class="sc">%&gt;%</span> <span class="fu">filter</span>(positional_accuracy<span class="sc">&lt;</span><span class="dv">46</span> <span class="sc">&amp;</span> </span>
-<span id="cb30-3"><a href="rdemo.html#cb30-3" aria-hidden="true" tabindex="-1"></a>                latitude<span class="sc">&lt;</span><span class="dv">0</span> <span class="sc">&amp;</span></span>
-<span id="cb30-4"><a href="rdemo.html#cb30-4" aria-hidden="true" tabindex="-1"></a>                <span class="sc">!</span><span class="fu">is.na</span>(latitude) <span class="sc">&amp;</span></span>
-<span id="cb30-5"><a href="rdemo.html#cb30-5" aria-hidden="true" tabindex="-1"></a>                captive_cultivated <span class="sc">==</span> <span class="st">&quot;false&quot;</span> <span class="sc">&amp;</span></span>
-<span id="cb30-6"><a href="rdemo.html#cb30-6" aria-hidden="true" tabindex="-1"></a>                quality_grade <span class="sc">==</span> <span class="st">&quot;research&quot;</span>)</span>
-<span id="cb30-7"><a href="rdemo.html#cb30-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-8"><a href="rdemo.html#cb30-8" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(pc)</span></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="rdemo.html#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Filter returned observations by a range of column attribute criteria</span></span>
+<span id="cb32-2"><a href="rdemo.html#cb32-2" aria-hidden="true" tabindex="-1"></a>pc <span class="ot">&lt;-</span> pc <span class="sc">%&gt;%</span> <span class="fu">filter</span>(positional_accuracy<span class="sc">&lt;</span><span class="dv">46</span> <span class="sc">&amp;</span> </span>
+<span id="cb32-3"><a href="rdemo.html#cb32-3" aria-hidden="true" tabindex="-1"></a>                latitude<span class="sc">&lt;</span><span class="dv">0</span> <span class="sc">&amp;</span></span>
+<span id="cb32-4"><a href="rdemo.html#cb32-4" aria-hidden="true" tabindex="-1"></a>                <span class="sc">!</span><span class="fu">is.na</span>(latitude) <span class="sc">&amp;</span></span>
+<span id="cb32-5"><a href="rdemo.html#cb32-5" aria-hidden="true" tabindex="-1"></a>                captive_cultivated <span class="sc">==</span> <span class="st">&quot;false&quot;</span> <span class="sc">&amp;</span></span>
+<span id="cb32-6"><a href="rdemo.html#cb32-6" aria-hidden="true" tabindex="-1"></a>                quality_grade <span class="sc">==</span> <span class="st">&quot;research&quot;</span>)</span>
+<span id="cb32-7"><a href="rdemo.html#cb32-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-8"><a href="rdemo.html#cb32-8" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(pc)</span></code></pre></div>
 <pre><code>## [1] &quot;data.frame&quot;</code></pre>
 <p>Ok, so this is a dataframe with lat/long data, but it isn’t registered as an object with spatial attributes (i.e. geometries).</p>
 <p><br></p>
@@ -704,14 +697,14 @@ GeoTIFF
 <div id="converting-a-dataframe-into-a-spatial-object" class="section level2 hasAnchor" number="7.8">
 <h2><span class="header-section-number">7.8</span> Converting a dataframe into a spatial object<a href="rdemo.html#converting-a-dataframe-into-a-spatial-object" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>To make it an object of <code>class(sf)</code> we use the function <code>st_as_sf()</code>.</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="rdemo.html#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Make the dataframe a spatial object of class = &quot;sf&quot;</span></span>
-<span id="cb32-2"><a href="rdemo.html#cb32-2" aria-hidden="true" tabindex="-1"></a>pc <span class="ot">&lt;-</span> <span class="fu">st_as_sf</span>(pc, <span class="at">coords =</span> <span class="fu">c</span>(<span class="st">&quot;longitude&quot;</span>, <span class="st">&quot;latitude&quot;</span>), <span class="at">crs =</span> <span class="dv">4326</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="rdemo.html#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Make the dataframe a spatial object of class = &quot;sf&quot;</span></span>
+<span id="cb34-2"><a href="rdemo.html#cb34-2" aria-hidden="true" tabindex="-1"></a>pc <span class="ot">&lt;-</span> <span class="fu">st_as_sf</span>(pc, <span class="at">coords =</span> <span class="fu">c</span>(<span class="st">&quot;longitude&quot;</span>, <span class="st">&quot;latitude&quot;</span>), <span class="at">crs =</span> <span class="dv">4326</span>)</span></code></pre></div>
 <p>Note that I had to define the CRS!!! I defined it to be Geographic WGS84, using the EPSG code in this case.</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="rdemo.html#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co">#What class is it?</span></span>
-<span id="cb33-2"><a href="rdemo.html#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(pc)</span></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="rdemo.html#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co">#What class is it?</span></span>
+<span id="cb35-2"><a href="rdemo.html#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(pc)</span></code></pre></div>
 <pre><code>## [1] &quot;sf&quot;         &quot;data.frame&quot;</code></pre>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="rdemo.html#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Note the new &quot;geometry&quot; column</span></span>
-<span id="cb35-2"><a href="rdemo.html#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(pc)</span></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="rdemo.html#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Note the new &quot;geometry&quot; column</span></span>
+<span id="cb37-2"><a href="rdemo.html#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(pc)</span></code></pre></div>
 <pre><code>##  [1] &quot;scientific_name&quot;                  &quot;datetime&quot;                        
 ##  [3] &quot;description&quot;                      &quot;place_guess&quot;                     
 ##  [5] &quot;tag_list&quot;                         &quot;common_name&quot;                     
@@ -730,9 +723,9 @@ GeoTIFF
 ## [31] &quot;quality_grade&quot;                    &quot;license&quot;                         
 ## [33] &quot;sound_url&quot;                        &quot;oauth_application_id&quot;            
 ## [35] &quot;captive_cultivated&quot;               &quot;geometry&quot;</code></pre>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="rdemo.html#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Plot</span></span>
-<span id="cb37-2"><a href="rdemo.html#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> <span class="fu">geom_sf</span>(<span class="at">data=</span>pc)</span></code></pre></div>
-<p><img src="spatial-r_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="rdemo.html#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Plot</span></span>
+<span id="cb39-2"><a href="rdemo.html#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> <span class="fu">geom_sf</span>(<span class="at">data=</span>pc)</span></code></pre></div>
+<p><img src="spatial-r_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
 <p><br></p>
 <p>Great! We got lots of points, but without a base layer its very difficult to tell where exactly these are?</p>
 <p><br></p>
@@ -741,13 +734,13 @@ GeoTIFF
 <h2><span class="header-section-number">7.9</span> Adding basemaps to plots<a href="rdemo.html#adding-basemaps-to-plots" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>There are lots of ways to make the basemap from data objects etc that we can plot our points over, but an easy way is to pull in tiles from Open Street Maps and plot our points on those.</p>
 <p><br></p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="rdemo.html#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rosm)</span>
-<span id="cb38-2"><a href="rdemo.html#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggspatial)</span>
-<span id="cb38-3"><a href="rdemo.html#cb38-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-4"><a href="rdemo.html#cb38-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> </span>
-<span id="cb38-5"><a href="rdemo.html#cb38-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotation_map_tile</span>(<span class="at">type =</span> <span class="st">&quot;osm&quot;</span>, <span class="at">progress =</span> <span class="st">&quot;none&quot;</span>) <span class="sc">+</span> </span>
-<span id="cb38-6"><a href="rdemo.html#cb38-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data=</span>pc)</span></code></pre></div>
-<p><img src="spatial-r_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="rdemo.html#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rosm)</span>
+<span id="cb40-2"><a href="rdemo.html#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggspatial)</span>
+<span id="cb40-3"><a href="rdemo.html#cb40-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-4"><a href="rdemo.html#cb40-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb40-5"><a href="rdemo.html#cb40-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotation_map_tile</span>(<span class="at">type =</span> <span class="st">&quot;osm&quot;</span>, <span class="at">progress =</span> <span class="st">&quot;none&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb40-6"><a href="rdemo.html#cb40-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data=</span>pc)</span></code></pre></div>
+<p><img src="spatial-r_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
 <p><br></p>
 <p>Note that there are quite a few base layer/tile options that can be set with <code>type = ""</code>. Try <code>rosm::osm.types()</code> to see them all.</p>
 <p>This is better than nothing, but the scale of the map is too small to really see where the plants actually are. It would be much easier if we could look at the data interactively?</p>
@@ -760,18 +753,18 @@ GeoTIFF
 <p>NOTE: If you can’t get leaflet to work it is probably a CRS problem. Your data need to be in <em>Geographic</em> or <em>Web Mercator</em></p>
 </blockquote>
 <p><br></p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="rdemo.html#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(leaflet)</span>
-<span id="cb39-2"><a href="rdemo.html#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(htmltools)</span>
-<span id="cb39-3"><a href="rdemo.html#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="fu">leaflet</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb39-4"><a href="rdemo.html#cb39-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Add default OpenStreetMap map tiles</span></span>
-<span id="cb39-5"><a href="rdemo.html#cb39-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">addTiles</span>(<span class="at">group =</span> <span class="st">&quot;Default&quot;</span>) <span class="sc">%&gt;%</span>  </span>
-<span id="cb39-6"><a href="rdemo.html#cb39-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Add our points</span></span>
-<span id="cb39-7"><a href="rdemo.html#cb39-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">addCircleMarkers</span>(<span class="at">data =</span> pc,</span>
-<span id="cb39-8"><a href="rdemo.html#cb39-8" aria-hidden="true" tabindex="-1"></a>                   <span class="at">group =</span> <span class="st">&quot;Protea cynaroides&quot;</span>,</span>
-<span id="cb39-9"><a href="rdemo.html#cb39-9" aria-hidden="true" tabindex="-1"></a>                   <span class="at">radius =</span> <span class="dv">3</span>, </span>
-<span id="cb39-10"><a href="rdemo.html#cb39-10" aria-hidden="true" tabindex="-1"></a>                   <span class="at">color =</span> <span class="st">&quot;green&quot;</span>) </span></code></pre></div>
-<div class="leaflet html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-766a1fa1a59fef72b933" style="width:672px;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-766a1fa1a59fef72b933">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,"Default",{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]},{"method":"addCircleMarkers","args":[[-33.969945,-33.9845612002,-33.9751083333,-33.9675221585,-34.0621999511,-33.9739780159,-33.9948527768,-33.9992699775,-33.9718353865,-33.9811689775,-33.9892674973,-34.1168028333,-33.9653301702,-33.9717705553,-33.98439949,-33.97382216,-33.9661833333,-33.97739891,-33.9774481,-33.97812418,-33.9790384201,-34.0719014184,-34.0812,-34.2670472222,-34.0979262901,-33.9850521251,-33.9773922109,-33.9751526508,-33.9733025162,-33.9739792722,-34.2955393344,-34.1017138333,-34.0641487436,-33.9678368,-33.966218456,-34.0019807003,-33.973288956,-33.9631777778,-33.9686151282,-33.995427435,-33.9710383333,-33.9708633333,-34.0874586068,-34.0892551421,-34.0901108506,-34.03813911,-34.03822261,-34.03562629,-34.03632884,-34.1163111667,-33.96865,-34.1482834301,-33.9940947181,-34.0021288967,-33.9860950054,-33.97103374,-33.977285804,-33.9732628191,-33.9736292965,-33.960105,-34.0018653,-34.00426738,-33.927685786,-34.3023639722,-33.9600833333,-33.9777133333,-34.0331925731,-33.97178098,-33.9718893,-33.97189318,-33.97810284,-33.97796153,-33.9987833333,-34.0017888833,-34.068859499,-34.0750867082,-34.0798538737,-34.11309411,-34.06093883,-34.0632631501,-33.961265567,-34.03426835,-34.03320889,-33.97387745,-33.96759817,-34.0937916667,-34.0943638333,-34.0935388333,-34.0976305,-34.0978611667,-34.0982166667,-33.98912984,-33.9867025,-34.05702232,-34.054882,-33.9736468681,-34.1138211172,-33.9773068667,-33.9786006333,-33.9788870333,-33.97520013,-33.96612683,-34.0761318833,-34.0510329117,-34.2642096167,-34.2624822167,-34.2916615556,-34.29169086,-34.28897189,-34.30419318,-34.3038123611,-34.2723356583,-33.9937257534,-34.0886095541,-33.9744814,-33.989845975,-33.9734583333,-33.986255,-34.0901808527,-34.078187544,-34.0769092794,-34.0948616667,-34.07733357,-34.0336432471,-34.1138345703,-34.2533194444,-33.9744991212,-33.967846065,-33.9647133074,-33.9403069686,-33.96751582,-33.96619158,-34.09236413,-34.1122029499,-34.1125932,-34.09894442,-34.01183055,-34.0938312602,-34.0989827892,-34.0990111667,-34.0987574701,-34.07508825,-34.2387363635,-34.1134825701,-34.11387726,-34.1165134399,-34.1166276099,-34.2530820476,-34.11790125,-34.12023249,-34.12020879,-34.12015394,-34.0740971667,-34.055233,-34.093620982,-34.05521313,-34.0751041092,-34.1130273929,-34.1068827394,-34.0744470924,-33.973275,-33.9690388428,-34.145892,-34.1145663396,-34.0689433333,-34.0529615069,-34.0541912281,-34.0685688959,-34.0737427974,-33.9662133333,-34.07487145,-34.14753,-34.0972283436,-34.0938359359,-34.1012765292,-34.1026729384,-34.0956337953,-34.094136785,-34.0928878331,-34.0932203741,-34.0937568018,-34.2777122006,-33.979025,-33.9850883333,-34.0961305,-34.102496,-34.0858744,-34.0850263333,-33.9622033333,-33.9650533333,-34.111944791,-34.11188488,-34.11234637,-34.11519557,-34.1145593099,-34.1135499101,-34.1123018501,-34.11072233,-34.0744568501,-34.0744577302,-33.9721037558,-33.9722868718,-33.9716899809,-33.9699491968,-33.9709561256,-33.9697439718,-33.9680570479,-33.9675087163,-34.092216,-34.0905316667,-34.09304475,-33.999001941,-33.9995525601,-34.05423367,-34.05371273,-34.05581706,-34.05956067,-34.0609151501,-34.074972,-33.9651666667,-33.96552,-33.969345,-34.0012454284,-33.9722216667,-33.971795,-34.0942644835,-34.0622452078,-33.9601530333,-34.0884462261,-34.0761819,-34.0741721667,-34.2430005,-34.0891584969,-33.9551962357,-34.0815581774,-34.0813403378,-34.0778890667,-34.110398409,-34.1118918965,-33.97659682,-33.97883843,-34.1115991924,-33.9548300818,-34.074118097,-34.2946333333,-33.98537468,-34.0853257282,-34.1476278333,-34.1475861667,-34.1017388889,-34.1009027778,-34.2693018169,-34.0815166667,-34.0811471667,-34.0983155713,-33.9635612877,-33.994295,-34.1006553266,-34.1075883,-34.0938241594,-34.0950686205,-34.0975978598,-34.1010010801,-34.0936116667,-34.100627058,-34.0941953656,-33.975389543,-34.086198807,-34.086778164,-33.9694709005,-33.9851333333,-34.0696555556,-34.0697833333,-34.1167333333,-34.0629055,-34.1118888333,-33.97328,-34.26294551,-34.25303927,-34.25503682,-34.2604838101,-34.2641995,-34.0969002926,-34.1075757989,-33.9934066035,-34.1022803068,-34.1019717744,-34.119210849,-33.9732866667,-34.1022555,-34.2725785543,-34.0941067649,-33.97417,-34.1119638333,-34.1015805,-33.966475809,-34.0958785,-34.0898862994,-34.0744583333,-34.0671888333,-34.1166666667,-34.03802408,-34.0383275833,-33.9660635725,-33.975040516,-33.982604285,-33.99811685,-33.99634211,-34.1022416667,-34.0742861667,-33.9772789203,-33.9699879331,-33.9709681086,-33.9605305562,-34.2631024345,-34.0741886735,-34.1141267214,-34.117440423,-34.1178055387,-34.118446419,-34.11406384,-34.11760682,-33.9934114517,-33.9931322672,-33.9923690227,-33.9922255,-33.9921216689,-33.988980865,-34.26419065,-34.0740666725,-34.074063564,-34.0741221,-34.0688940333,-34.0695789833,-34.0557005667,-34.0579701667,-34.0609163167,-34.0609191667,-34.1148121656,-33.9798676142,-34.0609053662,-34.0761755833,-33.9605666667,-33.9986824757,-33.9754940381,-33.9803381204,-34.0568695,-34.1120445,-34.0812111667,-34.0935945,-33.99547,-33.9661918063,-34.0938416667,-33.9544916667,-34.1171888333,-33.9787352997,-34.0659181294,-33.9732728567,-33.9798955322,-33.9740082189,-33.9589631109,-34.1152028333,-33.9728783333,-33.9933738508,-33.9930245766,-33.9928362961,-33.9924815935,-33.9925980792,-33.9923387988,-33.9921051125,-33.9857680975,-34.1076887024,-34.1131101209,-33.98485677,-33.98144444,-33.9784503601,-33.97517076,-33.97331738,-33.9723172162,-33.97316392,-33.9793742541,-33.989925,-33.977695,-34.1181977699,-33.9751283333,-33.9732583333,-33.9722333333,-33.9751133333,-33.9734383333,-33.9751133333,-33.9699663244,-33.9729083333,-33.9600366667,-33.969988,-33.9733287273,-33.964970042,-33.9542858933,-33.9544015732,-33.99533,-33.9601133333,-34.1054501524,-34.2927490575,-33.9938571571,-34.0780266194,-33.984755,-33.9830157235,-33.9718201673,-33.9602099703,-33.97379455,-33.9734075701,-33.96949655,-33.96760003,-33.96696103,-33.9664668,-33.96569981,-33.96627311,-33.9651597701,-33.96291638,-33.96694423,-33.96342092,-33.96499142,-33.9654096701,-33.9651086401,-33.96558697,-33.96621896,-33.9663220399,-33.96758283,-33.96941849,-33.9699677,-33.9699378,-33.97270335,-33.97120666,-33.9732273801,-33.97074966,-33.97089634,-33.9714297,-33.97159673,-33.97324981,-33.97335107,-33.97448225,-33.99701587,-34.00413786,-34.0741348,-33.9987055556,-33.9602166667,-33.97822,-34.06722618,-34.07518629,-34.10996175,-34.1080455701,-34.10117672,-33.9671554108,-34.0623760292,-34.0632689979,-34.25962,-33.994337015,-33.99560192,-33.9810450976,-33.9810400015,-33.9798883656,-33.9800791246,-33.973350818,-34.1457563101,-34.0916121834,-34.30033877,-34.29912014,-34.0814888233,-34.0557981105,-34.2706783725,-33.972140383,-33.9862010429,-33.9777389769,-34.1459197997,-34.26413355,-34.21023323,-33.98954479,-33.98941055,-33.9717432718,-33.9721502224,-33.9733467285,-33.9803073882,-33.9808078348,-33.9814881168,-33.9820297924,-33.9590116667,-34.2724346464,-34.0939694444,-33.9687011111,-33.96862,-33.9955055556,-34.0904916667,-34.1471666667,-33.9887215001,-33.98631116,-33.98543785,-34.0768155631,-34.2596614001,-34.0684733333,-33.9557042624,-33.9600833333,-34.0867080686,-34.0867860308,-34.0948448181,-34.0947151183,-34.0946097251,-34.10099,-33.954468729,-33.9542659487,-33.9546282643,-33.9552125005,-33.9797835609,-33.9801399035,-34.0812555,-33.9690237146,-33.9804857913,-34.2156784785,-34.216351914,-34.2182303647,-34.2285032017,-34.2436402672,-34.2441848464,-34.2531096014,-34.145827205,-34.06923676,-34.07979868,-34.207178,-34.20600236,-34.2098539199,-34.0904665594,-34.0626785378,-34.10065105,-33.99548,-33.9806147385,-34.08606283,-34.14727747,-34.14495377,-34.15029887,-34.0772828926,-34.1455524,-34.14691346,-34.11919069,-34.11856894,-34.11831136,-34.11801257,-34.11687154,-34.12008911,-34.2987943499,-34.09049763,-34.08585793,-34.147580555,-34.0980260999,-34.0978297,-34.26734175,-33.9688607962,-33.9692497284,-33.9697340561,-33.9882269815,-33.9896595887,-33.9902402292,-33.9984779808,-34.0018768444,-34.0950966667,-34.0906083333,-34.0859383333,-34.0697325,-34.28681756,-33.9732992932,-33.9631467064,-34.07409381,-33.9751333333,-34.0741805,-34.0752641537,-33.9892089857,-34.08221436,-34.0812233,-34.07440085,-34.0744004333,-33.9845895117,-33.9942058207,-33.9950138955,-33.9992747757,-34.0703933333,-34.27298777,-34.06625416,-34.214725,-34.24515744,-34.24523087,-34.2294383333,-34.2451333333,-34.0756972162,-34.07049724,-34.11478,-34.054175,-34.0761779,-34.0944163844,-34.0904805,-34.0619394341,-34.0738966074,-33.9851012794,-34.1518083333,-34.1509694444,-34.0752359852,-34.0752359852,-34.0752359852,-34.0752359852,-34.29155837,-34.0905474951,-33.977218939,-33.9717771522,-33.9684166309,-33.9683926876,-33.9675386398,-33.9600697594,-34.0905519901,-33.9638902702,-33.9655283355,-33.965179356,-33.9651551546,-33.9658799313,-33.9669072865,-33.9701094372,-33.9720072837,-33.9740913141,-34.0772226267,-34.0702116667,-34.0689278333,-34.00183055,-34.0741111418,-34.0743864821,-34.0741583333,-34.0740971667,-34.0742028333,-34.0742721667,-34.0751721667,-34.0739404631,-34.0379835852,-34.1040017176,-34.1055377852,-33.9882666667,-33.98543,-34.1055662758,-34.06176576,-34.0381154797,-33.9638633333,-34.06534447,-34.07391625,-34.0773249697,-34.1017883333,-34.1782216667,-34.1514416971,-34.0712383333],[18.4007966667,18.4180853998,18.4206616667,18.4083312653,18.3963413257,18.4100080896,18.3751571019,18.3666797878,18.3920212105,18.3837637744,18.4060490171,18.4447633333,18.4072484059,18.3920487375,18.41819927,18.41001582,18.4235166667,18.41913561,18.41902869,18.41859025,18.41600414,18.3871412144,18.3973083333,18.4257888889,18.3972801699,18.4194268839,18.4193484931,18.4206626051,18.4186839035,18.4099886809,18.4618108792,18.4596166667,18.3822697867,18.4120799997,18.4234932438,18.3724475363,18.4187509171,18.4065527778,18.3943215213,18.4184392914,18.4222783333,18.4223466667,18.406485105,18.4045515675,18.4061075002,18.37834538,18.3782440201,18.38232597,18.38387575,18.4380116667,18.429699,18.33339443,18.3765129724,18.3727394279,18.4158033757,18.4223296639,18.419570743,18.4182460579,18.4203732751,18.4061133333,18.40566058,18.40519536,18.3958022855,18.458065,18.4060883333,18.4187616667,18.3282728121,18.3925197,18.39336466,18.39336563,18.38771085,18.38742667,18.4229716667,18.40558,18.3936826699,18.3841575589,18.394467216,18.433547,18.3946796,18.3925194301,18.406728842,18.3276117701,18.3282779001,18.42114656,18.42640548,18.4305883333,18.43127,18.4343,18.4417466667,18.442275,18.4426216667,18.40564602,18.4037225,18.3859259,18.3857953,18.4204244697,18.4524021763,18.4198687833,18.4175485333,18.4165034833,18.42070299,18.42356327,18.4079879667,18.3343433434,18.4353049,18.43144025,18.434178,18.43397521,18.43072952,18.45120217,18.4507523611,18.4519259806,18.4167060815,18.3597354591,18.4040675,18.4070408402,18.405505,18.4153833333,18.4209773317,18.3918284252,18.383991681,18.4050283333,18.38809096,18.3282208443,18.4318000538,18.4188055556,18.4205874536,18.4262170036,18.4102490006,18.394399691,18.4262224916,18.4235066719,18.40173561,18.43686208,18.43733467,18.44323409,18.373625,18.4306041549,18.4432315001,18.4432533333,18.45172631,18.40006479,18.4630013437,18.42669853,18.42843663,18.43490659,18.43541409,18.4696272132,18.4372527,18.44020508,18.44072221,18.4409601999,18.3973116667,18.4224147778,18.4343651589,18.42262652,18.4000483138,18.4301872831,18.4509369358,18.3985388914,18.419325,18.3966842294,18.33280164,18.4330076147,18.3945033333,18.3826164536,18.3850895763,18.3867674756,18.3867986603,18.4234833333,18.4011395333,18.428459,18.4386331402,18.4306142572,18.4365663939,18.4409974585,18.4448104462,18.4418393982,18.4371178934,18.4356427857,18.4353107739,18.4718031809,18.4159433333,18.4190483333,18.4344833333,18.439772,18.41339305,18.4113187222,18.4072633333,18.40808,18.4352548949,18.43496551,18.43460983,18.43411364,18.4330403999,18.43122785,18.42924972,18.42625462,18.3985602669,18.3984998334,18.4083151082,18.4147223552,18.4145566926,18.4154832609,18.4203723135,18.4238460101,18.4260071166,18.4262506597,18.401968,18.42078,18.4268207099,18.4080124548,18.4069624574,18.38367374,18.38248428,18.38731899,18.39315746,18.39466558,18.40110105,18.4066216667,18.4068116667,18.403095,18.368442897,18.3951333333,18.3927866667,18.4322881225,18.3956656605,18.4324827067,18.4143482656,18.4080099167,18.3974283333,18.4071858,18.4286308945,18.4399609048,18.3988750434,18.3976678412,18.4070452333,18.4283438511,18.427660726,18.42068094,18.41642502,18.4614173842,18.4403028976,18.3972046396,18.4284783333,18.41953271,18.4104069428,18.42897,18.4284416667,18.4374361111,18.4355916667,18.4177426715,18.39833,18.3969083333,18.4426978856,18.4067060536,18.417525,18.4349436779,18.43775632,18.4306268301,18.4391383175,18.4418131504,18.435864849,18.43398,18.434980093,18.405919075,18.4457906444,18.4080433846,18.4151244164,18.40272328,18.4193216667,18.3957638889,18.3958527778,18.4387383333,18.3956283333,18.435075,18.419355,18.43330145,18.4318137401,18.43867286,18.4399503901,18.43506245,18.4376623725,18.4377819381,18.4165180406,18.4362639202,18.4360096166,18.4428100983,18.419225,18.436255,18.4520424251,18.4306795656,18.4100616667,18.428325,18.4594716667,18.4068569262,18.43464534,18.4140559752,18.3984616667,18.391145,18.4444444444,18.37833882,18.3781923889,18.4112539887,18.387904945,18.3823484283,18.4114425,18.41322903,18.4362833333,18.3975716667,18.4199136531,18.4161364763,18.4137634686,18.4326684923,18.4577144086,18.3973885561,18.4399476741,18.4394888487,18.4401026554,18.441513665,18.4353306,18.43958423,18.3781609677,18.3763022165,18.3750006116,18.3748413757,18.3765600082,18.378789691,18.4353462833,18.3971702121,18.3973598092,18.3973085,18.3947864,18.3955179833,18.3871287333,18.3912783333,18.3946815167,18.3946769167,18.4429259933,18.4118602118,18.4226923529,18.4079982167,18.4326616667,18.4231800959,18.389640155,18.3863710033,18.3889166667,18.4284866667,18.3970966667,18.4342633333,18.4173333333,18.4234614466,18.4305966667,18.4394083333,18.4488966667,18.4175602,18.3887985349,18.4185312899,18.4118909599,18.4099428465,18.4030605592,18.4355616667,18.4169383333,18.3771559483,18.3763984345,18.3756583743,18.375242177,18.3753939309,18.375495475,18.3766276893,18.3798177461,18.437634303,18.4347059903,18.41540067,18.41678028,18.41760814,18.42064053,18.41844931,18.4127094747,18.4113943701,18.3956241551,18.4072916667,18.4187866667,18.441185765,18.4207166667,18.4187366667,18.3951216667,18.4207216667,18.4181333333,18.4207216667,18.4021033726,18.41698,18.40794,18.402164,18.4186317399,18.4106219932,18.4392674451,18.4392806461,18.4185466667,18.40612,18.4352939576,18.4325426494,18.3772536888,18.3916680516,18.4192466667,18.3898310385,18.3934922403,18.4082577076,18.40442953,18.40596331,18.4117949701,18.4123658901,18.41202997,18.4116218899,18.4107967199,18.4238283,18.42703368,18.42881881,18.42756262,18.41959189,18.4080492299,18.40832613,18.40631646,18.40703028,18.40745546,18.40699222,18.4062341,18.40298866,18.40206833,18.40034422,18.39414169,18.3968822101,18.40672295,18.40974154,18.42029276,18.42093245,18.42125754,18.42080567,18.41820242,18.40377654,18.41230823,18.4080249899,18.3973738667,18.4082222222,18.40829,18.4183166667,18.38537945,18.38483427,18.46094853,18.45692572,18.45426303,18.4261287859,18.3947010711,18.3925278112,18.3900583333,18.3763370268,18.4173315,18.4148125268,18.4148110089,18.4118736096,18.4121769831,18.4182422149,18.3324417499,18.390420936,18.44629667,18.44458448,18.398415759,18.3872595366,18.4586304172,18.3981912956,18.4155572924,18.4188016788,18.332595825,18.43548315,18.39223833,18.39156201,18.39158589,18.3920102909,18.3981984763,18.4064154853,18.3833189349,18.3832343647,18.3844450617,18.3814799112,18.4030033333,18.4518516773,18.4307444444,18.4293675,18.429324,18.4183583333,18.4207694444,18.428275,18.41412402,18.41538023,18.41603802,18.3881089724,18.39019431,18.385405,18.4314191575,18.406095,18.4208774564,18.4208954998,18.4043769836,18.4042358397,18.404789408,18.4579,18.4397262917,18.4389016596,18.4368306256,18.4345940862,18.3872152638,18.3828754408,18.397475,18.3964520629,18.3848580745,18.4504384478,18.4511996852,18.4530831833,18.4563833677,18.4653405888,18.465783318,18.4696489389,18.332551606,18.3950492601,18.39448641,18.44045612,18.43984827,18.44535534,18.4207002936,18.3958369477,18.45362662,18.4183783333,18.383738799,18.40869009,18.3950221701,18.3895313,18.38170556,18.4062409401,18.37923114,18.3992948401,18.44284069,18.44201457,18.4416068801,18.4408755,18.43603411,18.43999037,18.46059032,18.4044732,18.40907614,18.4284333333,18.45300769,18.4419013,18.4258042,18.3959155122,18.3967685011,18.4023085708,18.4040481272,18.406914843,18.4078748572,18.4087425775,18.4055629165,18.4044216667,18.4041683333,18.4092433333,18.3959319444,18.43752488,18.4193510677,18.4065718561,18.39721602,18.4206966667,18.39757,18.384450527,18.4060317278,18.40494154,18.3974062167,18.39796245,18.3979771333,18.3820824733,18.3764628615,18.374864507,18.3680235241,18.3870166667,18.3975904799,18.3884844,18.4490916667,18.46660882,18.46657506,18.4572866667,18.46652,18.3991550097,18.38704995,18.4428633333,18.38513,18.40798205,18.4312560724,18.4207866667,18.3893214302,18.4032092433,18.4193626419,18.3838583333,18.3830166667,18.4005457779,18.4005457779,18.4005457779,18.4005457779,18.44349462,18.4206138723,18.4200047052,18.4215741037,18.4251564809,18.4252206907,18.4262221544,18.4060995375,18.4208871424,18.4067733068,18.4079799704,18.4066243363,18.4065742592,18.4069487378,18.4071550339,18.4123737246,18.4147814909,18.4100580038,18.4063471388,18.3869966667,18.3937033333,18.405575,18.4038118031,18.3977679936,18.3971366667,18.3972783333,18.3974283333,18.397625,18.4000966667,18.4031412254,18.3783842717,18.4297731332,18.4329023492,18.4142216667,18.4195533333,18.4325067365,18.38920343,18.3782623295,18.4067833333,18.38855289,18.40314969,18.4063796606,18.411815,18.389945,18.3836288285,18.3860966667],3,null,"Protea cynaroides",{"interactive":true,"className":"","stroke":true,"color":"green","weight":5,"opacity":0.5,"fill":true,"fillColor":"green","fillOpacity":0.2},null,null,null,null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"limits":{"lat":[-34.30419318,-33.927685786],"lng":[18.3276117701,18.4718031809]}},"evals":[],"jsHooks":[]}</script>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="rdemo.html#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(leaflet)</span>
+<span id="cb41-2"><a href="rdemo.html#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(htmltools)</span>
+<span id="cb41-3"><a href="rdemo.html#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="fu">leaflet</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb41-4"><a href="rdemo.html#cb41-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Add default OpenStreetMap map tiles</span></span>
+<span id="cb41-5"><a href="rdemo.html#cb41-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">addTiles</span>(<span class="at">group =</span> <span class="st">&quot;Default&quot;</span>) <span class="sc">%&gt;%</span>  </span>
+<span id="cb41-6"><a href="rdemo.html#cb41-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Add our points</span></span>
+<span id="cb41-7"><a href="rdemo.html#cb41-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">addCircleMarkers</span>(<span class="at">data =</span> pc,</span>
+<span id="cb41-8"><a href="rdemo.html#cb41-8" aria-hidden="true" tabindex="-1"></a>                   <span class="at">group =</span> <span class="st">&quot;Protea cynaroides&quot;</span>,</span>
+<span id="cb41-9"><a href="rdemo.html#cb41-9" aria-hidden="true" tabindex="-1"></a>                   <span class="at">radius =</span> <span class="dv">3</span>, </span>
+<span id="cb41-10"><a href="rdemo.html#cb41-10" aria-hidden="true" tabindex="-1"></a>                   <span class="at">color =</span> <span class="st">&quot;green&quot;</span>) </span></code></pre></div>
+<div class="leaflet html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-6dc2e0ea0b860eafb9cf" style="width:672px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-6dc2e0ea0b860eafb9cf">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,"Default",{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]},{"method":"addCircleMarkers","args":[[-33.969945,-33.9845612002,-33.9751083333,-33.9675221585,-34.0621999511,-33.9739780159,-33.9948527768,-33.9992699775,-33.9718353865,-33.9811689775,-33.9892674973,-34.1168028333,-33.9653301702,-33.9717705553,-33.98439949,-33.97382216,-33.9661833333,-33.97739891,-33.9774481,-33.97812418,-33.9790384201,-34.0719014184,-34.0812,-34.2670472222,-34.0979262901,-33.9850521251,-33.9773922109,-33.9751526508,-33.9733025162,-33.9739792722,-34.2955393344,-34.1017138333,-34.0641487436,-33.9678368,-33.966218456,-34.0019807003,-33.973288956,-33.9631777778,-33.9686151282,-33.995427435,-33.9710383333,-33.9708633333,-34.0874586068,-34.0892551421,-34.0901108506,-34.03813911,-34.03822261,-34.03562629,-34.03632884,-34.1163111667,-33.96865,-34.1482834301,-33.9940947181,-34.0021288967,-33.9860950054,-33.97103374,-33.977285804,-33.9732628191,-33.9736292965,-33.960105,-34.0018653,-34.00426738,-33.927685786,-34.3023639722,-33.9600833333,-33.9777133333,-34.0331925731,-33.97178098,-33.9718893,-33.97189318,-33.97810284,-33.97796153,-33.9987833333,-34.0017888833,-34.068859499,-34.0750867082,-34.0798538737,-34.11309411,-34.06093883,-34.0632631501,-33.961265567,-34.03426835,-34.03320889,-33.97387745,-33.96759817,-34.0937916667,-34.0943638333,-34.0935388333,-34.0976305,-34.0978611667,-34.0982166667,-33.98912984,-33.9867025,-34.05702232,-34.054882,-33.9736468681,-34.1138211172,-33.9773068667,-33.9786006333,-33.9788870333,-33.97520013,-33.96612683,-34.0761318833,-34.0510329117,-34.2642096167,-34.2624822167,-34.2916615556,-34.29169086,-34.28897189,-34.30419318,-34.3038123611,-34.2723356583,-33.9937257534,-34.0886095541,-33.9744814,-33.989845975,-33.9734583333,-33.986255,-34.0901808527,-34.078187544,-34.0769092794,-34.0948616667,-34.07733357,-34.0336432471,-34.1138345703,-34.2533194444,-33.9744991212,-33.967846065,-33.9647133074,-33.9403069686,-33.96751582,-33.96619158,-34.09236413,-34.1122029499,-34.1125932,-34.09894442,-34.01183055,-34.0938312602,-34.0989827892,-34.0990111667,-34.0987574701,-34.07508825,-34.2387363635,-34.1134825701,-34.11387726,-34.1165134399,-34.1166276099,-34.2530820476,-34.11790125,-34.12023249,-34.12020879,-34.12015394,-34.0740971667,-34.055233,-34.093620982,-34.05521313,-34.0751041092,-34.1130273929,-34.1068827394,-34.0744470924,-33.973275,-33.9690388428,-34.145892,-34.1145663396,-34.0689433333,-34.0529615069,-34.0541912281,-34.0685688959,-34.0737427974,-33.9662133333,-34.07487145,-34.14753,-34.0972283436,-34.0938359359,-34.1012765292,-34.1026729384,-34.0956337953,-34.094136785,-34.0928878331,-34.0932203741,-34.0937568018,-34.2777122006,-33.979025,-33.9850883333,-34.0961305,-34.102496,-34.0858744,-34.0850263333,-33.9622033333,-33.9650533333,-34.111944791,-34.11188488,-34.11234637,-34.11519557,-34.1145593099,-34.1135499101,-34.1123018501,-34.11072233,-34.0744568501,-34.0744577302,-33.9721037558,-33.9722868718,-33.9716899809,-33.9699491968,-33.9709561256,-33.9697439718,-33.9680570479,-33.9675087163,-34.092216,-34.0905316667,-34.09304475,-33.999001941,-33.9995525601,-34.05423367,-34.05371273,-34.05581706,-34.05956067,-34.0609151501,-34.074972,-33.9651666667,-33.96552,-33.969345,-34.0012454284,-33.9722216667,-33.971795,-34.0942644835,-34.0622452078,-33.9601530333,-34.0884462261,-34.0761819,-34.0741721667,-34.2430005,-34.0891584969,-33.9551962357,-34.0815581774,-34.0813403378,-34.0778890667,-34.110398409,-34.1118918965,-33.97659682,-33.97883843,-34.1115991924,-33.9548300818,-34.074118097,-34.2946333333,-33.98537468,-34.0853257282,-34.1476278333,-34.1475861667,-34.1017388889,-34.1009027778,-34.2693018169,-34.0815166667,-34.0811471667,-34.0983155713,-33.9635612877,-33.994295,-34.1006553266,-34.1075883,-34.0938241594,-34.0950686205,-34.0975978598,-34.1010010801,-34.0936116667,-34.100627058,-34.0941953656,-33.975389543,-34.086198807,-34.086778164,-33.9694709005,-33.9851333333,-34.0696555556,-34.0697833333,-34.1167333333,-34.0629055,-34.1118888333,-33.97328,-34.26294551,-34.25303927,-34.25503682,-34.2604838101,-34.2641995,-34.0969002926,-34.1075757989,-33.9934066035,-34.1022803068,-34.1019717744,-34.119210849,-33.9732866667,-34.1022555,-34.2725785543,-34.0941067649,-33.97417,-34.1119638333,-34.1015805,-33.966475809,-34.0958785,-34.0898862994,-34.0744583333,-34.0671888333,-34.1166666667,-34.03802408,-34.0383275833,-33.9660635725,-33.975040516,-33.982604285,-33.99811685,-33.99634211,-34.1022416667,-34.0742861667,-33.9772789203,-33.9699879331,-33.9709681086,-33.9605305562,-34.2631024345,-34.0741886735,-34.1141267214,-34.117440423,-34.1178055387,-34.118446419,-34.11406384,-34.11760682,-33.9934114517,-33.9931322672,-33.9923690227,-33.9922255,-33.9921216689,-33.988980865,-34.26419065,-34.0740666725,-34.074063564,-34.0741221,-34.0688940333,-34.0695789833,-34.0557005667,-34.0579701667,-34.0609163167,-34.0609191667,-34.1148121656,-33.9798676142,-34.0609053662,-34.0761755833,-33.9605666667,-33.9986824757,-33.9754940381,-33.9803381204,-34.0568695,-34.1120445,-34.0812111667,-34.0935945,-33.99547,-33.9661918063,-34.0938416667,-33.9544916667,-34.1171888333,-33.9787352997,-34.0659181294,-33.9732728567,-33.9798955322,-33.9740082189,-33.9589631109,-34.1152028333,-33.9728783333,-33.9933738508,-33.9930245766,-33.9928362961,-33.9924815935,-33.9925980792,-33.9923387988,-33.9921051125,-33.9857680975,-34.1076887024,-34.1131101209,-33.98485677,-33.98144444,-33.9784503601,-33.97517076,-33.97331738,-33.9723172162,-33.97316392,-33.9793742541,-33.989925,-33.977695,-34.1181977699,-33.9751283333,-33.9732583333,-33.9722333333,-33.9751133333,-33.9734383333,-33.9751133333,-33.9699663244,-33.9729083333,-33.9600366667,-33.969988,-33.9733287273,-33.964970042,-33.9542858933,-33.9544015732,-33.99533,-33.9601133333,-34.1054501524,-34.2927490575,-33.9938571571,-34.0780266194,-33.984755,-33.9830157235,-33.9718201673,-33.9602099703,-33.97379455,-33.9734075701,-33.96949655,-33.96760003,-33.96696103,-33.9664668,-33.96569981,-33.96627311,-33.9651597701,-33.96291638,-33.96694423,-33.96342092,-33.96499142,-33.9654096701,-33.9651086401,-33.96558697,-33.96621896,-33.9663220399,-33.96758283,-33.96941849,-33.9699677,-33.9699378,-33.97270335,-33.97120666,-33.9732273801,-33.97074966,-33.97089634,-33.9714297,-33.97159673,-33.97324981,-33.97335107,-33.97448225,-33.99701587,-34.00413786,-34.0741348,-33.9987055556,-33.9602166667,-33.97822,-34.06722618,-34.07518629,-34.10996175,-34.1080455701,-34.10117672,-33.9671554108,-34.0623760292,-34.0632689979,-34.25962,-33.994337015,-33.99560192,-33.9810450976,-33.9810400015,-33.9798883656,-33.9800791246,-33.973350818,-34.1457563101,-34.0916121834,-34.30033877,-34.29912014,-34.0814888233,-34.0557981105,-34.2706783725,-33.972140383,-33.9862010429,-33.9777389769,-34.1459197997,-34.26413355,-34.21023323,-33.98954479,-33.98941055,-33.9717432718,-33.9721502224,-33.9733467285,-33.9803073882,-33.9808078348,-33.9814881168,-33.9820297924,-33.9590116667,-34.2724346464,-34.0939694444,-33.9687011111,-33.96862,-33.9955055556,-34.0904916667,-34.1471666667,-33.9887215001,-33.98631116,-33.98543785,-34.0768155631,-34.2596614001,-34.0684733333,-33.9557042624,-33.9600833333,-34.0867080686,-34.0867860308,-34.0948448181,-34.0947151183,-34.0946097251,-34.10099,-33.954468729,-33.9542659487,-33.9546282643,-33.9552125005,-33.9797835609,-33.9801399035,-34.0812555,-33.9690237146,-33.9804857913,-34.2156784785,-34.216351914,-34.2182303647,-34.2285032017,-34.2436402672,-34.2441848464,-34.2531096014,-34.145827205,-34.06923676,-34.07979868,-34.207178,-34.20600236,-34.2098539199,-34.0904665594,-34.0626785378,-34.10065105,-33.99548,-33.9806147385,-34.08606283,-34.14727747,-34.14495377,-34.15029887,-34.0772828926,-34.1455524,-34.14691346,-34.11919069,-34.11856894,-34.11831136,-34.11801257,-34.11687154,-34.12008911,-34.2987943499,-34.09049763,-34.08585793,-34.147580555,-34.0980260999,-34.0978297,-34.26734175,-33.9688607962,-33.9692497284,-33.9697340561,-33.9882269815,-33.9896595887,-33.9902402292,-33.9984779808,-34.0018768444,-34.0950966667,-34.0906083333,-34.0859383333,-34.0697325,-34.28681756,-33.9732992932,-33.9631467064,-34.07409381,-33.9751333333,-34.0741805,-34.0752641537,-33.9892089857,-34.08221436,-34.0812233,-34.07440085,-34.0744004333,-33.9845895117,-33.9942058207,-33.9950138955,-33.9992747757,-34.0703933333,-34.27298777,-34.06625416,-34.214725,-34.24515744,-34.24523087,-34.2294383333,-34.2451333333,-34.0756972162,-34.07049724,-34.11478,-34.054175,-34.0761779,-34.0944163844,-34.0904805,-34.0619394341,-34.0738966074,-33.9851012794,-34.1518083333,-34.1509694444,-34.0752359852,-34.0752359852,-34.0752359852,-34.0752359852,-34.29155837,-34.0905474951,-33.977218939,-33.9717771522,-33.9684166309,-33.9683926876,-33.9675386398,-33.9600697594,-34.0905519901,-33.9638902702,-33.9655283355,-33.965179356,-33.9651551546,-33.9658799313,-33.9669072865,-33.9701094372,-33.9720072837,-33.9740913141,-34.0772226267,-34.0702116667,-34.0689278333,-34.00183055,-34.0741111418,-34.0743864821,-34.0741583333,-34.0740971667,-34.0742028333,-34.0742721667,-34.0751721667,-34.0739404631,-34.0379835852,-34.1040017176,-34.1055377852,-33.9882666667,-33.98543,-34.1055662758,-34.06176576,-34.0381154797,-33.9638633333,-34.06534447,-34.07391625,-34.0773249697,-34.1017883333,-34.1782216667,-34.1514416971],[18.4007966667,18.4180853998,18.4206616667,18.4083312653,18.3963413257,18.4100080896,18.3751571019,18.3666797878,18.3920212105,18.3837637744,18.4060490171,18.4447633333,18.4072484059,18.3920487375,18.41819927,18.41001582,18.4235166667,18.41913561,18.41902869,18.41859025,18.41600414,18.3871412144,18.3973083333,18.4257888889,18.3972801699,18.4194268839,18.4193484931,18.4206626051,18.4186839035,18.4099886809,18.4618108792,18.4596166667,18.3822697867,18.4120799997,18.4234932438,18.3724475363,18.4187509171,18.4065527778,18.3943215213,18.4184392914,18.4222783333,18.4223466667,18.406485105,18.4045515675,18.4061075002,18.37834538,18.3782440201,18.38232597,18.38387575,18.4380116667,18.429699,18.33339443,18.3765129724,18.3727394279,18.4158033757,18.4223296639,18.419570743,18.4182460579,18.4203732751,18.4061133333,18.40566058,18.40519536,18.3958022855,18.458065,18.4060883333,18.4187616667,18.3282728121,18.3925197,18.39336466,18.39336563,18.38771085,18.38742667,18.4229716667,18.40558,18.3936826699,18.3841575589,18.394467216,18.433547,18.3946796,18.3925194301,18.406728842,18.3276117701,18.3282779001,18.42114656,18.42640548,18.4305883333,18.43127,18.4343,18.4417466667,18.442275,18.4426216667,18.40564602,18.4037225,18.3859259,18.3857953,18.4204244697,18.4524021763,18.4198687833,18.4175485333,18.4165034833,18.42070299,18.42356327,18.4079879667,18.3343433434,18.4353049,18.43144025,18.434178,18.43397521,18.43072952,18.45120217,18.4507523611,18.4519259806,18.4167060815,18.3597354591,18.4040675,18.4070408402,18.405505,18.4153833333,18.4209773317,18.3918284252,18.383991681,18.4050283333,18.38809096,18.3282208443,18.4318000538,18.4188055556,18.4205874536,18.4262170036,18.4102490006,18.394399691,18.4262224916,18.4235066719,18.40173561,18.43686208,18.43733467,18.44323409,18.373625,18.4306041549,18.4432315001,18.4432533333,18.45172631,18.40006479,18.4630013437,18.42669853,18.42843663,18.43490659,18.43541409,18.4696272132,18.4372527,18.44020508,18.44072221,18.4409601999,18.3973116667,18.4224147778,18.4343651589,18.42262652,18.4000483138,18.4301872831,18.4509369358,18.3985388914,18.419325,18.3966842294,18.33280164,18.4330076147,18.3945033333,18.3826164536,18.3850895763,18.3867674756,18.3867986603,18.4234833333,18.4011395333,18.428459,18.4386331402,18.4306142572,18.4365663939,18.4409974585,18.4448104462,18.4418393982,18.4371178934,18.4356427857,18.4353107739,18.4718031809,18.4159433333,18.4190483333,18.4344833333,18.439772,18.41339305,18.4113187222,18.4072633333,18.40808,18.4352548949,18.43496551,18.43460983,18.43411364,18.4330403999,18.43122785,18.42924972,18.42625462,18.3985602669,18.3984998334,18.4083151082,18.4147223552,18.4145566926,18.4154832609,18.4203723135,18.4238460101,18.4260071166,18.4262506597,18.401968,18.42078,18.4268207099,18.4080124548,18.4069624574,18.38367374,18.38248428,18.38731899,18.39315746,18.39466558,18.40110105,18.4066216667,18.4068116667,18.403095,18.368442897,18.3951333333,18.3927866667,18.4322881225,18.3956656605,18.4324827067,18.4143482656,18.4080099167,18.3974283333,18.4071858,18.4286308945,18.4399609048,18.3988750434,18.3976678412,18.4070452333,18.4283438511,18.427660726,18.42068094,18.41642502,18.4614173842,18.4403028976,18.3972046396,18.4284783333,18.41953271,18.4104069428,18.42897,18.4284416667,18.4374361111,18.4355916667,18.4177426715,18.39833,18.3969083333,18.4426978856,18.4067060536,18.417525,18.4349436779,18.43775632,18.4306268301,18.4391383175,18.4418131504,18.435864849,18.43398,18.434980093,18.405919075,18.4457906444,18.4080433846,18.4151244164,18.40272328,18.4193216667,18.3957638889,18.3958527778,18.4387383333,18.3956283333,18.435075,18.419355,18.43330145,18.4318137401,18.43867286,18.4399503901,18.43506245,18.4376623725,18.4377819381,18.4165180406,18.4362639202,18.4360096166,18.4428100983,18.419225,18.436255,18.4520424251,18.4306795656,18.4100616667,18.428325,18.4594716667,18.4068569262,18.43464534,18.4140559752,18.3984616667,18.391145,18.4444444444,18.37833882,18.3781923889,18.4112539887,18.387904945,18.3823484283,18.4114425,18.41322903,18.4362833333,18.3975716667,18.4199136531,18.4161364763,18.4137634686,18.4326684923,18.4577144086,18.3973885561,18.4399476741,18.4394888487,18.4401026554,18.441513665,18.4353306,18.43958423,18.3781609677,18.3763022165,18.3750006116,18.3748413757,18.3765600082,18.378789691,18.4353462833,18.3971702121,18.3973598092,18.3973085,18.3947864,18.3955179833,18.3871287333,18.3912783333,18.3946815167,18.3946769167,18.4429259933,18.4118602118,18.4226923529,18.4079982167,18.4326616667,18.4231800959,18.389640155,18.3863710033,18.3889166667,18.4284866667,18.3970966667,18.4342633333,18.4173333333,18.4234614466,18.4305966667,18.4394083333,18.4488966667,18.4175602,18.3887985349,18.4185312899,18.4118909599,18.4099428465,18.4030605592,18.4355616667,18.4169383333,18.3771559483,18.3763984345,18.3756583743,18.375242177,18.3753939309,18.375495475,18.3766276893,18.3798177461,18.437634303,18.4347059903,18.41540067,18.41678028,18.41760814,18.42064053,18.41844931,18.4127094747,18.4113943701,18.3956241551,18.4072916667,18.4187866667,18.441185765,18.4207166667,18.4187366667,18.3951216667,18.4207216667,18.4181333333,18.4207216667,18.4021033726,18.41698,18.40794,18.402164,18.4186317399,18.4106219932,18.4392674451,18.4392806461,18.4185466667,18.40612,18.4352939576,18.4325426494,18.3772536888,18.3916680516,18.4192466667,18.3898310385,18.3934922403,18.4082577076,18.40442953,18.40596331,18.4117949701,18.4123658901,18.41202997,18.4116218899,18.4107967199,18.4238283,18.42703368,18.42881881,18.42756262,18.41959189,18.4080492299,18.40832613,18.40631646,18.40703028,18.40745546,18.40699222,18.4062341,18.40298866,18.40206833,18.40034422,18.39414169,18.3968822101,18.40672295,18.40974154,18.42029276,18.42093245,18.42125754,18.42080567,18.41820242,18.40377654,18.41230823,18.4080249899,18.3973738667,18.4082222222,18.40829,18.4183166667,18.38537945,18.38483427,18.46094853,18.45692572,18.45426303,18.4261287859,18.3947010711,18.3925278112,18.3900583333,18.3763370268,18.4173315,18.4148125268,18.4148110089,18.4118736096,18.4121769831,18.4182422149,18.3324417499,18.390420936,18.44629667,18.44458448,18.398415759,18.3872595366,18.4586304172,18.3981912956,18.4155572924,18.4188016788,18.332595825,18.43548315,18.39223833,18.39156201,18.39158589,18.3920102909,18.3981984763,18.4064154853,18.3833189349,18.3832343647,18.3844450617,18.3814799112,18.4030033333,18.4518516773,18.4307444444,18.4293675,18.429324,18.4183583333,18.4207694444,18.428275,18.41412402,18.41538023,18.41603802,18.3881089724,18.39019431,18.385405,18.4314191575,18.406095,18.4208774564,18.4208954998,18.4043769836,18.4042358397,18.404789408,18.4579,18.4397262917,18.4389016596,18.4368306256,18.4345940862,18.3872152638,18.3828754408,18.397475,18.3964520629,18.3848580745,18.4504384478,18.4511996852,18.4530831833,18.4563833677,18.4653405888,18.465783318,18.4696489389,18.332551606,18.3950492601,18.39448641,18.44045612,18.43984827,18.44535534,18.4207002936,18.3958369477,18.45362662,18.4183783333,18.383738799,18.40869009,18.3950221701,18.3895313,18.38170556,18.4062409401,18.37923114,18.3992948401,18.44284069,18.44201457,18.4416068801,18.4408755,18.43603411,18.43999037,18.46059032,18.4044732,18.40907614,18.4284333333,18.45300769,18.4419013,18.4258042,18.3959155122,18.3967685011,18.4023085708,18.4040481272,18.406914843,18.4078748572,18.4087425775,18.4055629165,18.4044216667,18.4041683333,18.4092433333,18.3959319444,18.43752488,18.4193510677,18.4065718561,18.39721602,18.4206966667,18.39757,18.384450527,18.4060317278,18.40494154,18.3974062167,18.39796245,18.3979771333,18.3820824733,18.3764628615,18.374864507,18.3680235241,18.3870166667,18.3975904799,18.3884844,18.4490916667,18.46660882,18.46657506,18.4572866667,18.46652,18.3991550097,18.38704995,18.4428633333,18.38513,18.40798205,18.4312560724,18.4207866667,18.3893214302,18.4032092433,18.4193626419,18.3838583333,18.3830166667,18.4005457779,18.4005457779,18.4005457779,18.4005457779,18.44349462,18.4206138723,18.4200047052,18.4215741037,18.4251564809,18.4252206907,18.4262221544,18.4060995375,18.4208871424,18.4067733068,18.4079799704,18.4066243363,18.4065742592,18.4069487378,18.4071550339,18.4123737246,18.4147814909,18.4100580038,18.4063471388,18.3869966667,18.3937033333,18.405575,18.4038118031,18.3977679936,18.3971366667,18.3972783333,18.3974283333,18.397625,18.4000966667,18.4031412254,18.3783842717,18.4297731332,18.4329023492,18.4142216667,18.4195533333,18.4325067365,18.38920343,18.3782623295,18.4067833333,18.38855289,18.40314969,18.4063796606,18.411815,18.389945,18.3836288285],3,null,"Protea cynaroides",{"interactive":true,"className":"","stroke":true,"color":"green","weight":5,"opacity":0.5,"fill":true,"fillColor":"green","fillOpacity":0.2},null,null,null,null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"limits":{"lat":[-34.30419318,-33.927685786],"lng":[18.3276117701,18.4718031809]}},"evals":[],"jsHooks":[]}</script>
 <p><br></p>
 <p>Much better!</p>
 <p>Strange, but even though we filtered our iNaturalist records for <code>captive_cultivated == "false"</code> we still have a number of observations that appear to be in people’s gardens.</p>
@@ -782,8 +775,8 @@ GeoTIFF
 <h2><span class="header-section-number">7.11</span> Reprojecting<a href="rdemo.html#projections" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>One way to drastically reduce the number of cultivated records is to overlay the localities (points) with the <em>remaining extent</em> of the vegetation types (i.e. anything that is not in natural vegtation is likely to be cultivated). Let’s try that…</p>
 <p><br></p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="rdemo.html#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Get the remnants layer</span></span>
-<span id="cb40-2"><a href="rdemo.html#cb40-2" aria-hidden="true" tabindex="-1"></a>vegr <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="st">&quot;data/cape_peninsula/veg/Vegetation_Indigenous_Remnants.shp&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="rdemo.html#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Get the remnants layer</span></span>
+<span id="cb42-2"><a href="rdemo.html#cb42-2" aria-hidden="true" tabindex="-1"></a>vegr <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="st">&quot;data/cape_peninsula/veg/Vegetation_Indigenous_Remnants.shp&quot;</span>)</span></code></pre></div>
 <pre><code>## Reading layer `Vegetation_Indigenous_Remnants&#39; from data source 
 ##   `/Users/jasper/GIT/spatial-r/data/cape_peninsula/veg/Vegetation_Indigenous_Remnants.shp&#39; 
 ##   using driver `ESRI Shapefile&#39;
@@ -792,12 +785,12 @@ GeoTIFF
 ## Dimension:     XY
 ## Bounding box:  xmin: -63951.23 ymin: -3803532 xmax: 420.7595 ymax: -3705506
 ## Projected CRS: WGS_1984_Transverse_Mercator</code></pre>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="rdemo.html#cb42-1" aria-hidden="true" tabindex="-1"></a>hmm <span class="ot">&lt;-</span> <span class="fu">st_intersection</span>(pc, vegr)</span></code></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="rdemo.html#cb44-1" aria-hidden="true" tabindex="-1"></a>hmm <span class="ot">&lt;-</span> <span class="fu">st_intersection</span>(pc, vegr)</span></code></pre></div>
 <pre><code>## Error in geos_op2_geom(&quot;intersection&quot;, x, y, ...): st_crs(x) == st_crs(y) is not TRUE</code></pre>
 <p>Oops! The Coordinate Reference Systems are different! We will need to reproject one of the two datasets…</p>
 <p><br></p>
 <p>Let’s see what CRS are currently set:</p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="rdemo.html#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">st_crs</span>(pc)</span></code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="rdemo.html#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">st_crs</span>(pc)</span></code></pre></div>
 <pre><code>## Coordinate Reference System:
 ##   User input: EPSG:4326 
 ##   wkt:
@@ -828,7 +821,7 @@ GeoTIFF
 ##         BBOX[-90,-180,90,180]],
 ##     ID[&quot;EPSG&quot;,4326]]</code></pre>
 <p>So the points are Geographic, with no projected CRS <code>CONVERSION</code>.</p>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="rdemo.html#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">st_crs</span>(vegr)</span></code></pre></div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="rdemo.html#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">st_crs</span>(vegr)</span></code></pre></div>
 <pre><code>## Coordinate Reference System:
 ##   User input: WGS_1984_Transverse_Mercator 
 ##   wkt:
@@ -869,8 +862,8 @@ GeoTIFF
 ##                 ID[&quot;EPSG&quot;,9001]]]]</code></pre>
 <p>The remnants of vegetation types are in Transverse Mercator Lo19, just like the dataset of the historical extent of the veg types we were working with earlier.</p>
 <p><br></p>
-<p>In this case, either CRS is fine for our purposes, but let’s stick with Transverse Mercator Lo19, because it’ll be useful later. For this we need to reproject the veg layer like so:</p>
-<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="rdemo.html#cb48-1" aria-hidden="true" tabindex="-1"></a>pc <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(pc, <span class="fu">st_crs</span>(vegr)) </span></code></pre></div>
+<p>In this case, either CRS is fine for our purposes, but let’s stick with Transverse Mercator Lo19, because it’ll be useful later. For this we need to project the points like so:</p>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="rdemo.html#cb50-1" aria-hidden="true" tabindex="-1"></a>pc <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(pc, <span class="fu">st_crs</span>(vegr)) </span></code></pre></div>
 <p>Note that I fed it the CRS from <code>vegr</code>. This guarantees that they’ll be the same, even if we misidentified what the actual CRS is…</p>
 <p><br></p>
 </div>
@@ -878,14 +871,15 @@ GeoTIFF
 <h2><span class="header-section-number">7.12</span> Intersecting points and polygons<a href="rdemo.html#intersecting-points-and-polygons" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>…and now we can try to intersect the points and polygons again…</p>
 <p>First lets see how many rows and columns the point data before the intersection:</p>
-<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="rdemo.html#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co">#call the dimensions of pc</span></span>
-<span id="cb49-2"><a href="rdemo.html#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(pc)  </span></code></pre></div>
-<pre><code>## [1] 651  36</code></pre>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="rdemo.html#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="co">#call the dimensions of pc</span></span>
+<span id="cb51-2"><a href="rdemo.html#cb51-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(pc)  </span></code></pre></div>
+<pre><code>## [1] 650  36</code></pre>
 <p><br></p>
 <p>And after the intersection?</p>
-<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="rdemo.html#cb51-1" aria-hidden="true" tabindex="-1"></a>pc <span class="ot">&lt;-</span> <span class="fu">st_intersection</span>(pc, vegr)</span>
-<span id="cb51-2"><a href="rdemo.html#cb51-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(pc)</span></code></pre></div>
-<pre><code>## [1] 641  43</code></pre>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="rdemo.html#cb53-1" aria-hidden="true" tabindex="-1"></a>pc <span class="ot">&lt;-</span> <span class="fu">st_intersection</span>(pc, vegr)</span></code></pre></div>
+<pre><code>## Warning: attribute variables are assumed to be spatially constant throughout all geometries</code></pre>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="rdemo.html#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(pc)</span></code></pre></div>
+<pre><code>## [1] 640  43</code></pre>
 <p>Less rows, but more columns! Two things have happened:</p>
 <ol style="list-style-type: decimal">
 <li>The attribute data from the polygons in <code>vegr</code> intersected by the points in <code>pc</code> have been added to the attribute table in <code>pc</code>!</li>
@@ -893,51 +887,51 @@ GeoTIFF
 </ol>
 <p><br></p>
 <p>Let’s have a look</p>
-<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="rdemo.html#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> </span>
-<span id="cb53-2"><a href="rdemo.html#cb53-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotation_map_tile</span>(<span class="at">type =</span> <span class="st">&quot;osm&quot;</span>, <span class="at">progress =</span> <span class="st">&quot;none&quot;</span>) <span class="sc">+</span> </span>
-<span id="cb53-3"><a href="rdemo.html#cb53-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data=</span>pc)</span></code></pre></div>
-<p><img src="spatial-r_files/figure-html/unnamed-chunk-30-1.png" width="672" /></p>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="rdemo.html#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb57-2"><a href="rdemo.html#cb57-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotation_map_tile</span>(<span class="at">type =</span> <span class="st">&quot;osm&quot;</span>, <span class="at">progress =</span> <span class="st">&quot;none&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb57-3"><a href="rdemo.html#cb57-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data=</span>pc)</span></code></pre></div>
+<p><img src="spatial-r_files/figure-html/unnamed-chunk-32-1.png" width="672" /></p>
 <p>Yup, the localities in suburbia are gone… The map is a bit bland though. How about we use our “new information” about which vegetation types the observations occur in to colour or label the points on the map?</p>
 <p><br></p>
 </div>
 <div id="colour-or-label-points" class="section level2 hasAnchor" number="7.13">
 <h2><span class="header-section-number">7.13</span> Colour or label points<a href="rdemo.html#colour-or-label-points" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>First, let’s add colour:</p>
-<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="rdemo.html#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(wesanderson)</span>
-<span id="cb54-2"><a href="rdemo.html#cb54-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-3"><a href="rdemo.html#cb54-3" aria-hidden="true" tabindex="-1"></a>pal <span class="ot">&lt;-</span> <span class="fu">wes_palette</span>(<span class="st">&quot;Darjeeling1&quot;</span>, <span class="dv">7</span>, <span class="at">type =</span> <span class="st">&quot;continuous&quot;</span>)</span>
-<span id="cb54-4"><a href="rdemo.html#cb54-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-5"><a href="rdemo.html#cb54-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> </span>
-<span id="cb54-6"><a href="rdemo.html#cb54-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotation_map_tile</span>(<span class="at">type =</span> <span class="st">&quot;osm&quot;</span>, <span class="at">progress =</span> <span class="st">&quot;none&quot;</span>) <span class="sc">+</span> </span>
-<span id="cb54-7"><a href="rdemo.html#cb54-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data=</span>pc, <span class="fu">aes</span>(<span class="at">col =</span> National_)) <span class="sc">+</span></span>
-<span id="cb54-8"><a href="rdemo.html#cb54-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> pal)</span></code></pre></div>
-<p><img src="spatial-r_files/figure-html/unnamed-chunk-31-1.png" width="672" /></p>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="rdemo.html#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(wesanderson)</span>
+<span id="cb58-2"><a href="rdemo.html#cb58-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-3"><a href="rdemo.html#cb58-3" aria-hidden="true" tabindex="-1"></a>pal <span class="ot">&lt;-</span> <span class="fu">wes_palette</span>(<span class="st">&quot;Darjeeling1&quot;</span>, <span class="dv">7</span>, <span class="at">type =</span> <span class="st">&quot;continuous&quot;</span>)</span>
+<span id="cb58-4"><a href="rdemo.html#cb58-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-5"><a href="rdemo.html#cb58-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb58-6"><a href="rdemo.html#cb58-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotation_map_tile</span>(<span class="at">type =</span> <span class="st">&quot;osm&quot;</span>, <span class="at">progress =</span> <span class="st">&quot;none&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb58-7"><a href="rdemo.html#cb58-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data=</span>pc, <span class="fu">aes</span>(<span class="at">col =</span> National_)) <span class="sc">+</span></span>
+<span id="cb58-8"><a href="rdemo.html#cb58-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> pal)</span></code></pre></div>
+<p><img src="spatial-r_files/figure-html/unnamed-chunk-33-1.png" width="672" /></p>
 <p>Looks like almost all of them are in Peninsula Sandstone Fynbos…</p>
-<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="rdemo.html#cb55-1" aria-hidden="true" tabindex="-1"></a>pc <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(National_) <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="fu">n</span>())</span></code></pre></div>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="rdemo.html#cb59-1" aria-hidden="true" tabindex="-1"></a>pc <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(National_) <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="fu">n</span>())</span></code></pre></div>
 <pre><code>## Simple feature collection with 7 features and 2 fields
 ## Geometry type: GEOMETRY
 ## Dimension:     XY
 ## Bounding box:  xmin: -62094.02 ymin: -3797540 xmax: -48638.23 ymax: -3755805
 ## Projected CRS: WGS_1984_Transverse_Mercator
 ## # A tibble: 7 × 3
-##   National_                        `n()`                                         geometry
-##   &lt;chr&gt;                            &lt;int&gt;                                   &lt;GEOMETRY [m]&gt;
-## 1 Cape Flats Sand Fynbos               2 MULTIPOINT ((-53325.87 -3769939), (-53306.33 -3…
-## 2 Hangklip Sand Fynbos                 3 MULTIPOINT ((-52712.9 -3780179), (-52712.13 -37…
-## 3 Peninsula Granite Fynbos - North     1                       POINT (-55987.76 -3757205)
-## 4 Peninsula Granite Fynbos - South     3 MULTIPOINT ((-56255.7 -3773991), (-53832.83 -37…
-## 5 Peninsula Sandstone Fynbos         629 MULTIPOINT ((-62094.02 -3767667), (-62038.23 -3…
-## 6 Peninsula Shale Renosterveld         1                       POINT (-55866.33 -3755805)
-## 7 Southern Afrotemperate Forest        2 MULTIPOINT ((-53662.7 -3762122), (-53645.86 -37…</code></pre>
+##   National_                        `n()`                                                      geometry
+##   &lt;chr&gt;                            &lt;int&gt;                                                &lt;GEOMETRY [m]&gt;
+## 1 Cape Flats Sand Fynbos               2       MULTIPOINT ((-53325.87 -3769939), (-53306.33 -3769936))
+## 2 Hangklip Sand Fynbos                 3 MULTIPOINT ((-52712.9 -3780179), (-52712.13 -3780180), (-527…
+## 3 Peninsula Granite Fynbos - North     1                                    POINT (-55987.76 -3757205)
+## 4 Peninsula Granite Fynbos - South     3 MULTIPOINT ((-56255.7 -3773991), (-53832.83 -3763327), (-532…
+## 5 Peninsula Sandstone Fynbos         628 MULTIPOINT ((-62094.02 -3767667), (-62038.23 -3767597), (-62…
+## 6 Peninsula Shale Renosterveld         1                                    POINT (-55866.33 -3755805)
+## 7 Southern Afrotemperate Forest        2        MULTIPOINT ((-53662.7 -3762122), (-53645.86 -3762155))</code></pre>
 <p>Yup! Note the numbers in column <code>n()</code>. But I can’t see where the Hangklip Sand Fynbos record is, so let’s label that one with text using <code>geom_sf_label()</code>.</p>
-<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="rdemo.html#cb57-1" aria-hidden="true" tabindex="-1"></a>hsf <span class="ot">&lt;-</span> pc <span class="sc">%&gt;%</span> <span class="fu">filter</span>(National_ <span class="sc">==</span> <span class="st">&quot;Hangklip Sand Fynbos&quot;</span>) <span class="co">#find the locality</span></span>
-<span id="cb57-2"><a href="rdemo.html#cb57-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb57-3"><a href="rdemo.html#cb57-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> </span>
-<span id="cb57-4"><a href="rdemo.html#cb57-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotation_map_tile</span>(<span class="at">type =</span> <span class="st">&quot;osm&quot;</span>, <span class="at">progress =</span> <span class="st">&quot;none&quot;</span>) <span class="sc">+</span> </span>
-<span id="cb57-5"><a href="rdemo.html#cb57-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data=</span>pc, <span class="fu">aes</span>(<span class="at">col =</span> National_)) <span class="sc">+</span></span>
-<span id="cb57-6"><a href="rdemo.html#cb57-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> pal) <span class="sc">+</span></span>
-<span id="cb57-7"><a href="rdemo.html#cb57-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf_label</span>(<span class="at">data=</span>hsf, <span class="fu">aes</span>(<span class="at">label =</span> <span class="st">&quot;Here&quot;</span>))</span></code></pre></div>
-<p><img src="spatial-r_files/figure-html/unnamed-chunk-33-1.png" width="672" /></p>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="rdemo.html#cb61-1" aria-hidden="true" tabindex="-1"></a>hsf <span class="ot">&lt;-</span> pc <span class="sc">%&gt;%</span> <span class="fu">filter</span>(National_ <span class="sc">==</span> <span class="st">&quot;Hangklip Sand Fynbos&quot;</span>) <span class="co">#find the locality</span></span>
+<span id="cb61-2"><a href="rdemo.html#cb61-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-3"><a href="rdemo.html#cb61-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb61-4"><a href="rdemo.html#cb61-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotation_map_tile</span>(<span class="at">type =</span> <span class="st">&quot;osm&quot;</span>, <span class="at">progress =</span> <span class="st">&quot;none&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb61-5"><a href="rdemo.html#cb61-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data=</span>pc, <span class="fu">aes</span>(<span class="at">col =</span> National_)) <span class="sc">+</span></span>
+<span id="cb61-6"><a href="rdemo.html#cb61-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> pal) <span class="sc">+</span></span>
+<span id="cb61-7"><a href="rdemo.html#cb61-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf_label</span>(<span class="at">data=</span>hsf, <span class="fu">aes</span>(<span class="at">label =</span> <span class="st">&quot;Here&quot;</span>))</span></code></pre></div>
+<p><img src="spatial-r_files/figure-html/unnamed-chunk-35-1.png" width="672" /></p>
 <p>Aha!</p>
 <p>Note that you can specify that the <code>label =</code> setting points to a column in your dataset with names if you have lots of labels to add.</p>
 <p><br></p>
@@ -945,29 +939,29 @@ GeoTIFF
 <div id="buffering" class="section level2 hasAnchor" number="7.14">
 <h2><span class="header-section-number">7.14</span> Buffering<a href="rdemo.html#buffering" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>One issue here may be that all localities should be in Peninsula Sandstone Fynbos, but the vegetation type boundaries are wrong. After all, the transition or ecotone between two vegetation types is usually diffuse rather than a clear boundary, not to mention that the data may have been digitized at a very <em>small</em> scale, compromizing <em>precision</em> and <em>accuracy</em>. One way to check this is to <em>buffer</em> the points using <code>st_buffer</code> to see if they are within some distance (say 250m) of the boundary with Peninsula Sandstone Fynbos.</p>
-<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="rdemo.html#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Find the localities that are not in Peninsula Sandstone Fynbos and add a 250m buffer</span></span>
-<span id="cb58-2"><a href="rdemo.html#cb58-2" aria-hidden="true" tabindex="-1"></a>npsf <span class="ot">&lt;-</span> pc <span class="sc">%&gt;%</span> </span>
-<span id="cb58-3"><a href="rdemo.html#cb58-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(National_ <span class="sc">!=</span> <span class="st">&quot;Peninsula Sandstone Fynbos&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb58-4"><a href="rdemo.html#cb58-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_buffer</span>(<span class="at">dist =</span> <span class="dv">250</span>)</span>
-<span id="cb58-5"><a href="rdemo.html#cb58-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb58-6"><a href="rdemo.html#cb58-6" aria-hidden="true" tabindex="-1"></a><span class="co">#NOTE that st_buffer() makes them polygons, because they now have area!</span></span>
-<span id="cb58-7"><a href="rdemo.html#cb58-7" aria-hidden="true" tabindex="-1"></a>npsf<span class="sc">$</span>geometry[<span class="dv">1</span>] <span class="co">#The first geometry in npsf</span></span></code></pre></div>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="rdemo.html#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Find the localities that are not in Peninsula Sandstone Fynbos and add a 250m buffer</span></span>
+<span id="cb62-2"><a href="rdemo.html#cb62-2" aria-hidden="true" tabindex="-1"></a>npsf <span class="ot">&lt;-</span> pc <span class="sc">%&gt;%</span> </span>
+<span id="cb62-3"><a href="rdemo.html#cb62-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(National_ <span class="sc">!=</span> <span class="st">&quot;Peninsula Sandstone Fynbos&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb62-4"><a href="rdemo.html#cb62-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_buffer</span>(<span class="at">dist =</span> <span class="dv">250</span>)</span>
+<span id="cb62-5"><a href="rdemo.html#cb62-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-6"><a href="rdemo.html#cb62-6" aria-hidden="true" tabindex="-1"></a><span class="co">#NOTE that st_buffer() makes them polygons, because they now have area!</span></span>
+<span id="cb62-7"><a href="rdemo.html#cb62-7" aria-hidden="true" tabindex="-1"></a>npsf<span class="sc">$</span>geometry[<span class="dv">1</span>] <span class="co">#The first geometry in npsf</span></span></code></pre></div>
 <pre><code>## Geometry set for 1 feature 
 ## Geometry type: POLYGON
 ## Dimension:     XY
 ## Bounding box:  xmin: -53895.86 ymin: -3762405 xmax: -53395.86 ymax: -3761905
 ## Projected CRS: WGS_1984_Transverse_Mercator</code></pre>
 <pre><code>## POLYGON ((-53395.86 -3762155, -53396.21 -376216...</code></pre>
-<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="rdemo.html#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Get the number of unique iNaturalist record numbers</span></span>
-<span id="cb61-2"><a href="rdemo.html#cb61-2" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">unique</span>(npsf<span class="sc">$</span>id)) </span></code></pre></div>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="rdemo.html#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Get the number of unique iNaturalist record numbers</span></span>
+<span id="cb65-2"><a href="rdemo.html#cb65-2" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">unique</span>(npsf<span class="sc">$</span>id)) </span></code></pre></div>
 <pre><code>## [1] 12</code></pre>
-<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="rdemo.html#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Intersect new polygons with veg remnants and filter for those that overlap Peninsula Sandstone Fynbos only</span></span>
-<span id="cb63-2"><a href="rdemo.html#cb63-2" aria-hidden="true" tabindex="-1"></a>npsf <span class="ot">&lt;-</span> <span class="fu">st_intersection</span>(npsf, vegr) <span class="sc">%&gt;%</span> <span class="fu">filter</span>(National_<span class="fl">.1</span> <span class="sc">==</span> <span class="st">&quot;Peninsula Sandstone Fynbos&quot;</span>)</span>
-<span id="cb63-3"><a href="rdemo.html#cb63-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb63-4"><a href="rdemo.html#cb63-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Get the number of unique iNaturalist record numbers that overlap PSF</span></span>
-<span id="cb63-5"><a href="rdemo.html#cb63-5" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">unique</span>(npsf<span class="sc">$</span>id))</span></code></pre></div>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="rdemo.html#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Intersect new polygons with veg remnants and filter for those that overlap Peninsula Sandstone Fynbos only</span></span>
+<span id="cb67-2"><a href="rdemo.html#cb67-2" aria-hidden="true" tabindex="-1"></a>npsf <span class="ot">&lt;-</span> <span class="fu">st_intersection</span>(npsf, vegr) <span class="sc">%&gt;%</span> <span class="fu">filter</span>(National_<span class="fl">.1</span> <span class="sc">==</span> <span class="st">&quot;Peninsula Sandstone Fynbos&quot;</span>)</span></code></pre></div>
+<pre><code>## Warning: attribute variables are assumed to be spatially constant throughout all geometries</code></pre>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="rdemo.html#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Get the number of unique iNaturalist record numbers that overlap PSF</span></span>
+<span id="cb69-2"><a href="rdemo.html#cb69-2" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">unique</span>(npsf<span class="sc">$</span>id))</span></code></pre></div>
 <pre><code>## [1] 6</code></pre>
-<p>So 6 of 11 records are suspiciously close to Peninsula Sandstone Fynbos…</p>
+<p>So a fair proportion of the records are suspiciously close to Peninsula Sandstone Fynbos…</p>
 <p><br></p>
 </div>
 <div id="within-distance-and-intersect" class="section level2 hasAnchor" number="7.15">
@@ -975,18 +969,17 @@ GeoTIFF
 <p>Perhaps a more interesting use of buffering is to see if a species’ locality is within a certain distance of a particular habitat etc. For example, we could ask if a species is associated with riparian zones by buffering either the localities (points) or rivers (lines) and then doing an intersection.</p>
 <p>But of course there are many ways to skin a cat, and it turns out buffering and intersecting may not be the most efficient here. If we don’t want to pull the attribute data from one dataset to the other we can just use <code>st_intersects()</code> to see if they overlap at all. We can even take it one step further, because <em>sf</em> has the function <code>st_is_within_distance()</code>, which is similar to applying <code>st_buffer()</code> and <code>st_intersects()</code> in one go.</p>
 <p>Here we’ll use <em>Brabejum stellatifolium</em> (a riparian tree in the Proteaceae) as our focal species and the watercourse layer from the City of Cape Town.</p>
-<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="rdemo.html#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Get the watercourse data</span></span>
-<span id="cb65-2"><a href="rdemo.html#cb65-2" aria-hidden="true" tabindex="-1"></a>water <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="st">&quot;data/cape_peninsula/Open_Watercourses.geojson&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="rdemo.html#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Get the watercourse data</span></span>
+<span id="cb71-2"><a href="rdemo.html#cb71-2" aria-hidden="true" tabindex="-1"></a>water <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="st">&quot;data/cape_peninsula/Open_Watercourses.geojson&quot;</span>)</span></code></pre></div>
 <pre><code>## Reading layer `Open_Watercourses&#39; from data source 
-##   `/Users/jasper/GIT/spatial-r/data/cape_peninsula/Open_Watercourses.geojson&#39; 
-##   using driver `GeoJSON&#39;
+##   `/Users/jasper/GIT/spatial-r/data/cape_peninsula/Open_Watercourses.geojson&#39; using driver `GeoJSON&#39;
 ## Simple feature collection with 10848 features and 11 fields
 ## Geometry type: MULTILINESTRING
 ## Dimension:     XY
 ## Bounding box:  xmin: 18.31249 ymin: -34.28774 xmax: 18.99045 ymax: -33.47256
 ## Geodetic CRS:  WGS 84</code></pre>
-<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="rdemo.html#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Check it&#39;s CRS</span></span>
-<span id="cb67-2"><a href="rdemo.html#cb67-2" aria-hidden="true" tabindex="-1"></a><span class="fu">st_crs</span>(water)</span></code></pre></div>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="rdemo.html#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Check it&#39;s CRS</span></span>
+<span id="cb73-2"><a href="rdemo.html#cb73-2" aria-hidden="true" tabindex="-1"></a><span class="fu">st_crs</span>(water)</span></code></pre></div>
 <pre><code>## Coordinate Reference System:
 ##   User input: WGS 84 
 ##   wkt:
@@ -1004,66 +997,65 @@ GeoTIFF
 ##             ORDER[2],
 ##             ANGLEUNIT[&quot;degree&quot;,0.0174532925199433]],
 ##     ID[&quot;EPSG&quot;,4326]]</code></pre>
-<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="rdemo.html#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Call the data directly from iNat</span></span>
-<span id="cb69-2"><a href="rdemo.html#cb69-2" aria-hidden="true" tabindex="-1"></a>bs <span class="ot">&lt;-</span> <span class="fu">get_inat_obs</span>(<span class="at">taxon_name =</span> <span class="st">&quot;Brabejum stellatifolium&quot;</span>,</span>
-<span id="cb69-3"><a href="rdemo.html#cb69-3" aria-hidden="true" tabindex="-1"></a>                   <span class="at">bounds =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">35</span>, <span class="dv">18</span>, <span class="sc">-</span><span class="fl">33.5</span>, <span class="fl">18.5</span>),</span>
-<span id="cb69-4"><a href="rdemo.html#cb69-4" aria-hidden="true" tabindex="-1"></a>                   <span class="at">maxresults =</span> <span class="dv">1000</span>)</span>
-<span id="cb69-5"><a href="rdemo.html#cb69-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb69-6"><a href="rdemo.html#cb69-6" aria-hidden="true" tabindex="-1"></a><span class="co">#Filter returned observations by a range of attribute criteria</span></span>
-<span id="cb69-7"><a href="rdemo.html#cb69-7" aria-hidden="true" tabindex="-1"></a>bs <span class="ot">&lt;-</span> bs <span class="sc">%&gt;%</span> <span class="fu">filter</span>(positional_accuracy<span class="sc">&lt;</span><span class="dv">46</span> <span class="sc">&amp;</span> </span>
-<span id="cb69-8"><a href="rdemo.html#cb69-8" aria-hidden="true" tabindex="-1"></a>                latitude<span class="sc">&lt;</span><span class="dv">0</span> <span class="sc">&amp;</span></span>
-<span id="cb69-9"><a href="rdemo.html#cb69-9" aria-hidden="true" tabindex="-1"></a>                <span class="sc">!</span><span class="fu">is.na</span>(latitude) <span class="sc">&amp;</span></span>
-<span id="cb69-10"><a href="rdemo.html#cb69-10" aria-hidden="true" tabindex="-1"></a>                captive_cultivated <span class="sc">==</span> <span class="st">&quot;false&quot;</span> <span class="sc">&amp;</span></span>
-<span id="cb69-11"><a href="rdemo.html#cb69-11" aria-hidden="true" tabindex="-1"></a>                quality_grade <span class="sc">==</span> <span class="st">&quot;research&quot;</span>)</span>
-<span id="cb69-12"><a href="rdemo.html#cb69-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb69-13"><a href="rdemo.html#cb69-13" aria-hidden="true" tabindex="-1"></a><span class="co">#See how many records we got</span></span>
-<span id="cb69-14"><a href="rdemo.html#cb69-14" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(bs)</span></code></pre></div>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="rdemo.html#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Call the data directly from iNat</span></span>
+<span id="cb75-2"><a href="rdemo.html#cb75-2" aria-hidden="true" tabindex="-1"></a>bs <span class="ot">&lt;-</span> <span class="fu">get_inat_obs</span>(<span class="at">taxon_name =</span> <span class="st">&quot;Brabejum stellatifolium&quot;</span>,</span>
+<span id="cb75-3"><a href="rdemo.html#cb75-3" aria-hidden="true" tabindex="-1"></a>                   <span class="at">bounds =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">35</span>, <span class="dv">18</span>, <span class="sc">-</span><span class="fl">33.5</span>, <span class="fl">18.5</span>),</span>
+<span id="cb75-4"><a href="rdemo.html#cb75-4" aria-hidden="true" tabindex="-1"></a>                   <span class="at">maxresults =</span> <span class="dv">1000</span>)</span>
+<span id="cb75-5"><a href="rdemo.html#cb75-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb75-6"><a href="rdemo.html#cb75-6" aria-hidden="true" tabindex="-1"></a><span class="co">#Filter returned observations by a range of attribute criteria</span></span>
+<span id="cb75-7"><a href="rdemo.html#cb75-7" aria-hidden="true" tabindex="-1"></a>bs <span class="ot">&lt;-</span> bs <span class="sc">%&gt;%</span> <span class="fu">filter</span>(positional_accuracy<span class="sc">&lt;</span><span class="dv">46</span> <span class="sc">&amp;</span> </span>
+<span id="cb75-8"><a href="rdemo.html#cb75-8" aria-hidden="true" tabindex="-1"></a>                latitude<span class="sc">&lt;</span><span class="dv">0</span> <span class="sc">&amp;</span></span>
+<span id="cb75-9"><a href="rdemo.html#cb75-9" aria-hidden="true" tabindex="-1"></a>                <span class="sc">!</span><span class="fu">is.na</span>(latitude) <span class="sc">&amp;</span></span>
+<span id="cb75-10"><a href="rdemo.html#cb75-10" aria-hidden="true" tabindex="-1"></a>                captive_cultivated <span class="sc">==</span> <span class="st">&quot;false&quot;</span> <span class="sc">&amp;</span></span>
+<span id="cb75-11"><a href="rdemo.html#cb75-11" aria-hidden="true" tabindex="-1"></a>                quality_grade <span class="sc">==</span> <span class="st">&quot;research&quot;</span>)</span>
+<span id="cb75-12"><a href="rdemo.html#cb75-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb75-13"><a href="rdemo.html#cb75-13" aria-hidden="true" tabindex="-1"></a><span class="co">#See how many records we got</span></span>
+<span id="cb75-14"><a href="rdemo.html#cb75-14" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(bs)</span></code></pre></div>
 <pre><code>## [1] 237</code></pre>
-<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="rdemo.html#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Make the dataframe a spatial object of class = &quot;sf&quot;</span></span>
-<span id="cb71-2"><a href="rdemo.html#cb71-2" aria-hidden="true" tabindex="-1"></a>bs <span class="ot">&lt;-</span> <span class="fu">st_as_sf</span>(bs, <span class="at">coords =</span> <span class="fu">c</span>(<span class="st">&quot;longitude&quot;</span>, <span class="st">&quot;latitude&quot;</span>), <span class="at">crs =</span> <span class="dv">4326</span>) <span class="co">#Note that I had to define the CRS (as Geographic WGS84)!!!</span></span></code></pre></div>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="rdemo.html#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Make the dataframe a spatial object of class = &quot;sf&quot;</span></span>
+<span id="cb77-2"><a href="rdemo.html#cb77-2" aria-hidden="true" tabindex="-1"></a>bs <span class="ot">&lt;-</span> <span class="fu">st_as_sf</span>(bs, <span class="at">coords =</span> <span class="fu">c</span>(<span class="st">&quot;longitude&quot;</span>, <span class="st">&quot;latitude&quot;</span>), <span class="at">crs =</span> <span class="dv">4326</span>) <span class="co">#Note that I had to define the CRS (as Geographic WGS84)!!!</span></span></code></pre></div>
 <p>Let’s see what we’ve got…</p>
-<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="rdemo.html#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Crop the water courses to the extent of the locality data</span></span>
-<span id="cb72-2"><a href="rdemo.html#cb72-2" aria-hidden="true" tabindex="-1"></a>water <span class="ot">&lt;-</span> <span class="fu">st_crop</span>(water, bs)</span>
-<span id="cb72-3"><a href="rdemo.html#cb72-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb72-4"><a href="rdemo.html#cb72-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Plot</span></span>
-<span id="cb72-5"><a href="rdemo.html#cb72-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> </span>
-<span id="cb72-6"><a href="rdemo.html#cb72-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotation_map_tile</span>(<span class="at">type =</span> <span class="st">&quot;osm&quot;</span>, <span class="at">progress =</span> <span class="st">&quot;none&quot;</span>) <span class="sc">+</span> </span>
-<span id="cb72-7"><a href="rdemo.html#cb72-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> water, <span class="at">colour =</span> <span class="st">&quot;blue&quot;</span>) <span class="sc">+</span></span>
-<span id="cb72-8"><a href="rdemo.html#cb72-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data=</span>bs)</span></code></pre></div>
-<p><img src="spatial-r_files/figure-html/unnamed-chunk-36-1.png" width="672" /></p>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="rdemo.html#cb78-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Crop the water courses to the extent of the locality data</span></span>
+<span id="cb78-2"><a href="rdemo.html#cb78-2" aria-hidden="true" tabindex="-1"></a>water <span class="ot">&lt;-</span> <span class="fu">st_crop</span>(water, bs)</span></code></pre></div>
+<pre><code>## Warning: attribute variables are assumed to be spatially constant throughout all geometries</code></pre>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="rdemo.html#cb80-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Plot</span></span>
+<span id="cb80-2"><a href="rdemo.html#cb80-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb80-3"><a href="rdemo.html#cb80-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotation_map_tile</span>(<span class="at">type =</span> <span class="st">&quot;osm&quot;</span>, <span class="at">progress =</span> <span class="st">&quot;none&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb80-4"><a href="rdemo.html#cb80-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> water, <span class="at">colour =</span> <span class="st">&quot;blue&quot;</span>) <span class="sc">+</span></span>
+<span id="cb80-5"><a href="rdemo.html#cb80-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data=</span>bs)</span></code></pre></div>
+<p><img src="spatial-r_files/figure-html/unnamed-chunk-38-1.png" width="672" /></p>
 <p>Hard to tell, but they could all be on rivers?</p>
 <p>Let’s try <code>st_intersects()</code> without any buffering first to see if they overlap at all.</p>
-<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="rdemo.html#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="fu">st_intersects</span>(bs, water) <span class="sc">%&gt;%</span> <span class="fu">unlist</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="rdemo.html#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="fu">st_intersects</span>(bs, water) <span class="sc">%&gt;%</span> <span class="fu">unlist</span>()</span></code></pre></div>
 <pre><code>## integer(0)</code></pre>
 <p>Oops! We forgot to project our data!</p>
-<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="rdemo.html#cb75-1" aria-hidden="true" tabindex="-1"></a>bs <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(bs, <span class="fu">st_crs</span>(vegr))</span>
-<span id="cb75-2"><a href="rdemo.html#cb75-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb75-3"><a href="rdemo.html#cb75-3" aria-hidden="true" tabindex="-1"></a>water <span class="ot">&lt;-</span>  <span class="fu">st_transform</span>(water, <span class="fu">st_crs</span>(vegr))</span>
-<span id="cb75-4"><a href="rdemo.html#cb75-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb75-5"><a href="rdemo.html#cb75-5" aria-hidden="true" tabindex="-1"></a><span class="fu">st_intersects</span>(bs, water) <span class="sc">%&gt;%</span> <span class="fu">unlist</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="rdemo.html#cb83-1" aria-hidden="true" tabindex="-1"></a>bs <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(bs, <span class="fu">st_crs</span>(vegr))</span>
+<span id="cb83-2"><a href="rdemo.html#cb83-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb83-3"><a href="rdemo.html#cb83-3" aria-hidden="true" tabindex="-1"></a>water <span class="ot">&lt;-</span>  <span class="fu">st_transform</span>(water, <span class="fu">st_crs</span>(vegr))</span>
+<span id="cb83-4"><a href="rdemo.html#cb83-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb83-5"><a href="rdemo.html#cb83-5" aria-hidden="true" tabindex="-1"></a><span class="fu">st_intersects</span>(bs, water) <span class="sc">%&gt;%</span> <span class="fu">unlist</span>()</span></code></pre></div>
 <pre><code>## integer(0)</code></pre>
 <p>So none of them intersect, but this is not surprising, because <em>lines</em> and <em>points</em> in GIS do not have <em>area</em>, so they can’t really intersect unless you buffer them… Let’s try <code>st_is_within_distance()</code> and set it for 20 metres.</p>
 <p>Note that I add <code>unlist() %&gt;% unique()</code> so that it gives me a vector of the unique features (i.e. once each) that are within 20m, because the function returns a list and will return the same feature (line/river) multiple times - once for every point (tree) it is within 20m of.</p>
-<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="rdemo.html#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="fu">st_is_within_distance</span>(bs, water, <span class="dv">20</span>) <span class="sc">%&gt;%</span> <span class="fu">unlist</span>() <span class="sc">%&gt;%</span> <span class="fu">unique</span>()</span></code></pre></div>
-<pre><code>##  [1] 327 346 347 328 284 285 592 332 617 507 330 264 351 349 885 179 294 333 101 224 280
-## [22] 281 282 615  19</code></pre>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="rdemo.html#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="fu">st_is_within_distance</span>(bs, water, <span class="dv">20</span>) <span class="sc">%&gt;%</span> <span class="fu">unlist</span>() <span class="sc">%&gt;%</span> <span class="fu">unique</span>()</span></code></pre></div>
+<pre><code>##  [1] 327 346 347 328 284 285 592 332 617 507 330 264 351 349 885 179 294 333 101 224 280 281 282 615
+## [25]  19</code></pre>
 <p>So it’s given us the list of lines (rivers) within 20m of our points, but that doesn’t tell us how many (or what proportion) of our points are within 20m of a river. Let’s apply the function again, swapping the layers around:</p>
-<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="rdemo.html#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="fu">st_is_within_distance</span>(water, bs, <span class="dv">20</span>) <span class="sc">%&gt;%</span> <span class="fu">unlist</span>() <span class="sc">%&gt;%</span> <span class="fu">unique</span>()</span></code></pre></div>
-<pre><code>##  [1] 224 209 225 235 147 167 176  78  24 184 161 162   3  30  46  50  60  74  98 106 107
-## [22] 132 133 202 203  16  19  84  94  97 116 151 153 217  39  77 201 186  10  11  70  71
-## [43]  72  85  92 127 148 149 177  93 150  79 145  59  28  40 144 146 157 213</code></pre>
-<p>So only ~45 of the trees are within 20m of the rivers. What about 50m?</p>
-<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="rdemo.html#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="fu">st_is_within_distance</span>(water, bs, <span class="dv">100</span>) <span class="sc">%&gt;%</span> <span class="fu">unlist</span>() <span class="sc">%&gt;%</span> <span class="fu">unique</span>()</span></code></pre></div>
-<pre><code>##   [1]   5   6  31  75 165 224 209 225 235  88 100 121 189 216 147 167 176  82  89  18  23
-##  [22]  24  32  37  38  56  78  96 130 152 168 170 171 172 180 184 188 197 200 226 179 204
-##  [43] 227 169 198 199  29 161 162 191 129 110 208 154   2   3  13  16  17  22  30  41  46
-##  [64]  47  48  50  51  52  53  54  55  60  66  67  74  91  97  98 102 104 105 106 107 111
-##  [85] 116 119 132 133 139 140 141 142 143 159 164 174 185 192 194 195 196 202 203 217 219
-## [106] 230  19  35  73  83  84  94 109 118 120 134 135 136 137 138 151 153 166  49   8  39
-## [127]  40  45  77 201 186  42  43  44  10  11  15  21  25  36  64  70  71  72  85  92  93
-## [148] 127 148 149 177 187 231 150  79  87 145 228  59  27  28  26  58  61  62  65 144 146
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="rdemo.html#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="fu">st_is_within_distance</span>(water, bs, <span class="dv">20</span>) <span class="sc">%&gt;%</span> <span class="fu">unlist</span>() <span class="sc">%&gt;%</span> <span class="fu">unique</span>()</span></code></pre></div>
+<pre><code>##  [1] 224 209 225 235 147 167 176  78  24 184 161 162   3  30  46  50  60  74  98 106 107 132 133 202
+## [25] 203  16  19  84  94  97 116 151 153 217  39  77 201 186  10  11  70  71  72  85  92 127 148 149
+## [49] 177  93 150  79 145  59  28  40 144 146 157 213</code></pre>
+<p>So only 60 of the trees are within 20m of the rivers. What about 100m?</p>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="rdemo.html#cb89-1" aria-hidden="true" tabindex="-1"></a><span class="fu">st_is_within_distance</span>(water, bs, <span class="dv">100</span>) <span class="sc">%&gt;%</span> <span class="fu">unlist</span>() <span class="sc">%&gt;%</span> <span class="fu">unique</span>()</span></code></pre></div>
+<pre><code>##   [1]   5   6  31  75 165 224 209 225 235  88 100 121 189 216 147 167 176  82  89  18  23  24  32  37
+##  [25]  38  56  78  96 130 152 168 170 171 172 180 184 188 197 200 226 179 204 227 169 198 199  29 161
+##  [49] 162 191 129 110 208 154   2   3  13  16  17  22  30  41  46  47  48  50  51  52  53  54  55  60
+##  [73]  66  67  74  91  97  98 102 104 105 106 107 111 116 119 132 133 139 140 141 142 143 159 164 174
+##  [97] 185 192 194 195 196 202 203 217 219 230  19  35  73  83  84  94 109 118 120 134 135 136 137 138
+## [121] 151 153 166  49   8  39  40  45  77 201 186  42  43  44  10  11  15  21  25  36  64  70  71  72
+## [145]  85  92  93 127 148 149 177 187 231 150  79  87 145 228  59  27  28  26  58  61  62  65 144 146
 ## [169] 157 213 163</code></pre>
-<p>So about 120…</p>
+<p>171</p>
 <p>It’s at this point that it’s worth thinking about the <em>scale</em>, <em>precision</em> and <em>accuracy</em> of both the species localities and the watercourse data before drawing any strong conclusions!!!</p>
 <p><br></p>
 
