@@ -23,7 +23,7 @@
 <meta name="author" content="Jasper Slingsby" />
 
 
-<meta name="date" content="2023-03-08" />
+<meta name="date" content="2023-08-17" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -59,7 +59,7 @@
 <script src="libs/proj4-2.6.2/proj4.min.js"></script>
 <script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
 <link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
-<script src="libs/leaflet-binding-2.1.1/leaflet.js"></script>
+<script src="libs/leaflet-binding-2.1.2/leaflet.js"></script>
 
 
 <style type="text/css">
@@ -335,46 +335,68 @@ Figure 6.2: Screenshot of the Task View landing page at <a href="https://cran.r-
 <p><em><strong>sf</strong></em> stands for “Simple Features for R”, in compliance with the <a href="https://www.ogc.org/standards/sfa">OGC Simple Feature standard</a>. It is highly efficient, and comes with the advantage that it uses <a href="https://www.tidyverse.org/"><em>Tidyverse</em></a> principles and coding styles, e.g. allowing use of the pipe operator (<code>%&gt;%</code>) and the direct application of library(dplyr) data manipulation and library(ggplot2) visualization functions.</p>
 <p>I will use <em>sf</em> for the most part in the demonstration material. Unfortunately, not all operations are available in <em>sf</em> yet and I may still have to use <em>sp</em> at times, especially when performing operations using both vector and raster data.</p>
 <p>Here’s a quick list of the functions available in <em>sf</em>:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="r-as-a-gis.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
-<span id="cb1-2"><a href="r-as-a-gis.html#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">methods</span>(<span class="at">class =</span> <span class="st">&#39;sf&#39;</span>)</span></code></pre></div>
-<pre><code>##   [1] [                            [[&lt;-                         $&lt;-                         
-##   [4] aggregate                    anti_join                    arrange                     
-##   [7] as.data.frame                cbind                        coerce                      
-##  [10] crs                          dbDataType                   dbWriteTable                
-##  [13] distance                     distinct                     dplyr_reconstruct           
-##  [16] drop_na                      extent                       extract                     
-##  [19] filter                       full_join                    gather                      
-##  [22] group_by                     group_split                  identify                    
-##  [25] initialize                   inner_join                   left_join                   
-##  [28] mask                         merge                        mutate                      
-##  [31] nest                         pivot_longer                 pivot_wider                 
-##  [34] plot                         print                        raster                      
-##  [37] rasterize                    rbind                        rename                      
-##  [40] right_join                   rowwise                      sample_frac                 
-##  [43] sample_n                     select                       semi_join                   
-##  [46] separate_rows                separate                     show                        
-##  [49] slice                        slotsFromS3                  spread                      
-##  [52] st_agr                       st_agr&lt;-                     st_area                     
-##  [55] st_as_s2                     st_as_sf                     st_as_sfc                   
-##  [58] st_bbox                      st_boundary                  st_break_antimeridian       
-##  [61] st_buffer                    st_cast                      st_centroid                 
-##  [64] st_collection_extract        st_convex_hull               st_coordinates              
-##  [67] st_crop                      st_crs                       st_crs&lt;-                    
-##  [70] st_difference                st_drop_geometry             st_filter                   
-##  [73] st_geometry                  st_geometry&lt;-                st_inscribed_circle         
-##  [76] st_interpolate_aw            st_intersection              st_intersects               
-##  [79] st_is_valid                  st_is                        st_join                     
-##  [82] st_line_merge                st_m_range                   st_make_valid               
-##  [85] st_minimum_rotated_rectangle st_nearest_points            st_node                     
-##  [88] st_normalize                 st_point_on_surface          st_polygonize               
-##  [91] st_precision                 st_reverse                   st_sample                   
-##  [94] st_segmentize                st_set_precision             st_shift_longitude          
-##  [97] st_simplify                  st_snap                      st_sym_difference           
-## [100] st_transform                 st_triangulate               st_union                    
-## [103] st_voronoi                   st_wrap_dateline             st_write                    
-## [106] st_z_range                   st_zm                        summarise                   
-## [109] transform                    transmute                    ungroup                     
-## [112] unite                        unnest                      
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="r-as-a-gis.html#cb1-1" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
+<span id="cb1-2"><a href="r-as-a-gis.html#cb1-2" tabindex="-1"></a><span class="fu">methods</span>(<span class="at">class =</span> <span class="st">&#39;sf&#39;</span>)</span></code></pre></div>
+<pre><code>##   [1] [                            [[&lt;-                        
+##   [3] $&lt;-                          aggregate                   
+##   [5] anti_join                    arrange                     
+##   [7] as.data.frame                cbind                       
+##   [9] coerce                       crs                         
+##  [11] dbDataType                   dbWriteTable                
+##  [13] distance                     distinct                    
+##  [15] dplyr_reconstruct            drop_na                     
+##  [17] ext                          extent                      
+##  [19] extract                      filter                      
+##  [21] full_join                    gather                      
+##  [23] group_by                     group_split                 
+##  [25] identify                     initialize                  
+##  [27] inner_join                   left_join                   
+##  [29] lines                        mask                        
+##  [31] merge                        mutate                      
+##  [33] nest                         pivot_longer                
+##  [35] pivot_wider                  plot                        
+##  [37] points                       polys                       
+##  [39] print                        raster                      
+##  [41] rasterize                    rbind                       
+##  [43] rename                       right_join                  
+##  [45] rowwise                      sample_frac                 
+##  [47] sample_n                     select                      
+##  [49] semi_join                    separate_rows               
+##  [51] separate                     show                        
+##  [53] slice                        slotsFromS3                 
+##  [55] spread                       st_agr                      
+##  [57] st_agr&lt;-                     st_area                     
+##  [59] st_as_s2                     st_as_sf                    
+##  [61] st_as_sfc                    st_bbox                     
+##  [63] st_boundary                  st_break_antimeridian       
+##  [65] st_buffer                    st_cast                     
+##  [67] st_centroid                  st_collection_extract       
+##  [69] st_convex_hull               st_coordinates              
+##  [71] st_crop                      st_crs                      
+##  [73] st_crs&lt;-                     st_difference               
+##  [75] st_drop_geometry             st_filter                   
+##  [77] st_geometry                  st_geometry&lt;-               
+##  [79] st_inscribed_circle          st_interpolate_aw           
+##  [81] st_intersection              st_intersects               
+##  [83] st_is_valid                  st_is                       
+##  [85] st_join                      st_line_merge               
+##  [87] st_m_range                   st_make_valid               
+##  [89] st_minimum_rotated_rectangle st_nearest_points           
+##  [91] st_node                      st_normalize                
+##  [93] st_point_on_surface          st_polygonize               
+##  [95] st_precision                 st_reverse                  
+##  [97] st_sample                    st_segmentize               
+##  [99] st_set_precision             st_shift_longitude          
+## [101] st_simplify                  st_snap                     
+## [103] st_sym_difference            st_transform                
+## [105] st_triangulate               st_union                    
+## [107] st_voronoi                   st_wrap_dateline            
+## [109] st_write                     st_z_range                  
+## [111] st_zm                        summarise                   
+## [113] svc                          transform                   
+## [115] transmute                    ungroup                     
+## [117] unite                        unnest                      
+## [119] vect                        
 ## see &#39;?methods&#39; for accessing help and source code</code></pre>
 <p><br></p>
 <p>This doesn’t tell you how to use them though. To get help with a function in R just type “?” followed by the function name, e.g. <code>?st_read</code>, and it’ll take you to the help page.</p>

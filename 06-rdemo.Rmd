@@ -19,6 +19,7 @@ The datasets we will use, some of their properties and where to source them are 
 ```{r datasets, echo = F, warning=F, message=F}
 library(knitr) 
 library(kableExtra)
+library(tidyverse)
 
 URL = c("https://www.inaturalist.org/", "https://odp-cctegis.opendata.arcgis.com/datasets/cctegis::open-watercourses/about", "https://odp-cctegis.opendata.arcgis.com/datasets/cctegis::indigenous-vegetation-historic-extent/about", "https://odp-cctegis.opendata.arcgis.com/datasets/indigenous-vegetation-current-extent", "https://odp-cctegis.opendata.arcgis.com/documents/cctegis::draft-ground-level-map-5m-dem-cct-glm-2019/explore")
 
@@ -123,7 +124,7 @@ Note that the function recognised that I wanted to write out an ESRI shapefile f
 
 As with other data types in R (and perhaps even more so with spatial data), you can really go to town with plotting. I'm only going to show you enough to be able to interrogate your data. Making it look pretty is a week-long course or more in its own right. Check out the _"Making maps with R"_ chapter in Lovelace et al's online book [Geocomputation with R](https://geocompr.robinlovelace.net/) for a good start.
 
-<br>
+<br> 
 
 The easiest way to plot datasets in R is often a bad thing to do when working with spatial datasets!
 

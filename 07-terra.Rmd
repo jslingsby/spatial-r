@@ -1,10 +1,10 @@
 ---
-  bookdown::gitbook:
-    config:
-      toc:
-        collapse: null
-      edit: null
-      download: null
+bookdown::gitbook:
+  config:
+    toc:
+      collapse: null
+    edit: null
+    download: null
 ---
 
 # Raster GIS operations in R with _terra_ {#terra}
@@ -417,7 +417,7 @@ roi <- vect(data.frame(lon = c(19.433975, 19.436451),
 And transform it to the same projection as the COG:
 
 ```{r}
-roi <- project(roi, crs(grootbos))
+roi <- terra::project(roi, crs(grootbos))
 ```
 
 And then extract our ROI

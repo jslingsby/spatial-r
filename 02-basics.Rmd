@@ -92,7 +92,7 @@ Other "GIS software types" include:
 knitr::include_graphics("img/gislab.png")
 ```
 
-UCT has a [GIS Support Unit](https://lib.uct.ac.za/services-tools/gis-support) to assist UCT staff and postgraduate researchers with their GIS and spatial data needs. Their primary goal is to help users develop their GIS skills in order to perform sound data capture, geospatial analysis and map production. They can help you with:
+UCT has a [GIS Support Unit](http://www.gis.uct.ac.za/) to assist UCT staff and postgraduate researchers with their GIS and spatial data needs. Their primary goal is to help users develop their GIS skills in order to perform sound data capture, geospatial analysis and map production. They can help you with:
 
 * Troubleshooting, Project Planning, Analysis, Cartographic Design and Data Handling.
 * GIS Training
