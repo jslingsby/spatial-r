@@ -237,7 +237,7 @@ Ok, enough fooling around. More often than not, we just want to extract data fro
 
 First, let's get some points for two species in the Proteaceae, _Protea cynaroides_ and _Leucadendron laureolum_...
 
-```{r}
+```{r rinat_raster}
 library(rinat)
 library(sf)
 
@@ -278,7 +278,7 @@ head(dat)
 
 Hmm... ok... It just returned the vector of numbers... Not all that handy on it's own. Let's add it to out points layer, so we can match it with the species names and plot.
 
-```{r}
+```{r raster_boxplot1}
 pc$dem30 <- dat
 
 pc %>% ggplot() +
@@ -289,7 +289,7 @@ pc %>% ggplot() +
 
 Ok, that's handy, but what if we have data lots of rasters? We don't want to have to do that for every raster! This is where rasterstacks come into their own!
 
-```{r}
+```{r raster_boxplot2}
 #extract from stack
 dat <- extract(dstack, pc) 
 
@@ -312,7 +312,7 @@ edat %>% ggplot() +
 
 Something I should have mentioned is that if you would like each point to sample a larger region you can add a `buffer =` argument to the `extract()` function, and a function (`fun =`) to summarize the neighbourhood of pixels sampled, like so:
 
-```{r}
+```{r raster_boxplot3}
 pc$dem30 <- extract(dem30, pc, buffer = 200, fun = mean)
 
 pc %>% ggplot() +

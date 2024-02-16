@@ -83,13 +83,13 @@ Of course, you don't want to have to read every help page to find the function y
 
 <br>
 
-```{r sfcheatsheet1, echo=FALSE, fig.cap = "An R [_cheat sheet_ for library(sf)](https://github.com/rstudio/cheatsheets/blob/master/sf.pdf) by Ryan Garnett (page 1).", fig.width=5, fig.align = 'center'}
+```{r sfcheatsheet1, echo=FALSE, fig.cap = "An R [_cheat sheet_ for library(sf)](https://github.com/rstudio/cheatsheets/blob/main/sf.pdf) by Ryan Garnett (page 1).", fig.width=5, fig.align = 'center'}
 knitr::include_graphics("img/sf1.png")
 ```
 
 <br>
 
-```{r sfcheatsheet2, echo=FALSE, fig.cap = "An R [_cheat sheet_ for library(sf)](https://github.com/rstudio/cheatsheets/blob/master/sf.pdf) by Ryan Garnett (page 2).", fig.width=5, fig.align = 'center'}
+```{r sfcheatsheet2, echo=FALSE, fig.cap = "An R [_cheat sheet_ for library(sf)](https://github.com/rstudio/cheatsheets/blob/main/sf.pdf) by Ryan Garnett (page 2).", fig.width=5, fig.align = 'center'}
 knitr::include_graphics("img/sf2.png")
 ```
 

@@ -226,7 +226,7 @@ Ok, enough fooling around. More often than not, we just want to extract data fro
 
 First, let's get some points for two species in the Proteaceae, _Protea cynaroides_ and _Leucadendron laureolum_...
 
-```{r}
+```{r rinat_terra}
 library(rinat)
 library(sf)
 
@@ -268,7 +268,7 @@ head(dat)
 
 Nice, but not all that handy on it's own. Let's add the elevation column to our points layer, so we can match it with the species names and plot.
 
-```{r}
+```{r pc_dem_boxplot}
 pc$dem <- dat$`10m_BA`
 
 pc %>% ggplot() +
@@ -281,7 +281,7 @@ A clear separation in the preferred elevation range between the two species.
 
 Ok, that's handy, but what if we have data lots of rasters? We don't want to have to do that for every raster! This is where raster stacks come into their own!
 
-```{r}
+```{r stack_boxplot}
 #extract from stack
 dat <- extract(dstack, vect(pc)) 
 
@@ -303,8 +303,8 @@ edat %>% ggplot() +
 
 Something I should have mentioned is that if you would like each point to sample a larger region you can add a `buffer =` argument to the `extract()` function, and a function (`fun =`) to summarize the neighbourhood of pixels sampled, like so:
 
-```{r}
-pc$dem30 <- extract(dem30, vect(pc), buffer = 200, fun = mean)$X10m_BA #Note the sneaky use of $ to access the column I want
+```{r protea_dem_boxplot}
+pc$dem30 <- extract(dem30, vect(pc), buffer = 200, fun = mean)$`10m_BA` #Note the sneaky use of $ to access the column I want
 
 pc %>% ggplot() +
   geom_boxplot(aes(scientific_name, dem30))
@@ -314,7 +314,7 @@ pc %>% ggplot() +
 
 Now let's try that with our vegetation polygons.
 
-```{r}
+```{r dem_hist}
 #Get historical vegetation layer
 veg <- st_read("data/cape_peninsula/veg/Vegetation_Indigenous.shp")
 
@@ -353,7 +353,7 @@ Here's a different approach...
 
 _Rasterizing_ essentially means turning a vector layer into a raster. To rasterize, you need an existing raster grid to rasterize to, like `dem30` in this case.
 
-```{r, fig.width=5.5}
+```{r penviz, fig.width=5.5}
 #Make the vegetation type a factor
 vegsum$National_ <- as.factor(vegsum$National_)
 
@@ -377,7 +377,7 @@ What about if we want to plot multiple datasets on one map?
 
 This is easy, if you can feed each dataset into a separate ggplot function. Here's the veg types with contours and the iNaturalist records we retrieved earlier.
 
-```{r, fig.width=6}
+```{r penviz_multi, fig.width=6}
 ggplot() +
   geom_raster(data = as.data.frame(vegras, xy = TRUE),
               aes(x = x, y = y, fill = National_)) +
@@ -396,8 +396,8 @@ I thought I'd add this as a bonus section, reinforcing the value of standardized
 
 First, let's open a connection to our COG, which is stored in the cloud. To do this, we need to pass a URL to the file's online location to _terra_.
 
-```{r}
-cog.url <- "/vsicurl/https://storage.googleapis.com/grootbos-tiff/grootbos_cog.tif"
+```{r cog}
+cog.url <- "/vsicurl/https://mnemosyne.somisana.ac.za/osgeo/saeon_rgb/grootbos.tif"
 
 grootbos <- rast(cog.url)
 
@@ -408,7 +408,7 @@ This has given us the metadata about the file, but has not read it into R's memo
 
 Now let's retrieve a subset of the file. To do this we need to make a vector polygon for our region of interest (ROI), like so:
 
-```{r}
+```{r cogroi}
 roi <- vect(data.frame(lon = c(19.433975, 19.436451),
                        lat = c(-34.522733, -34.520735)),
             crs = "epsg:4326")
@@ -416,13 +416,13 @@ roi <- vect(data.frame(lon = c(19.433975, 19.436451),
 
 And transform it to the same projection as the COG:
 
-```{r}
+```{r cogroi_project}
 roi <- terra::project(roi, crs(grootbos))
 ```
 
 And then extract our ROI
 
-```{r}
+```{r cog_crop}
 roi_ras <- crop(grootbos, roi)
 
 roi_ras
@@ -430,7 +430,7 @@ roi_ras
 
 Now we have a raster with 3 layers in memory. There are Red Green and Blue, so we should be able to plot them, like so:
 
-```{r}
+```{r plot_cog}
 plotRGB(roi_ras)
 ```
 
@@ -446,7 +446,7 @@ MODISTools interfaces with the 'MODIS Land Products Subsets' Web Services to dow
 
 WARNING! This code can take a while to run! Hence, I have wrapped it in an `if()` statement that tells the code not to run if the file already exists.
 
-```{r}
+```{r modis_extract}
 if(!file.exists("data/MODISdat_batch_30Jan2023.csv")) # if the file does not exist, then run... otherwise do nothing...
   {
 
@@ -473,7 +473,7 @@ write_csv(dat, "data/MODISdat_batch_30Jan2023.csv")
 
 Plot all time series
 
-```{r, message = FALSE}
+```{r modis_plot, message = FALSE}
 read_csv("data/MODISdat_batch_30Jan2023.csv") %>%
   ggplot(aes(x = calendar_date, y = value*0.0001)) +
   geom_line() +

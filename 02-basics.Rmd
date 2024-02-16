@@ -24,7 +24,7 @@ Most datasets can be assigned a spatial location, either on the earth's surface 
 While almost any dataset has a spatial context, and can thus be represented in a GIS, **the real question is whether it needs to be analyzed in a GIS environment?** The answer to this question depends on the **purpose** of the analysis. Typically, one would use GIS if you were using the spatial information associated with the data to:
 
 * **_access_** data elements (e.g. select data by spatial location or coverage), 
-* perform **_analytical operations_** (e.g. overlay and merge two datasets to produce a new dataset), or 
+* perform **_analytical operations_** (e.g. spatially overlay and merge two datasets to produce a new dataset), or 
 * **_render visualizations_** (e.g. generate a map).
 
 <br>
@@ -68,7 +68,7 @@ knitr::include_graphics("img/QGIS.png")
 
 <br>
 
-Desktop GIS applications are typically [graphical user interfaces (GUIs)](https://en.wikipedia.org/wiki/Graphical_user_interface) that call on various other **_geospatial libraries_** to do the actual data processing (think of these as sets of functions or tools). Some examples of FOSS geospatial libraries are [GDAL](https://gdal.org/) and [GEOS](https://trac.osgeo.org/geos), which are designed to deal with different data models and/or file types. Another one you'll encounter quite a bit id [PROJ](https://proj.org/), which deals with coordinate reference systems.
+Desktop GIS applications are typically [graphical user interfaces (GUIs)](https://en.wikipedia.org/wiki/Graphical_user_interface) that call on various other **_geospatial libraries_** to do the actual data processing (think of these as sets of functions or tools). Some examples of FOSS geospatial libraries are [GDAL](https://gdal.org/) and [GEOS](https://trac.osgeo.org/geos), which are designed to deal with different data models and/or file types. Another one you'll encounter quite a bit is [PROJ](https://proj.org/), which deals with coordinate reference systems.
 
 We can also do GIS by calling the geospatial libraries and other GIS software types directly with various programming languages. While we can use many (or just about any) coding language, there are a few for which the functions and syntax are better developed for the user, including:
 
