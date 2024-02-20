@@ -61,7 +61,7 @@ combine-classes-and-dissolve-by-attribute
 getinat
 converting-a-dataframe-into-a-spatial-object
 adding-basemaps-to-plots
-interactive-maps-with-leaflet
+interactive-maps-with-leaflet-and-mapview
 projections
 intersecting-points-and-polygons
 colour-or-label-points

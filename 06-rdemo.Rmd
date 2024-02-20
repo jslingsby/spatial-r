@@ -21,14 +21,14 @@ library(knitr)
 library(kableExtra)
 library(tidyverse)
 
-URL = c("https://www.inaturalist.org/", "https://odp-cctegis.opendata.arcgis.com/datasets/cctegis::open-watercourses/about", "https://odp-cctegis.opendata.arcgis.com/datasets/cctegis::indigenous-vegetation-historic-extent/about", "https://odp-cctegis.opendata.arcgis.com/datasets/indigenous-vegetation-current-extent", "https://odp-cctegis.opendata.arcgis.com/documents/cctegis::draft-ground-level-map-5m-dem-cct-glm-2019/explore")
+URL = c("https://www.inaturalist.org/", "https://odp-cctegis.opendata.arcgis.com/datasets/cctegis::open-watercourses/about", "https://odp-cctegis.opendata.arcgis.com/datasets/cctegis::indigenous-vegetation-historic-extent/about", "https://odp-cctegis.opendata.arcgis.com/datasets/indigenous-vegetation-current-extent", "https://odp-cctegis.opendata.arcgis.com/search?q=digital%20elevation%20model")
 
 datasets <- tibble(
   `Name` = c("Localities", "Watercourses", "Vegetation Types (historical)", "Vegetation Types (remnants)", "Elevation"),
   `Data source` = c("iNaturalist", "City of Cape Town", "City of Cape Town", "City of Cape Town", "City of Cape Town"),
   `Data model` = c("Vector", "Vector", "Vector", "Vector", "Raster"),
   `Geometry type` = c("Point", "Line", "Polygon", "Polygon", "Raster"),
-  `File format` = c("Data frame from API", "ESRI shapefile", "ESRI shapefile", "ESRI shapefile", "GeoTIFF")) %>%
+  `File format` = c("Data frame from API", "ESRI shapefile", "ESRI shapefile", "ESRI shapefile", "MapServer")) %>%
   mutate(`Name` = text_spec(Name, "html", link = URL))
 
 kable(datasets, "html", escape = FALSE)
@@ -50,7 +50,7 @@ You'll note that most of the _sf_ functions begin with "st_" - this stands for "
 
 Let's try to read in some data with `st_read()`:
 
-> NOTE: if you're trying any of the read/write code at home, you'll need to set the file path to where you put the data and want the outputs on your local machine. You can also use `?setwd` to simplify this. If you are on Windows, make sure to change the backslashes "\" to either double backslashes or forward slashes "/".
+> NOTE: if you're trying any of the read/write code at home, you'll need to set the file path to where you put the data and want the outputs on your local machine. You can also use `?setwd` to simplify this. If you are on Windows, make sure to change the backslashes to either double backslashes or forward slashes "/".
 
 <br>
 
@@ -122,7 +122,7 @@ Note that the function recognised that I wanted to write out an ESRI shapefile f
 
 ## Basic plotting
 
-As with other data types in R (and perhaps even more so with spatial data), you can really go to town with plotting. I'm only going to show you enough to be able to interrogate your data. Making it look pretty is a week-long course or more in its own right. Check out the _"Making maps with R"_ chapter in Lovelace et al's online book [Geocomputation with R](https://geocompr.robinlovelace.net/) for a good start.
+As with other data types in R (and perhaps even more so with spatial data), you can really go to town with plotting. I'm only going to show you enough to be able to interrogate your data. Making it look pretty is a week-long course or more in its own right. Check out the _"Making maps with R"_ chapter in Lovelace et al's online book [Geocomputation with R](https://r.geocompx.org/) for a good start. You could also check out [library(tmap)](https://r-tmap.github.io/tmap/) for plotting thematic maps or [library(mapview)](https://r-spatial.github.io/mapview/index.html) for interactive maps.
 
 <br> 
 
@@ -288,7 +288,7 @@ To make it an object of `class(sf)` we use the function `st_as_sf()`.
 pc <- st_as_sf(pc, coords = c("longitude", "latitude"), crs = 4326)
 ```
 
-Note that I had to define the CRS!!! I defined it to be Geographic WGS84, using the EPSG code in this case.
+Note that I had to define the CRS!!! I defined it to be Geographic WGS84, using the EPSG code in this case. Recall the difference between _defining_ and CRS and _projecting_ of _transforming_ the CRS as discussed in yesterday's notes...
 
 ```{r}
 #What class is it?
@@ -330,7 +330,7 @@ This is better than nothing, but the scale of the map is too small to really see
 
 <br>
 
-## Interactive maps with _leaflet_
+## Interactive maps with _leaflet_ and _mapview_
 
 We can generate interactive maps by calling the [leaflet](https://leafletjs.com/) mapserver using wrapper functions in the [leaflet R package](https://rstudio.github.io/leaflet/) written for this purpose.
 
@@ -359,6 +359,37 @@ Strange, but even though we filtered our iNaturalist records for `captive_cultiv
 
 **_Let this serve as a warning to be wary of all data! Always do "common-sense-checks" on your data and the outputs of your analyses!!!_**
 
+One way to do common sense checks with interactive plots is to add popup labels that allow you to inspect the data. See [here](https://rstudio.github.io/leaflet/articles/popups.html) to do this with `library(leaflet)`, but here's an example with `library(mapview)`.
+
+<br>
+
+```{r}
+library(mapview)
+library(leafpop)
+
+mapview(pc, 
+        popup = 
+          popupTable(pc,
+            zcol = c("user_login", "captive_cultivated", "url")))
+```
+
+<br>
+
+Nice, but we can't click on the URL, we have to copy and paste it. Fortunately, with a little html formatting we can make them live links.
+
+<br>
+
+```{r}
+lpc <- pc %>%
+  mutate(click_url = paste("<b><a href='", url, "'>Link to iNat observation</a></b>"))
+
+mapview(pc, 
+        popup = 
+          popupTable(lpc,
+            zcol = c("user_login", "captive_cultivated", "click_url")))
+```
+
+
 <br>
 
 ## Reprojecting {#projections}
@@ -373,6 +404,7 @@ vegr <- st_read("data/cape_peninsula/veg/Vegetation_Indigenous_Remnants.shp")
 
 hmm <- st_intersection(pc, vegr)
 ```
+
 Oops! The Coordinate Reference Systems are different! We will need to reproject one of the two datasets...
 
 <br>
