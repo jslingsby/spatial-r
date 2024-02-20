@@ -23,7 +23,7 @@
 <meta name="author" content="Jasper Slingsby" />
 
 
-<meta name="date" content="2024-02-19" />
+<meta name="date" content="2024-02-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -52,106 +52,12 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
-<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
-<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
-<script src="libs/leaflet-1.3.1/leaflet.js"></script>
-<link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
-<script src="libs/proj4-2.6.2/proj4.min.js"></script>
-<script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
-<link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
-<script src="libs/leaflet-binding-2.2.1/leaflet.js"></script>
 
 
-<style type="text/css">
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { color: #008000; } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { color: #008000; font-weight: bold; } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-</style>
 
 <style type="text/css">
   
   div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-</style>
-<style type="text/css">
-/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-}
-.hanging div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -360,7 +266,7 @@ Figure 5.4: Map highlighting that a degree is larger at the equator than at the 
 </p>
 </div>
 <p><br></p>
-<p>This means that Euclidean measurement calculations are not appropriate for calculating areas and distances.</p>
+<p>This means that Euclidean measurement calculations are not appropriate for calculating areas and distances on data in the geographic CRS.</p>
 <p><br></p>
 </div>
 <div id="projection" class="section level3 hasAnchor" number="5.2.2">
@@ -388,7 +294,8 @@ Figure 5.5: How many different ways could you flatten a naartjie peel?
 </div>
 <div id="projection-codes" class="section level3 hasAnchor" number="5.2.3">
 <h3><span class="header-section-number">5.2.3</span> Projection codes<a href="some-important-concepts-and-pitfalls.html#projection-codes" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>The type of CRS is usually (but not always) stored in the metadata of your file (or dataset, if it is comprised of multiple files like an ESRI shapefile). There are various formats for this, the most commonly used in R being known as EPSG, PROJ4 or WKT codes or strings (be warned, there are many more…). To assign a CRS or reproject your data in R you need to know the appropriate code in the format required by the function. Fortunately, there is a huge online library of the codes at <a href="https://spatialreference.org/">https://spatialreference.org/</a>. I also provide <strong>some suggested projections</strong>, based on the properties you’d like to preserve, and their codes <a href="https://docs.google.com/spreadsheets/d/1Hvkub7syQNP6GsgaSh5SZNEd3VR9-9j94M5W-hmvm24/edit?usp=sharing">here</a>. Note that for UTM and TM you may need to adjust the PROJ4 strings for your area - read the comments.</p>
+<p>The type of CRS is usually (but not always) stored in the metadata of your file (or dataset, if it is comprised of multiple files like an ESRI shapefile). There are various formats for this, the most commonly used in R being known as EPSG, PROJ4 or WKT codes or strings (be warned, there are many more…).</p>
+<p>To assign a CRS or reproject your data in R you need to know the appropriate code in the format required by the function. Fortunately, there is a huge online library of the codes at <a href="https://spatialreference.org/">https://spatialreference.org/</a>. I also provide <strong>some suggested projections</strong>, based on the properties you’d like to preserve, and their codes <a href="https://docs.google.com/spreadsheets/d/1Hvkub7syQNP6GsgaSh5SZNEd3VR9-9j94M5W-hmvm24/edit?usp=sharing">here</a>. Note that for UTM and TM you may need to adjust the PROJ4 strings for your area - read the comments.</p>
 <p><br></p>
 <p><strong>Why do projections matter?</strong></p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:africaprojected"></span>
@@ -402,7 +309,10 @@ Figure 5.6: Africa, visualized with different coordinate reference systems. All 
 <div id="on-the-fly-vs-manual-projection" class="section level3 hasAnchor" number="5.2.4">
 <h3><span class="header-section-number">5.2.4</span> “On the fly” vs manual projection<a href="some-important-concepts-and-pitfalls.html#on-the-fly-vs-manual-projection" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Note that some GIS tools can perform “on the fly” (re)projection of data. For example, by default ArcGIS sets the CRS for a project from the first dataset imported. When you want to visualize the data, it will reproject all other datasets to the set CRS so that it can visualize it properly. Similarly, ArcGIS and other software can project data in a geographic CRS to a projected CRS on the fly when asked to perform Euclidean measurement calculations.</p>
-<p>On the fly projection can clearly be very useful, but it can also be misleading if you don’t know what its doing. My take is that you should always check the default settings for the software you’re using, and check the set CRS(s) and individual dataset CRS(s) to make sure you are working in a suitable CRS for the operations you want to perform…</p>
+<p>On the fly projection can clearly be very useful, but it can also be misleading if you don’t know what its doing. This is especially problematic if it uses the wrong projection for the property you want to preserve!</p>
+<blockquote>
+<p><em>You should always check the default settings for the software you’re using, and check the set CRS(s) and individual dataset CRS(s) to make sure you are working in a suitable CRS for the operations you want to perform!!!</em></p>
+</blockquote>
 <p><br></p>
 </div>
 <div id="the-golden-rules" class="section level3 hasAnchor" number="5.2.5">
@@ -416,7 +326,7 @@ Figure 5.6: Africa, visualized with different coordinate reference systems. All 
 <li>If your datasets are not in the same CRS, most GIS software will give you warning or error messages, but not always! Note that not all file formats store the CRS “metadata”, so check and store it yourself if needed!</li>
 </ul>
 <ol start="3" style="list-style-type: decimal">
-<li>You need to make sure you <strong><em>use a CRS that best preserves the properties you are interested in</em></strong> (area, distance, direction, shape). More on this below in section <a href="some-important-concepts-and-pitfalls.html#projection">5.2.2</a>.</li>
+<li>You need to make sure you <strong><em>use a CRS that best preserves the properties you are interested in</em></strong> (area, distance, direction, shape). More on this in section <a href="some-important-concepts-and-pitfalls.html#projection">5.2.2</a>.</li>
 <li>If your areas and distances are stupidly small (0.001 etc) your data are probably in Geographic (i.e. degrees and not a unit of distance like metres).</li>
 <li>Always interrogate and “common-sense-check” your results!!!</li>
 </ol>

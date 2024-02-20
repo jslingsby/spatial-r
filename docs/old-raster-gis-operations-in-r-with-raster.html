@@ -23,7 +23,7 @@
 <meta name="author" content="Jasper Slingsby" />
 
 
-<meta name="date" content="2024-02-19" />
+<meta name="date" content="2024-02-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -293,15 +293,15 @@ div.csl-indent {
 <div id="reading-in-data-1" class="section level2 hasAnchor" number="9.1">
 <h2><span class="header-section-number">9.1</span> Reading in data<a href="old-raster-gis-operations-in-r-with-raster.html#reading-in-data-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Ok, now to look at handling rasters. As with <em>sf</em>, the <em>raster</em> package has one function -<code>raster()</code>- that can read in just about any raster file format. Let’s get started and read in the digital elevation model (DEM) for the City of Cape Town.</p>
-<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="old-raster-gis-operations-in-r-with-raster.html#cb147-1" tabindex="-1"></a><span class="fu">library</span>(raster)</span>
-<span id="cb147-2"><a href="old-raster-gis-operations-in-r-with-raster.html#cb147-2" tabindex="-1"></a></span>
-<span id="cb147-3"><a href="old-raster-gis-operations-in-r-with-raster.html#cb147-3" tabindex="-1"></a>dem <span class="ot">&lt;-</span> <span class="fu">raster</span>(<span class="st">&quot;data/cape_peninsula/CoCT_10m.tif&quot;</span>)</span>
-<span id="cb147-4"><a href="old-raster-gis-operations-in-r-with-raster.html#cb147-4" tabindex="-1"></a></span>
-<span id="cb147-5"><a href="old-raster-gis-operations-in-r-with-raster.html#cb147-5" tabindex="-1"></a><span class="fu">class</span>(dem)</span></code></pre></div>
+<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="old-raster-gis-operations-in-r-with-raster.html#cb142-1" tabindex="-1"></a><span class="fu">library</span>(raster)</span>
+<span id="cb142-2"><a href="old-raster-gis-operations-in-r-with-raster.html#cb142-2" tabindex="-1"></a></span>
+<span id="cb142-3"><a href="old-raster-gis-operations-in-r-with-raster.html#cb142-3" tabindex="-1"></a>dem <span class="ot">&lt;-</span> <span class="fu">raster</span>(<span class="st">&quot;data/cape_peninsula/CoCT_10m.tif&quot;</span>)</span>
+<span id="cb142-4"><a href="old-raster-gis-operations-in-r-with-raster.html#cb142-4" tabindex="-1"></a></span>
+<span id="cb142-5"><a href="old-raster-gis-operations-in-r-with-raster.html#cb142-5" tabindex="-1"></a><span class="fu">class</span>(dem)</span></code></pre></div>
 <pre><code>## [1] &quot;RasterLayer&quot;
 ## attr(,&quot;package&quot;)
 ## [1] &quot;raster&quot;</code></pre>
-<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="old-raster-gis-operations-in-r-with-raster.html#cb149-1" tabindex="-1"></a>dem <span class="co">#Typing the name of a &quot;raster&quot; class data object gives you the details</span></span></code></pre></div>
+<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="old-raster-gis-operations-in-r-with-raster.html#cb144-1" tabindex="-1"></a>dem <span class="co">#Typing the name of a &quot;raster&quot; class data object gives you the details</span></span></code></pre></div>
 <pre><code>## class      : RasterLayer 
 ## dimensions : 9902, 6518, 64541236  (nrow, ncol, ncell)
 ## resolution : 10, 10  (x, y)
@@ -311,7 +311,7 @@ div.csl-indent {
 ## names      : X10m_BA 
 ## values     : -35, 1590  (min, max)</code></pre>
 <p>The <em>crs</em> field shows a <em>proj4string</em>, from which we can deduce that the coordinate reference system is Transverse Mercator Lo19. If you just want to know the CRS from a raster, you just call the <em>proj4string</em> like so:</p>
-<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="old-raster-gis-operations-in-r-with-raster.html#cb151-1" tabindex="-1"></a><span class="fu">proj4string</span>(dem)</span></code></pre></div>
+<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="old-raster-gis-operations-in-r-with-raster.html#cb146-1" tabindex="-1"></a><span class="fu">proj4string</span>(dem)</span></code></pre></div>
 <pre><code>## [1] &quot;+proj=tmerc +lat_0=0 +lon_0=19 +k=1 +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs&quot;</code></pre>
 <p>Similar to <code>st_crs()</code>, you can define a projection using the syntax:</p>
 <p><code>proj4string(your_raster) &lt;- "your_proj4string"</code>.</p>
@@ -322,11 +322,11 @@ div.csl-indent {
 <h2><span class="header-section-number">9.2</span> Cropping<a href="old-raster-gis-operations-in-r-with-raster.html#cropping-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Ok, before we try to anything with this dataset, let’s think about how big it is… One of the outputs of calling <code>dem</code> was the row reading <code>dimensions : 9902, 6518, 64541236  (nrow, ncol, ncell)</code>. Given that we are talking about 10m pixels, this information tells us that the extent of the region is roughly 100km by 65km and that there are ~65 million pixels! No wonder the file is ~130MB.</p>
 <p>While R can handle this, it will be slow! There are many ways to improve the efficiency of handling big rasters in R (see <a href="https://www.ecologi.st/post/big-spatial-data/">this post for details</a> if you’re interested), but for the purposes of this tutorial we’re going to take the easy option and just crop it to a smaller extent, like so:</p>
-<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb153-1"><a href="old-raster-gis-operations-in-r-with-raster.html#cb153-1" tabindex="-1"></a>dem <span class="ot">&lt;-</span> <span class="fu">crop</span>(dem, <span class="fu">extent</span>(<span class="fu">c</span>(<span class="sc">-</span><span class="fl">66642.18</span>, <span class="sc">-</span><span class="fl">44412.18</span>, <span class="sc">-</span><span class="fl">3809853.29</span>, <span class="sc">-</span><span class="fl">3750723.29</span>)))</span></code></pre></div>
+<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="old-raster-gis-operations-in-r-with-raster.html#cb148-1" tabindex="-1"></a>dem <span class="ot">&lt;-</span> <span class="fu">crop</span>(dem, <span class="fu">extent</span>(<span class="fu">c</span>(<span class="sc">-</span><span class="fl">66642.18</span>, <span class="sc">-</span><span class="fl">44412.18</span>, <span class="sc">-</span><span class="fl">3809853.29</span>, <span class="sc">-</span><span class="fl">3750723.29</span>)))</span></code></pre></div>
 <p>Note that the <code>crop()</code> function requires us to pass it an object of class <code>extent</code>. Just like <code>st_crop()</code> from <em>sf</em>, <code>crop()</code> can derive the extent from another data object.</p>
 <p>One silly difference, is that if you pass it the coordinates of the extent manually (as above), you first need to pass it to the <code>extent()</code> function, and they need to follow the order <em>xmin, xmax, ymin, ymax</em> (as opposed to <em>xmin, ymin, xmax, ymax</em> as you do for <code>st_crop()</code>). Keep your eye out for these little differences, because they will trip you up…</p>
 <p>Ok, so how big is our dataset now?</p>
-<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="old-raster-gis-operations-in-r-with-raster.html#cb154-1" tabindex="-1"></a>dem</span></code></pre></div>
+<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="old-raster-gis-operations-in-r-with-raster.html#cb149-1" tabindex="-1"></a>dem</span></code></pre></div>
 <pre><code>## class      : RasterLayer 
 ## dimensions : 5330, 1977, 10537410  (nrow, ncol, ncell)
 ## resolution : 10, 10  (x, y)
@@ -341,9 +341,9 @@ div.csl-indent {
 <div id="aggregating-resampling-1" class="section level2 hasAnchor" number="9.3">
 <h2><span class="header-section-number">9.3</span> Aggregating / Resampling<a href="old-raster-gis-operations-in-r-with-raster.html#aggregating-resampling-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Do we need 10m data? If your analysis doesn’t need such fine resolution data, you can resample the raster to a larger pixel size, like 30m. The <code>aggregate()</code> function in the <em>raster</em> package does this very efficiently, like so:</p>
-<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb156-1"><a href="old-raster-gis-operations-in-r-with-raster.html#cb156-1" tabindex="-1"></a>dem30 <span class="ot">&lt;-</span> <span class="fu">aggregate</span>(dem, <span class="at">fact =</span> <span class="dv">3</span>, <span class="at">fun =</span> mean)</span></code></pre></div>
+<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="old-raster-gis-operations-in-r-with-raster.html#cb151-1" tabindex="-1"></a>dem30 <span class="ot">&lt;-</span> <span class="fu">aggregate</span>(dem, <span class="at">fact =</span> <span class="dv">3</span>, <span class="at">fun =</span> mean)</span></code></pre></div>
 <p>Here I’ve told it to aggregate by a factor of 3 (i.e. bin 9 neighbouring pixels (3x3) into one) and to assign the bigger pixel the mean of the 9 original pixels. This obviously results in some data loss, but that can be acceptable, depending on the purpose of your analysis. Note that you can pass just about any function to <code>fun =</code>, like <code>min()</code>, <code>max()</code> or even your own function.</p>
-<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="old-raster-gis-operations-in-r-with-raster.html#cb157-1" tabindex="-1"></a>dem30</span></code></pre></div>
+<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="old-raster-gis-operations-in-r-with-raster.html#cb152-1" tabindex="-1"></a>dem30</span></code></pre></div>
 <pre><code>## class      : RasterLayer 
 ## dimensions : 1777, 659, 1171043  (nrow, ncol, ncell)
 ## resolution : 30, 30  (x, y)
@@ -358,36 +358,36 @@ div.csl-indent {
 <div id="basic-plotting-2" class="section level2 hasAnchor" number="9.4">
 <h2><span class="header-section-number">9.4</span> Basic plotting<a href="old-raster-gis-operations-in-r-with-raster.html#basic-plotting-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Now that we’ve reduced the size of the dataset, we can try the base plotting function:</p>
-<div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb159-1"><a href="old-raster-gis-operations-in-r-with-raster.html#cb159-1" tabindex="-1"></a><span class="fu">plot</span>(dem30)</span></code></pre></div>
+<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="old-raster-gis-operations-in-r-with-raster.html#cb154-1" tabindex="-1"></a><span class="fu">plot</span>(dem30)</span></code></pre></div>
 <p><img src="spatial-r_files/figure-html/unnamed-chunk-66-1.png" width="672" /></p>
 <p>Or with the <em>Tidyverse</em>…</p>
 <p>Note that <code>ggplot()</code> doesn’t accept rasters, so we need to give it a dataframe with <em>x</em> and <em>y</em> columns for the coordinates, and a column containing the values to plot. This is easily done, firstly by converting the raster to a vector layer of points, and then by coorcing that into a dataframe, like so:</p>
-<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb160-1"><a href="old-raster-gis-operations-in-r-with-raster.html#cb160-1" tabindex="-1"></a><span class="co">#convert to points</span></span>
-<span id="cb160-2"><a href="old-raster-gis-operations-in-r-with-raster.html#cb160-2" tabindex="-1"></a>dem30df <span class="ot">&lt;-</span> <span class="fu">rasterToPoints</span>(dem30, <span class="at">spatial =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb160-3"><a href="old-raster-gis-operations-in-r-with-raster.html#cb160-3" tabindex="-1"></a></span>
-<span id="cb160-4"><a href="old-raster-gis-operations-in-r-with-raster.html#cb160-4" tabindex="-1"></a><span class="fu">class</span>(dem30df) <span class="co">#note that this is a class from library(sp)</span></span></code></pre></div>
+<div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb155-1"><a href="old-raster-gis-operations-in-r-with-raster.html#cb155-1" tabindex="-1"></a><span class="co">#convert to points</span></span>
+<span id="cb155-2"><a href="old-raster-gis-operations-in-r-with-raster.html#cb155-2" tabindex="-1"></a>dem30df <span class="ot">&lt;-</span> <span class="fu">rasterToPoints</span>(dem30, <span class="at">spatial =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb155-3"><a href="old-raster-gis-operations-in-r-with-raster.html#cb155-3" tabindex="-1"></a></span>
+<span id="cb155-4"><a href="old-raster-gis-operations-in-r-with-raster.html#cb155-4" tabindex="-1"></a><span class="fu">class</span>(dem30df) <span class="co">#note that this is a class from library(sp)</span></span></code></pre></div>
 <pre><code>## [1] &quot;SpatialPointsDataFrame&quot;
 ## attr(,&quot;package&quot;)
 ## [1] &quot;sp&quot;</code></pre>
-<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb162-1"><a href="old-raster-gis-operations-in-r-with-raster.html#cb162-1" tabindex="-1"></a><span class="co">#coerce to a dataframe</span></span>
-<span id="cb162-2"><a href="old-raster-gis-operations-in-r-with-raster.html#cb162-2" tabindex="-1"></a>dem30df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(dem30df)</span>
-<span id="cb162-3"><a href="old-raster-gis-operations-in-r-with-raster.html#cb162-3" tabindex="-1"></a></span>
-<span id="cb162-4"><a href="old-raster-gis-operations-in-r-with-raster.html#cb162-4" tabindex="-1"></a><span class="co">#have a look at the column names</span></span>
-<span id="cb162-5"><a href="old-raster-gis-operations-in-r-with-raster.html#cb162-5" tabindex="-1"></a><span class="fu">names</span>(dem30df) <span class="co"># &quot;X10m_BA&quot; is the elevation data...</span></span></code></pre></div>
+<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="old-raster-gis-operations-in-r-with-raster.html#cb157-1" tabindex="-1"></a><span class="co">#coerce to a dataframe</span></span>
+<span id="cb157-2"><a href="old-raster-gis-operations-in-r-with-raster.html#cb157-2" tabindex="-1"></a>dem30df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(dem30df)</span>
+<span id="cb157-3"><a href="old-raster-gis-operations-in-r-with-raster.html#cb157-3" tabindex="-1"></a></span>
+<span id="cb157-4"><a href="old-raster-gis-operations-in-r-with-raster.html#cb157-4" tabindex="-1"></a><span class="co">#have a look at the column names</span></span>
+<span id="cb157-5"><a href="old-raster-gis-operations-in-r-with-raster.html#cb157-5" tabindex="-1"></a><span class="fu">names</span>(dem30df) <span class="co"># &quot;X10m_BA&quot; is the elevation data...</span></span></code></pre></div>
 <pre><code>## [1] &quot;X10m_BA&quot;  &quot;x&quot;        &quot;y&quot;        &quot;optional&quot;</code></pre>
-<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb164-1"><a href="old-raster-gis-operations-in-r-with-raster.html#cb164-1" tabindex="-1"></a><span class="co">#call tidyverse libraries and plot</span></span>
-<span id="cb164-2"><a href="old-raster-gis-operations-in-r-with-raster.html#cb164-2" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb164-3"><a href="old-raster-gis-operations-in-r-with-raster.html#cb164-3" tabindex="-1"></a></span>
-<span id="cb164-4"><a href="old-raster-gis-operations-in-r-with-raster.html#cb164-4" tabindex="-1"></a>dem30df <span class="sc">%&gt;%</span></span>
-<span id="cb164-5"><a href="old-raster-gis-operations-in-r-with-raster.html#cb164-5" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb164-6"><a href="old-raster-gis-operations-in-r-with-raster.html#cb164-6" tabindex="-1"></a>  <span class="fu">geom_raster</span>(<span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">fill =</span> X10m_BA))</span></code></pre></div>
+<div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb159-1"><a href="old-raster-gis-operations-in-r-with-raster.html#cb159-1" tabindex="-1"></a><span class="co">#call tidyverse libraries and plot</span></span>
+<span id="cb159-2"><a href="old-raster-gis-operations-in-r-with-raster.html#cb159-2" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb159-3"><a href="old-raster-gis-operations-in-r-with-raster.html#cb159-3" tabindex="-1"></a></span>
+<span id="cb159-4"><a href="old-raster-gis-operations-in-r-with-raster.html#cb159-4" tabindex="-1"></a>dem30df <span class="sc">%&gt;%</span></span>
+<span id="cb159-5"><a href="old-raster-gis-operations-in-r-with-raster.html#cb159-5" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb159-6"><a href="old-raster-gis-operations-in-r-with-raster.html#cb159-6" tabindex="-1"></a>  <span class="fu">geom_raster</span>(<span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">fill =</span> X10m_BA))</span></code></pre></div>
 <p><img src="spatial-r_files/figure-html/unnamed-chunk-67-1.png" width="336" /></p>
 <p>Ok, how different does our 30m raster look to the 10m version?</p>
-<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb165-1"><a href="old-raster-gis-operations-in-r-with-raster.html#cb165-1" tabindex="-1"></a>demdf <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">rasterToPoints</span>(dem, <span class="at">spatial =</span> <span class="cn">TRUE</span>))</span>
-<span id="cb165-2"><a href="old-raster-gis-operations-in-r-with-raster.html#cb165-2" tabindex="-1"></a></span>
-<span id="cb165-3"><a href="old-raster-gis-operations-in-r-with-raster.html#cb165-3" tabindex="-1"></a>demdf <span class="sc">%&gt;%</span></span>
-<span id="cb165-4"><a href="old-raster-gis-operations-in-r-with-raster.html#cb165-4" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb165-5"><a href="old-raster-gis-operations-in-r-with-raster.html#cb165-5" tabindex="-1"></a>  <span class="fu">geom_raster</span>(<span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">fill =</span> X10m_BA))</span></code></pre></div>
+<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb160-1"><a href="old-raster-gis-operations-in-r-with-raster.html#cb160-1" tabindex="-1"></a>demdf <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">rasterToPoints</span>(dem, <span class="at">spatial =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb160-2"><a href="old-raster-gis-operations-in-r-with-raster.html#cb160-2" tabindex="-1"></a></span>
+<span id="cb160-3"><a href="old-raster-gis-operations-in-r-with-raster.html#cb160-3" tabindex="-1"></a>demdf <span class="sc">%&gt;%</span></span>
+<span id="cb160-4"><a href="old-raster-gis-operations-in-r-with-raster.html#cb160-4" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb160-5"><a href="old-raster-gis-operations-in-r-with-raster.html#cb160-5" tabindex="-1"></a>  <span class="fu">geom_raster</span>(<span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">fill =</span> X10m_BA))</span></code></pre></div>
 <p><img src="spatial-r_files/figure-html/unnamed-chunk-68-1.png" width="336" /></p>
 <p>Not noticeably different at this scale!</p>
 <p><br></p>
@@ -395,7 +395,7 @@ div.csl-indent {
 <div id="disaggregating-1" class="section level2 hasAnchor" number="9.5">
 <h2><span class="header-section-number">9.5</span> Disaggregating<a href="old-raster-gis-operations-in-r-with-raster.html#disaggregating-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>One way to explore the degree of data loss is to <code>disaggregate()</code> our 30m DEM back to 10m and then compare it to the original.</p>
-<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="old-raster-gis-operations-in-r-with-raster.html#cb166-1" tabindex="-1"></a>dem10 <span class="ot">&lt;-</span> <span class="fu">disaggregate</span>(dem30, <span class="at">fact =</span> <span class="dv">3</span>, <span class="at">method =</span> <span class="st">&quot;bilinear&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb161-1"><a href="old-raster-gis-operations-in-r-with-raster.html#cb161-1" tabindex="-1"></a>dem10 <span class="ot">&lt;-</span> <span class="fu">disaggregate</span>(dem30, <span class="at">fact =</span> <span class="dv">3</span>, <span class="at">method =</span> <span class="st">&quot;bilinear&quot;</span>)</span></code></pre></div>
 <p>Note that I’ve tried to use <em>bilinear interpolation</em> to give it a fair chance of getting nearer the original values. You can google this on your own, but it essentially smooths the data by averaging across neighbouring pixels.</p>
 <p>Now, how can I compare my two 10m rasters?</p>
 <p><br></p>
@@ -403,22 +403,22 @@ div.csl-indent {
 <div id="raster-maths-1" class="section level2 hasAnchor" number="9.6">
 <h2><span class="header-section-number">9.6</span> Raster maths!<a href="old-raster-gis-operations-in-r-with-raster.html#raster-maths-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The <em>raster</em> package makes this easy, because you can do maths with rasters, treating them as variables in an equation. This means we can explore the data loss by calculating the difference between the original and disaggregated DEMS, like so.</p>
-<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="old-raster-gis-operations-in-r-with-raster.html#cb167-1" tabindex="-1"></a>diff <span class="ot">&lt;-</span> dem <span class="sc">-</span> dem10</span></code></pre></div>
+<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb162-1"><a href="old-raster-gis-operations-in-r-with-raster.html#cb162-1" tabindex="-1"></a>diff <span class="ot">&lt;-</span> dem <span class="sc">-</span> dem10</span></code></pre></div>
 <pre><code>## Warning in dem - dem10: Raster objects have different extents. Result for their
 ## intersection is returned</code></pre>
 <p>Note that the error is because we lost some of the 10m cells along the edges when we aggregated… We can ignore this in this example.</p>
-<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="old-raster-gis-operations-in-r-with-raster.html#cb169-1" tabindex="-1"></a>diffdf <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">rasterToPoints</span>(diff, <span class="at">spatial =</span> <span class="cn">TRUE</span>))</span>
-<span id="cb169-2"><a href="old-raster-gis-operations-in-r-with-raster.html#cb169-2" tabindex="-1"></a></span>
-<span id="cb169-3"><a href="old-raster-gis-operations-in-r-with-raster.html#cb169-3" tabindex="-1"></a><span class="fu">names</span>(diffdf) <span class="co">#note that the elevation column is now calles &quot;layer&quot;, which we need to feed to ggplot()</span></span></code></pre></div>
+<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb164-1"><a href="old-raster-gis-operations-in-r-with-raster.html#cb164-1" tabindex="-1"></a>diffdf <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">rasterToPoints</span>(diff, <span class="at">spatial =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb164-2"><a href="old-raster-gis-operations-in-r-with-raster.html#cb164-2" tabindex="-1"></a></span>
+<span id="cb164-3"><a href="old-raster-gis-operations-in-r-with-raster.html#cb164-3" tabindex="-1"></a><span class="fu">names</span>(diffdf) <span class="co">#note that the elevation column is now calles &quot;layer&quot;, which we need to feed to ggplot()</span></span></code></pre></div>
 <pre><code>## [1] &quot;layer&quot;    &quot;x&quot;        &quot;y&quot;        &quot;optional&quot;</code></pre>
-<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="old-raster-gis-operations-in-r-with-raster.html#cb171-1" tabindex="-1"></a>diffdf <span class="sc">%&gt;%</span></span>
-<span id="cb171-2"><a href="old-raster-gis-operations-in-r-with-raster.html#cb171-2" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb171-3"><a href="old-raster-gis-operations-in-r-with-raster.html#cb171-3" tabindex="-1"></a>  <span class="fu">geom_raster</span>(<span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">fill =</span> layer))</span></code></pre></div>
+<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="old-raster-gis-operations-in-r-with-raster.html#cb166-1" tabindex="-1"></a>diffdf <span class="sc">%&gt;%</span></span>
+<span id="cb166-2"><a href="old-raster-gis-operations-in-r-with-raster.html#cb166-2" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb166-3"><a href="old-raster-gis-operations-in-r-with-raster.html#cb166-3" tabindex="-1"></a>  <span class="fu">geom_raster</span>(<span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">fill =</span> layer))</span></code></pre></div>
 <p><img src="spatial-r_files/figure-html/unnamed-chunk-71-1.png" width="336" /></p>
 <p>If you look <em>really</em> closely, you’ll see the outline of the cliffs of Table Mountain, where you’d expect the data loss to be worst. The colour ramp tells us that the worst distortion was up to 100m, or about 10% of the elevation range in this dataset, but don’t be fooled by the extremes! Let’s have a look at all the values as a histogram.</p>
-<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="old-raster-gis-operations-in-r-with-raster.html#cb172-1" tabindex="-1"></a>diffdf <span class="sc">%&gt;%</span></span>
-<span id="cb172-2"><a href="old-raster-gis-operations-in-r-with-raster.html#cb172-2" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb172-3"><a href="old-raster-gis-operations-in-r-with-raster.html#cb172-3" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(layer))</span></code></pre></div>
+<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="old-raster-gis-operations-in-r-with-raster.html#cb167-1" tabindex="-1"></a>diffdf <span class="sc">%&gt;%</span></span>
+<span id="cb167-2"><a href="old-raster-gis-operations-in-r-with-raster.html#cb167-2" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb167-3"><a href="old-raster-gis-operations-in-r-with-raster.html#cb167-3" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(layer))</span></code></pre></div>
 <pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
 <p><img src="spatial-r_files/figure-html/unnamed-chunk-72-1.png" width="672" /></p>
 <p>Looks like most values are within 10 or so metres of their original values, so the data loss really wasn’t that bad!</p>
@@ -429,23 +429,23 @@ div.csl-indent {
 <p>In addition to maths with multiple rasters, you can do all kinds of calculations within a raster using <code>focal()</code>. This essentially applies a moving window, calculating values for a neighbourhood of cells as it goes, using whatever function you supply (mean, max, your own, etc).</p>
 <p>The function <code>terrain()</code> is a special case of <code>focal()</code>, optimized for calculating <em>slope, aspect, topographic position index (TPI), topographic roughness index (TRI), roughness, or flow direction</em>.</p>
 <p>Here I’ll calculate the slope and aspect so that we can pass them to the function <code>hillShade()</code> to make a pretty hillshade layer.</p>
-<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb174-1"><a href="old-raster-gis-operations-in-r-with-raster.html#cb174-1" tabindex="-1"></a>aspect <span class="ot">&lt;-</span> <span class="fu">terrain</span>(dem30, <span class="st">&quot;aspect&quot;</span>)</span>
-<span id="cb174-2"><a href="old-raster-gis-operations-in-r-with-raster.html#cb174-2" tabindex="-1"></a></span>
-<span id="cb174-3"><a href="old-raster-gis-operations-in-r-with-raster.html#cb174-3" tabindex="-1"></a>slope <span class="ot">&lt;-</span> <span class="fu">terrain</span>(dem30, <span class="st">&quot;slope&quot;</span>)</span>
-<span id="cb174-4"><a href="old-raster-gis-operations-in-r-with-raster.html#cb174-4" tabindex="-1"></a></span>
-<span id="cb174-5"><a href="old-raster-gis-operations-in-r-with-raster.html#cb174-5" tabindex="-1"></a>hillshade <span class="ot">&lt;-</span> <span class="fu">hillShade</span>(slope, aspect)</span>
-<span id="cb174-6"><a href="old-raster-gis-operations-in-r-with-raster.html#cb174-6" tabindex="-1"></a></span>
-<span id="cb174-7"><a href="old-raster-gis-operations-in-r-with-raster.html#cb174-7" tabindex="-1"></a><span class="fu">plot</span>(hillshade)</span></code></pre></div>
+<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="old-raster-gis-operations-in-r-with-raster.html#cb169-1" tabindex="-1"></a>aspect <span class="ot">&lt;-</span> <span class="fu">terrain</span>(dem30, <span class="st">&quot;aspect&quot;</span>)</span>
+<span id="cb169-2"><a href="old-raster-gis-operations-in-r-with-raster.html#cb169-2" tabindex="-1"></a></span>
+<span id="cb169-3"><a href="old-raster-gis-operations-in-r-with-raster.html#cb169-3" tabindex="-1"></a>slope <span class="ot">&lt;-</span> <span class="fu">terrain</span>(dem30, <span class="st">&quot;slope&quot;</span>)</span>
+<span id="cb169-4"><a href="old-raster-gis-operations-in-r-with-raster.html#cb169-4" tabindex="-1"></a></span>
+<span id="cb169-5"><a href="old-raster-gis-operations-in-r-with-raster.html#cb169-5" tabindex="-1"></a>hillshade <span class="ot">&lt;-</span> <span class="fu">hillShade</span>(slope, aspect)</span>
+<span id="cb169-6"><a href="old-raster-gis-operations-in-r-with-raster.html#cb169-6" tabindex="-1"></a></span>
+<span id="cb169-7"><a href="old-raster-gis-operations-in-r-with-raster.html#cb169-7" tabindex="-1"></a><span class="fu">plot</span>(hillshade)</span></code></pre></div>
 <p><img src="spatial-r_files/figure-html/unnamed-chunk-73-1.png" width="672" /></p>
 <p>Probably prettier with <em>Tidyverse</em>:</p>
-<div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb175-1"><a href="old-raster-gis-operations-in-r-with-raster.html#cb175-1" tabindex="-1"></a>hsdf <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">rasterToPoints</span>(hillshade, <span class="at">spatial =</span> <span class="cn">TRUE</span>))</span>
-<span id="cb175-2"><a href="old-raster-gis-operations-in-r-with-raster.html#cb175-2" tabindex="-1"></a></span>
-<span id="cb175-3"><a href="old-raster-gis-operations-in-r-with-raster.html#cb175-3" tabindex="-1"></a><span class="fu">names</span>(hsdf)</span></code></pre></div>
+<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb170-1"><a href="old-raster-gis-operations-in-r-with-raster.html#cb170-1" tabindex="-1"></a>hsdf <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">rasterToPoints</span>(hillshade, <span class="at">spatial =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb170-2"><a href="old-raster-gis-operations-in-r-with-raster.html#cb170-2" tabindex="-1"></a></span>
+<span id="cb170-3"><a href="old-raster-gis-operations-in-r-with-raster.html#cb170-3" tabindex="-1"></a><span class="fu">names</span>(hsdf)</span></code></pre></div>
 <pre><code>## [1] &quot;layer&quot;    &quot;x&quot;        &quot;y&quot;        &quot;optional&quot;</code></pre>
-<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb177-1"><a href="old-raster-gis-operations-in-r-with-raster.html#cb177-1" tabindex="-1"></a>hsdf <span class="sc">%&gt;%</span></span>
-<span id="cb177-2"><a href="old-raster-gis-operations-in-r-with-raster.html#cb177-2" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb177-3"><a href="old-raster-gis-operations-in-r-with-raster.html#cb177-3" tabindex="-1"></a>  <span class="fu">geom_raster</span>(<span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">fill =</span> layer)) <span class="sc">+</span></span>
-<span id="cb177-4"><a href="old-raster-gis-operations-in-r-with-raster.html#cb177-4" tabindex="-1"></a>  <span class="fu">scale_fill_gradient</span>(<span class="at">low =</span> <span class="st">&quot;grey10&quot;</span>, <span class="at">high =</span> <span class="st">&quot;grey90&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="old-raster-gis-operations-in-r-with-raster.html#cb172-1" tabindex="-1"></a>hsdf <span class="sc">%&gt;%</span></span>
+<span id="cb172-2"><a href="old-raster-gis-operations-in-r-with-raster.html#cb172-2" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb172-3"><a href="old-raster-gis-operations-in-r-with-raster.html#cb172-3" tabindex="-1"></a>  <span class="fu">geom_raster</span>(<span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">fill =</span> layer)) <span class="sc">+</span></span>
+<span id="cb172-4"><a href="old-raster-gis-operations-in-r-with-raster.html#cb172-4" tabindex="-1"></a>  <span class="fu">scale_fill_gradient</span>(<span class="at">low =</span> <span class="st">&quot;grey10&quot;</span>, <span class="at">high =</span> <span class="st">&quot;grey90&quot;</span>)</span></code></pre></div>
 <p><img src="spatial-r_files/figure-html/unnamed-chunk-74-1.png" width="336" /></p>
 <p>Nice ne?</p>
 <p><br></p>
@@ -453,9 +453,9 @@ div.csl-indent {
 <div id="raster-stacks-1" class="section level2 hasAnchor" number="9.8">
 <h2><span class="header-section-number">9.8</span> Raster stacks<a href="old-raster-gis-operations-in-r-with-raster.html#raster-stacks-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Another nice thing about rasters is that if you have multiple rasters “on the same grid” (i.e. with the same pixel size, extent and CRS) then you can <em>stack</em> them and work with them as a single <em>rasterstack</em> object.</p>
-<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb178-1"><a href="old-raster-gis-operations-in-r-with-raster.html#cb178-1" tabindex="-1"></a>dstack <span class="ot">&lt;-</span> <span class="fu">stack</span>(dem30, slope, aspect, hillshade)</span>
-<span id="cb178-2"><a href="old-raster-gis-operations-in-r-with-raster.html#cb178-2" tabindex="-1"></a></span>
-<span id="cb178-3"><a href="old-raster-gis-operations-in-r-with-raster.html#cb178-3" tabindex="-1"></a>dstack</span></code></pre></div>
+<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb173-1"><a href="old-raster-gis-operations-in-r-with-raster.html#cb173-1" tabindex="-1"></a>dstack <span class="ot">&lt;-</span> <span class="fu">stack</span>(dem30, slope, aspect, hillshade)</span>
+<span id="cb173-2"><a href="old-raster-gis-operations-in-r-with-raster.html#cb173-2" tabindex="-1"></a></span>
+<span id="cb173-3"><a href="old-raster-gis-operations-in-r-with-raster.html#cb173-3" tabindex="-1"></a>dstack</span></code></pre></div>
 <pre><code>## class      : RasterStack 
 ## dimensions : 1777, 659, 1171043, 4  (nrow, ncol, ncell, nlayers)
 ## resolution : 30, 30  (x, y)
@@ -465,7 +465,7 @@ div.csl-indent {
 ## min values :  -15.0000000,    0.0000000,    0.0000000,   -0.4906481 
 ## max values : 1083.5555556,    1.3708258,    6.2831853,    0.9999974</code></pre>
 <p>As you can see the “dimensions” now report 4 layers, and there are 4 names. Some of the names don’t look all that informative though, so let’s rename them.</p>
-<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb180-1"><a href="old-raster-gis-operations-in-r-with-raster.html#cb180-1" tabindex="-1"></a><span class="fu">names</span>(dstack) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;elevation&quot;</span>, <span class="st">&quot;slope&quot;</span>, <span class="st">&quot;aspect&quot;</span>, <span class="st">&quot;shade&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb175-1"><a href="old-raster-gis-operations-in-r-with-raster.html#cb175-1" tabindex="-1"></a><span class="fu">names</span>(dstack) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;elevation&quot;</span>, <span class="st">&quot;slope&quot;</span>, <span class="st">&quot;aspect&quot;</span>, <span class="st">&quot;shade&quot;</span>)</span></code></pre></div>
 <p><br></p>
 </div>
 <div id="extracting-raster-to-vector-1" class="section level2 hasAnchor" number="9.9">
@@ -474,72 +474,72 @@ div.csl-indent {
 <p><br></p>
 <p><strong>Extract to points</strong></p>
 <p>First, let’s get some points for two species in the Proteaceae, <em>Protea cynaroides</em> and <em>Leucadendron laureolum</em>…</p>
-<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb181-1"><a href="old-raster-gis-operations-in-r-with-raster.html#cb181-1" tabindex="-1"></a><span class="fu">library</span>(rinat)</span>
-<span id="cb181-2"><a href="old-raster-gis-operations-in-r-with-raster.html#cb181-2" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
-<span id="cb181-3"><a href="old-raster-gis-operations-in-r-with-raster.html#cb181-3" tabindex="-1"></a></span>
-<span id="cb181-4"><a href="old-raster-gis-operations-in-r-with-raster.html#cb181-4" tabindex="-1"></a><span class="co">#Call data for two species directly from iNat</span></span>
-<span id="cb181-5"><a href="old-raster-gis-operations-in-r-with-raster.html#cb181-5" tabindex="-1"></a>pc <span class="ot">&lt;-</span> <span class="fu">get_inat_obs</span>(<span class="at">taxon_name =</span> <span class="st">&quot;Protea cynaroides&quot;</span>,</span>
-<span id="cb181-6"><a href="old-raster-gis-operations-in-r-with-raster.html#cb181-6" tabindex="-1"></a>                   <span class="at">bounds =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">35</span>, <span class="dv">18</span>, <span class="sc">-</span><span class="fl">33.5</span>, <span class="fl">18.5</span>),</span>
-<span id="cb181-7"><a href="old-raster-gis-operations-in-r-with-raster.html#cb181-7" tabindex="-1"></a>                   <span class="at">maxresults =</span> <span class="dv">1000</span>)</span>
-<span id="cb181-8"><a href="old-raster-gis-operations-in-r-with-raster.html#cb181-8" tabindex="-1"></a></span>
-<span id="cb181-9"><a href="old-raster-gis-operations-in-r-with-raster.html#cb181-9" tabindex="-1"></a>ll <span class="ot">&lt;-</span> <span class="fu">get_inat_obs</span>(<span class="at">taxon_name =</span> <span class="st">&quot;Leucadendron laureolum&quot;</span>,</span>
-<span id="cb181-10"><a href="old-raster-gis-operations-in-r-with-raster.html#cb181-10" tabindex="-1"></a>                   <span class="at">bounds =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">35</span>, <span class="dv">18</span>, <span class="sc">-</span><span class="fl">33.5</span>, <span class="fl">18.5</span>),</span>
-<span id="cb181-11"><a href="old-raster-gis-operations-in-r-with-raster.html#cb181-11" tabindex="-1"></a>                   <span class="at">maxresults =</span> <span class="dv">1000</span>)</span>
-<span id="cb181-12"><a href="old-raster-gis-operations-in-r-with-raster.html#cb181-12" tabindex="-1"></a></span>
-<span id="cb181-13"><a href="old-raster-gis-operations-in-r-with-raster.html#cb181-13" tabindex="-1"></a><span class="co">#Combine the records into one dataframe</span></span>
-<span id="cb181-14"><a href="old-raster-gis-operations-in-r-with-raster.html#cb181-14" tabindex="-1"></a>pc <span class="ot">&lt;-</span> <span class="fu">rbind</span>(pc,ll)</span>
-<span id="cb181-15"><a href="old-raster-gis-operations-in-r-with-raster.html#cb181-15" tabindex="-1"></a></span>
-<span id="cb181-16"><a href="old-raster-gis-operations-in-r-with-raster.html#cb181-16" tabindex="-1"></a><span class="co">#Filter returned observations by a range of attribute criteria</span></span>
-<span id="cb181-17"><a href="old-raster-gis-operations-in-r-with-raster.html#cb181-17" tabindex="-1"></a>pc <span class="ot">&lt;-</span> pc <span class="sc">%&gt;%</span> <span class="fu">filter</span>(positional_accuracy<span class="sc">&lt;</span><span class="dv">46</span> <span class="sc">&amp;</span> </span>
-<span id="cb181-18"><a href="old-raster-gis-operations-in-r-with-raster.html#cb181-18" tabindex="-1"></a>                latitude<span class="sc">&lt;</span><span class="dv">0</span> <span class="sc">&amp;</span></span>
-<span id="cb181-19"><a href="old-raster-gis-operations-in-r-with-raster.html#cb181-19" tabindex="-1"></a>                <span class="sc">!</span><span class="fu">is.na</span>(latitude) <span class="sc">&amp;</span></span>
-<span id="cb181-20"><a href="old-raster-gis-operations-in-r-with-raster.html#cb181-20" tabindex="-1"></a>                captive_cultivated <span class="sc">==</span> <span class="st">&quot;false&quot;</span> <span class="sc">&amp;</span></span>
-<span id="cb181-21"><a href="old-raster-gis-operations-in-r-with-raster.html#cb181-21" tabindex="-1"></a>                quality_grade <span class="sc">==</span> <span class="st">&quot;research&quot;</span>)</span>
-<span id="cb181-22"><a href="old-raster-gis-operations-in-r-with-raster.html#cb181-22" tabindex="-1"></a></span>
-<span id="cb181-23"><a href="old-raster-gis-operations-in-r-with-raster.html#cb181-23" tabindex="-1"></a><span class="co">#Make the dataframe a spatial object of class = &quot;sf&quot;</span></span>
-<span id="cb181-24"><a href="old-raster-gis-operations-in-r-with-raster.html#cb181-24" tabindex="-1"></a>pc <span class="ot">&lt;-</span> <span class="fu">st_as_sf</span>(pc, <span class="at">coords =</span> <span class="fu">c</span>(<span class="st">&quot;longitude&quot;</span>, <span class="st">&quot;latitude&quot;</span>), <span class="at">crs =</span> <span class="dv">4326</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb176-1"><a href="old-raster-gis-operations-in-r-with-raster.html#cb176-1" tabindex="-1"></a><span class="fu">library</span>(rinat)</span>
+<span id="cb176-2"><a href="old-raster-gis-operations-in-r-with-raster.html#cb176-2" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
+<span id="cb176-3"><a href="old-raster-gis-operations-in-r-with-raster.html#cb176-3" tabindex="-1"></a></span>
+<span id="cb176-4"><a href="old-raster-gis-operations-in-r-with-raster.html#cb176-4" tabindex="-1"></a><span class="co">#Call data for two species directly from iNat</span></span>
+<span id="cb176-5"><a href="old-raster-gis-operations-in-r-with-raster.html#cb176-5" tabindex="-1"></a>pc <span class="ot">&lt;-</span> <span class="fu">get_inat_obs</span>(<span class="at">taxon_name =</span> <span class="st">&quot;Protea cynaroides&quot;</span>,</span>
+<span id="cb176-6"><a href="old-raster-gis-operations-in-r-with-raster.html#cb176-6" tabindex="-1"></a>                   <span class="at">bounds =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">35</span>, <span class="dv">18</span>, <span class="sc">-</span><span class="fl">33.5</span>, <span class="fl">18.5</span>),</span>
+<span id="cb176-7"><a href="old-raster-gis-operations-in-r-with-raster.html#cb176-7" tabindex="-1"></a>                   <span class="at">maxresults =</span> <span class="dv">1000</span>)</span>
+<span id="cb176-8"><a href="old-raster-gis-operations-in-r-with-raster.html#cb176-8" tabindex="-1"></a></span>
+<span id="cb176-9"><a href="old-raster-gis-operations-in-r-with-raster.html#cb176-9" tabindex="-1"></a>ll <span class="ot">&lt;-</span> <span class="fu">get_inat_obs</span>(<span class="at">taxon_name =</span> <span class="st">&quot;Leucadendron laureolum&quot;</span>,</span>
+<span id="cb176-10"><a href="old-raster-gis-operations-in-r-with-raster.html#cb176-10" tabindex="-1"></a>                   <span class="at">bounds =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">35</span>, <span class="dv">18</span>, <span class="sc">-</span><span class="fl">33.5</span>, <span class="fl">18.5</span>),</span>
+<span id="cb176-11"><a href="old-raster-gis-operations-in-r-with-raster.html#cb176-11" tabindex="-1"></a>                   <span class="at">maxresults =</span> <span class="dv">1000</span>)</span>
+<span id="cb176-12"><a href="old-raster-gis-operations-in-r-with-raster.html#cb176-12" tabindex="-1"></a></span>
+<span id="cb176-13"><a href="old-raster-gis-operations-in-r-with-raster.html#cb176-13" tabindex="-1"></a><span class="co">#Combine the records into one dataframe</span></span>
+<span id="cb176-14"><a href="old-raster-gis-operations-in-r-with-raster.html#cb176-14" tabindex="-1"></a>pc <span class="ot">&lt;-</span> <span class="fu">rbind</span>(pc,ll)</span>
+<span id="cb176-15"><a href="old-raster-gis-operations-in-r-with-raster.html#cb176-15" tabindex="-1"></a></span>
+<span id="cb176-16"><a href="old-raster-gis-operations-in-r-with-raster.html#cb176-16" tabindex="-1"></a><span class="co">#Filter returned observations by a range of attribute criteria</span></span>
+<span id="cb176-17"><a href="old-raster-gis-operations-in-r-with-raster.html#cb176-17" tabindex="-1"></a>pc <span class="ot">&lt;-</span> pc <span class="sc">%&gt;%</span> <span class="fu">filter</span>(positional_accuracy<span class="sc">&lt;</span><span class="dv">46</span> <span class="sc">&amp;</span> </span>
+<span id="cb176-18"><a href="old-raster-gis-operations-in-r-with-raster.html#cb176-18" tabindex="-1"></a>                latitude<span class="sc">&lt;</span><span class="dv">0</span> <span class="sc">&amp;</span></span>
+<span id="cb176-19"><a href="old-raster-gis-operations-in-r-with-raster.html#cb176-19" tabindex="-1"></a>                <span class="sc">!</span><span class="fu">is.na</span>(latitude) <span class="sc">&amp;</span></span>
+<span id="cb176-20"><a href="old-raster-gis-operations-in-r-with-raster.html#cb176-20" tabindex="-1"></a>                captive_cultivated <span class="sc">==</span> <span class="st">&quot;false&quot;</span> <span class="sc">&amp;</span></span>
+<span id="cb176-21"><a href="old-raster-gis-operations-in-r-with-raster.html#cb176-21" tabindex="-1"></a>                quality_grade <span class="sc">==</span> <span class="st">&quot;research&quot;</span>)</span>
+<span id="cb176-22"><a href="old-raster-gis-operations-in-r-with-raster.html#cb176-22" tabindex="-1"></a></span>
+<span id="cb176-23"><a href="old-raster-gis-operations-in-r-with-raster.html#cb176-23" tabindex="-1"></a><span class="co">#Make the dataframe a spatial object of class = &quot;sf&quot;</span></span>
+<span id="cb176-24"><a href="old-raster-gis-operations-in-r-with-raster.html#cb176-24" tabindex="-1"></a>pc <span class="ot">&lt;-</span> <span class="fu">st_as_sf</span>(pc, <span class="at">coords =</span> <span class="fu">c</span>(<span class="st">&quot;longitude&quot;</span>, <span class="st">&quot;latitude&quot;</span>), <span class="at">crs =</span> <span class="dv">4326</span>)</span></code></pre></div>
 <p>Now let’s extract the data to the points.</p>
-<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="old-raster-gis-operations-in-r-with-raster.html#cb182-1" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">extract</span>(dem30, pc)</span></code></pre></div>
+<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb177-1"><a href="old-raster-gis-operations-in-r-with-raster.html#cb177-1" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">extract</span>(dem30, pc)</span></code></pre></div>
 <pre><code>## Warning in .local(x, y, ...): Transforming SpatialPoints to the crs of the Raster</code></pre>
 <p>Note how <em>raster</em> conveniently handled my error in not making sure the CRS are the same for both layers! In general, you should avoid relying on automated fixes like this…</p>
-<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb184-1"><a href="old-raster-gis-operations-in-r-with-raster.html#cb184-1" tabindex="-1"></a><span class="fu">head</span>(dat)</span></code></pre></div>
+<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb179-1"><a href="old-raster-gis-operations-in-r-with-raster.html#cb179-1" tabindex="-1"></a><span class="fu">head</span>(dat)</span></code></pre></div>
 <pre><code>## [1] 1052.1111  528.6667  530.8889 1014.4444 1062.4444  817.7778</code></pre>
 <p>Hmm… ok… It just returned the vector of numbers… Not all that handy on it’s own. Let’s add it to out points layer, so we can match it with the species names and plot.</p>
-<div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb186-1"><a href="old-raster-gis-operations-in-r-with-raster.html#cb186-1" tabindex="-1"></a>pc<span class="sc">$</span>dem30 <span class="ot">&lt;-</span> dat</span>
-<span id="cb186-2"><a href="old-raster-gis-operations-in-r-with-raster.html#cb186-2" tabindex="-1"></a></span>
-<span id="cb186-3"><a href="old-raster-gis-operations-in-r-with-raster.html#cb186-3" tabindex="-1"></a>pc <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb186-4"><a href="old-raster-gis-operations-in-r-with-raster.html#cb186-4" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(scientific_name, dem30))</span></code></pre></div>
+<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb181-1"><a href="old-raster-gis-operations-in-r-with-raster.html#cb181-1" tabindex="-1"></a>pc<span class="sc">$</span>dem30 <span class="ot">&lt;-</span> dat</span>
+<span id="cb181-2"><a href="old-raster-gis-operations-in-r-with-raster.html#cb181-2" tabindex="-1"></a></span>
+<span id="cb181-3"><a href="old-raster-gis-operations-in-r-with-raster.html#cb181-3" tabindex="-1"></a>pc <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb181-4"><a href="old-raster-gis-operations-in-r-with-raster.html#cb181-4" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(scientific_name, dem30))</span></code></pre></div>
 <p><img src="spatial-r_files/figure-html/raster_boxplot1-1.png" width="672" /></p>
 <p>(Hmm… do you think those <em>Leucadendron laureolum</em> outliers that must be near Maclear’s Beacon could actually be <em>Leucadendron strobilinum</em>?)</p>
 <p>Ok, that’s handy, but what if we have data lots of rasters? We don’t want to have to do that for every raster! This is where rasterstacks come into their own!</p>
-<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb187-1"><a href="old-raster-gis-operations-in-r-with-raster.html#cb187-1" tabindex="-1"></a><span class="co">#extract from stack</span></span>
-<span id="cb187-2"><a href="old-raster-gis-operations-in-r-with-raster.html#cb187-2" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">extract</span>(dstack, pc) </span></code></pre></div>
+<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="old-raster-gis-operations-in-r-with-raster.html#cb182-1" tabindex="-1"></a><span class="co">#extract from stack</span></span>
+<span id="cb182-2"><a href="old-raster-gis-operations-in-r-with-raster.html#cb182-2" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">extract</span>(dstack, pc) </span></code></pre></div>
 <pre><code>## Warning in .local(x, y, ...): Transforming SpatialPoints to the crs of the Raster</code></pre>
-<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb189-1"><a href="old-raster-gis-operations-in-r-with-raster.html#cb189-1" tabindex="-1"></a><span class="co">#bind columns to points to match thenames</span></span>
-<span id="cb189-2"><a href="old-raster-gis-operations-in-r-with-raster.html#cb189-2" tabindex="-1"></a>edat <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="fu">as.data.frame</span>(pc), dat)</span>
-<span id="cb189-3"><a href="old-raster-gis-operations-in-r-with-raster.html#cb189-3" tabindex="-1"></a></span>
-<span id="cb189-4"><a href="old-raster-gis-operations-in-r-with-raster.html#cb189-4" tabindex="-1"></a><span class="co">#select columns we want and tidy data into long format</span></span>
-<span id="cb189-5"><a href="old-raster-gis-operations-in-r-with-raster.html#cb189-5" tabindex="-1"></a>edat <span class="ot">&lt;-</span> edat <span class="sc">%&gt;%</span> </span>
-<span id="cb189-6"><a href="old-raster-gis-operations-in-r-with-raster.html#cb189-6" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb189-7"><a href="old-raster-gis-operations-in-r-with-raster.html#cb189-7" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(scientific_name, elevation, slope, aspect, shade) <span class="sc">%&gt;%</span> </span>
-<span id="cb189-8"><a href="old-raster-gis-operations-in-r-with-raster.html#cb189-8" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="fu">c</span>(elevation, slope, aspect, shade))</span>
-<span id="cb189-9"><a href="old-raster-gis-operations-in-r-with-raster.html#cb189-9" tabindex="-1"></a></span>
-<span id="cb189-10"><a href="old-raster-gis-operations-in-r-with-raster.html#cb189-10" tabindex="-1"></a><span class="co">#panel boxplot of the variables extracted</span></span>
-<span id="cb189-11"><a href="old-raster-gis-operations-in-r-with-raster.html#cb189-11" tabindex="-1"></a>edat <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb189-12"><a href="old-raster-gis-operations-in-r-with-raster.html#cb189-12" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(scientific_name, value)) <span class="sc">+</span></span>
-<span id="cb189-13"><a href="old-raster-gis-operations-in-r-with-raster.html#cb189-13" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>name, <span class="at">scales =</span> <span class="st">&quot;free&quot;</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb184-1"><a href="old-raster-gis-operations-in-r-with-raster.html#cb184-1" tabindex="-1"></a><span class="co">#bind columns to points to match thenames</span></span>
+<span id="cb184-2"><a href="old-raster-gis-operations-in-r-with-raster.html#cb184-2" tabindex="-1"></a>edat <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="fu">as.data.frame</span>(pc), dat)</span>
+<span id="cb184-3"><a href="old-raster-gis-operations-in-r-with-raster.html#cb184-3" tabindex="-1"></a></span>
+<span id="cb184-4"><a href="old-raster-gis-operations-in-r-with-raster.html#cb184-4" tabindex="-1"></a><span class="co">#select columns we want and tidy data into long format</span></span>
+<span id="cb184-5"><a href="old-raster-gis-operations-in-r-with-raster.html#cb184-5" tabindex="-1"></a>edat <span class="ot">&lt;-</span> edat <span class="sc">%&gt;%</span> </span>
+<span id="cb184-6"><a href="old-raster-gis-operations-in-r-with-raster.html#cb184-6" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb184-7"><a href="old-raster-gis-operations-in-r-with-raster.html#cb184-7" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(scientific_name, elevation, slope, aspect, shade) <span class="sc">%&gt;%</span> </span>
+<span id="cb184-8"><a href="old-raster-gis-operations-in-r-with-raster.html#cb184-8" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="fu">c</span>(elevation, slope, aspect, shade))</span>
+<span id="cb184-9"><a href="old-raster-gis-operations-in-r-with-raster.html#cb184-9" tabindex="-1"></a></span>
+<span id="cb184-10"><a href="old-raster-gis-operations-in-r-with-raster.html#cb184-10" tabindex="-1"></a><span class="co">#panel boxplot of the variables extracted</span></span>
+<span id="cb184-11"><a href="old-raster-gis-operations-in-r-with-raster.html#cb184-11" tabindex="-1"></a>edat <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb184-12"><a href="old-raster-gis-operations-in-r-with-raster.html#cb184-12" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(scientific_name, value)) <span class="sc">+</span></span>
+<span id="cb184-13"><a href="old-raster-gis-operations-in-r-with-raster.html#cb184-13" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>name, <span class="at">scales =</span> <span class="st">&quot;free&quot;</span>) </span></code></pre></div>
 <p><img src="spatial-r_files/figure-html/raster_boxplot2-1.png" width="672" /></p>
 <p><br></p>
 <p>Something I should have mentioned is that if you would like each point to sample a larger region you can add a <code>buffer =</code> argument to the <code>extract()</code> function, and a function (<code>fun =</code>) to summarize the neighbourhood of pixels sampled, like so:</p>
-<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb190-1"><a href="old-raster-gis-operations-in-r-with-raster.html#cb190-1" tabindex="-1"></a>pc<span class="sc">$</span>dem30 <span class="ot">&lt;-</span> <span class="fu">extract</span>(dem30, pc, <span class="at">buffer =</span> <span class="dv">200</span>, <span class="at">fun =</span> mean)</span></code></pre></div>
+<div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb185-1"><a href="old-raster-gis-operations-in-r-with-raster.html#cb185-1" tabindex="-1"></a>pc<span class="sc">$</span>dem30 <span class="ot">&lt;-</span> <span class="fu">extract</span>(dem30, pc, <span class="at">buffer =</span> <span class="dv">200</span>, <span class="at">fun =</span> mean)</span></code></pre></div>
 <pre><code>## Warning in .local(x, y, ...): Transforming SpatialPoints to the crs of the Raster</code></pre>
-<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="old-raster-gis-operations-in-r-with-raster.html#cb192-1" tabindex="-1"></a>pc <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb192-2"><a href="old-raster-gis-operations-in-r-with-raster.html#cb192-2" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(scientific_name, dem30))</span></code></pre></div>
+<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb187-1"><a href="old-raster-gis-operations-in-r-with-raster.html#cb187-1" tabindex="-1"></a>pc <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb187-2"><a href="old-raster-gis-operations-in-r-with-raster.html#cb187-2" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(scientific_name, dem30))</span></code></pre></div>
 <p><img src="spatial-r_files/figure-html/raster_boxplot3-1.png" width="672" /></p>
 <p><strong>Extract to polygons</strong></p>
 <p>Now let’s try that with our vegetation polygons.</p>
-<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb193-1"><a href="old-raster-gis-operations-in-r-with-raster.html#cb193-1" tabindex="-1"></a><span class="co">#Get historical vegetation layer</span></span>
-<span id="cb193-2"><a href="old-raster-gis-operations-in-r-with-raster.html#cb193-2" tabindex="-1"></a>veg <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="st">&quot;data/cape_peninsula/veg/Vegetation_Indigenous.shp&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb188-1"><a href="old-raster-gis-operations-in-r-with-raster.html#cb188-1" tabindex="-1"></a><span class="co">#Get historical vegetation layer</span></span>
+<span id="cb188-2"><a href="old-raster-gis-operations-in-r-with-raster.html#cb188-2" tabindex="-1"></a>veg <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="st">&quot;data/cape_peninsula/veg/Vegetation_Indigenous.shp&quot;</span>)</span></code></pre></div>
 <pre><code>## Reading layer `Vegetation_Indigenous&#39; from data source 
 ##   `/Users/jasper/GIT/spatial-r/data/cape_peninsula/veg/Vegetation_Indigenous.shp&#39; 
 ##   using driver `ESRI Shapefile&#39;
@@ -548,28 +548,28 @@ div.csl-indent {
 ## Dimension:     XY
 ## Bounding box:  xmin: -63972.95 ymin: -3803535 xmax: 430.8125 ymax: -3705149
 ## Projected CRS: WGS_1984_Transverse_Mercator</code></pre>
-<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb195-1"><a href="old-raster-gis-operations-in-r-with-raster.html#cb195-1" tabindex="-1"></a><span class="co">#Crop to same extent as DEM</span></span>
-<span id="cb195-2"><a href="old-raster-gis-operations-in-r-with-raster.html#cb195-2" tabindex="-1"></a>veg <span class="ot">&lt;-</span> <span class="fu">st_crop</span>(veg, <span class="fu">extent</span>(dem30)) <span class="co">#Note that I just fed it the extent of the DEM</span></span></code></pre></div>
+<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb190-1"><a href="old-raster-gis-operations-in-r-with-raster.html#cb190-1" tabindex="-1"></a><span class="co">#Crop to same extent as DEM</span></span>
+<span id="cb190-2"><a href="old-raster-gis-operations-in-r-with-raster.html#cb190-2" tabindex="-1"></a>veg <span class="ot">&lt;-</span> <span class="fu">st_crop</span>(veg, <span class="fu">extent</span>(dem30)) <span class="co">#Note that I just fed it the extent of the DEM</span></span></code></pre></div>
 <pre><code>## Warning: attribute variables are assumed to be spatially constant throughout all geometries</code></pre>
-<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb197-1"><a href="old-raster-gis-operations-in-r-with-raster.html#cb197-1" tabindex="-1"></a><span class="co">#Best to dissolve polygons first - otherwise you get repeat outputs for each polygone within each veg type</span></span>
-<span id="cb197-2"><a href="old-raster-gis-operations-in-r-with-raster.html#cb197-2" tabindex="-1"></a>vegsum <span class="ot">&lt;-</span> veg <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(National_) <span class="sc">%&gt;%</span> </span>
-<span id="cb197-3"><a href="old-raster-gis-operations-in-r-with-raster.html#cb197-3" tabindex="-1"></a>  <span class="fu">summarize</span>()</span>
-<span id="cb197-4"><a href="old-raster-gis-operations-in-r-with-raster.html#cb197-4" tabindex="-1"></a></span>
-<span id="cb197-5"><a href="old-raster-gis-operations-in-r-with-raster.html#cb197-5" tabindex="-1"></a><span class="co">#Do extraction - gives a vector - note the summary function</span></span>
-<span id="cb197-6"><a href="old-raster-gis-operations-in-r-with-raster.html#cb197-6" tabindex="-1"></a>vegdem <span class="ot">&lt;-</span> <span class="fu">extract</span>(dem30, vegsum, <span class="at">fun =</span> mean, <span class="at">na.rm =</span> T)</span>
-<span id="cb197-7"><a href="old-raster-gis-operations-in-r-with-raster.html#cb197-7" tabindex="-1"></a></span>
-<span id="cb197-8"><a href="old-raster-gis-operations-in-r-with-raster.html#cb197-8" tabindex="-1"></a><span class="co">#Combine the names and vector extracted means into a dataframe</span></span>
-<span id="cb197-9"><a href="old-raster-gis-operations-in-r-with-raster.html#cb197-9" tabindex="-1"></a>vegdem <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">veg =</span> vegsum<span class="sc">$</span>National_, <span class="at">elevation =</span> vegdem)</span>
-<span id="cb197-10"><a href="old-raster-gis-operations-in-r-with-raster.html#cb197-10" tabindex="-1"></a></span>
-<span id="cb197-11"><a href="old-raster-gis-operations-in-r-with-raster.html#cb197-11" tabindex="-1"></a><span class="co">#Plot</span></span>
-<span id="cb197-12"><a href="old-raster-gis-operations-in-r-with-raster.html#cb197-12" tabindex="-1"></a>vegdem <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb197-13"><a href="old-raster-gis-operations-in-r-with-raster.html#cb197-13" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="fu">aes</span>(<span class="at">y =</span> elevation, <span class="at">x =</span> veg)) <span class="sc">+</span></span>
-<span id="cb197-14"><a href="old-raster-gis-operations-in-r-with-raster.html#cb197-14" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>, <span class="at">vjust =</span> <span class="fl">0.5</span>, <span class="at">hjust=</span><span class="dv">1</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="old-raster-gis-operations-in-r-with-raster.html#cb192-1" tabindex="-1"></a><span class="co">#Best to dissolve polygons first - otherwise you get repeat outputs for each polygone within each veg type</span></span>
+<span id="cb192-2"><a href="old-raster-gis-operations-in-r-with-raster.html#cb192-2" tabindex="-1"></a>vegsum <span class="ot">&lt;-</span> veg <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(National_) <span class="sc">%&gt;%</span> </span>
+<span id="cb192-3"><a href="old-raster-gis-operations-in-r-with-raster.html#cb192-3" tabindex="-1"></a>  <span class="fu">summarize</span>()</span>
+<span id="cb192-4"><a href="old-raster-gis-operations-in-r-with-raster.html#cb192-4" tabindex="-1"></a></span>
+<span id="cb192-5"><a href="old-raster-gis-operations-in-r-with-raster.html#cb192-5" tabindex="-1"></a><span class="co">#Do extraction - gives a vector - note the summary function</span></span>
+<span id="cb192-6"><a href="old-raster-gis-operations-in-r-with-raster.html#cb192-6" tabindex="-1"></a>vegdem <span class="ot">&lt;-</span> <span class="fu">extract</span>(dem30, vegsum, <span class="at">fun =</span> mean, <span class="at">na.rm =</span> T)</span>
+<span id="cb192-7"><a href="old-raster-gis-operations-in-r-with-raster.html#cb192-7" tabindex="-1"></a></span>
+<span id="cb192-8"><a href="old-raster-gis-operations-in-r-with-raster.html#cb192-8" tabindex="-1"></a><span class="co">#Combine the names and vector extracted means into a dataframe</span></span>
+<span id="cb192-9"><a href="old-raster-gis-operations-in-r-with-raster.html#cb192-9" tabindex="-1"></a>vegdem <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">veg =</span> vegsum<span class="sc">$</span>National_, <span class="at">elevation =</span> vegdem)</span>
+<span id="cb192-10"><a href="old-raster-gis-operations-in-r-with-raster.html#cb192-10" tabindex="-1"></a></span>
+<span id="cb192-11"><a href="old-raster-gis-operations-in-r-with-raster.html#cb192-11" tabindex="-1"></a><span class="co">#Plot</span></span>
+<span id="cb192-12"><a href="old-raster-gis-operations-in-r-with-raster.html#cb192-12" tabindex="-1"></a>vegdem <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb192-13"><a href="old-raster-gis-operations-in-r-with-raster.html#cb192-13" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="fu">aes</span>(<span class="at">y =</span> elevation, <span class="at">x =</span> veg)) <span class="sc">+</span></span>
+<span id="cb192-14"><a href="old-raster-gis-operations-in-r-with-raster.html#cb192-14" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>, <span class="at">vjust =</span> <span class="fl">0.5</span>, <span class="at">hjust=</span><span class="dv">1</span>))</span></code></pre></div>
 <p><img src="spatial-r_files/figure-html/unnamed-chunk-79-1.png" width="672" /></p>
-<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb198-1"><a href="old-raster-gis-operations-in-r-with-raster.html#cb198-1" tabindex="-1"></a><span class="do">###Add example where all cells are extracted and summarized afterwards...</span></span>
-<span id="cb198-2"><a href="old-raster-gis-operations-in-r-with-raster.html#cb198-2" tabindex="-1"></a></span>
-<span id="cb198-3"><a href="old-raster-gis-operations-in-r-with-raster.html#cb198-3" tabindex="-1"></a><span class="co">#hmm &lt;- do.call(rbind,lapply(vegdem,data.frame))# bind_rows(vegdem)</span></span>
-<span id="cb198-4"><a href="old-raster-gis-operations-in-r-with-raster.html#cb198-4" tabindex="-1"></a><span class="co">#hmm &lt;- data.frame(veg = rownames(hmm), elevation = hmm)</span></span></code></pre></div>
+<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb193-1"><a href="old-raster-gis-operations-in-r-with-raster.html#cb193-1" tabindex="-1"></a><span class="do">###Add example where all cells are extracted and summarized afterwards...</span></span>
+<span id="cb193-2"><a href="old-raster-gis-operations-in-r-with-raster.html#cb193-2" tabindex="-1"></a></span>
+<span id="cb193-3"><a href="old-raster-gis-operations-in-r-with-raster.html#cb193-3" tabindex="-1"></a><span class="co">#hmm &lt;- do.call(rbind,lapply(vegdem,data.frame))# bind_rows(vegdem)</span></span>
+<span id="cb193-4"><a href="old-raster-gis-operations-in-r-with-raster.html#cb193-4" tabindex="-1"></a><span class="co">#hmm &lt;- data.frame(veg = rownames(hmm), elevation = hmm)</span></span></code></pre></div>
 <p>Ok, I did a lot of things there…, but you get it right? Note that I applied a function to the <code>extract()</code> to summarize the output, because each polygon usualy returns multiple raster cell values. You can choose (or code up) your own function.</p>
 <p><br></p>
 <p>Here’s a different approach…</p>
@@ -578,22 +578,22 @@ div.csl-indent {
 <div id="rasterizing-1" class="section level2 hasAnchor" number="9.10">
 <h2><span class="header-section-number">9.10</span> Rasterizing<a href="old-raster-gis-operations-in-r-with-raster.html#rasterizing-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p><em>Rasterizing</em> essentially means turning a vector layer into a raster. To rasterize, you need an existing raster grid to rasterize to, like <code>dem30</code> in this case.</p>
-<div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb199-1"><a href="old-raster-gis-operations-in-r-with-raster.html#cb199-1" tabindex="-1"></a><span class="co">#Make the vegetation type name a factor*</span></span>
-<span id="cb199-2"><a href="old-raster-gis-operations-in-r-with-raster.html#cb199-2" tabindex="-1"></a>vegsum<span class="sc">$</span>National_ <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(vegsum<span class="sc">$</span>National_)</span>
-<span id="cb199-3"><a href="old-raster-gis-operations-in-r-with-raster.html#cb199-3" tabindex="-1"></a></span>
-<span id="cb199-4"><a href="old-raster-gis-operations-in-r-with-raster.html#cb199-4" tabindex="-1"></a><span class="co">#Rasterize</span></span>
-<span id="cb199-5"><a href="old-raster-gis-operations-in-r-with-raster.html#cb199-5" tabindex="-1"></a>vegras <span class="ot">&lt;-</span> <span class="fu">rasterize</span>(vegsum, dem30, <span class="at">field =</span> <span class="st">&quot;National_&quot;</span>)</span>
-<span id="cb199-6"><a href="old-raster-gis-operations-in-r-with-raster.html#cb199-6" tabindex="-1"></a></span>
-<span id="cb199-7"><a href="old-raster-gis-operations-in-r-with-raster.html#cb199-7" tabindex="-1"></a><span class="co">#Plot</span></span>
-<span id="cb199-8"><a href="old-raster-gis-operations-in-r-with-raster.html#cb199-8" tabindex="-1"></a>vrs <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">rasterToPoints</span>(vegras, <span class="at">spatial =</span> <span class="cn">TRUE</span>))</span>
-<span id="cb199-9"><a href="old-raster-gis-operations-in-r-with-raster.html#cb199-9" tabindex="-1"></a></span>
-<span id="cb199-10"><a href="old-raster-gis-operations-in-r-with-raster.html#cb199-10" tabindex="-1"></a>vrs <span class="sc">%&gt;%</span></span>
-<span id="cb199-11"><a href="old-raster-gis-operations-in-r-with-raster.html#cb199-11" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb199-12"><a href="old-raster-gis-operations-in-r-with-raster.html#cb199-12" tabindex="-1"></a>  <span class="fu">geom_raster</span>(<span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">fill =</span> layer)) <span class="sc">+</span></span>
-<span id="cb199-13"><a href="old-raster-gis-operations-in-r-with-raster.html#cb199-13" tabindex="-1"></a>  <span class="fu">scale_fill_gradient</span>(<span class="at">low =</span> <span class="st">&quot;grey10&quot;</span>, <span class="at">high =</span> <span class="st">&quot;grey90&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="old-raster-gis-operations-in-r-with-raster.html#cb194-1" tabindex="-1"></a><span class="co">#Make the vegetation type name a factor*</span></span>
+<span id="cb194-2"><a href="old-raster-gis-operations-in-r-with-raster.html#cb194-2" tabindex="-1"></a>vegsum<span class="sc">$</span>National_ <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(vegsum<span class="sc">$</span>National_)</span>
+<span id="cb194-3"><a href="old-raster-gis-operations-in-r-with-raster.html#cb194-3" tabindex="-1"></a></span>
+<span id="cb194-4"><a href="old-raster-gis-operations-in-r-with-raster.html#cb194-4" tabindex="-1"></a><span class="co">#Rasterize</span></span>
+<span id="cb194-5"><a href="old-raster-gis-operations-in-r-with-raster.html#cb194-5" tabindex="-1"></a>vegras <span class="ot">&lt;-</span> <span class="fu">rasterize</span>(vegsum, dem30, <span class="at">field =</span> <span class="st">&quot;National_&quot;</span>)</span>
+<span id="cb194-6"><a href="old-raster-gis-operations-in-r-with-raster.html#cb194-6" tabindex="-1"></a></span>
+<span id="cb194-7"><a href="old-raster-gis-operations-in-r-with-raster.html#cb194-7" tabindex="-1"></a><span class="co">#Plot</span></span>
+<span id="cb194-8"><a href="old-raster-gis-operations-in-r-with-raster.html#cb194-8" tabindex="-1"></a>vrs <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">rasterToPoints</span>(vegras, <span class="at">spatial =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb194-9"><a href="old-raster-gis-operations-in-r-with-raster.html#cb194-9" tabindex="-1"></a></span>
+<span id="cb194-10"><a href="old-raster-gis-operations-in-r-with-raster.html#cb194-10" tabindex="-1"></a>vrs <span class="sc">%&gt;%</span></span>
+<span id="cb194-11"><a href="old-raster-gis-operations-in-r-with-raster.html#cb194-11" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb194-12"><a href="old-raster-gis-operations-in-r-with-raster.html#cb194-12" tabindex="-1"></a>  <span class="fu">geom_raster</span>(<span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">fill =</span> layer)) <span class="sc">+</span></span>
+<span id="cb194-13"><a href="old-raster-gis-operations-in-r-with-raster.html#cb194-13" tabindex="-1"></a>  <span class="fu">scale_fill_gradient</span>(<span class="at">low =</span> <span class="st">&quot;grey10&quot;</span>, <span class="at">high =</span> <span class="st">&quot;grey90&quot;</span>)</span></code></pre></div>
 <p><img src="spatial-r_files/figure-html/unnamed-chunk-80-1.png" width="336" /></p>
 <p>Note that rasters want numbers. This is why I had to convert the “National_” column from class “character” to “factor”. You can think of a factor in R as essentially a vector of numbers with an associated translation table that links the numbers to the names. Here’s the names:</p>
-<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb200-1"><a href="old-raster-gis-operations-in-r-with-raster.html#cb200-1" tabindex="-1"></a><span class="fu">levels</span>(vegsum<span class="sc">$</span>National_)</span></code></pre></div>
+<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb195-1"><a href="old-raster-gis-operations-in-r-with-raster.html#cb195-1" tabindex="-1"></a><span class="fu">levels</span>(vegsum<span class="sc">$</span>National_)</span></code></pre></div>
 <pre><code>##  [1] &quot;Beach - FalseBay&quot;                        &quot;Cape Estuarine Salt Marshes&quot;            
 ##  [3] &quot;Cape Flats Dune Strandveld - False Bay&quot;  &quot;Cape Flats Dune Strandveld - West Coast&quot;
 ##  [5] &quot;Cape Flats Sand Fynbos&quot;                  &quot;Cape Lowland Freshwater Wetlands&quot;       
@@ -604,11 +604,11 @@ div.csl-indent {
 <div id="section" class="section level13" number="9.10.0.0.0.0.0.0.0.0.0.0.1">
 <p class="heading"><span class="header-section-number">9.10.0.0.0.0.0.0.0.0.0.0.1</span> </p>
 <p>We could even add contours…</p>
-<div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb202-1"><a href="old-raster-gis-operations-in-r-with-raster.html#cb202-1" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb202-2"><a href="old-raster-gis-operations-in-r-with-raster.html#cb202-2" tabindex="-1"></a>  <span class="fu">geom_raster</span>(<span class="at">data =</span> hsdf, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">fill =</span> layer, <span class="at">alpha =</span> <span class="fl">0.5</span>)) <span class="sc">+</span></span>
-<span id="cb202-3"><a href="old-raster-gis-operations-in-r-with-raster.html#cb202-3" tabindex="-1"></a>  <span class="fu">scale_fill_gradient</span>(<span class="at">low =</span> <span class="st">&quot;grey10&quot;</span>, <span class="at">high =</span> <span class="st">&quot;grey90&quot;</span>) <span class="sc">+</span></span>
-<span id="cb202-4"><a href="old-raster-gis-operations-in-r-with-raster.html#cb202-4" tabindex="-1"></a>  <span class="fu">geom_contour</span>(<span class="at">data =</span> dem30df, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">z =</span> X10m_BA), <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1100</span>, <span class="dv">100</span>), <span class="at">colour =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
-<span id="cb202-5"><a href="old-raster-gis-operations-in-r-with-raster.html#cb202-5" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb197-1"><a href="old-raster-gis-operations-in-r-with-raster.html#cb197-1" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb197-2"><a href="old-raster-gis-operations-in-r-with-raster.html#cb197-2" tabindex="-1"></a>  <span class="fu">geom_raster</span>(<span class="at">data =</span> hsdf, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">fill =</span> layer, <span class="at">alpha =</span> <span class="fl">0.5</span>)) <span class="sc">+</span></span>
+<span id="cb197-3"><a href="old-raster-gis-operations-in-r-with-raster.html#cb197-3" tabindex="-1"></a>  <span class="fu">scale_fill_gradient</span>(<span class="at">low =</span> <span class="st">&quot;grey10&quot;</span>, <span class="at">high =</span> <span class="st">&quot;grey90&quot;</span>) <span class="sc">+</span></span>
+<span id="cb197-4"><a href="old-raster-gis-operations-in-r-with-raster.html#cb197-4" tabindex="-1"></a>  <span class="fu">geom_contour</span>(<span class="at">data =</span> dem30df, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">z =</span> X10m_BA), <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1100</span>, <span class="dv">100</span>), <span class="at">colour =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
+<span id="cb197-5"><a href="old-raster-gis-operations-in-r-with-raster.html#cb197-5" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>)</span></code></pre></div>
 <p><img src="spatial-r_files/figure-html/unnamed-chunk-82-1.png" width="336" /></p>
 
 </div>

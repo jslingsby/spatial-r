@@ -11,7 +11,7 @@
 
 ## Overview
 
-Points, lines, polygons and rasters - R can handle them all and more! [R](https://www.r-project.org/) is a free software environment for statistical computing and graphics, but its abilities have been extended into many realms through the ~18,000 (!) contributed [extension packages](https://cran.r-project.org/web/packages/available_packages_by_name.html) (also called libraries).
+Points, lines, polygons and rasters - R can handle them all and more! [R](https://www.r-project.org/) is a free software environment for statistical computing and graphics, but its abilities have been extended into many realms through the >20,000 (!) contributed [extension packages](https://cran.r-project.org/web/packages/available_packages_by_name.html) (also called libraries).
 
 The list of packages can be bewildering, but fortunately some great folks have taken the time to sift through and make some sense of them for different focal topics and created _Task Views_.
 
@@ -60,7 +60,7 @@ We don't have time to go through all packages or provide a full history, but her
 ### For vector data 
 (although some of these packages can handle rasters too) 
 
-> The two leading packages were [_sp_](https://cran.r-project.org/web/packages/sp/index.html) and [_rgdal_](https://cran.r-project.org/web/packages/rgdal/index.html). While these are still active and useful, they are being superseded by a newer package [_sf_](https://cran.r-project.org/web/packages/sf/index.html), which is a modern implementation and standardization of parts of _sp_. It is highly recommended that you use _sf_ over these older packages as they will not be maintained in the long term, largely because they rely on other packages that are no longer maintained because their creators have retired.
+> The leading package **was**  [_sp_](https://cran.r-project.org/web/packages/sp/index.html). It is still active and useful, but is superseded by a newer package [_sf_](https://cran.r-project.org/web/packages/sf/index.html), which is a modern implementation and standardization of parts of _sp_. It is highly recommended that you use _sf_ over the older packages as they will not be maintained in the long term, largely because they rely on other packages that are no longer maintained because their creators have retired.
 
 <br>
 

@@ -15,7 +15,7 @@ All maps have a scale. Scale is the ratio between the size of the representation
 
 <br>
 
-```{r onein50, echo=FALSE, warning=F, message=F, fig.cap="The Cape Peninsula (3418AB & AD) from South Africa's 1:50,000 topographic map series. The printed scale for these maps is 1:50,000, but what is it on your screen?", fig.width=6, fig.align = 'center'}
+```{r onein50, echo=FALSE, warning=F, message=F, fig.cap="The Cape Peninsula (3418AB & AD) from South Africa's 1:50,000 topographic map series. The printed scale for these maps is 1:50,000, but what is it on your screen?", fig.width=10, fig.align = 'center'}
 #library(raster)
 
 knitr::include_graphics("img/CapePen_1in50_3418AB_AD.jpg")
@@ -103,7 +103,7 @@ knitr::include_graphics("img/geographiccoords.gif")
 
 <br>
 
-This means that Euclidean measurement calculations are not appropriate for calculating areas and distances.
+This means that Euclidean measurement calculations are not appropriate for calculating areas and distances on data in the geographic CRS.
 
 <br>
 
@@ -113,7 +113,7 @@ To perform linear measurements from a 3D shape using Euclidean methods, you need
 
 <br>
 
-```{r naartjie, echo=FALSE, fig.cap = 'How many different ways could you flatten a naartjie peel?', fig.width=4, fig.align = 'center'}
+```{r naartjie, echo=FALSE, fig.cap = 'How many different ways could you flatten a naartjie peel?', fig.width=6, fig.align = 'center'}
 knitr::include_graphics("img/projectednaartjie.jpg")
 ```
 
@@ -136,7 +136,9 @@ Projections get tuned to best fit an area through the use of projection paramete
 
 ### Projection codes
 
-The type of CRS is usually (but not always) stored in the metadata of your file (or dataset, if it is comprised of multiple files like an ESRI shapefile). There are various formats for this, the most commonly used in R being known as EPSG, PROJ4 or WKT codes or strings (be warned, there are many more...). To assign a CRS or reproject your data in R you need to know the appropriate code in the format required by the function. Fortunately, there is a huge online library of the codes at [https://spatialreference.org/](https://spatialreference.org/). I also provide **some suggested projections**, based on the properties you'd like to preserve, and their codes [here](https://docs.google.com/spreadsheets/d/1Hvkub7syQNP6GsgaSh5SZNEd3VR9-9j94M5W-hmvm24/edit?usp=sharing). Note that for UTM and TM you may need to adjust the PROJ4 strings for your area - read the comments.
+The type of CRS is usually (but not always) stored in the metadata of your file (or dataset, if it is comprised of multiple files like an ESRI shapefile). There are various formats for this, the most commonly used in R being known as EPSG, PROJ4 or WKT codes or strings (be warned, there are many more...). 
+
+To assign a CRS or reproject your data in R you need to know the appropriate code in the format required by the function. Fortunately, there is a huge online library of the codes at [https://spatialreference.org/](https://spatialreference.org/). I also provide **some suggested projections**, based on the properties you'd like to preserve, and their codes [here](https://docs.google.com/spreadsheets/d/1Hvkub7syQNP6GsgaSh5SZNEd3VR9-9j94M5W-hmvm24/edit?usp=sharing). Note that for UTM and TM you may need to adjust the PROJ4 strings for your area - read the comments.
 
 <br>
 
@@ -204,7 +206,9 @@ afrmaps
 
 Note that some GIS tools can perform "on the fly" (re)projection of data. For example, by default ArcGIS sets the CRS for a project from the first dataset imported. When you want to visualize the data, it will reproject all other datasets to the set CRS so that it can visualize it properly. Similarly, ArcGIS and other software can project data in a geographic CRS to a projected CRS on the fly when asked to perform Euclidean measurement calculations.
 
-On the fly projection can clearly be very useful, but it can also be misleading if you don't know what its doing. My take is that you should always check the default settings for the software you're using, and check the set CRS(s) and individual dataset CRS(s) to make sure you are working in a suitable CRS for the operations you want to perform...
+On the fly projection can clearly be very useful, but it can also be misleading if you don't know what its doing. This is especially problematic if it uses the wrong projection for the property you want to preserve! 
+
+> _You should always check the default settings for the software you're using, and check the set CRS(s) and individual dataset CRS(s) to make sure you are working in a suitable CRS for the operations you want to perform!!!_
 
 <br>
 
@@ -214,7 +218,7 @@ On the fly projection can clearly be very useful, but it can also be misleading 
 2. You need to **_know what CRS your dataset is in_**. 
   - This is essential, because you need to _define_ your projections to be able to compare datasets. If they are not the same, you will need to _reproject_ one to align with the other*. 
   - If your datasets are not in the same CRS, most GIS software will give you warning or error messages, but not always! Note that not all file formats store the CRS "metadata", so check and store it yourself if needed! 
-3. You need to make sure you **_use a CRS that best preserves the properties you are interested in_** (area, distance, direction, shape). More on this below in section \@ref(projection).
+3. You need to make sure you **_use a CRS that best preserves the properties you are interested in_** (area, distance, direction, shape). More on this in section \@ref(projection).
 4. If your areas and distances are stupidly small (0.001 etc) your data are probably in Geographic (i.e. degrees and not a unit of distance like metres).
 5. Always interrogate and "common-sense-check" your results!!!
 

@@ -23,7 +23,7 @@
 <meta name="author" content="Jasper Slingsby" />
 
 
-<meta name="date" content="2024-02-19" />
+<meta name="date" content="2024-02-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -289,7 +289,7 @@ div.csl-indent {
 <h1><span class="header-section-number">6</span> R as a GIS<a href="r-as-a-gis.html#r-as-a-gis" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <div id="overview-1" class="section level2 hasAnchor" number="6.1">
 <h2><span class="header-section-number">6.1</span> Overview<a href="r-as-a-gis.html#overview-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Points, lines, polygons and rasters - R can handle them all and more! <a href="https://www.r-project.org/">R</a> is a free software environment for statistical computing and graphics, but its abilities have been extended into many realms through the ~18,000 (!) contributed <a href="https://cran.r-project.org/web/packages/available_packages_by_name.html">extension packages</a> (also called libraries).</p>
+<p>Points, lines, polygons and rasters - R can handle them all and more! <a href="https://www.r-project.org/">R</a> is a free software environment for statistical computing and graphics, but its abilities have been extended into many realms through the &gt;20,000 (!) contributed <a href="https://cran.r-project.org/web/packages/available_packages_by_name.html">extension packages</a> (also called libraries).</p>
 <p>The list of packages can be bewildering, but fortunately some great folks have taken the time to sift through and make some sense of them for different focal topics and created <em>Task Views</em>.</p>
 <p><br></p>
 <p><strong>For GIS there are two Task Views of interest:</strong></p>
@@ -333,7 +333,7 @@ Figure 6.2: Screenshot of the Task View landing page at <a href="https://cran.r-
 <h3><span class="header-section-number">6.2.1</span> For vector data<a href="r-as-a-gis.html#for-vector-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>(although some of these packages can handle rasters too)</p>
 <blockquote>
-<p>The two leading packages were <a href="https://cran.r-project.org/web/packages/sp/index.html"><em>sp</em></a> and <a href="https://cran.r-project.org/web/packages/rgdal/index.html"><em>rgdal</em></a>. While these are still active and useful, they are being superseded by a newer package <a href="https://cran.r-project.org/web/packages/sf/index.html"><em>sf</em></a>, which is a modern implementation and standardization of parts of <em>sp</em>. It is highly recommended that you use <em>sf</em> over these older packages as they will not be maintained in the long term, largely because they rely on other packages that are no longer maintained because their creators have retired.</p>
+<p>The leading package <strong>was</strong> <a href="https://cran.r-project.org/web/packages/sp/index.html"><em>sp</em></a>. It is still active and useful, but is superseded by a newer package <a href="https://cran.r-project.org/web/packages/sf/index.html"><em>sf</em></a>, which is a modern implementation and standardization of parts of <em>sp</em>. It is highly recommended that you use <em>sf</em> over the older packages as they will not be maintained in the long term, largely because they rely on other packages that are no longer maintained because their creators have retired.</p>
 </blockquote>
 <p><br></p>
 <p><em><strong>sf</strong></em> stands for “Simple Features for R”, in compliance with the <a href="https://www.ogc.org/standards/sfa">OGC Simple Feature standard</a>. It is highly efficient, and comes with the advantage that it uses <a href="https://www.tidyverse.org/"><em>Tidyverse</em></a> principles and coding styles, e.g. allowing use of the pipe operator (<code>%&gt;%</code>) and the direct application of library(dplyr) data manipulation and library(ggplot2) visualization functions.</p>
@@ -345,42 +345,44 @@ Figure 6.2: Screenshot of the Task View landing page at <a href="https://cran.r-
 ##   [4] $&lt;-                          aggregate                    anti_join                   
 ##   [7] arrange                      as.data.frame                cbind                       
 ##  [10] coerce                       crs                          dbDataType                  
-##  [13] dbWriteTable                 distance                     distinct                    
-##  [16] dplyr_reconstruct            drop_na                      duplicated                  
-##  [19] extent                       extract                      filter                      
-##  [22] full_join                    gather                       group_by                    
-##  [25] group_split                  identify                     initialize                  
-##  [28] inner_join                   left_join                    lines                       
-##  [31] mask                         merge                        mutate                      
-##  [34] nest                         pivot_longer                 pivot_wider                 
-##  [37] plot                         print                        raster                      
-##  [40] rasterize                    rbind                        rename_with                 
-##  [43] rename                       right_join                   rowwise                     
-##  [46] sample_frac                  sample_n                     select                      
-##  [49] semi_join                    separate_rows                separate                    
-##  [52] show                         slice                        slotsFromS3                 
-##  [55] spread                       st_agr                       st_agr&lt;-                    
-##  [58] st_area                      st_as_s2                     st_as_sf                    
-##  [61] st_as_sfc                    st_bbox                      st_boundary                 
-##  [64] st_break_antimeridian        st_buffer                    st_cast                     
-##  [67] st_centroid                  st_collection_extract        st_concave_hull             
-##  [70] st_convex_hull               st_coordinates               st_crop                     
-##  [73] st_crs                       st_crs&lt;-                     st_difference               
-##  [76] st_drop_geometry             st_filter                    st_geometry                 
-##  [79] st_geometry&lt;-                st_inscribed_circle          st_interpolate_aw           
-##  [82] st_intersection              st_intersects                st_is_valid                 
-##  [85] st_is                        st_join                      st_line_merge               
-##  [88] st_m_range                   st_make_valid                st_minimum_rotated_rectangle
-##  [91] st_nearest_points            st_node                      st_normalize                
-##  [94] st_point_on_surface          st_polygonize                st_precision                
-##  [97] st_reverse                   st_sample                    st_segmentize               
-## [100] st_set_precision             st_shift_longitude           st_simplify                 
-## [103] st_snap                      st_sym_difference            st_transform                
-## [106] st_triangulate_constrained   st_triangulate               st_union                    
-## [109] st_voronoi                   st_wrap_dateline             st_write                    
-## [112] st_z_range                   st_zm                        summarise                   
-## [115] transform                    transmute                    ungroup                     
-## [118] unite                        unnest                      
+##  [13] dbWriteTable                 df_spatial                   distance                    
+##  [16] distinct                     dplyr_reconstruct            drop_na                     
+##  [19] duplicated                   ext                          extent                      
+##  [22] extract                      filter                       full_join                   
+##  [25] gather                       group_by                     group_split                 
+##  [28] identify                     initialize                   inner_join                  
+##  [31] left_join                    lines                        mask                        
+##  [34] merge                        mutate                       nest                        
+##  [37] pivot_longer                 pivot_wider                  plot                        
+##  [40] points                       polys                        print                       
+##  [43] raster                       rasterize                    rbind                       
+##  [46] rename_with                  rename                       right_join                  
+##  [49] rowwise                      sample_frac                  sample_n                    
+##  [52] select                       semi_join                    separate_rows               
+##  [55] separate                     show                         slice                       
+##  [58] slotsFromS3                  spread                       st_agr                      
+##  [61] st_agr&lt;-                     st_area                      st_as_s2                    
+##  [64] st_as_sf                     st_as_sfc                    st_bbox                     
+##  [67] st_boundary                  st_break_antimeridian        st_buffer                   
+##  [70] st_cast                      st_centroid                  st_collection_extract       
+##  [73] st_concave_hull              st_convex_hull               st_coordinates              
+##  [76] st_crop                      st_crs                       st_crs&lt;-                    
+##  [79] st_difference                st_drop_geometry             st_filter                   
+##  [82] st_geometry                  st_geometry&lt;-                st_inscribed_circle         
+##  [85] st_interpolate_aw            st_intersection              st_intersects               
+##  [88] st_is_valid                  st_is                        st_join                     
+##  [91] st_line_merge                st_m_range                   st_make_valid               
+##  [94] st_minimum_rotated_rectangle st_nearest_points            st_node                     
+##  [97] st_normalize                 st_point_on_surface          st_polygonize               
+## [100] st_precision                 st_reverse                   st_sample                   
+## [103] st_segmentize                st_set_precision             st_shift_longitude          
+## [106] st_simplify                  st_snap                      st_sym_difference           
+## [109] st_transform                 st_triangulate_constrained   st_triangulate              
+## [112] st_union                     st_voronoi                   st_wrap_dateline            
+## [115] st_write                     st_z_range                   st_zm                       
+## [118] summarise                    svc                          transform                   
+## [121] transmute                    ungroup                      unite                       
+## [124] unnest                       vect                        
 ## see &#39;?methods&#39; for accessing help and source code</code></pre>
 <p><br></p>
 <p>This doesn’t tell you how to use them though. To get help with a function in R just type “?” followed by the function name, e.g. <code>?st_read</code>, and it’ll take you to the help page.</p>

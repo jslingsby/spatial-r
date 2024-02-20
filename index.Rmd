@@ -44,6 +44,7 @@ Other very valuable resources include:
 
 * Lovelace et al's online book [Geocomputation with R](https://geocompr.robinlovelace.net/)
 * Ryan Garnett's [cheatsheet for library(sf)](https://github.com/rstudio/cheatsheets/blob/main/sf.pdf)
+* Pebesma and Bivand's [Spatial Data Science](https://r-spatial.org/book/)
 
 <br>
 
