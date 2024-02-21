@@ -73,7 +73,7 @@ I've included quite a bit of demonstration R code in Chapters \@ref(rdemo) and \
 Lectures will be held in the mornings between 10:00 to 12:00 Monday to Thursday in BIOLT1. 
 
 - For the _**Honours students**_, Thursday afternoon, 2-4PM, will be lightning talk presentation day (venue TBD). 
-- For the _**Conservation Biology MSc course**_, we'll do lightning talk presentations on Friday.
+- For the _**Conservation Biology MSc course**_, we'll do lightning talk presentations on Friday at 10AM.
 
 <br>
 
@@ -106,12 +106,12 @@ The project objectives, broken down as daily goals to help you pace yourselves t
   - Develop and present your 1 slide lightning talk - examples from the Honours class of 2021 are [here](https://docs.google.com/presentation/d/1591HITImkhsf0VT96ae2JqAguy3K0lPeGn0-spA1M18/edit?usp=sharing) and 2022 are [here](https://docs.google.com/presentation/d/1C8kseabbqRiP1VFxnY_7znP7L2_QogmVjMMTB7mUflw/edit?usp=sharing).
 * Until the 1st March (Hons students): Iterate over the previous steps until done!
 
-I will be available 2-3PM on Wednesday afternoon and 10-11AM on Friday morning as a "help desk" to assist you refine your projects and troubleshoot issues.
+I will be available 2-3PM on Wednesday afternoon and 11AM-12PM on Friday morning as a "help desk" to assist you refine your projects and troubleshoot issues.
 
 **Lightning talks:** you'll do lightning presentations (30% of your mark for the module) on your GIS projects (1 slide, 2 minutes presentation, 1 minute questions). Don't worry, you won't lose marks if your projects are not yet complete! We just want to know what you're doing your project on, what datasets you're using, and what you plan to do with them. Please read the instructions in the Google slide deck and add your slide. 
 
 - For the _**Honours students**_, this will be on **Thursday afternoon (2PM, 22nd February)**. 
-- For the _**Conservation Biology students**_, this will be on **Friday (23rd February)**. 
+- For the _**Conservation Biology students**_, this will be at 10AM on **Friday (23rd February)** _online_. 
 
 <br>
 

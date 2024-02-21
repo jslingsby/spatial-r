@@ -445,6 +445,10 @@ Note that I fed it the CRS from `vegr`. This guarantees that they'll be the same
 
 <br>
 
+> NOTE: Sometimes you will 
+
+<br>
+
 ## Intersecting points and polygons
 
 ...and now we can try to intersect the points and polygons again...
