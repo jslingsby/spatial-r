@@ -183,7 +183,17 @@ ggplot() + geom_sf(data=veg, aes(fill = `National_`))
 
 Better?
 
-But what about the silly splits like _Peninsula Granite Fynbos - North/South_ and _Cape Flats Dune Strandveld - West Coast/False Bay_. 
+Note that in this case I gave it the coordinates in TM Lo19. These are not always easy to work out, so you may want to create an extent using Lat/Long and then project it to TM Lo19 before cropping. You can do this like so:
+
+```{r}
+myextent <- st_sf(a = 1:2, geom = st_sfc(st_point(c(18,-33)), st_point(c(19,-34))), crs = 4326)
+
+myextent <- st_transform(myextent, crs = "+proj=tmerc +lat_0=0 +lon_0=19 +k=1 +x_0=0 +y_0=0 +ellps=WGS84 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs") 
+
+# And then run veg <- st_crop(veg, myextent)
+```
+
+Ok. Moving on. But what about the silly splits like _Peninsula Granite Fynbos - North/South_ and _Cape Flats Dune Strandveld - West Coast/False Bay_ in the figure above. 
 
 Which ones do I mean? 
 
