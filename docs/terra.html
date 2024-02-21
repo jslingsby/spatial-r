@@ -259,9 +259,10 @@ div.csl-indent {
 <li class="chapter" data-level="8.8" data-path="terra.html"><a href="terra.html#raster-stacks"><i class="fa fa-check"></i><b>8.8</b> Raster stacks</a></li>
 <li class="chapter" data-level="8.9" data-path="terra.html"><a href="terra.html#extracting-raster-to-vector"><i class="fa fa-check"></i><b>8.9</b> Extracting raster to vector</a></li>
 <li class="chapter" data-level="8.10" data-path="terra.html"><a href="terra.html#rasterizing"><i class="fa fa-check"></i><b>8.10</b> Rasterizing</a></li>
-<li class="chapter" data-level="8.11" data-path="terra.html"><a href="terra.html#visualizing-multiple-datasets-on-one-map"><i class="fa fa-check"></i><b>8.11</b> Visualizing multiple datasets on one map</a></li>
-<li class="chapter" data-level="8.12" data-path="terra.html"><a href="terra.html#cloud-optimized-geotiffs-cogs"><i class="fa fa-check"></i><b>8.12</b> Cloud Optimized GeoTiffs (COGs)!!!</a></li>
-<li class="chapter" data-level="8.13" data-path="terra.html"><a href="terra.html#obtaining-satellite-data-from-apis"><i class="fa fa-check"></i><b>8.13</b> Obtaining satellite data from APIs</a></li>
+<li class="chapter" data-level="8.11" data-path="terra.html"><a href="terra.html#crosstabulating-rasters"><i class="fa fa-check"></i><b>8.11</b> Crosstabulating rasters</a></li>
+<li class="chapter" data-level="8.12" data-path="terra.html"><a href="terra.html#visualizing-multiple-datasets-on-one-map"><i class="fa fa-check"></i><b>8.12</b> Visualizing multiple datasets on one map</a></li>
+<li class="chapter" data-level="8.13" data-path="terra.html"><a href="terra.html#cloud-optimized-geotiffs-cogs"><i class="fa fa-check"></i><b>8.13</b> Cloud Optimized GeoTiffs (COGs)!!!</a></li>
+<li class="chapter" data-level="8.14" data-path="terra.html"><a href="terra.html#obtaining-satellite-data-from-apis"><i class="fa fa-check"></i><b>8.14</b> Obtaining satellite data from APIs</a></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="old-raster-gis-operations-in-r-with-raster.html"><a href="old-raster-gis-operations-in-r-with-raster.html"><i class="fa fa-check"></i><b>9</b> (Old!) Raster GIS operations in R with <em>raster</em></a>
 <ul>
@@ -602,30 +603,81 @@ div.csl-indent {
 <p><img src="spatial-r_files/figure-html/penviz-1.png" width="528" /></p>
 <p>I’m sure this plot is a surprise to those who worked with <em>raster</em>. Usually rasters want to work with numbers. <em>terra</em> can work with (and rasterize) data of class “factor”, opening up all kinds of opportunities.</p>
 <p><br></p>
+<p>But once you have a raster of class factor and a raster with values, you can stack and unpack them into a dataframe and analyse them as you would usually.</p>
+<p><br></p>
+<div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb135-1"><a href="terra.html#cb135-1" tabindex="-1"></a><span class="co">#Stack the two rasters</span></span>
+<span id="cb135-2"><a href="terra.html#cb135-2" tabindex="-1"></a>vegdem <span class="ot">&lt;-</span> <span class="fu">c</span>(vegras, dem30) </span>
+<span id="cb135-3"><a href="terra.html#cb135-3" tabindex="-1"></a></span>
+<span id="cb135-4"><a href="terra.html#cb135-4" tabindex="-1"></a><span class="co">#Convert to data frame</span></span>
+<span id="cb135-5"><a href="terra.html#cb135-5" tabindex="-1"></a>vegdem_df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(vegdem) </span>
+<span id="cb135-6"><a href="terra.html#cb135-6" tabindex="-1"></a></span>
+<span id="cb135-7"><a href="terra.html#cb135-7" tabindex="-1"></a><span class="co">#Plot</span></span>
+<span id="cb135-8"><a href="terra.html#cb135-8" tabindex="-1"></a>vegdem_df <span class="sc">%&gt;%</span> </span>
+<span id="cb135-9"><a href="terra.html#cb135-9" tabindex="-1"></a>  <span class="fu">group_by</span>(National_) <span class="sc">%&gt;%</span></span>
+<span id="cb135-10"><a href="terra.html#cb135-10" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="st">`</span><span class="at">Mean elevation (m)</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">mean</span>(<span class="st">`</span><span class="at">10m_BA</span><span class="st">`</span>, <span class="at">na.rm =</span> T)) <span class="sc">%&gt;%</span></span>
+<span id="cb135-11"><a href="terra.html#cb135-11" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb135-12"><a href="terra.html#cb135-12" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="fu">aes</span>(<span class="at">y =</span> <span class="st">`</span><span class="at">Mean elevation (m)</span><span class="st">`</span>, <span class="at">x =</span> <span class="st">`</span><span class="at">National_</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb135-13"><a href="terra.html#cb135-13" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>, <span class="at">vjust =</span> <span class="fl">0.5</span>, <span class="at">hjust=</span><span class="dv">1</span>))</span></code></pre></div>
+<p><img src="spatial-r_files/figure-html/unnamed-chunk-63-1.png" width="672" /></p>
+<p><br></p>
+<p>Tadaa! Same figure we made before, but we took a different route this time. The ability to turn stacked rasters into dataframes and analyse them “non-spatially” can be very powerful. There are also a bunch of functions that make this even easier.</p>
+<p><br></p>
 </div>
-<div id="visualizing-multiple-datasets-on-one-map" class="section level2 hasAnchor" number="8.11">
-<h2><span class="header-section-number">8.11</span> Visualizing multiple datasets on one map<a href="terra.html#visualizing-multiple-datasets-on-one-map" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="crosstabulating-rasters" class="section level2 hasAnchor" number="8.11">
+<h2><span class="header-section-number">8.11</span> Crosstabulating rasters<a href="terra.html#crosstabulating-rasters" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Say we had two rasters that each contained factor data (i.e. discrete) and we wanted to look at the frequency of associations between the two sets of classes? We can very easily do this with the function <code>crosstab()</code>.</p>
+<p>Here’s an example looking at slope classes by vegetation type. First, we classify our slope raster into discrete classes, then we cross-tabulate the classified slope raster with our raster of vegetation types.</p>
+<p><br></p>
+<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="terra.html#cb136-1" tabindex="-1"></a><span class="co"># Classify the slope raster into 5 classes</span></span>
+<span id="cb136-2"><a href="terra.html#cb136-2" tabindex="-1"></a>slopeclass <span class="ot">&lt;-</span> <span class="fu">classify</span>(slope, <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.3</span>, <span class="fl">0.6</span>, <span class="fl">0.9</span>, <span class="fl">1.2</span>, <span class="fl">1.4</span>), <span class="at">include.lowest=</span><span class="cn">TRUE</span>)</span>
+<span id="cb136-3"><a href="terra.html#cb136-3" tabindex="-1"></a></span>
+<span id="cb136-4"><a href="terra.html#cb136-4" tabindex="-1"></a><span class="fu">plot</span>(slopeclass)</span></code></pre></div>
+<p><img src="spatial-r_files/figure-html/unnamed-chunk-64-1.png" width="672" /></p>
+<div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb137-1"><a href="terra.html#cb137-1" tabindex="-1"></a><span class="co"># Crosstabulate slope with veg type</span></span>
+<span id="cb137-2"><a href="terra.html#cb137-2" tabindex="-1"></a><span class="fu">crosstab</span>(<span class="fu">c</span>(vegras, slopeclass))</span></code></pre></div>
+<pre><code>##                                          slope
+## National_                                 (0.3–0.6] (0.6–0.9] (0.9–1.2] (1.2–1.4] [0–0.3]
+##   Beach - FalseBay                              360       165        40         0    2607
+##   Cape Estuarine Salt Marshes                     0         0         0         0     123
+##   Cape Flats Dune Strandveld - False Bay       2890       820       101         0   41433
+##   Cape Flats Dune Strandveld - West Coast         0         0         0         0    7162
+##   Cape Flats Sand Fynbos                          3         0         0         0  108940
+##   Cape Lowland Freshwater Wetlands                0         0         0         0    6604
+##   Hangklip Sand Fynbos                         2819       141         8         0   33647
+##   Peninsula Granite Fynbos - North            11037       508         8         0   11445
+##   Peninsula Granite Fynbos - South            13425      2079       335        16   63627
+##   Peninsula Sandstone Fynbos                  58525     20674      4167       191  160146
+##   Peninsula Shale Fynbos                       2989       340        45         0   10660
+##   Peninsula Shale Renosterveld                 2441        67         0         0   23969
+##   RECLAIMED                                      36         3         0         0    6436
+##   Southern Afrotemperate Forest                1748       483        78         3    1534</code></pre>
+<p><br></p>
+<p>This function is particularly useful for something like comparing land cover datasets from 2 time points. Also have a look at <code>freq</code> and <code>zonal</code>.</p>
+<p><br></p>
+</div>
+<div id="visualizing-multiple-datasets-on-one-map" class="section level2 hasAnchor" number="8.12">
+<h2><span class="header-section-number">8.12</span> Visualizing multiple datasets on one map<a href="terra.html#visualizing-multiple-datasets-on-one-map" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>What about if we want to plot multiple datasets on one map?</p>
 <p>This is easy, if you can feed each dataset into a separate ggplot function. Here’s the veg types with contours and the iNaturalist records we retrieved earlier.</p>
-<div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb135-1"><a href="terra.html#cb135-1" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb135-2"><a href="terra.html#cb135-2" tabindex="-1"></a>  <span class="fu">geom_raster</span>(<span class="at">data =</span> <span class="fu">as.data.frame</span>(vegras, <span class="at">xy =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb135-3"><a href="terra.html#cb135-3" tabindex="-1"></a>              <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">fill =</span> National_)) <span class="sc">+</span></span>
-<span id="cb135-4"><a href="terra.html#cb135-4" tabindex="-1"></a>  <span class="fu">geom_contour</span>(<span class="at">data =</span> <span class="fu">as.data.frame</span>(dem30, <span class="at">xy =</span> <span class="cn">TRUE</span>), </span>
-<span id="cb135-5"><a href="terra.html#cb135-5" tabindex="-1"></a>               <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">z =</span> <span class="st">`</span><span class="at">10m_BA</span><span class="st">`</span>), <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1100</span>, <span class="dv">100</span>), <span class="at">colour =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
-<span id="cb135-6"><a href="terra.html#cb135-6" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data=</span>pc, <span class="at">colour =</span> <span class="st">&quot;white&quot;</span>, <span class="at">size =</span> <span class="fl">0.5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb139-1"><a href="terra.html#cb139-1" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb139-2"><a href="terra.html#cb139-2" tabindex="-1"></a>  <span class="fu">geom_raster</span>(<span class="at">data =</span> <span class="fu">as.data.frame</span>(vegras, <span class="at">xy =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb139-3"><a href="terra.html#cb139-3" tabindex="-1"></a>              <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">fill =</span> National_)) <span class="sc">+</span></span>
+<span id="cb139-4"><a href="terra.html#cb139-4" tabindex="-1"></a>  <span class="fu">geom_contour</span>(<span class="at">data =</span> <span class="fu">as.data.frame</span>(dem30, <span class="at">xy =</span> <span class="cn">TRUE</span>), </span>
+<span id="cb139-5"><a href="terra.html#cb139-5" tabindex="-1"></a>               <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">z =</span> <span class="st">`</span><span class="at">10m_BA</span><span class="st">`</span>), <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1100</span>, <span class="dv">100</span>), <span class="at">colour =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
+<span id="cb139-6"><a href="terra.html#cb139-6" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data=</span>pc, <span class="at">colour =</span> <span class="st">&quot;white&quot;</span>, <span class="at">size =</span> <span class="fl">0.5</span>)</span></code></pre></div>
 <p><img src="spatial-r_files/figure-html/penviz_multi-1.png" width="576" /></p>
 <p>For more inspiration on mapping with R, check out <a href="https://slingsby-maps.myshopify.com/" class="uri">https://slingsby-maps.myshopify.com/</a>. I’ve been generating the majority of the basemap (terrain colour, hillshade, contours, streams, etc) for these in R for the past few years.</p>
 <p><br></p>
 </div>
-<div id="cloud-optimized-geotiffs-cogs" class="section level2 hasAnchor" number="8.12">
-<h2><span class="header-section-number">8.12</span> Cloud Optimized GeoTiffs (COGs)!!!<a href="terra.html#cloud-optimized-geotiffs-cogs" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="cloud-optimized-geotiffs-cogs" class="section level2 hasAnchor" number="8.13">
+<h2><span class="header-section-number">8.13</span> Cloud Optimized GeoTiffs (COGs)!!!<a href="terra.html#cloud-optimized-geotiffs-cogs" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>I thought I’d add this as a bonus section, reinforcing the value of standardized open metadata and file formats from the <a href="https://www.ecologi.st/data-management/data.html#describe">Data Management</a> module.</p>
 <p>First, let’s open a connection to our COG, which is stored in the cloud. To do this, we need to pass a URL to the file’s online location to <em>terra</em>.</p>
-<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="terra.html#cb136-1" tabindex="-1"></a>cog.url <span class="ot">&lt;-</span> <span class="st">&quot;/vsicurl/https://mnemosyne.somisana.ac.za/osgeo/saeon_rgb/grootbos.tif&quot;</span></span>
-<span id="cb136-2"><a href="terra.html#cb136-2" tabindex="-1"></a></span>
-<span id="cb136-3"><a href="terra.html#cb136-3" tabindex="-1"></a>grootbos <span class="ot">&lt;-</span> <span class="fu">rast</span>(cog.url)</span>
-<span id="cb136-4"><a href="terra.html#cb136-4" tabindex="-1"></a></span>
-<span id="cb136-5"><a href="terra.html#cb136-5" tabindex="-1"></a>grootbos</span></code></pre></div>
+<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="terra.html#cb140-1" tabindex="-1"></a>cog.url <span class="ot">&lt;-</span> <span class="st">&quot;/vsicurl/https://mnemosyne.somisana.ac.za/osgeo/saeon_rgb/grootbos.tif&quot;</span></span>
+<span id="cb140-2"><a href="terra.html#cb140-2" tabindex="-1"></a></span>
+<span id="cb140-3"><a href="terra.html#cb140-3" tabindex="-1"></a>grootbos <span class="ot">&lt;-</span> <span class="fu">rast</span>(cog.url)</span>
+<span id="cb140-4"><a href="terra.html#cb140-4" tabindex="-1"></a></span>
+<span id="cb140-5"><a href="terra.html#cb140-5" tabindex="-1"></a>grootbos</span></code></pre></div>
 <pre><code>## class       : SpatRaster 
 ## dimensions  : 100024, 121627, 3  (nrow, ncol, nlyr)
 ## resolution  : 0.08, 0.08  (x, y)
@@ -636,15 +688,15 @@ div.csl-indent {
 ## names       : grootbos_1, grootbos_2, grootbos_3</code></pre>
 <p>This has given us the metadata about the file, but has not read it into R’s memory. The file is ~1.8GB so it would do bad things if we tried to read the whole thing in…</p>
 <p>Now let’s retrieve a subset of the file. To do this we need to make a vector polygon for our region of interest (ROI), like so:</p>
-<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="terra.html#cb138-1" tabindex="-1"></a>roi <span class="ot">&lt;-</span> <span class="fu">vect</span>(<span class="fu">data.frame</span>(<span class="at">lon =</span> <span class="fu">c</span>(<span class="fl">19.433975</span>, <span class="fl">19.436451</span>),</span>
-<span id="cb138-2"><a href="terra.html#cb138-2" tabindex="-1"></a>                       <span class="at">lat =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">34.522733</span>, <span class="sc">-</span><span class="fl">34.520735</span>)),</span>
-<span id="cb138-3"><a href="terra.html#cb138-3" tabindex="-1"></a>            <span class="at">crs =</span> <span class="st">&quot;epsg:4326&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="terra.html#cb142-1" tabindex="-1"></a>roi <span class="ot">&lt;-</span> <span class="fu">vect</span>(<span class="fu">data.frame</span>(<span class="at">lon =</span> <span class="fu">c</span>(<span class="fl">19.433975</span>, <span class="fl">19.436451</span>),</span>
+<span id="cb142-2"><a href="terra.html#cb142-2" tabindex="-1"></a>                       <span class="at">lat =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">34.522733</span>, <span class="sc">-</span><span class="fl">34.520735</span>)),</span>
+<span id="cb142-3"><a href="terra.html#cb142-3" tabindex="-1"></a>            <span class="at">crs =</span> <span class="st">&quot;epsg:4326&quot;</span>)</span></code></pre></div>
 <p>And transform it to the same projection as the COG:</p>
-<div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb139-1"><a href="terra.html#cb139-1" tabindex="-1"></a>roi <span class="ot">&lt;-</span> terra<span class="sc">::</span><span class="fu">project</span>(roi, <span class="fu">crs</span>(grootbos))</span></code></pre></div>
+<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="terra.html#cb143-1" tabindex="-1"></a>roi <span class="ot">&lt;-</span> terra<span class="sc">::</span><span class="fu">project</span>(roi, <span class="fu">crs</span>(grootbos))</span></code></pre></div>
 <p>And then extract our ROI</p>
-<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="terra.html#cb140-1" tabindex="-1"></a>roi_ras <span class="ot">&lt;-</span> <span class="fu">crop</span>(grootbos, roi)</span>
-<span id="cb140-2"><a href="terra.html#cb140-2" tabindex="-1"></a></span>
-<span id="cb140-3"><a href="terra.html#cb140-3" tabindex="-1"></a>roi_ras</span></code></pre></div>
+<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="terra.html#cb144-1" tabindex="-1"></a>roi_ras <span class="ot">&lt;-</span> <span class="fu">crop</span>(grootbos, roi)</span>
+<span id="cb144-2"><a href="terra.html#cb144-2" tabindex="-1"></a></span>
+<span id="cb144-3"><a href="terra.html#cb144-3" tabindex="-1"></a>roi_ras</span></code></pre></div>
 <pre><code>## class       : SpatRaster 
 ## dimensions  : 2758, 2853, 3  (nrow, ncol, nlyr)
 ## resolution  : 0.08, 0.08  (x, y)
@@ -657,46 +709,46 @@ div.csl-indent {
 ## min values  :         28,         47,         56 
 ## max values  :        255,        255,        255</code></pre>
 <p>Now we have a raster with 3 layers in memory. There are Red Green and Blue, so we should be able to plot them, like so:</p>
-<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="terra.html#cb142-1" tabindex="-1"></a><span class="fu">plotRGB</span>(roi_ras)</span></code></pre></div>
+<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="terra.html#cb146-1" tabindex="-1"></a><span class="fu">plotRGB</span>(roi_ras)</span></code></pre></div>
 <p><img src="spatial-r_files/figure-html/plot_cog-1.png" width="672" /></p>
 <p>This somewhat arbitrary looking site is where we did some fieldwork in the Grootbos Private Nature Reserve with the 2022 class…</p>
 <p><br></p>
 </div>
-<div id="obtaining-satellite-data-from-apis" class="section level2 hasAnchor" number="8.13">
-<h2><span class="header-section-number">8.13</span> Obtaining satellite data from APIs<a href="terra.html#obtaining-satellite-data-from-apis" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="obtaining-satellite-data-from-apis" class="section level2 hasAnchor" number="8.14">
+<h2><span class="header-section-number">8.14</span> Obtaining satellite data from APIs<a href="terra.html#obtaining-satellite-data-from-apis" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>There are also R packages like <a href="https://cran.r-project.org/web/packages/MODISTools/index.html">MODISTools</a> that allow you to query the online databases.</p>
 <p>MODISTools interfaces with the ‘MODIS Land Products Subsets’ Web Services to download various products. In this case we’ll be downloading the “MOD13Q1” product, which is the Vegetation Indices product for the Terra satellite, generated every 16 days at 250 meter (m) spatial resolution. The algorithm chooses the best available pixel value from all (daily) the acquisitions from the 16 day period, minimizing clouds, low view angle, and selecting the highest NDVI/EVI value.</p>
 <p>WARNING! This code can take a while to run! Hence, I have wrapped it in an <code>if()</code> statement that tells the code not to run if the file already exists.</p>
-<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="terra.html#cb143-1" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">file.exists</span>(<span class="st">&quot;data/MODISdat_batch_30Jan2023.csv&quot;</span>)) <span class="co"># if the file does not exist, then run... otherwise do nothing...</span></span>
-<span id="cb143-2"><a href="terra.html#cb143-2" tabindex="-1"></a>  {</span>
-<span id="cb143-3"><a href="terra.html#cb143-3" tabindex="-1"></a></span>
-<span id="cb143-4"><a href="terra.html#cb143-4" tabindex="-1"></a><span class="fu">library</span>(MODISTools)</span>
-<span id="cb143-5"><a href="terra.html#cb143-5" tabindex="-1"></a></span>
-<span id="cb143-6"><a href="terra.html#cb143-6" tabindex="-1"></a>sites <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">site_name =</span> <span class="fu">c</span>(<span class="st">&quot;grassy field&quot;</span>, <span class="st">&quot;invasion&quot;</span>, <span class="st">&quot;renosterveld&quot;</span>, <span class="st">&quot;sand&quot;</span>, <span class="st">&quot;sandstone&quot;</span>, <span class="st">&quot;limestone&quot;</span>),</span>
-<span id="cb143-7"><a href="terra.html#cb143-7" tabindex="-1"></a>                    <span class="at">lat =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">34.375052</span>, <span class="sc">-</span><span class="fl">34.386014</span>, <span class="sc">-</span><span class="fl">34.374259</span>, <span class="sc">-</span><span class="fl">34.3961</span>, <span class="sc">-</span><span class="fl">34.3748</span>, <span class="sc">-</span><span class="fl">34.4309</span>),</span>
-<span id="cb143-8"><a href="terra.html#cb143-8" tabindex="-1"></a>                    <span class="at">lon =</span> <span class="fu">c</span>(<span class="fl">20.531749</span>, <span class="fl">20.534986</span>, <span class="fl">20.504233</span>, <span class="fl">20.5494</span>, <span class="fl">20.5428</span>, <span class="fl">20.5666</span>))</span>
-<span id="cb143-9"><a href="terra.html#cb143-9" tabindex="-1"></a></span>
-<span id="cb143-10"><a href="terra.html#cb143-10" tabindex="-1"></a><span class="do">### Here&#39;s some code if you want to use an existing layer of points instead of entering them manually</span></span>
-<span id="cb143-11"><a href="terra.html#cb143-11" tabindex="-1"></a><span class="co"># sites &lt;- st_read(&quot;/home/jasper/GIT/BIO3018F/prac/Potberg_prac_sites.kml&quot;)</span></span>
-<span id="cb143-12"><a href="terra.html#cb143-12" tabindex="-1"></a><span class="co"># sites &lt;- data.frame(site_name = sites$Name, lat = st_coordinates(sites)[,2], lon = st_coordinates(sites)[,1])</span></span>
-<span id="cb143-13"><a href="terra.html#cb143-13" tabindex="-1"></a></span>
-<span id="cb143-14"><a href="terra.html#cb143-14" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">mt_batch_subset</span>(<span class="at">df =</span> sites,</span>
-<span id="cb143-15"><a href="terra.html#cb143-15" tabindex="-1"></a>                        <span class="at">product =</span> <span class="st">&quot;MOD13Q1&quot;</span>,</span>
-<span id="cb143-16"><a href="terra.html#cb143-16" tabindex="-1"></a>                        <span class="at">band =</span> <span class="st">&quot;250m_16_days_NDVI&quot;</span>,</span>
-<span id="cb143-17"><a href="terra.html#cb143-17" tabindex="-1"></a>                        <span class="at">internal =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb143-18"><a href="terra.html#cb143-18" tabindex="-1"></a>                        <span class="at">start =</span> <span class="st">&quot;2000-01-01&quot;</span>,</span>
-<span id="cb143-19"><a href="terra.html#cb143-19" tabindex="-1"></a>                        <span class="at">end =</span> <span class="st">&quot;2023-01-30&quot;</span>)</span>
-<span id="cb143-20"><a href="terra.html#cb143-20" tabindex="-1"></a></span>
-<span id="cb143-21"><a href="terra.html#cb143-21" tabindex="-1"></a><span class="fu">write_csv</span>(dat, <span class="st">&quot;data/MODISdat_batch_30Jan2023.csv&quot;</span>)</span>
-<span id="cb143-22"><a href="terra.html#cb143-22" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="terra.html#cb147-1" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">file.exists</span>(<span class="st">&quot;data/MODISdat_batch_30Jan2023.csv&quot;</span>)) <span class="co"># if the file does not exist, then run... otherwise do nothing...</span></span>
+<span id="cb147-2"><a href="terra.html#cb147-2" tabindex="-1"></a>  {</span>
+<span id="cb147-3"><a href="terra.html#cb147-3" tabindex="-1"></a></span>
+<span id="cb147-4"><a href="terra.html#cb147-4" tabindex="-1"></a><span class="fu">library</span>(MODISTools)</span>
+<span id="cb147-5"><a href="terra.html#cb147-5" tabindex="-1"></a></span>
+<span id="cb147-6"><a href="terra.html#cb147-6" tabindex="-1"></a>sites <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">site_name =</span> <span class="fu">c</span>(<span class="st">&quot;grassy field&quot;</span>, <span class="st">&quot;invasion&quot;</span>, <span class="st">&quot;renosterveld&quot;</span>, <span class="st">&quot;sand&quot;</span>, <span class="st">&quot;sandstone&quot;</span>, <span class="st">&quot;limestone&quot;</span>),</span>
+<span id="cb147-7"><a href="terra.html#cb147-7" tabindex="-1"></a>                    <span class="at">lat =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">34.375052</span>, <span class="sc">-</span><span class="fl">34.386014</span>, <span class="sc">-</span><span class="fl">34.374259</span>, <span class="sc">-</span><span class="fl">34.3961</span>, <span class="sc">-</span><span class="fl">34.3748</span>, <span class="sc">-</span><span class="fl">34.4309</span>),</span>
+<span id="cb147-8"><a href="terra.html#cb147-8" tabindex="-1"></a>                    <span class="at">lon =</span> <span class="fu">c</span>(<span class="fl">20.531749</span>, <span class="fl">20.534986</span>, <span class="fl">20.504233</span>, <span class="fl">20.5494</span>, <span class="fl">20.5428</span>, <span class="fl">20.5666</span>))</span>
+<span id="cb147-9"><a href="terra.html#cb147-9" tabindex="-1"></a></span>
+<span id="cb147-10"><a href="terra.html#cb147-10" tabindex="-1"></a><span class="do">### Here&#39;s some code if you want to use an existing layer of points instead of entering them manually</span></span>
+<span id="cb147-11"><a href="terra.html#cb147-11" tabindex="-1"></a><span class="co"># sites &lt;- st_read(&quot;/home/jasper/GIT/BIO3018F/prac/Potberg_prac_sites.kml&quot;)</span></span>
+<span id="cb147-12"><a href="terra.html#cb147-12" tabindex="-1"></a><span class="co"># sites &lt;- data.frame(site_name = sites$Name, lat = st_coordinates(sites)[,2], lon = st_coordinates(sites)[,1])</span></span>
+<span id="cb147-13"><a href="terra.html#cb147-13" tabindex="-1"></a></span>
+<span id="cb147-14"><a href="terra.html#cb147-14" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">mt_batch_subset</span>(<span class="at">df =</span> sites,</span>
+<span id="cb147-15"><a href="terra.html#cb147-15" tabindex="-1"></a>                        <span class="at">product =</span> <span class="st">&quot;MOD13Q1&quot;</span>,</span>
+<span id="cb147-16"><a href="terra.html#cb147-16" tabindex="-1"></a>                        <span class="at">band =</span> <span class="st">&quot;250m_16_days_NDVI&quot;</span>,</span>
+<span id="cb147-17"><a href="terra.html#cb147-17" tabindex="-1"></a>                        <span class="at">internal =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb147-18"><a href="terra.html#cb147-18" tabindex="-1"></a>                        <span class="at">start =</span> <span class="st">&quot;2000-01-01&quot;</span>,</span>
+<span id="cb147-19"><a href="terra.html#cb147-19" tabindex="-1"></a>                        <span class="at">end =</span> <span class="st">&quot;2023-01-30&quot;</span>)</span>
+<span id="cb147-20"><a href="terra.html#cb147-20" tabindex="-1"></a></span>
+<span id="cb147-21"><a href="terra.html#cb147-21" tabindex="-1"></a><span class="fu">write_csv</span>(dat, <span class="st">&quot;data/MODISdat_batch_30Jan2023.csv&quot;</span>)</span>
+<span id="cb147-22"><a href="terra.html#cb147-22" tabindex="-1"></a>}</span></code></pre></div>
 <p>Plot all time series</p>
-<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="terra.html#cb144-1" tabindex="-1"></a><span class="fu">read_csv</span>(<span class="st">&quot;data/MODISdat_batch_30Jan2023.csv&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb144-2"><a href="terra.html#cb144-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> calendar_date, <span class="at">y =</span> value<span class="sc">*</span><span class="fl">0.0001</span>)) <span class="sc">+</span></span>
-<span id="cb144-3"><a href="terra.html#cb144-3" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
-<span id="cb144-4"><a href="terra.html#cb144-4" tabindex="-1"></a>  <span class="co">#  geom_point() +</span></span>
-<span id="cb144-5"><a href="terra.html#cb144-5" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(.<span class="sc">~</span> site) <span class="sc">+</span></span>
-<span id="cb144-6"><a href="terra.html#cb144-6" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;NDVI&quot;</span>) <span class="sc">+</span></span>
-<span id="cb144-7"><a href="terra.html#cb144-7" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="fl">0.2</span>, <span class="fl">0.9</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="terra.html#cb148-1" tabindex="-1"></a><span class="fu">read_csv</span>(<span class="st">&quot;data/MODISdat_batch_30Jan2023.csv&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb148-2"><a href="terra.html#cb148-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> calendar_date, <span class="at">y =</span> value<span class="sc">*</span><span class="fl">0.0001</span>)) <span class="sc">+</span></span>
+<span id="cb148-3"><a href="terra.html#cb148-3" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb148-4"><a href="terra.html#cb148-4" tabindex="-1"></a>  <span class="co">#  geom_point() +</span></span>
+<span id="cb148-5"><a href="terra.html#cb148-5" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(.<span class="sc">~</span> site) <span class="sc">+</span></span>
+<span id="cb148-6"><a href="terra.html#cb148-6" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;NDVI&quot;</span>) <span class="sc">+</span></span>
+<span id="cb148-7"><a href="terra.html#cb148-7" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="fl">0.2</span>, <span class="fl">0.9</span>)</span></code></pre></div>
 <p><img src="spatial-r_files/figure-html/modis_plot-1.png" width="672" /></p>
 <p>There are many more complex spatial and remote sensing analyses you can do by interaction with the cloud from R. Here are some links to a few:</p>
 <ul>

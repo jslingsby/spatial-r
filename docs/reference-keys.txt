@@ -78,6 +78,7 @@ focal-and-terrain-calculations
 raster-stacks
 extracting-raster-to-vector
 rasterizing
+crosstabulating-rasters
 visualizing-multiple-datasets-on-one-map
 cloud-optimized-geotiffs-cogs
 obtaining-satellite-data-from-apis

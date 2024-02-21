@@ -371,6 +371,57 @@ I'm sure this plot is a surprise to those who worked with _raster_. Usually rast
 
 <br>
 
+But once you have a raster of class factor and a raster with values, you can stack and unpack them into a dataframe and analyse them as you would usually.
+
+<br>
+
+```{r}
+#Stack the two rasters
+vegdem <- c(vegras, dem30) 
+
+#Convert to data frame
+vegdem_df <- as.data.frame(vegdem) 
+
+#Plot
+vegdem_df %>% 
+  group_by(National_) %>%
+  summarise(`Mean elevation (m)` = mean(`10m_BA`, na.rm = T)) %>%
+  ggplot() +
+  geom_col(aes(y = `Mean elevation (m)`, x = `National_`)) +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+
+```
+
+<br>
+
+Tadaa! Same figure we made before, but we took a different route this time. The ability to turn stacked rasters into dataframes and analyse them "non-spatially" can be very powerful. There are also a bunch of functions that make this even easier.
+
+<br>
+
+## Crosstabulating rasters
+
+Say we had two rasters that each contained factor data (i.e. discrete) and we wanted to look at the frequency of associations between the two sets of classes? We can very easily do this with the function `crosstab()`. 
+
+Here's an example looking at slope classes by vegetation type. First, we classify our slope raster into discrete classes, then we cross-tabulate the classified slope raster with our raster of vegetation types.
+
+<br>
+
+```{r}
+# Classify the slope raster into 5 classes
+slopeclass <- classify(slope, c(0, 0.3, 0.6, 0.9, 1.2, 1.4), include.lowest=TRUE)
+
+plot(slopeclass)
+
+# Crosstabulate slope with veg type
+crosstab(c(vegras, slopeclass))
+```
+
+<br>
+
+This function is particularly useful for something like comparing land cover datasets from 2 time points. Also have a look at `freq` and `zonal`.
+
+<br>
+
 ## Visualizing multiple datasets on one map
 
 What about if we want to plot multiple datasets on one map?
