@@ -69,6 +69,7 @@ buffering
 within-distance-and-intersect
 terra
 reading-in-data
+defining-crs-and-projecting
 cropping-1
 aggregating-resampling
 basic-plotting-1

@@ -31,11 +31,15 @@ crs(dem)
 
 Messy, but somewhere in there it says "Longitude of natural origin 19" and "Transverse Mercator"...
 
+<br>
+
+## Defining CRS and projecting
+
 Similar to `st_crs()`, you can define a projection using the syntax:
 
 `crs(your_raster) <- "your_crs"`, where the new CRS can be in WKT, and EPSG code, or a PROJ string. 
 
-For reprojecting, you use the function `project()`. We'll look at it later.
+For reprojecting, you use the function `project()`. We'll look at it later in the section on Cloud Optimized GeoTiffs.
 
 <br>
 
@@ -400,7 +404,7 @@ Tadaa! Same figure we made before, but we took a different route this time. The 
 
 ## Crosstabulating rasters
 
-Say we had two rasters that each contained factor data (i.e. discrete) and we wanted to look at the frequency of associations between the two sets of classes? We can very easily do this with the function `crosstab()`. 
+Say we had two or more rasters that each contained factor data (i.e. discrete) and we wanted to look at the frequency of associations between the different sets of classes? We can very easily do this with the function `crosstab()`. 
 
 Here's an example looking at slope classes by vegetation type. First, we classify our slope raster into discrete classes, then we cross-tabulate the classified slope raster with our raster of vegetation types.
 
@@ -409,11 +413,12 @@ Here's an example looking at slope classes by vegetation type. First, we classif
 ```{r}
 # Classify the slope raster into 5 classes
 slopeclass <- classify(slope, c(0, 0.3, 0.6, 0.9, 1.2, 1.4), include.lowest=TRUE)
+aspectclass <-  classify(aspect, c(0, 2, 4, 6.5), include.lowest=TRUE)
 
 plot(slopeclass)
 
 # Crosstabulate slope with veg type
-crosstab(c(vegras, slopeclass))
+crosstab(c(vegras, slopeclass, aspectclass))
 ```
 
 <br>
