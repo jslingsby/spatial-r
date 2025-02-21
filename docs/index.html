@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>A Minimal Introduction to GIS (in R)</title>
   <meta name="description" content="This is a minimal introduction to GIS and handling spatial data in R compiled for the Biological Sciences BSc(Honours) class at the University of Cape Town." />
-  <meta name="generator" content="bookdown 0.37 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.40 and GitBook 2.6.7" />
 
   <meta property="og:title" content="A Minimal Introduction to GIS (in R)" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Jasper Slingsby" />
 
 
-<meta name="date" content="2024-02-22" />
+<meta name="date" content="2025-02-21" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -52,118 +52,12 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
-<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
-<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
-<script src="libs/leaflet-1.3.1/leaflet.js"></script>
-<link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
-<script src="libs/proj4-2.6.2/proj4.min.js"></script>
-<script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
-<link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
-<script src="libs/leaflet-binding-2.2.1/leaflet.js"></script>
-<script src="libs/leaflet-providers-2.0.0/leaflet-providers_2.0.0.js"></script>
-<script src="libs/leaflet-providers-plugin-2.2.1/leaflet-providers-plugin.js"></script>
-<script src="libs/FlatGeoBuf-3.21.3/fgb.js"></script>
-<script src="libs/FlatGeoBuf-3.21.3/flatgeobuf-geojson.min.js"></script>
-<script src="libs/chromajs-2.1.0/chroma.min.js"></script>
-<link id="pc-1-attachment" rel="attachment" href="libs/pc-0.0.1/pc_layer.fgb"/>
-<link href="libs/HomeButton-0.0.1/home-button.css" rel="stylesheet" />
-<script src="libs/HomeButton-0.0.1/home-button.js"></script>
-<script src="libs/HomeButton-0.0.1/easy-button-src.min.js"></script>
-<script src="libs/clipboard-0.0.1/setClipboardText.js"></script>
-<link href="libs/mapviewCSS-0.0.1/mapview-popup.css" rel="stylesheet" />
-<link href="libs/mapviewCSS-0.0.1/mapview.css" rel="stylesheet" />
 
 
-<style type="text/css">
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { color: #008000; } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { color: #008000; font-weight: bold; } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-</style>
 
 <style type="text/css">
   
   div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-</style>
-<style type="text/css">
-/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-}
-.hanging div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -302,7 +196,7 @@ div.csl-indent {
 <div id="header">
 <h1 class="title">A Minimal Introduction to GIS (in R)</h1>
 <p class="author"><em>Jasper Slingsby</em></p>
-<p class="date"><em>2024-02-22</em></p>
+<p class="date"><em>2025-02-21</em></p>
 </div>
 <div id="overview" class="section level1 hasAnchor" number="1">
 <h1><span class="header-section-number">1</span> Overview<a href="index.html#overview" class="anchor-section" aria-label="Anchor link to header"></a></h1>
@@ -337,10 +231,10 @@ div.csl-indent {
 <h2><span class="header-section-number">1.2</span> Using this resource<a href="index.html#using" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>I’ve included quite a bit of demonstration R code in Chapters <a href="rdemo.html#rdemo">7</a> and <a href="terra.html#terra">8</a>. To run the code you will need:</p>
 <ul>
-<li>to have working R and RStudio installations - <a href="https://learnr-examples.shinyapps.io/ex-setup-r/">this</a> tutorial may help if needed</li>
+<li>to have working R and RStudio installations - <a href="https://learnr-examples.shinyapps.io/ex-setup-r/">this</a> tutorial may help if needed. To have it integrated with GitHub, you can follow <a href="https://www.ecologi.st/data-management/index.html#setup">this tutorial</a>.</li>
 <li>to install the following R packages (you can copy and run the code):
 <ul>
-<li>required: <code>install.packages(c("tidyverse", "sp", "raster", "sf", "lwgeom", "terra", "stars", "exactextractr"))</code></li>
+<li>required: <code>install.packages(c("tidyverse", "sf", "lwgeom", "terra", "stars", "exactextractr"))</code></li>
 <li>optional, but handy for some visualizations: <code>install.packages(c("cowplot", "hrbrthemes", "knitr", "leaflet", "htmltools", "rosm", "ggspatial", "rnaturalearth", "mapview", "tmap"))</code></li>
 </ul></li>
 <li>to download the datasets discussed in section <a href="rdemo.html#casestudy">7.1</a></li>
@@ -350,28 +244,16 @@ div.csl-indent {
 <div id="module-and-project-details" class="section level2 hasAnchor" number="1.3">
 <h2><span class="header-section-number">1.3</span> Module and Project details<a href="index.html#module-and-project-details" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p><strong>Lectures</strong></p>
-<p>Lectures will be held in the mornings between 10:00 to 12:00 Monday to Thursday in BIOLT1.</p>
-<ul>
-<li>For the <em><strong>Honours students</strong></em>, Thursday afternoon, 2-4PM, will be lightning talk presentation day (venue TBD).</li>
-<li>For the <em><strong>Conservation Biology MSc course</strong></em>, we’ll do lightning talk presentations on Friday at 10AM.</li>
-</ul>
+<p>Lectures will be held in the mornings between 10:00AM to 12:00PM Monday to Thursday in BIOLT1.</p>
+<p>Friday will be lightning talk presentation day - also 10:00AM to 12:00PM in BIOLT1.</p>
+<p>I will be available 1-2:30PM on Wednesday and 2-3PM on Thursday afternoon as a “help desk” to assist you refine your projects and troubleshoot issues.</p>
 <p><br></p>
 <p><strong>Projects</strong></p>
-<p>Afternoons are self-study time where you will incrementally develop your own individual GIS project in R and <a href="https://rmarkdown.rstudio.com/">RMarkdown</a> or <a href="https://quarto.org/">Quarto</a>.</p>
-<ul>
-<li>For the <em><strong>Honours students</strong></em>, the project will count 70% of your mark for the module and will be <strong>due on Friday the 1st March</strong>. You will need to submit a .Rmd or .Qmd file and stitched HTML notebook. You’re welcome to do this in a Git Repository (nudge nudge), now that we’ve completed the <a href="https://www.ecologi.st/data-management/">Reproducible Research</a> module.</li>
-<li>For the <em><strong>Conservation Biology students</strong></em>, the project will count 50% (10% lightning talk, 40% project). You will need to submit a .Rmd or .Qmd file and stitched HTML notebook, but I don’t expect you to use GitHub.</li>
-</ul>
+<p>Afternoons are self-study time where you will incrementally develop your own individual GIS project in R and <a href="https://rmarkdown.rstudio.com/">RMarkdown</a> or <a href="https://quarto.org/">Quarto</a>. The project will count 70% of your mark for the module and will be <strong>due on Thursday the 6th March</strong>.</p>
+<p>You will need to do your analyses in an RMarkdown (.Rmd) document and submit it in a public Git Repository. Make sure all your code chunks are visible. Name your .Rmd file as <code>README.Rmd</code> and add <code>output: rmarkdown::github_document</code> to the header of that file. Have a look at <a href="https://github.com/jslingsby/test_BIO3019Prac/blob/main/README.Rmd">this repository</a> for an example. This will create a <code>README.md</code> file with all your code and figures that is visible when one opens the repository link online.</p>
+<p>Note that the repo does not have to be reproducible, but the code should be visible, you should state what you set out to do and what datasets you used (citing their sources and/or providing links to where you got them from). Do not upload large or sensitive data to the repository - GitHub won’t handle large data. If you want/need to have the data in your local version of the Git repo on your laptop, then put it in a folder named <code>data</code> or similar and add a line to your <code>.gitignore</code> file with the name of the folder, e.g. <code>data/*</code> - see example <a href="https://github.com/jslingsby/bogusrepo/blob/main/.gitignore">here</a>. You can just download the file and add it to your Git repo if you didn’t create a .gitignore when you created the repo.</p>
 <p>The focus of the assignment is essentially setting up a GIS workflow and will be assessed on whether you’ve absorbed the content of the lectures.</p>
-<ul>
-<li>For the <em><strong>Honours students</strong></em>, the topic and datasets used will be up to you.</li>
-</ul>
-<blockquote>
-<p><strong>Pro tip:</strong> Use this as an opportunity to get a kick start on your Honours projects. If your Honours project doesn’t require GIS (which is unlikely) then either help a buddy or let your curiosity roam wild! This is a teaching exercise, so it doesn’t even have to be based on biological data, but it would help you to explore some of the data sources suggested below.</p>
-</blockquote>
-<ul>
-<li>For the <em><strong>Conservation Biology students</strong></em>, the project needs to be based on one of the themes that we are reading about for week two. See separate email and Amathuba announcement.</li>
-</ul>
+<p>The topic and datasets used will be up to you, but again, this is a great opportunity to get a kick start on your Honours projects. If your Honours project doesn’t require GIS (which is unlikely) then either help a buddy or let your curiosity roam wild! This is a teaching exercise, so it doesn’t even have to be based on biological data, but it would help you to explore some of the data sources suggested below.</p>
 <p>The project objectives, broken down as daily goals to help you pace yourselves this week:</p>
 <ul>
 <li>Day 1:
@@ -390,15 +272,22 @@ div.csl-indent {
 <li>Day 4:
 <ul>
 <li>Keep working on the code.</li>
-<li>Develop and present your 1 slide lightning talk - examples from the Honours class of 2021 are <a href="https://docs.google.com/presentation/d/1591HITImkhsf0VT96ae2JqAguy3K0lPeGn0-spA1M18/edit?usp=sharing">here</a> and 2022 are <a href="https://docs.google.com/presentation/d/1C8kseabbqRiP1VFxnY_7znP7L2_QogmVjMMTB7mUflw/edit?usp=sharing">here</a>.</li>
+<li>Develop your 1 slide lightning talk presentation.</li>
 </ul></li>
-<li>Until the 1st March (Hons students): Iterate over the previous steps until done!</li>
-</ul>
-<p>I will be available 2-3PM on Wednesday afternoon and 11AM-12PM on Friday morning as a “help desk” to assist you refine your projects and troubleshoot issues.</p>
-<p><strong>Lightning talks:</strong> you’ll do lightning presentations (30% of your mark for the module) on your GIS projects (1 slide, 2 minutes presentation, 1 minute questions). Don’t worry, you won’t lose marks if your projects are not yet complete! We just want to know what you’re doing your project on, what datasets you’re using, and what you plan to do with them. Please read the instructions in the Google slide deck and add your slide.</p>
+<li>Day 5:
 <ul>
-<li>For the <em><strong>Honours students</strong></em>, this will be on <strong>Thursday afternoon (2PM, 22nd February)</strong>.</li>
-<li>For the <em><strong>Conservation Biology students</strong></em>, this will be at 10AM on <strong>Friday (23rd February)</strong> <em>online</em>.</li>
+<li>Present your lightning talk</li>
+</ul></li>
+</ul>
+<p><br></p>
+<p><strong>Lightning talks:</strong></p>
+<p>You’ll do lightning presentations (30% of your mark for the module) on your GIS projects (1 slide, 2 minutes presentation, 1 minute questions). Don’t worry, you won’t lose marks if your projects are not yet complete! We just want to know what you’re doing your project on, what datasets you’re using, and what you plan to do with them. Please read the instructions in the Google slide deck and add your slide.</p>
+<p>Examples from previous years:</p>
+<ul>
+<li><a href="https://docs.google.com/presentation/d/1591HITImkhsf0VT96ae2JqAguy3K0lPeGn0-spA1M18/edit?usp=sharing">2021</a></li>
+<li><a href="https://docs.google.com/presentation/d/1C8kseabbqRiP1VFxnY_7znP7L2_QogmVjMMTB7mUflw/edit?usp=sharing">2022</a></li>
+<li><a href="https://docs.google.com/presentation/d/1d49lcxgzi_Wys-PEV7ymGDlNokX5hz4mZnwimH_xhJU/edit?usp=sharing">2023</a></li>
+<li><a href="https://docs.google.com/presentation/d/1gWVVZUOcmOPYjQgw_1HvfVbNp9nZOFmpyiXebogIU2I/edit?usp=sharing">2024</a></li>
 </ul>
 <p><br></p>
 <p>Some sources of local data to help you get started. Feel free to look for others! If you find good ones, let me know and I’ll add them.</p>
@@ -408,10 +297,11 @@ div.csl-indent {
 <li>SAEON’s Data Catalogue - <a href="http://catalogue.saeon.ac.za/" class="uri">http://catalogue.saeon.ac.za/</a></li>
 <li>City of Cape Town’s Open Data Portal - <a href="https://odp.capetown.gov.za/" class="uri">https://odp.capetown.gov.za/</a></li>
 <li>iNaturalist - <a href="https://www.inaturalist.org/" class="uri">https://www.inaturalist.org/</a> (accessible from R - see section <a href="rdemo.html#getinat">7.7</a>)</li>
+<li>GBIF - <a href="https://www.gbif.org/" class="uri">https://www.gbif.org/</a> (accessible from R - see <a href="https://cran.r-project.org/web/packages/rgbif/index.html">rgbif</a>)</li>
 <li>Google Datasets Search - <a href="https://datasetsearch.research.google.com/" class="uri">https://datasetsearch.research.google.com/</a></li>
 <li><a href="https://stacindex.org/">The STAC Index</a> - mostly for access to <a href="https://www.ecologi.st/spatial-r/terra.html#cloud-optimized-geotiffs-cogs">Cloud-optimized geotiffs (COGs)</a></li>
 </ul>
-<p><strong><em>Make sure to check the data use policies and make sure you have permission use the datasets!!!</em></strong></p>
+<p><strong><em>Make sure to check the data use policies and make sure you have permission to use the datasets!!!</em></strong></p>
 <p><br></p>
 
 </div>
@@ -476,20 +366,6 @@ gitbook.start({
 });
 </script>
 
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
-  (function () {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    var src = "true";
-    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:")
-      if (/^https?:/.test(src))
-        src = src.replace(/^https?:/, '');
-    script.src = src;
-    document.getElementsByTagName("head")[0].appendChild(script);
-  })();
-</script>
 </body>
 
 </html>

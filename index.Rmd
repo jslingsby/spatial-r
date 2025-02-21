@@ -58,9 +58,9 @@ All code, images, etc can be found [here](https://github.com/jslingsby/spatial-r
 
 I've included quite a bit of demonstration R code in Chapters \@ref(rdemo) and \@ref(terra). To run the code you will need:
 
-* to have working R and RStudio installations - [this](https://learnr-examples.shinyapps.io/ex-setup-r/) tutorial may help if needed
+* to have working R and RStudio installations - [this](https://learnr-examples.shinyapps.io/ex-setup-r/) tutorial may help if needed. To have it integrated with GitHub, you can follow [this tutorial](https://www.ecologi.st/data-management/index.html#setup).
 * to install the following R packages (you can copy and run the code):
-  - required: `install.packages(c("tidyverse", "sp", "raster", "sf", "lwgeom", "terra", "stars", "exactextractr"))`
+  - required: `install.packages(c("tidyverse", "sf", "lwgeom", "terra", "stars", "exactextractr"))`
   - optional, but handy for some visualizations: `install.packages(c("cowplot", "hrbrthemes", "knitr", "leaflet", "htmltools", "rosm", "ggspatial", "rnaturalearth", "mapview", "tmap"))`
 * to download the datasets discussed in section \@ref(casestudy)
 
@@ -70,27 +70,25 @@ I've included quite a bit of demonstration R code in Chapters \@ref(rdemo) and \
 
 **Lectures** 
 
-Lectures will be held in the mornings between 10:00 to 12:00 Monday to Thursday in BIOLT1. 
+Lectures will be held in the mornings between 10:00AM to 12:00PM Monday to Thursday in BIOLT1. 
 
-- For the _**Honours students**_, Thursday afternoon, 2-4PM, will be lightning talk presentation day (venue TBD). 
-- For the _**Conservation Biology MSc course**_, we'll do lightning talk presentations on Friday at 10AM.
+Friday will be lightning talk presentation day - also 10:00AM to 12:00PM in BIOLT1.
+
+I will be available 1-2:30PM on Wednesday and 2-3PM on Thursday afternoon as a "help desk" to assist you refine your projects and troubleshoot issues.
 
 <br>
 
 **Projects**
 
-Afternoons are self-study time where you will incrementally develop your own individual GIS project in R and [RMarkdown](https://rmarkdown.rstudio.com/) or [Quarto](https://quarto.org/). 
+Afternoons are self-study time where you will incrementally develop your own individual GIS project in R and [RMarkdown](https://rmarkdown.rstudio.com/) or [Quarto](https://quarto.org/). The project will count 70% of your mark for the module and will be **due on Thursday the 6th March**. 
 
-- For the _**Honours students**_, the project will count 70% of your mark for the module and will be **due on Friday the 1st March**. You will need to submit a .Rmd or .Qmd file and stitched HTML notebook. You're welcome to do this in a Git Repository (nudge nudge), now that we've completed the [Reproducible Research](https://www.ecologi.st/data-management/) module. 
-- For the _**Conservation Biology students**_, the project will count 50% (10% lightning talk, 40% project). You will need to submit a .Rmd or .Qmd file and stitched HTML notebook, but I don't expect you to use GitHub.
+You will need to do your analyses in an RMarkdown (.Rmd) document and submit it in a public Git Repository. Make sure all your code chunks are visible. Name your .Rmd file as `README.Rmd` and add `output: rmarkdown::github_document` to the header of that file. Have a look at [this repository](https://github.com/jslingsby/test_BIO3019Prac/blob/main/README.Rmd) for an example. This will create a `README.md` file with all your code and figures that is visible when one opens the repository link online. 
+
+Note that the repo does not have to be reproducible, but the code should be visible, you should state what you set out to do and what datasets you used (citing their sources and/or providing links to where you got them from). Do not upload large or sensitive data to the repository - GitHub won't handle large data. If you want/need to have the data in your local version of the Git repo on your laptop, then put it in a folder named `data` or similar and add a line to your `.gitignore` file with the name of the folder, e.g. `data/*` - see example [here](https://github.com/jslingsby/bogusrepo/blob/main/.gitignore). You can just download the file and add it to your Git repo if you didn't create a .gitignore when you created the repo.
 
 The focus of the assignment is essentially setting up a GIS workflow and will be assessed on whether you've absorbed the content of the lectures. 
 
-- For the _**Honours students**_, the topic and datasets used will be up to you. 
-
->**Pro tip:** Use this as an opportunity to get a kick start on your Honours projects. If your Honours project doesn't require GIS (which is unlikely) then either help a buddy or let your curiosity roam wild! This is a teaching exercise, so it doesn't even have to be based on biological data, but it would help you to explore some of the data sources suggested below.
-
-- For the _**Conservation Biology students**_, the project needs to be based on one of the themes that we are reading about for week two. See separate email and Amathuba announcement.
+The topic and datasets used will be up to you, but again, this is a great opportunity to get a kick start on your Honours projects. If your Honours project doesn't require GIS (which is unlikely) then either help a buddy or let your curiosity roam wild! This is a teaching exercise, so it doesn't even have to be based on biological data, but it would help you to explore some of the data sources suggested below.
 
 The project objectives, broken down as daily goals to help you pace yourselves this week:
 
@@ -103,15 +101,22 @@ The project objectives, broken down as daily goals to help you pace yourselves t
   - Translate your workflow into the R functions you think you'll need to use and begin coding and running the GIS workflow in R.
 * Day 4: 
   - Keep working on the code. 
-  - Develop and present your 1 slide lightning talk - examples from the Honours class of 2021 are [here](https://docs.google.com/presentation/d/1591HITImkhsf0VT96ae2JqAguy3K0lPeGn0-spA1M18/edit?usp=sharing) and 2022 are [here](https://docs.google.com/presentation/d/1C8kseabbqRiP1VFxnY_7znP7L2_QogmVjMMTB7mUflw/edit?usp=sharing).
-* Until the 1st March (Hons students): Iterate over the previous steps until done!
+  - Develop your 1 slide lightning talk presentation.
+* Day 5:
+  - Present your lightning talk
 
-I will be available 2-3PM on Wednesday afternoon and 11AM-12PM on Friday morning as a "help desk" to assist you refine your projects and troubleshoot issues.
+<br>
 
-**Lightning talks:** you'll do lightning presentations (30% of your mark for the module) on your GIS projects (1 slide, 2 minutes presentation, 1 minute questions). Don't worry, you won't lose marks if your projects are not yet complete! We just want to know what you're doing your project on, what datasets you're using, and what you plan to do with them. Please read the instructions in the Google slide deck and add your slide. 
+**Lightning talks:**
 
-- For the _**Honours students**_, this will be on **Thursday afternoon (2PM, 22nd February)**. 
-- For the _**Conservation Biology students**_, this will be at 10AM on **Friday (23rd February)** _online_. 
+You'll do lightning presentations (30% of your mark for the module) on your GIS projects (1 slide, 2 minutes presentation, 1 minute questions). Don't worry, you won't lose marks if your projects are not yet complete! We just want to know what you're doing your project on, what datasets you're using, and what you plan to do with them. Please read the instructions in the Google slide deck and add your slide. 
+
+Examples from previous years:
+
+* [2021](https://docs.google.com/presentation/d/1591HITImkhsf0VT96ae2JqAguy3K0lPeGn0-spA1M18/edit?usp=sharing)
+* [2022](https://docs.google.com/presentation/d/1C8kseabbqRiP1VFxnY_7znP7L2_QogmVjMMTB7mUflw/edit?usp=sharing)
+* [2023](https://docs.google.com/presentation/d/1d49lcxgzi_Wys-PEV7ymGDlNokX5hz4mZnwimH_xhJU/edit?usp=sharing)
+* [2024](https://docs.google.com/presentation/d/1gWVVZUOcmOPYjQgw_1HvfVbNp9nZOFmpyiXebogIU2I/edit?usp=sharing)
 
 <br>
 
@@ -122,11 +127,12 @@ Some sources of local data to help you get started. Feel free to look for others
 * SAEON's Data Catalogue - http://catalogue.saeon.ac.za/
 * City of Cape Town's Open Data Portal - https://odp.capetown.gov.za/
 * iNaturalist - https://www.inaturalist.org/ (accessible from R - see section \@ref(getinat))
+* GBIF - https://www.gbif.org/ (accessible from R - see [rgbif](https://cran.r-project.org/web/packages/rgbif/index.html))
 * Google Datasets Search - https://datasetsearch.research.google.com/
 * [The STAC Index](https://stacindex.org/) - mostly for access to [Cloud-optimized geotiffs (COGs)](https://www.ecologi.st/spatial-r/terra.html#cloud-optimized-geotiffs-cogs)
 
 
-**_Make sure to check the data use policies and make sure you have permission use the datasets!!!_**
+**_Make sure to check the data use policies and make sure you have permission to use the datasets!!!_**
 
 
 <br>
