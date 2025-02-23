@@ -19,9 +19,9 @@ knitr::include_graphics("img/whatisgis.png")
 
 A Geographic Information System is a framework used to create, manage, visualize and analyze data in a spatial context. 
 
-Most datasets can be assigned a spatial location, either on the earth's surface or within some constrained area like a sports field, a vegetation survey plot, or even a drawer in your kitchen.
+Most datasets can be assigned a spatial location, either on the earth's surface or within some constrained area like a sports field, a vegetation survey plot, or even a drawer in your kitchen. While almost any dataset has a spatial context, and can thus be represented in a GIS, **the real question is whether it needs to be analyzed in a GIS environment?** The answer to this question depends on the **purpose** of the analysis. 
 
-While almost any dataset has a spatial context, and can thus be represented in a GIS, **the real question is whether it needs to be analyzed in a GIS environment?** The answer to this question depends on the **purpose** of the analysis. Typically, one would use GIS if you were using the spatial information associated with the data to:
+Typically, one would use GIS if you were using the spatial information associated with the data to:
 
 * **_access_** data elements (e.g. select data by spatial location or coverage), 
 * perform **_analytical operations_** (e.g. spatially overlay and merge two datasets to produce a new dataset), or 
@@ -58,8 +58,11 @@ There are a large number of software packages for doing GIS. Some are free (ofte
 
 * [ArcGIS](https://www.esri.com/en-us/arcgis/about-arcgis/overview) - a proprietary product that works on Windows only (or online). UCT has a site license, which provides a set number of user licenses for UCT postgrads and staff (see section \@ref(ucthelp) for details). Note that ArcGIS is an ESRI product and comes with (or can be upgraded to include) a suite of other (commercial) software components in addition to the desktop application
 * [QGIS](https://qgis.org/) ("Quantum GIS") - free and open source software (FOSS) for Windows, Mac or Linux
-* [Google Earth](https://www.google.com/earth/versions/) - free (for now), but not open source, for Windows, Mac, Linux, or online
-
+* [Google Earth](https://www.google.com/earth/versions/) - free (for now), but not open source, for Windows, Mac, Linux, or online. Google Earth doesn't have as much functionality as the other two, but it's great for basics like visualizing data and sharing it with others.
+* Just a note that there are many others! e.g.
+    - [GRASS GIS](https://grass.osgeo.org/) and [SAGA GIS](https://en.wikipedia.org/wiki/SAGA_GIS) - free and open source softwares (FOSS) for Windows, Mac or Linux. They're a bit more technical than QGIS, but are very powerful.
+    - [PostGIS](https://postgis.net/) - a spatial database that works with PostgreSQL. PostGIS is great for storing and querying large and complex datasets, but it's not a desktop GIS application like the others.
+ 
 <br>
 
 ```{r qgis, echo=FALSE, fig.cap = "Screenshot of the [QGIS](https://qgis.org/) Desktop 3.14 graphical user interface (GUI).", out.width='100%', fig.align = 'center'}
@@ -68,7 +71,7 @@ knitr::include_graphics("img/QGIS.png")
 
 <br>
 
-Desktop GIS applications are typically [graphical user interfaces (GUIs)](https://en.wikipedia.org/wiki/Graphical_user_interface) that call on various other **_geospatial libraries_** to do the actual data processing (think of these as sets of functions or tools). Some examples of FOSS geospatial libraries are [GDAL](https://gdal.org/) and [GEOS](https://trac.osgeo.org/geos), which are designed to deal with different data models and/or file types. Another one you'll encounter quite a bit is [PROJ](https://proj.org/), which deals with coordinate reference systems.
+Desktop GIS applications are typically [graphical user interfaces (GUIs)](https://en.wikipedia.org/wiki/Graphical_user_interface) that call on various other **_geospatial libraries_** to do the actual data processing (think of these as sets of functions or tools). Some examples of FOSS geospatial libraries are [GDAL](https://gdal.org/) and [GEOS](https://libgeos.org/), which are designed to deal with different data models and/or file types. Another one you'll encounter quite a bit is [PROJ](https://proj.org/), which deals with coordinate reference systems.
 
 We can also do GIS by calling the geospatial libraries and other GIS software types directly with various programming languages. While we can use many (or just about any) coding language, there are a few for which the functions and syntax are better developed for the user, including:
 
