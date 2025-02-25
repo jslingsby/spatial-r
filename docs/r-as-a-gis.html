@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>6 R as a GIS | A Minimal Introduction to GIS (in R)</title>
   <meta name="description" content="This is a minimal introduction to GIS and handling spatial data in R compiled for the Biological Sciences BSc(Honours) class at the University of Cape Town." />
-  <meta name="generator" content="bookdown 0.37 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.40 and GitBook 2.6.7" />
 
   <meta property="og:title" content="6 R as a GIS | A Minimal Introduction to GIS (in R)" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Jasper Slingsby" />
 
 
-<meta name="date" content="2024-02-22" />
+<meta name="date" content="2025-02-25" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -52,31 +52,11 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
-<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
-<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
-<script src="libs/leaflet-1.3.1/leaflet.js"></script>
-<link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
-<script src="libs/proj4-2.6.2/proj4.min.js"></script>
-<script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
-<link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
-<script src="libs/leaflet-binding-2.2.1/leaflet.js"></script>
-<script src="libs/leaflet-providers-2.0.0/leaflet-providers_2.0.0.js"></script>
-<script src="libs/leaflet-providers-plugin-2.2.1/leaflet-providers-plugin.js"></script>
-<script src="libs/FlatGeoBuf-3.21.3/fgb.js"></script>
-<script src="libs/FlatGeoBuf-3.21.3/flatgeobuf-geojson.min.js"></script>
-<script src="libs/chromajs-2.1.0/chroma.min.js"></script>
-<link id="pc-1-attachment" rel="attachment" href="libs/pc-0.0.1/pc_layer.fgb"/>
-<link href="libs/HomeButton-0.0.1/home-button.css" rel="stylesheet" />
-<script src="libs/HomeButton-0.0.1/home-button.js"></script>
-<script src="libs/HomeButton-0.0.1/easy-button-src.min.js"></script>
-<script src="libs/clipboard-0.0.1/setClipboardText.js"></script>
-<link href="libs/mapviewCSS-0.0.1/mapview-popup.css" rel="stylesheet" />
-<link href="libs/mapviewCSS-0.0.1/mapview.css" rel="stylesheet" />
 
 
 <style type="text/css">
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -86,7 +66,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -142,28 +122,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <style type="text/css">
   
   div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-</style>
-<style type="text/css">
-/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-}
-.hanging div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -311,7 +269,7 @@ div.csl-indent {
 <li><a href="https://cran.r-project.org/web/views/Spatial.html">Spatial</a> - maintained by Roger Bivand and Jakub Nowosad, and</li>
 <li><a href="https://cran.r-project.org/web/views/SpatioTemporal.html">SpatioTemporal</a> - maintained by Edzer Pebesma and Roger Bivand</li>
 </ul>
-<p>They overlap somewhat, but the latter specifically focuses on data where both location and time of observation are registered, and relevant for the analysis of the data.</p>
+<p>They overlap somewhat, but the former covers spatial data in general, while the latter specifically focuses on data where both location and time of observation are registered, and relevant for the analysis of the data.</p>
 <p>Each has an overview page listing packages and highlighting their respective strengths, weaknesses etc., e.g.</p>
 <p><br></p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:spatialTV"></span>
@@ -325,6 +283,7 @@ Figure 6.1: Screenshot of the “Spatial” Task View at <a href="https://cran.r
 <ul>
 <li>Classes for spatial data and metadata</li>
 <li>Reading and writing spatial data</li>
+<li>Interfaces to Spatial Web-Services</li>
 <li>Handling spatial data</li>
 <li>Visualizing spatial data</li>
 <li>Analyzing spatial data</li>
@@ -347,56 +306,55 @@ Figure 6.2: Screenshot of the Task View landing page at <a href="https://cran.r-
 <h3><span class="header-section-number">6.2.1</span> For vector data<a href="r-as-a-gis.html#for-vector-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>(although some of these packages can handle rasters too)</p>
 <blockquote>
-<p>The leading package <strong>was</strong> <a href="https://cran.r-project.org/web/packages/sp/index.html"><em>sp</em></a>. It is still active and useful, but is superseded by a newer package <a href="https://cran.r-project.org/web/packages/sf/index.html"><em>sf</em></a>, which is a modern implementation and standardization of parts of <em>sp</em>. It is highly recommended that you use <em>sf</em> over the older packages as they will not be maintained in the long term, largely because they rely on other packages that are no longer maintained because their creators have retired.</p>
+<p>The leading package <strong>was</strong> <a href="https://cran.r-project.org/web/packages/sp/index.html"><em>sp</em></a>. It is still active and useful, but is superseded by a newer package <a href="https://cran.r-project.org/web/packages/sf/index.html"><em>sf</em></a>, which is a modern implementation and standardization of parts of <em>sp</em>. It is highly recommended that you use <em>sf</em> over the older packages. I’ve put this note here purely because Google searches for “How to … in R?” will likely turn up <em>sp</em> code at times.</p>
 </blockquote>
 <p><br></p>
-<p><em><strong>sf</strong></em> stands for “Simple Features for R”, in compliance with the <a href="https://www.ogc.org/standards/sfa">OGC Simple Feature standard</a>. It is highly efficient, and comes with the advantage that it uses <a href="https://www.tidyverse.org/"><em>Tidyverse</em></a> principles and coding styles, e.g. allowing use of the pipe operator (<code>%&gt;%</code>) and the direct application of library(dplyr) data manipulation and library(ggplot2) visualization functions.</p>
-<p>I will use <em>sf</em> for the most part in the demonstration material. Unfortunately, not all operations are available in <em>sf</em> yet and I may still have to use <em>sp</em> at times, especially when performing operations using both vector and raster data.</p>
+<p><em><strong>sf</strong></em> stands for “Simple Features for R”, in compliance with the <a href="https://www.ogc.org/standards/sfa">OGC Simple Feature standard</a>. It is highly efficient, and comes with the advantage that it uses <a href="https://www.tidyverse.org/"><em>Tidyverse</em></a> principles and coding styles, e.g. allowing use of the pipe operator (<code>%&gt;%</code>) and the direct application of library(dplyr) data manipulation and library(ggplot2) visualization functions. I will use <em>sf</em> for the most part in the demonstration material.</p>
 <p>Here’s a quick list of the functions available in <em>sf</em>:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="r-as-a-gis.html#cb1-1" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
-<span id="cb1-2"><a href="r-as-a-gis.html#cb1-2" tabindex="-1"></a><span class="fu">methods</span>(<span class="at">class =</span> <span class="st">&#39;sf&#39;</span>)</span></code></pre></div>
-<pre><code>##   [1] [                            [[&lt;-                         [&lt;-                         
-##   [4] $&lt;-                          aggregate                    anti_join                   
-##   [7] arrange                      as.data.frame                cbind                       
-##  [10] coerce                       crs                          dbDataType                  
-##  [13] dbWriteTable                 df_spatial                   distance                    
-##  [16] distinct                     dplyr_reconstruct            drop_na                     
-##  [19] duplicated                   ext                          extent                      
-##  [22] extract                      filter                       full_join                   
-##  [25] gather                       group_by                     group_split                 
-##  [28] identify                     initialize                   inner_join                  
-##  [31] left_join                    lines                        mapView                     
-##  [34] mask                         merge                        mutate                      
-##  [37] nest                         pivot_longer                 pivot_wider                 
-##  [40] plot                         points                       polys                       
-##  [43] print                        raster                       rasterize                   
-##  [46] rbind                        rename_with                  rename                      
-##  [49] right_join                   rowwise                      sample_frac                 
-##  [52] sample_n                     select                       semi_join                   
-##  [55] separate_rows                separate                     show                        
-##  [58] slice                        slotsFromS3                  spread                      
-##  [61] st_agr                       st_agr&lt;-                     st_area                     
-##  [64] st_as_s2                     st_as_sf                     st_as_sfc                   
-##  [67] st_bbox                      st_boundary                  st_break_antimeridian       
-##  [70] st_buffer                    st_cast                      st_centroid                 
-##  [73] st_collection_extract        st_concave_hull              st_convex_hull              
-##  [76] st_coordinates               st_crop                      st_crs                      
-##  [79] st_crs&lt;-                     st_difference                st_drop_geometry            
-##  [82] st_filter                    st_geometry                  st_geometry&lt;-               
-##  [85] st_inscribed_circle          st_interpolate_aw            st_intersection             
-##  [88] st_intersects                st_is_valid                  st_is                       
-##  [91] st_join                      st_line_merge                st_m_range                  
-##  [94] st_make_valid                st_minimum_rotated_rectangle st_nearest_points           
-##  [97] st_node                      st_normalize                 st_point_on_surface         
-## [100] st_polygonize                st_precision                 st_reverse                  
-## [103] st_sample                    st_segmentize                st_set_precision            
-## [106] st_shift_longitude           st_simplify                  st_snap                     
-## [109] st_sym_difference            st_transform                 st_triangulate_constrained  
-## [112] st_triangulate               st_union                     st_voronoi                  
-## [115] st_wrap_dateline             st_write                     st_z_range                  
-## [118] st_zm                        summarise                    svc                         
-## [121] transform                    transmute                    ungroup                     
-## [124] unite                        unnest                       vect                        
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="r-as-a-gis.html#cb1-1" tabindex="-1"></a><span class="fu">library</span>(sf)</span></code></pre></div>
+<pre><code>## Linking to GEOS 3.11.0, GDAL 3.5.3, PROJ 9.1.0; sf_use_s2() is TRUE</code></pre>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="r-as-a-gis.html#cb3-1" tabindex="-1"></a><span class="fu">methods</span>(<span class="at">class =</span> <span class="st">&#39;sf&#39;</span>)</span></code></pre></div>
+<pre><code>##  [1] [                            [[&lt;-                        
+##  [3] [&lt;-                          $&lt;-                         
+##  [5] aggregate                    as.data.frame               
+##  [7] cbind                        coerce                      
+##  [9] dbDataType                   dbWriteTable                
+## [11] duplicated                   identify                    
+## [13] initialize                   merge                       
+## [15] plot                         points                      
+## [17] print                        rbind                       
+## [19] show                         slotsFromS3                 
+## [21] st_agr                       st_agr&lt;-                    
+## [23] st_area                      st_as_s2                    
+## [25] st_as_sf                     st_as_sfc                   
+## [27] st_bbox                      st_boundary                 
+## [29] st_break_antimeridian        st_buffer                   
+## [31] st_cast                      st_centroid                 
+## [33] st_collection_extract        st_concave_hull             
+## [35] st_convex_hull               st_coordinates              
+## [37] st_crop                      st_crs                      
+## [39] st_crs&lt;-                     st_difference               
+## [41] st_drop_geometry             st_exterior_ring            
+## [43] st_filter                    st_geometry                 
+## [45] st_geometry&lt;-                st_inscribed_circle         
+## [47] st_interpolate_aw            st_intersection             
+## [49] st_intersects                st_is_valid                 
+## [51] st_is                        st_join                     
+## [53] st_line_merge                st_m_range                  
+## [55] st_make_valid                st_minimum_rotated_rectangle
+## [57] st_nearest_points            st_node                     
+## [59] st_normalize                 st_point_on_surface         
+## [61] st_polygonize                st_precision                
+## [63] st_reverse                   st_sample                   
+## [65] st_segmentize                st_set_precision            
+## [67] st_shift_longitude           st_simplify                 
+## [69] st_snap                      st_sym_difference           
+## [71] st_transform                 st_triangulate_constrained  
+## [73] st_triangulate               st_union                    
+## [75] st_voronoi                   st_wrap_dateline            
+## [77] st_write                     st_z_range                  
+## [79] st_zm                        text                        
+## [81] transform                   
 ## see &#39;?methods&#39; for accessing help and source code</code></pre>
 <p><br></p>
 <p>This doesn’t tell you how to use them though. To get help with a function in R just type “?” followed by the function name, e.g. <code>?st_read</code>, and it’ll take you to the help page.</p>
@@ -419,11 +377,11 @@ Figure 6.4: An R <a href="https://github.com/rstudio/cheatsheets/blob/main/sf.pd
 </div>
 <div id="for-raster-data" class="section level3 hasAnchor" number="6.2.2">
 <h3><span class="header-section-number">6.2.2</span> For raster data<a href="r-as-a-gis.html#for-raster-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>By far the best package <strong>has been</strong> <a href="https://cran.r-project.org/web/packages/raster/index.html"><em>raster</em></a>, maintained by Robert Hijmans (of <a href="https://www.worldclim.org/">WorldClim</a> fame), and can do just about anything with rasters and interfaces with <em>sp</em> very nicely. Unfortunately, both <em>raster</em> and <em>sp</em> are being phased out as explained above. <em>raster</em> is currently being superseded by a new package called <a href=""><em>terra</em></a>, also being developed by Hijmans.</p>
+<p>By far the best package <strong>has been</strong> <a href="https://cran.r-project.org/web/packages/raster/index.html"><em>raster</em></a>, maintained by Robert Hijmans (of <a href="https://www.worldclim.org/">WorldClim</a> fame), and can do just about anything with rasters and interfaces with <em>sp</em> very nicely. Again, as for <em>sp</em>, <em>raster</em> has been superseded by a new package called <a href=""><em>terra</em></a>, also developed by Hijmans.</p>
 <blockquote>
 <p><em>“terra is very similar to the raster package; but terra is simpler, better, and faster”</em> - Roger Bivand</p>
 </blockquote>
-<p>I first developed this module using <em>raster</em>, because <em>terra</em> was still largely in development, so I have kept the demonstrations of <em>raster</em> for those who depend on them for now, but highly recommend you start using <em>terra</em>, because I’ll likely remove the <em>raster</em> material next year. It’s worth noting that <em>raster</em> and <em>terra</em> can handle vector data directly too, and that sometimes their integration with <em>sf</em> is a little clunky, but it does seem to get better all the time. Unfortunately, there’s no cheat sheet for <em>terra</em> or <em>raster</em>, but there’s a lot of documentation and tutorials <a href="https://rspatial.org/">here</a>.</p>
+<p>It’s worth noting that <em>terra</em> can handle vector data directly too, and that sometimes its integration with <em>sf</em> is a little clunky, but it does seem to get better all the time. Unfortunately, there’s no cheat sheet for <em>terra</em>, but there’s a lot of documentation and tutorials <a href="https://rspatial.org/">here</a>.</p>
 <p><em>terra</em> is also able to handle <strong>spatiotemporal arrays</strong> (raster and vector data cubes). Think of these as time-series of GIS data, like satellite archives, etc. Other powerful packages to watch in the spatiotemporal space are <a href="https://cran.r-project.org/web/packages/stars/index.html"><em>stars</em></a> and <a href="https://cran.r-project.org/web/packages/gdalcubes/index.html"><em>gdalcubes</em></a>.</p>
 <p><br></p>
 
@@ -490,20 +448,6 @@ gitbook.start({
 });
 </script>
 
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
-  (function () {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    var src = "true";
-    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:")
-      if (/^https?:/.test(src))
-        src = src.replace(/^https?:/, '');
-    script.src = src;
-    document.getElementsByTagName("head")[0].appendChild(script);
-  })();
-</script>
 </body>
 
 </html>

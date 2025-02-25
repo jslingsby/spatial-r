@@ -22,7 +22,7 @@ The list of packages can be bewildering, but fortunately some great folks have t
 * [Spatial](https://cran.r-project.org/web/views/Spatial.html) - maintained by Roger Bivand and Jakub Nowosad, and
 * [SpatioTemporal](https://cran.r-project.org/web/views/SpatioTemporal.html) - maintained by Edzer Pebesma and Roger Bivand
 
-They overlap somewhat, but the latter specifically focuses on data where both location and time of observation are registered, and relevant for the analysis of the data.
+They overlap somewhat, but the former covers spatial data in general, while the latter specifically focuses on data where both location and time of observation are registered, and relevant for the analysis of the data.
 
 Each has an overview page listing packages and highlighting their respective strengths, weaknesses etc., e.g.
 
@@ -38,6 +38,7 @@ The Spatial Task View focuses on "Analysis of Spatial Data", with sections on:
 
 * Classes for spatial data and metadata
 * Reading and writing spatial data
+* Interfaces to Spatial Web-Services
 * Handling spatial data
 * Visualizing spatial data
 * Analyzing spatial data
@@ -60,13 +61,11 @@ We don't have time to go through all packages or provide a full history, but her
 ### For vector data 
 (although some of these packages can handle rasters too) 
 
-> The leading package **was**  [_sp_](https://cran.r-project.org/web/packages/sp/index.html). It is still active and useful, but is superseded by a newer package [_sf_](https://cran.r-project.org/web/packages/sf/index.html), which is a modern implementation and standardization of parts of _sp_. It is highly recommended that you use _sf_ over the older packages as they will not be maintained in the long term, largely because they rely on other packages that are no longer maintained because their creators have retired.
+> The leading package **was** [_sp_](https://cran.r-project.org/web/packages/sp/index.html). It is still active and useful, but is superseded by a newer package [_sf_](https://cran.r-project.org/web/packages/sf/index.html), which is a modern implementation and standardization of parts of _sp_. It is highly recommended that you use _sf_ over the older packages. I've put this note here purely because Google searches for "How to ... in R?" will likely turn up _sp_ code at times.
 
 <br>
 
-_**sf**_ stands for "Simple Features for R", in compliance with the [OGC Simple Feature standard](https://www.ogc.org/standards/sfa). It is highly efficient, and comes with the advantage that it uses [_Tidyverse_](https://www.tidyverse.org/) principles and coding styles, e.g. allowing use of the pipe operator (`%>%`) and the direct application of library(dplyr) data manipulation and library(ggplot2) visualization functions.
-
-I will use _sf_ for the most part in the demonstration material. Unfortunately, not all operations are available in _sf_ yet and I may still have to use _sp_ at times, especially when performing operations using both vector and raster data. 
+_**sf**_ stands for "Simple Features for R", in compliance with the [OGC Simple Feature standard](https://www.ogc.org/standards/sfa). It is highly efficient, and comes with the advantage that it uses [_Tidyverse_](https://www.tidyverse.org/) principles and coding styles, e.g. allowing use of the pipe operator (`%>%`) and the direct application of library(dplyr) data manipulation and library(ggplot2) visualization functions. I will use _sf_ for the most part in the demonstration material.
 
 Here's a quick list of the functions available in _sf_:
 
@@ -96,11 +95,11 @@ knitr::include_graphics("img/sf2.png")
 <br>
 
 ### For raster data 
-By far the best package **has been** [_raster_](https://cran.r-project.org/web/packages/raster/index.html), maintained by Robert Hijmans (of [WorldClim](https://www.worldclim.org/) fame), and can do just about anything with rasters and interfaces with _sp_ very nicely. Unfortunately, both _raster_ and _sp_ are being phased out as explained above. _raster_ is currently being superseded by a new package called [_terra_](), also being developed by Hijmans.
+By far the best package **has been** [_raster_](https://cran.r-project.org/web/packages/raster/index.html), maintained by Robert Hijmans (of [WorldClim](https://www.worldclim.org/) fame), and can do just about anything with rasters and interfaces with _sp_ very nicely. Again, as for _sp_, _raster_ has been superseded by a new package called [_terra_](), also developed by Hijmans.
 
 > _"terra is very similar to the raster package; but terra is simpler, better, and faster"_ - Roger Bivand
 
-I first developed this module using _raster_, because _terra_ was still largely in development, so I have kept the demonstrations of _raster_ for those who depend on them for now, but highly recommend you start using _terra_, because I'll likely remove the _raster_ material next year. It's worth noting that _raster_ and _terra_ can handle vector data directly too, and that sometimes their integration with _sf_ is a little clunky, but it does seem to get better all the time. Unfortunately, there's no cheat sheet for _terra_ or _raster_, but there's a lot of documentation and tutorials [here](https://rspatial.org/).
+It's worth noting that _terra_ can handle vector data directly too, and that sometimes its integration with _sf_ is a little clunky, but it does seem to get better all the time. Unfortunately, there's no cheat sheet for _terra_, but there's a lot of documentation and tutorials [here](https://rspatial.org/).
 
 _terra_ is also able to handle **spatiotemporal arrays** (raster and vector data cubes). Think of these as time-series of GIS data, like satellite archives, etc. Other powerful packages to watch in the spatiotemporal space are [_stars_](https://cran.r-project.org/web/packages/stars/index.html) and [_gdalcubes_](https://cran.r-project.org/web/packages/gdalcubes/index.html).
 
