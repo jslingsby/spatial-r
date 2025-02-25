@@ -138,7 +138,7 @@ ggplot() +
 
 <br>
 
-Conversely, rasters are usually not that good at representing categorical data. Note that most raster file formats (and GIS software) can only store numeric data, so this plot misleadingly represents the vegetation types as continuous data. You can label and represent categorical data in rasters in R, but this is usually more effort than its worth and is almost always less effective than using a vector format... A common exception is land use and land cover (LULC) maps, where remotely sensed satellite imagery (raster data) are classified into predefined classes (e.g. agriculture, rock, grassland, etc) based on various criteria or algorithms. Even then, these are difficult to interpret visually with static maps and are best visualized as interactive maps so you can make sense of them by zooming in and panning around.
+Conversely, rasters are usually not that good at representing categorical data. Note that most (but not all) raster file formats can only store numeric data, so this plot misleadingly represents the vegetation types as continuous data, but actually the numbers should link to the names of the veg types. You can label and represent categorical data in rasters in R, but this is usually more effort than its worth and is almost always less effective than using a vector format... A common exception is land use and land cover (LULC) maps, where remotely sensed satellite imagery (raster data) are classified into predefined classes (e.g. agriculture, rock, grassland, etc) based on various criteria or algorithms. Even then, these are difficult to interpret visually with static maps and are best visualized as interactive maps so you can make sense of them by zooming in and panning around.
 
 <br>
 
