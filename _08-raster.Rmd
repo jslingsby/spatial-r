@@ -293,10 +293,13 @@ Ok, that's handy, but what if we have data lots of rasters? We don't want to hav
 #extract from stack
 dat <- extract(dstack, pc) 
 
-#bind columns to points to match thenames
+#bind columns to points to match the names
 edat <- cbind(as.data.frame(pc), dat)
 
-#select columns we want and tidy data into long format
+#have a quick look at the data
+head(edat)
+
+#to make a panel plot, lets select columns we want and tidy data into long format
 edat <- edat %>% 
   as_tibble() %>% 
   dplyr::select(scientific_name, elevation, slope, aspect, shade) %>% 

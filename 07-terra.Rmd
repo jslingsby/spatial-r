@@ -265,7 +265,7 @@ Now let's extract the data to the points.
 NOTE!!! _terra_ doesn't play nicely with _sf_ objects at this stage, so you need to coerce them into _terra's_ own vector format using `vect()`.
 
 ```{r}
-dat <- extract(dem30, vect(pc)) # note vect()
+dat <- terra::extract(dem30, vect(pc)) # note vect()
 
 head(dat)
 ```
@@ -287,12 +287,15 @@ Ok, that's handy, but what if we have data lots of rasters? We don't want to hav
 
 ```{r stack_boxplot}
 #extract from stack
-dat <- extract(dstack, vect(pc)) 
+dat <- terra::extract(dstack, vect(pc)) 
 
 #bind columns to points to match the names
 edat <- cbind(as.data.frame(pc), dat)
 
-#select columns we want and tidy data into long format
+#have a quick look at the data
+head(edat)
+
+#to make a panel plot, select columns we want and tidy data into long format
 edat <- edat %>% 
   dplyr::select(scientific_name, elevation, slope, aspect, shade) %>% 
   pivot_longer(c(elevation, slope, aspect, shade))
@@ -308,7 +311,7 @@ edat %>% ggplot() +
 Something I should have mentioned is that if you would like each point to sample a larger region you can add a `buffer =` argument to the `extract()` function, and a function (`fun =`) to summarize the neighbourhood of pixels sampled, like so:
 
 ```{r protea_dem_boxplot}
-pc$dem30 <- extract(dem30, vect(pc), buffer = 200, fun = mean)$`10m_BA` #Note the sneaky use of $ to access the column I want
+pc$dem30 <- terra::extract(dem30, vect(pc), buffer = 200, fun = mean)$`10m_BA` #Note the sneaky use of $ to access the column I want
 
 pc %>% ggplot() +
   geom_boxplot(aes(scientific_name, dem30))
@@ -330,7 +333,7 @@ vegsum <- veg %>% group_by(National_) %>%
   summarize()
 
 #Do extraction - note the summary function
-vegdem <- extract(dem30, vect(vegsum), fun = mean, na.rm = T)
+vegdem <- terra::extract(dem30, vect(vegsum), fun = mean, na.rm = T)
 
 #Combine the names and vector extracted means into a dataframe
 vegdem <- cbind(vegdem, vegsum$National_)
