@@ -72,15 +72,15 @@ I've included quite a bit of demonstration R code in Chapters \@ref(rdemo) and \
 
 Lectures will be held in the mornings between 10:00AM to 12:00PM Monday to Thursday in BIOLT1. 
 
-Friday will be lightning talk presentation day - also 10:00AM to 12:00PM in BIOLT1.
+Friday will be lightning talk presentation day - 14:00 to 16:00PM online.
 
-I will be available 1-2:30PM on Wednesday and 2-3PM on Thursday afternoon as a "help desk" to assist you refine your projects and troubleshoot issues.
+I will be available 13:00 to 14:00PM on Wednesday and 12:30 to 13:30PM Thursday afternoons as a "help desk" to assist you refine your projects and troubleshoot issues.
 
 <br>
 
 **Projects**
 
-Afternoons are self-study time where you will incrementally develop your own individual GIS project in R and [RMarkdown](https://rmarkdown.rstudio.com/) or [Quarto](https://quarto.org/). The project will count 70% of your mark for the module and will be **due on Thursday the 6th March**. 
+Afternoons are self-study time where you will incrementally develop your own individual GIS project in R and [RMarkdown](https://rmarkdown.rstudio.com/) or [Quarto](https://quarto.org/). The project will count 70% of your mark for the module and will be **due on Thursday the 5th March**. 
 
 You will need to do your analyses in an RMarkdown (.Rmd) file, which when you `knit` it will create an HTML document. Make sure all your code chunks are visible. Please submit your project as a link to a public Git Repository that contains the .Rmd and .html files. In the README to your Git repo, provide a link to the stitched HTML file via https://htmlview.glitch.me/ or  https://raw.githack.com/ (see the end of the README in [this repo](https://github.com/jslingsby/bogusrepo) as a demonstration). This will allow you to see the rendered HTML document in a browser without having to download it.
 
@@ -117,6 +117,7 @@ Examples from previous years:
 * [2022](https://docs.google.com/presentation/d/1C8kseabbqRiP1VFxnY_7znP7L2_QogmVjMMTB7mUflw/edit?usp=sharing)
 * [2023](https://docs.google.com/presentation/d/1d49lcxgzi_Wys-PEV7ymGDlNokX5hz4mZnwimH_xhJU/edit?usp=sharing)
 * [2024](https://docs.google.com/presentation/d/1gWVVZUOcmOPYjQgw_1HvfVbNp9nZOFmpyiXebogIU2I/edit?usp=sharing)
+* [2025](https://docs.google.com/presentation/d/1gq4PxkrAjw73oN-MSPqirqqJd3ao2TsjszZruUlSehk/edit?usp=sharing)
 
 <br>
 

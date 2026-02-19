@@ -23,7 +23,7 @@
 <meta name="author" content="Jasper Slingsby" />
 
 
-<meta name="date" content="2025-02-28" />
+<meta name="date" content="2026-02-19" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -183,7 +183,7 @@
 <div id="header">
 <h1 class="title">A Minimal Introduction to GIS (in R)</h1>
 <p class="author"><em>Jasper Slingsby</em></p>
-<p class="date"><em>2025-02-28</em></p>
+<p class="date"><em>2026-02-19</em></p>
 </div>
 <div id="overview" class="section level1 hasAnchor" number="1">
 <h1><span class="header-section-number">1</span> Overview<a href="index.html#overview" class="anchor-section" aria-label="Anchor link to header"></a></h1>
@@ -232,11 +232,11 @@
 <h2><span class="header-section-number">1.3</span> Module and Project details<a href="index.html#module-and-project-details" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p><strong>Lectures</strong></p>
 <p>Lectures will be held in the mornings between 10:00AM to 12:00PM Monday to Thursday in BIOLT1.</p>
-<p>Friday will be lightning talk presentation day - also 10:00AM to 12:00PM in BIOLT1.</p>
-<p>I will be available 1-2:30PM on Wednesday and 2-3PM on Thursday afternoon as a “help desk” to assist you refine your projects and troubleshoot issues.</p>
+<p>Friday will be lightning talk presentation day - 14:00 to 16:00PM online.</p>
+<p>I will be available 13:00 to 14:00PM on Wednesday and 12:30 to 13:30PM Thursday afternoons as a “help desk” to assist you refine your projects and troubleshoot issues.</p>
 <p><br></p>
 <p><strong>Projects</strong></p>
-<p>Afternoons are self-study time where you will incrementally develop your own individual GIS project in R and <a href="https://rmarkdown.rstudio.com/">RMarkdown</a> or <a href="https://quarto.org/">Quarto</a>. The project will count 70% of your mark for the module and will be <strong>due on Thursday the 6th March</strong>.</p>
+<p>Afternoons are self-study time where you will incrementally develop your own individual GIS project in R and <a href="https://rmarkdown.rstudio.com/">RMarkdown</a> or <a href="https://quarto.org/">Quarto</a>. The project will count 70% of your mark for the module and will be <strong>due on Thursday the 5th March</strong>.</p>
 <p>You will need to do your analyses in an RMarkdown (.Rmd) file, which when you <code>knit</code> it will create an HTML document. Make sure all your code chunks are visible. Please submit your project as a link to a public Git Repository that contains the .Rmd and .html files. In the README to your Git repo, provide a link to the stitched HTML file via <a href="https://htmlview.glitch.me/" class="uri">https://htmlview.glitch.me/</a> or <a href="https://raw.githack.com/" class="uri">https://raw.githack.com/</a> (see the end of the README in <a href="https://github.com/jslingsby/bogusrepo">this repo</a> as a demonstration). This will allow you to see the rendered HTML document in a browser without having to download it.</p>
 <p>Note that the repo does not have to be reproducible (although you’re welcome to), but the code should be visible, you should state what you set out to do and what datasets you used (citing their sources and/or providing links to where you got them from).</p>
 <p>Do not upload large or sensitive data to the repository - GitHub won’t handle large data. If you want/need to have the data in your local version of the Git repo on your laptop, then put it in a folder named <code>data</code> or similar and add a line to your <code>.gitignore</code> file with the name of the folder, e.g. <code>data/*</code> - see example <a href="https://github.com/jslingsby/bogusrepo/blob/main/.gitignore">here</a>. You can just download the example file and add it to your Git repo if you didn’t create a .gitignore when you created the repo.</p>
@@ -275,6 +275,7 @@
 <li><a href="https://docs.google.com/presentation/d/1C8kseabbqRiP1VFxnY_7znP7L2_QogmVjMMTB7mUflw/edit?usp=sharing">2022</a></li>
 <li><a href="https://docs.google.com/presentation/d/1d49lcxgzi_Wys-PEV7ymGDlNokX5hz4mZnwimH_xhJU/edit?usp=sharing">2023</a></li>
 <li><a href="https://docs.google.com/presentation/d/1gWVVZUOcmOPYjQgw_1HvfVbNp9nZOFmpyiXebogIU2I/edit?usp=sharing">2024</a></li>
+<li><a href="https://docs.google.com/presentation/d/1gq4PxkrAjw73oN-MSPqirqqJd3ao2TsjszZruUlSehk/edit?usp=sharing">2025</a></li>
 </ul>
 <p><br></p>
 <p>Some sources of local data to help you get started. Feel free to look for others! If you find good ones, let me know and I’ll add them.</p>
@@ -313,42 +314,42 @@
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
-"sharing": {
-"github": false,
-"facebook": true,
-"twitter": true,
-"linkedin": false,
-"weibo": false,
-"instapaper": false,
-"vk": false,
-"whatsapp": false,
-"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
-},
-"fontsettings": {
-"theme": "white",
-"family": "sans",
-"size": 2
-},
-"edit": {
-"link": "https://github.com/jslingsby/spatial-r/edit/master/index.Rmd",
-"text": "Edit"
-},
-"history": {
-"link": null,
-"text": null
-},
-"view": {
-"link": "https://github.com/jslingsby/spatial-r/blob/master/index.Rmd",
-"text": null
-},
-"download": null,
-"search": {
-"engine": "fuse",
-"options": null
-},
-"toc": {
-"collapse": "subsection"
-}
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": "https://github.com/jslingsby/spatial-r/edit/master/index.Rmd",
+    "text": "Edit"
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": "https://github.com/jslingsby/spatial-r/blob/master/index.Rmd",
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
 });
 });
 </script>
