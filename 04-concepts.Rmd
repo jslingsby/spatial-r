@@ -233,4 +233,6 @@ Two other issues to look out for:
 * The official *South African CRS* is waiting to get you. If you see Gauss Conform run screaming, its a left handed CRS based on Southings and Westings (i.e. completely inverted...). Simple, yes?
 * *Datums...* These are essentially models of the shape of the surface of the planet. Most South African datasets (since 1999 at least) use the Hartebeesthoek 94 datum, which is our local "bespoke" solution. It's pretty much the same as the WGS84 datum (a good global datum), and the difference is negligible for most ecological analyses. Our former local "bespoke" datum (the Cape or Clarke1880 datum), which was often used for **data before 1999**, is out to get you. These datasets will never line up perfectly with modern data sets when reprojected in a normal GIS and will usually be a couple of tens of metres off...
 
+## Counts, rates and the Modifiable Areal Unit Problem (MAUP)
+
 **Some other important pitfalls to avoid** are best covered in [this chapter](https://mgimond.github.io/Spatial/pitfalls-to-avoid.html) in Manny Gimond's _Intro to GIS and Spatial Analysis_.
