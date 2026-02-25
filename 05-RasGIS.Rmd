@@ -37,8 +37,7 @@ knitr::include_graphics("img/spatialTV.png")
 The Spatial Task View focuses on "Analysis of Spatial Data", with sections on:
 
 * Classes for spatial data and metadata
-* Reading and writing spatial data
-* Interfaces to Spatial Web-Services
+* Reading and writing spatial data (including data sources!)
 * Handling spatial data
 * Visualizing spatial data
 * Analyzing spatial data

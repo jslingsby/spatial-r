@@ -492,7 +492,7 @@ First, let's add colour:
 ```{r}
 library(wesanderson)
 
-pal <- wes_palette("Darjeeling1", 7, type = "continuous")
+pal <- wes_palette("Darjeeling1", length(unique(pc$National_)), type = "continuous") # Note that the "length(..." code sets the number of colours to the number of unique vegetation types in the dataset
 
 ggplot() + 
   annotation_map_tile(type = "osm", progress = "none") + 
