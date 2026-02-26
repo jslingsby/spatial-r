@@ -407,9 +407,21 @@ Tadaa! Same figure we made before, but we took a different route this time. Note
 
 <br>
 
-```{r}
+```{r, warning=F}
 # #Plot
-# vegdem_df %>% 
+
+library(ggridges)
+
+vegdem_df %>% ggplot(aes(x = `10m_BA`, y = `National_`, fill = `National_`)) +
+  geom_density_ridges() +
+  theme_ridges() + 
+  theme(legend.position = "none") +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+  xlim(0, 300) +
+  xlab("Elevation (m)") +
+  ylab("Vegetation type")
+
+# vegdem_df %>%
 #   #group_by(National_) %>%
 #   #summarise(`Mean elevation (m)` = mean(`10m_BA`, na.rm = T)) %>%
 #   ggplot() +
