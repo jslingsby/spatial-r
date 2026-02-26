@@ -698,13 +698,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb54-12"><a href="terra.html#cb54-12" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Vegetation type&quot;</span>)</span></code></pre></div>
 <pre><code>## Picking joint bandwidth of 4.05</code></pre>
 <p><img src="spatial-r_files/figure-html/unnamed-chunk-20-1.png" alt="" width="672" /></p>
-<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="terra.html#cb56-1" tabindex="-1"></a><span class="co"># vegdem_df %&gt;%</span></span>
-<span id="cb56-2"><a href="terra.html#cb56-2" tabindex="-1"></a><span class="co">#   #group_by(National_) %&gt;%</span></span>
-<span id="cb56-3"><a href="terra.html#cb56-3" tabindex="-1"></a><span class="co">#   #summarise(`Mean elevation (m)` = mean(`10m_BA`, na.rm = T)) %&gt;%</span></span>
-<span id="cb56-4"><a href="terra.html#cb56-4" tabindex="-1"></a><span class="co">#   ggplot() +</span></span>
-<span id="cb56-5"><a href="terra.html#cb56-5" tabindex="-1"></a><span class="co">#   geom_density(aes(y = `10m_BA`, x = `National_`)) +</span></span>
-<span id="cb56-6"><a href="terra.html#cb56-6" tabindex="-1"></a><span class="co">#   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +</span></span>
-<span id="cb56-7"><a href="terra.html#cb56-7" tabindex="-1"></a><span class="co">#   facet_wrap(~National_, scales = &quot;free_x&quot;)</span></span></code></pre></div>
 <p><br></p>
 <p>The ability to turn stacked rasters into dataframes and analyse them “non-spatially” can be very powerful. There are also a bunch of functions that make this even easier.</p>
 <p><br></p>
@@ -714,14 +707,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Say we had two or more rasters that each contained factor data (i.e. discrete) and we wanted to look at the frequency of associations between the different sets of classes? We can very easily do this with the function <code>crosstab()</code>.</p>
 <p>Here’s an example looking at slope classes by vegetation type. First, we classify our slope raster into discrete classes, then we cross-tabulate the classified slope raster with our raster of vegetation types.</p>
 <p><br></p>
-<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="terra.html#cb57-1" tabindex="-1"></a><span class="co"># Classify the slope raster into 5 classes</span></span>
-<span id="cb57-2"><a href="terra.html#cb57-2" tabindex="-1"></a>slopeclass <span class="ot">&lt;-</span> <span class="fu">classify</span>(slope, <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.3</span>, <span class="fl">0.6</span>, <span class="fl">0.9</span>, <span class="fl">1.2</span>, <span class="fl">1.4</span>), <span class="at">include.lowest=</span><span class="cn">TRUE</span>)</span>
-<span id="cb57-3"><a href="terra.html#cb57-3" tabindex="-1"></a>aspectclass <span class="ot">&lt;-</span>  <span class="fu">classify</span>(aspect, <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="fl">6.5</span>), <span class="at">include.lowest=</span><span class="cn">TRUE</span>)</span>
-<span id="cb57-4"><a href="terra.html#cb57-4" tabindex="-1"></a></span>
-<span id="cb57-5"><a href="terra.html#cb57-5" tabindex="-1"></a><span class="fu">plot</span>(slopeclass)</span></code></pre></div>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="terra.html#cb56-1" tabindex="-1"></a><span class="co"># Classify the slope raster into 5 classes</span></span>
+<span id="cb56-2"><a href="terra.html#cb56-2" tabindex="-1"></a>slopeclass <span class="ot">&lt;-</span> <span class="fu">classify</span>(slope, <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.3</span>, <span class="fl">0.6</span>, <span class="fl">0.9</span>, <span class="fl">1.2</span>, <span class="fl">1.4</span>), <span class="at">include.lowest=</span><span class="cn">TRUE</span>)</span>
+<span id="cb56-3"><a href="terra.html#cb56-3" tabindex="-1"></a>aspectclass <span class="ot">&lt;-</span>  <span class="fu">classify</span>(aspect, <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="fl">6.5</span>), <span class="at">include.lowest=</span><span class="cn">TRUE</span>)</span>
+<span id="cb56-4"><a href="terra.html#cb56-4" tabindex="-1"></a></span>
+<span id="cb56-5"><a href="terra.html#cb56-5" tabindex="-1"></a><span class="fu">plot</span>(slopeclass)</span></code></pre></div>
 <p><img src="spatial-r_files/figure-html/unnamed-chunk-21-1.png" alt="" width="672" /></p>
-<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="terra.html#cb58-1" tabindex="-1"></a><span class="co"># Crosstabulate slope with veg type</span></span>
-<span id="cb58-2"><a href="terra.html#cb58-2" tabindex="-1"></a><span class="fu">crosstab</span>(<span class="fu">c</span>(vegras, slopeclass, aspectclass))</span></code></pre></div>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="terra.html#cb57-1" tabindex="-1"></a><span class="co"># Crosstabulate slope with veg type</span></span>
+<span id="cb57-2"><a href="terra.html#cb57-2" tabindex="-1"></a><span class="fu">crosstab</span>(<span class="fu">c</span>(vegras, slopeclass, aspectclass))</span></code></pre></div>
 <pre><code>## , , aspect = (2 - 4]
 ## 
 ##                                          slope
@@ -834,12 +827,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">8.13</span> Visualizing multiple datasets on one map<a href="terra.html#visualizing-multiple-datasets-on-one-map" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>What about if we want to plot multiple datasets on one map?</p>
 <p>This is easy, if you can feed each dataset into a separate ggplot function. Here’s the veg types with contours and the iNaturalist records we retrieved earlier.</p>
-<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="terra.html#cb60-1" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb60-2"><a href="terra.html#cb60-2" tabindex="-1"></a>  <span class="fu">geom_raster</span>(<span class="at">data =</span> <span class="fu">as.data.frame</span>(vegras, <span class="at">xy =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb60-3"><a href="terra.html#cb60-3" tabindex="-1"></a>              <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">fill =</span> National_)) <span class="sc">+</span></span>
-<span id="cb60-4"><a href="terra.html#cb60-4" tabindex="-1"></a>  <span class="fu">geom_contour</span>(<span class="at">data =</span> <span class="fu">as.data.frame</span>(dem30, <span class="at">xy =</span> <span class="cn">TRUE</span>), </span>
-<span id="cb60-5"><a href="terra.html#cb60-5" tabindex="-1"></a>               <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">z =</span> <span class="st">`</span><span class="at">10m_BA</span><span class="st">`</span>), <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1100</span>, <span class="dv">100</span>), <span class="at">colour =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
-<span id="cb60-6"><a href="terra.html#cb60-6" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data=</span>pc, <span class="at">colour =</span> <span class="st">&quot;white&quot;</span>, <span class="at">size =</span> <span class="fl">0.5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="terra.html#cb59-1" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb59-2"><a href="terra.html#cb59-2" tabindex="-1"></a>  <span class="fu">geom_raster</span>(<span class="at">data =</span> <span class="fu">as.data.frame</span>(vegras, <span class="at">xy =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb59-3"><a href="terra.html#cb59-3" tabindex="-1"></a>              <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">fill =</span> National_)) <span class="sc">+</span></span>
+<span id="cb59-4"><a href="terra.html#cb59-4" tabindex="-1"></a>  <span class="fu">geom_contour</span>(<span class="at">data =</span> <span class="fu">as.data.frame</span>(dem30, <span class="at">xy =</span> <span class="cn">TRUE</span>), </span>
+<span id="cb59-5"><a href="terra.html#cb59-5" tabindex="-1"></a>               <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">z =</span> <span class="st">`</span><span class="at">10m_BA</span><span class="st">`</span>), <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1100</span>, <span class="dv">100</span>), <span class="at">colour =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
+<span id="cb59-6"><a href="terra.html#cb59-6" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data=</span>pc, <span class="at">colour =</span> <span class="st">&quot;white&quot;</span>, <span class="at">size =</span> <span class="fl">0.5</span>)</span></code></pre></div>
 <p><img src="spatial-r_files/figure-html/penviz_multi-1.png" alt="" width="576" /></p>
 <p>For more inspiration on mapping with R, check out <a href="https://slingsby-maps.myshopify.com/" class="uri">https://slingsby-maps.myshopify.com/</a>. I’ve been generating the majority of the basemap (terrain colour, hillshade, contours, streams, etc) for these in R for the past few years.</p>
 <p><br></p>
@@ -848,11 +841,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">8.14</span> Cloud Optimized GeoTiffs (COGs)!!!<a href="terra.html#cloud-optimized-geotiffs-cogs" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>I thought I’d add this as a bonus section, reinforcing the value of standardized open metadata and file formats from the <a href="https://www.ecologi.st/data-management/data.html#describe">Data Management</a> module.</p>
 <p>First, let’s open a connection to our COG, which is stored in the cloud. To do this, we need to pass a URL to the file’s online location to <em>terra</em>.</p>
-<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="terra.html#cb61-1" tabindex="-1"></a>cog.url <span class="ot">&lt;-</span> <span class="st">&quot;/vsicurl/https://mnemosyne.somisana.ac.za/osgeo/saeon_rgb/grootbos.tif&quot;</span></span>
-<span id="cb61-2"><a href="terra.html#cb61-2" tabindex="-1"></a></span>
-<span id="cb61-3"><a href="terra.html#cb61-3" tabindex="-1"></a>grootbos <span class="ot">&lt;-</span> <span class="fu">rast</span>(cog.url)</span>
-<span id="cb61-4"><a href="terra.html#cb61-4" tabindex="-1"></a></span>
-<span id="cb61-5"><a href="terra.html#cb61-5" tabindex="-1"></a>grootbos</span></code></pre></div>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="terra.html#cb60-1" tabindex="-1"></a>cog.url <span class="ot">&lt;-</span> <span class="st">&quot;/vsicurl/https://mnemosyne.somisana.ac.za/osgeo/saeon_rgb/grootbos.tif&quot;</span></span>
+<span id="cb60-2"><a href="terra.html#cb60-2" tabindex="-1"></a></span>
+<span id="cb60-3"><a href="terra.html#cb60-3" tabindex="-1"></a>grootbos <span class="ot">&lt;-</span> <span class="fu">rast</span>(cog.url)</span>
+<span id="cb60-4"><a href="terra.html#cb60-4" tabindex="-1"></a></span>
+<span id="cb60-5"><a href="terra.html#cb60-5" tabindex="-1"></a>grootbos</span></code></pre></div>
 <pre><code>## class       : SpatRaster 
 ## size        : 100024, 121627, 3  (nrow, ncol, nlyr)
 ## resolution  : 0.08, 0.08  (x, y)
@@ -863,15 +856,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## names       : grootbos_1, grootbos_2, grootbos_3</code></pre>
 <p>This has given us the metadata about the file, but has not read it into R’s memory. The file is ~1.8GB so it would do bad things if we tried to read the whole thing in…</p>
 <p>Now let’s retrieve a subset of the file. To do this we need to make a vector polygon for our region of interest (ROI), like so:</p>
-<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="terra.html#cb63-1" tabindex="-1"></a>roi <span class="ot">&lt;-</span> <span class="fu">vect</span>(<span class="fu">data.frame</span>(<span class="at">lon =</span> <span class="fu">c</span>(<span class="fl">19.433975</span>, <span class="fl">19.436451</span>),</span>
-<span id="cb63-2"><a href="terra.html#cb63-2" tabindex="-1"></a>                       <span class="at">lat =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">34.522733</span>, <span class="sc">-</span><span class="fl">34.520735</span>)),</span>
-<span id="cb63-3"><a href="terra.html#cb63-3" tabindex="-1"></a>            <span class="at">crs =</span> <span class="st">&quot;epsg:4326&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="terra.html#cb62-1" tabindex="-1"></a>roi <span class="ot">&lt;-</span> <span class="fu">vect</span>(<span class="fu">data.frame</span>(<span class="at">lon =</span> <span class="fu">c</span>(<span class="fl">19.433975</span>, <span class="fl">19.436451</span>),</span>
+<span id="cb62-2"><a href="terra.html#cb62-2" tabindex="-1"></a>                       <span class="at">lat =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">34.522733</span>, <span class="sc">-</span><span class="fl">34.520735</span>)),</span>
+<span id="cb62-3"><a href="terra.html#cb62-3" tabindex="-1"></a>            <span class="at">crs =</span> <span class="st">&quot;epsg:4326&quot;</span>)</span></code></pre></div>
 <p>And transform it to the same projection as the COG:</p>
-<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="terra.html#cb64-1" tabindex="-1"></a>roi <span class="ot">&lt;-</span> terra<span class="sc">::</span><span class="fu">project</span>(roi, <span class="fu">crs</span>(grootbos))</span></code></pre></div>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="terra.html#cb63-1" tabindex="-1"></a>roi <span class="ot">&lt;-</span> terra<span class="sc">::</span><span class="fu">project</span>(roi, <span class="fu">crs</span>(grootbos))</span></code></pre></div>
 <p>And then extract our ROI</p>
-<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="terra.html#cb65-1" tabindex="-1"></a>roi_ras <span class="ot">&lt;-</span> <span class="fu">crop</span>(grootbos, roi)</span>
-<span id="cb65-2"><a href="terra.html#cb65-2" tabindex="-1"></a></span>
-<span id="cb65-3"><a href="terra.html#cb65-3" tabindex="-1"></a>roi_ras</span></code></pre></div>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="terra.html#cb64-1" tabindex="-1"></a>roi_ras <span class="ot">&lt;-</span> <span class="fu">crop</span>(grootbos, roi)</span>
+<span id="cb64-2"><a href="terra.html#cb64-2" tabindex="-1"></a></span>
+<span id="cb64-3"><a href="terra.html#cb64-3" tabindex="-1"></a>roi_ras</span></code></pre></div>
 <pre><code>## class       : SpatRaster 
 ## size        : 2758, 2853, 3  (nrow, ncol, nlyr)
 ## resolution  : 0.08, 0.08  (x, y)
@@ -884,7 +877,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## min values  :         28,         47,         56 
 ## max values  :        255,        255,        255</code></pre>
 <p>Now we have a raster with 3 layers in memory. There are Red Green and Blue, so we should be able to plot them, like so:</p>
-<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="terra.html#cb67-1" tabindex="-1"></a><span class="fu">plotRGB</span>(roi_ras)</span></code></pre></div>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="terra.html#cb66-1" tabindex="-1"></a><span class="fu">plotRGB</span>(roi_ras)</span></code></pre></div>
 <p><img src="spatial-r_files/figure-html/plot_cog-1.png" alt="" width="672" /></p>
 <p>This somewhat arbitrary looking site is where we did some fieldwork in the Grootbos Private Nature Reserve with the 2022 class…</p>
 <p><br></p>
@@ -894,36 +887,36 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>There are also R packages like <a href="https://cran.r-project.org/web/packages/MODISTools/index.html">MODISTools</a> that allow you to query the online databases.</p>
 <p>MODISTools interfaces with the ‘MODIS Land Products Subsets’ Web Services to download various products. In this case we’ll be downloading the “MOD13Q1” product, which is the Vegetation Indices product for the Terra satellite, generated every 16 days at 250 meter (m) spatial resolution. The algorithm chooses the best available pixel value from all (daily) the acquisitions from the 16 day period, minimizing clouds, low view angle, and selecting the highest NDVI/EVI value.</p>
 <p>WARNING! This code can take a while to run! Hence, I have wrapped it in an <code>if()</code> statement that tells the code not to run if the file already exists.</p>
-<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="terra.html#cb68-1" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">file.exists</span>(<span class="st">&quot;data/MODISdat_batch_30Jan2023.csv&quot;</span>)) <span class="co"># if the file does not exist, then run... otherwise do nothing...</span></span>
-<span id="cb68-2"><a href="terra.html#cb68-2" tabindex="-1"></a>  {</span>
-<span id="cb68-3"><a href="terra.html#cb68-3" tabindex="-1"></a></span>
-<span id="cb68-4"><a href="terra.html#cb68-4" tabindex="-1"></a><span class="fu">library</span>(MODISTools)</span>
-<span id="cb68-5"><a href="terra.html#cb68-5" tabindex="-1"></a></span>
-<span id="cb68-6"><a href="terra.html#cb68-6" tabindex="-1"></a>sites <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">site_name =</span> <span class="fu">c</span>(<span class="st">&quot;grassy field&quot;</span>, <span class="st">&quot;invasion&quot;</span>, <span class="st">&quot;renosterveld&quot;</span>, <span class="st">&quot;sand&quot;</span>, <span class="st">&quot;sandstone&quot;</span>, <span class="st">&quot;limestone&quot;</span>),</span>
-<span id="cb68-7"><a href="terra.html#cb68-7" tabindex="-1"></a>                    <span class="at">lat =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">34.375052</span>, <span class="sc">-</span><span class="fl">34.386014</span>, <span class="sc">-</span><span class="fl">34.374259</span>, <span class="sc">-</span><span class="fl">34.3961</span>, <span class="sc">-</span><span class="fl">34.3748</span>, <span class="sc">-</span><span class="fl">34.4309</span>),</span>
-<span id="cb68-8"><a href="terra.html#cb68-8" tabindex="-1"></a>                    <span class="at">lon =</span> <span class="fu">c</span>(<span class="fl">20.531749</span>, <span class="fl">20.534986</span>, <span class="fl">20.504233</span>, <span class="fl">20.5494</span>, <span class="fl">20.5428</span>, <span class="fl">20.5666</span>))</span>
-<span id="cb68-9"><a href="terra.html#cb68-9" tabindex="-1"></a></span>
-<span id="cb68-10"><a href="terra.html#cb68-10" tabindex="-1"></a><span class="do">### Here&#39;s some code if you want to use an existing layer of points instead of entering them manually</span></span>
-<span id="cb68-11"><a href="terra.html#cb68-11" tabindex="-1"></a><span class="co"># sites &lt;- st_read(&quot;/home/jasper/GIT/BIO3018F/prac/Potberg_prac_sites.kml&quot;)</span></span>
-<span id="cb68-12"><a href="terra.html#cb68-12" tabindex="-1"></a><span class="co"># sites &lt;- data.frame(site_name = sites$Name, lat = st_coordinates(sites)[,2], lon = st_coordinates(sites)[,1])</span></span>
-<span id="cb68-13"><a href="terra.html#cb68-13" tabindex="-1"></a></span>
-<span id="cb68-14"><a href="terra.html#cb68-14" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">mt_batch_subset</span>(<span class="at">df =</span> sites,</span>
-<span id="cb68-15"><a href="terra.html#cb68-15" tabindex="-1"></a>                        <span class="at">product =</span> <span class="st">&quot;MOD13Q1&quot;</span>,</span>
-<span id="cb68-16"><a href="terra.html#cb68-16" tabindex="-1"></a>                        <span class="at">band =</span> <span class="st">&quot;250m_16_days_NDVI&quot;</span>,</span>
-<span id="cb68-17"><a href="terra.html#cb68-17" tabindex="-1"></a>                        <span class="at">internal =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb68-18"><a href="terra.html#cb68-18" tabindex="-1"></a>                        <span class="at">start =</span> <span class="st">&quot;2000-01-01&quot;</span>,</span>
-<span id="cb68-19"><a href="terra.html#cb68-19" tabindex="-1"></a>                        <span class="at">end =</span> <span class="st">&quot;2023-01-30&quot;</span>)</span>
-<span id="cb68-20"><a href="terra.html#cb68-20" tabindex="-1"></a></span>
-<span id="cb68-21"><a href="terra.html#cb68-21" tabindex="-1"></a><span class="fu">write_csv</span>(dat, <span class="st">&quot;data/MODISdat_batch_30Jan2023.csv&quot;</span>)</span>
-<span id="cb68-22"><a href="terra.html#cb68-22" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="terra.html#cb67-1" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">file.exists</span>(<span class="st">&quot;data/MODISdat_batch_30Jan2023.csv&quot;</span>)) <span class="co"># if the file does not exist, then run... otherwise do nothing...</span></span>
+<span id="cb67-2"><a href="terra.html#cb67-2" tabindex="-1"></a>  {</span>
+<span id="cb67-3"><a href="terra.html#cb67-3" tabindex="-1"></a></span>
+<span id="cb67-4"><a href="terra.html#cb67-4" tabindex="-1"></a><span class="fu">library</span>(MODISTools)</span>
+<span id="cb67-5"><a href="terra.html#cb67-5" tabindex="-1"></a></span>
+<span id="cb67-6"><a href="terra.html#cb67-6" tabindex="-1"></a>sites <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">site_name =</span> <span class="fu">c</span>(<span class="st">&quot;grassy field&quot;</span>, <span class="st">&quot;invasion&quot;</span>, <span class="st">&quot;renosterveld&quot;</span>, <span class="st">&quot;sand&quot;</span>, <span class="st">&quot;sandstone&quot;</span>, <span class="st">&quot;limestone&quot;</span>),</span>
+<span id="cb67-7"><a href="terra.html#cb67-7" tabindex="-1"></a>                    <span class="at">lat =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">34.375052</span>, <span class="sc">-</span><span class="fl">34.386014</span>, <span class="sc">-</span><span class="fl">34.374259</span>, <span class="sc">-</span><span class="fl">34.3961</span>, <span class="sc">-</span><span class="fl">34.3748</span>, <span class="sc">-</span><span class="fl">34.4309</span>),</span>
+<span id="cb67-8"><a href="terra.html#cb67-8" tabindex="-1"></a>                    <span class="at">lon =</span> <span class="fu">c</span>(<span class="fl">20.531749</span>, <span class="fl">20.534986</span>, <span class="fl">20.504233</span>, <span class="fl">20.5494</span>, <span class="fl">20.5428</span>, <span class="fl">20.5666</span>))</span>
+<span id="cb67-9"><a href="terra.html#cb67-9" tabindex="-1"></a></span>
+<span id="cb67-10"><a href="terra.html#cb67-10" tabindex="-1"></a><span class="do">### Here&#39;s some code if you want to use an existing layer of points instead of entering them manually</span></span>
+<span id="cb67-11"><a href="terra.html#cb67-11" tabindex="-1"></a><span class="co"># sites &lt;- st_read(&quot;/home/jasper/GIT/BIO3018F/prac/Potberg_prac_sites.kml&quot;)</span></span>
+<span id="cb67-12"><a href="terra.html#cb67-12" tabindex="-1"></a><span class="co"># sites &lt;- data.frame(site_name = sites$Name, lat = st_coordinates(sites)[,2], lon = st_coordinates(sites)[,1])</span></span>
+<span id="cb67-13"><a href="terra.html#cb67-13" tabindex="-1"></a></span>
+<span id="cb67-14"><a href="terra.html#cb67-14" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">mt_batch_subset</span>(<span class="at">df =</span> sites,</span>
+<span id="cb67-15"><a href="terra.html#cb67-15" tabindex="-1"></a>                        <span class="at">product =</span> <span class="st">&quot;MOD13Q1&quot;</span>,</span>
+<span id="cb67-16"><a href="terra.html#cb67-16" tabindex="-1"></a>                        <span class="at">band =</span> <span class="st">&quot;250m_16_days_NDVI&quot;</span>,</span>
+<span id="cb67-17"><a href="terra.html#cb67-17" tabindex="-1"></a>                        <span class="at">internal =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb67-18"><a href="terra.html#cb67-18" tabindex="-1"></a>                        <span class="at">start =</span> <span class="st">&quot;2000-01-01&quot;</span>,</span>
+<span id="cb67-19"><a href="terra.html#cb67-19" tabindex="-1"></a>                        <span class="at">end =</span> <span class="st">&quot;2023-01-30&quot;</span>)</span>
+<span id="cb67-20"><a href="terra.html#cb67-20" tabindex="-1"></a></span>
+<span id="cb67-21"><a href="terra.html#cb67-21" tabindex="-1"></a><span class="fu">write_csv</span>(dat, <span class="st">&quot;data/MODISdat_batch_30Jan2023.csv&quot;</span>)</span>
+<span id="cb67-22"><a href="terra.html#cb67-22" tabindex="-1"></a>}</span></code></pre></div>
 <p>Plot all time series</p>
-<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="terra.html#cb69-1" tabindex="-1"></a><span class="fu">read_csv</span>(<span class="st">&quot;data/MODISdat_batch_30Jan2023.csv&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb69-2"><a href="terra.html#cb69-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> calendar_date, <span class="at">y =</span> value<span class="sc">*</span><span class="fl">0.0001</span>)) <span class="sc">+</span></span>
-<span id="cb69-3"><a href="terra.html#cb69-3" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
-<span id="cb69-4"><a href="terra.html#cb69-4" tabindex="-1"></a>  <span class="co">#  geom_point() +</span></span>
-<span id="cb69-5"><a href="terra.html#cb69-5" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(.<span class="sc">~</span> site) <span class="sc">+</span></span>
-<span id="cb69-6"><a href="terra.html#cb69-6" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;NDVI&quot;</span>) <span class="sc">+</span></span>
-<span id="cb69-7"><a href="terra.html#cb69-7" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="fl">0.2</span>, <span class="fl">0.9</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="terra.html#cb68-1" tabindex="-1"></a><span class="fu">read_csv</span>(<span class="st">&quot;data/MODISdat_batch_30Jan2023.csv&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb68-2"><a href="terra.html#cb68-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> calendar_date, <span class="at">y =</span> value<span class="sc">*</span><span class="fl">0.0001</span>)) <span class="sc">+</span></span>
+<span id="cb68-3"><a href="terra.html#cb68-3" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb68-4"><a href="terra.html#cb68-4" tabindex="-1"></a>  <span class="co">#  geom_point() +</span></span>
+<span id="cb68-5"><a href="terra.html#cb68-5" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(.<span class="sc">~</span> site) <span class="sc">+</span></span>
+<span id="cb68-6"><a href="terra.html#cb68-6" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;NDVI&quot;</span>) <span class="sc">+</span></span>
+<span id="cb68-7"><a href="terra.html#cb68-7" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="fl">0.2</span>, <span class="fl">0.9</span>)</span></code></pre></div>
 <pre><code>## Warning: Removed 1 row containing missing values or values outside the scale range
 ## (`geom_line()`).</code></pre>
 <p><img src="spatial-r_files/figure-html/modis_plot-1.png" alt="" width="672" /></p>

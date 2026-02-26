@@ -420,14 +420,6 @@ vegdem_df %>% ggplot(aes(x = `10m_BA`, y = `National_`, fill = `National_`)) +
   xlim(0, 300) +
   xlab("Elevation (m)") +
   ylab("Vegetation type")
-
-# vegdem_df %>%
-#   #group_by(National_) %>%
-#   #summarise(`Mean elevation (m)` = mean(`10m_BA`, na.rm = T)) %>%
-#   ggplot() +
-#   geom_density(aes(y = `10m_BA`, x = `National_`)) +
-#   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
-#   facet_wrap(~National_, scales = "free_x")
 ```
 
 <br>
