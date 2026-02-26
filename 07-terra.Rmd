@@ -215,6 +215,8 @@ As you can see the "dimensions" now report 4 layers, and there are 4 names. Some
 
 ```{r}
 names(dstack) <- c("elevation", "slope", "aspect", "shade")
+
+plot(dstack)
 ```
 
 
@@ -283,7 +285,7 @@ A clear separation in the preferred elevation range between the two species.
 
 <br>
 
-Ok, that's handy, but what if we have data lots of rasters? We don't want to have to do that for every raster! This is where raster stacks come into their own!
+Ok, that's handy, but what if we have lots of rasters? We don't want to have to do that for every raster! This is where raster stacks come into their own!
 
 ```{r stack_boxplot}
 #extract from stack
@@ -401,7 +403,24 @@ vegdem_df %>%
 
 <br>
 
-Tadaa! Same figure we made before, but we took a different route this time. The ability to turn stacked rasters into dataframes and analyse them "non-spatially" can be very powerful. There are also a bunch of functions that make this even easier.
+Tadaa! Same figure we made before, but we took a different route this time. Note that the second approach doesn't require us to summarize the raster values for each polygon first, because we can just convert the whole stack to a dataframe and do the summary (if we want it) in R with _dplyr_ instead. This is a powerful way to work with rasters, and allows you to use all the tools of the _Tidyverse_ for data manipulation and visualization.
+
+<br>
+
+```{r}
+# #Plot
+# vegdem_df %>% 
+#   #group_by(National_) %>%
+#   #summarise(`Mean elevation (m)` = mean(`10m_BA`, na.rm = T)) %>%
+#   ggplot() +
+#   geom_density(aes(y = `10m_BA`, x = `National_`)) +
+#   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+#   facet_wrap(~National_, scales = "free_x")
+```
+
+<br>
+
+The ability to turn stacked rasters into dataframes and analyse them "non-spatially" can be very powerful. There are also a bunch of functions that make this even easier.
 
 <br>
 
